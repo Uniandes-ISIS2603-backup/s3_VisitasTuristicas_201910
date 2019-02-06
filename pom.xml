@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>co.edu.uniandes.csw</groupId>
-    <artifactId>s2_bicicletas</artifactId>
+    <artifactId>sXXX_ZZZ</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <name>s2_bicicletas</name>
+    <name>sXXX_ZZZ</name>
  
     <modules>
-        <module>s2_bicicletas-back</module>
-        <module>s2_bicicletas-api</module>
+        <module>sXXX_ZZZ-back</module>
+        <module>sXXX_ZZZ-api</module>
     </modules>
     
     <repositories>
