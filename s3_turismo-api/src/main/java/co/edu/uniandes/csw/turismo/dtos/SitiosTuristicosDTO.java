@@ -1,0 +1,99 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package co.edu.uniandes.csw.turismo.dtos;
+import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+/**
+ *
+ * @author estudiante
+ */
+public class SitiosTuristicosDTO implements Serializable 
+{
+    /*
+    *Atributo que representa el id de un sitio turistico
+    */
+    private Long id;
+    
+    /*
+    *Atributo que representa el nombre de un sitio turistico
+    */
+    private String nombre;
+    
+    /*
+    *Atributo que representa el puntaje de un sitio turistico
+    */
+    private int puntaje;
+    
+    /*
+    *Constructor de la clase
+    */
+    public SitiosTuristicosDTO(Long pid, String pnombre, int ppuntaje)
+    {
+        id=pid;
+        nombre=pnombre;
+        puntaje=ppuntaje;
+    }
+    
+    /*
+    *Retornar el id del sitio turistico
+    *@return id
+    */
+    public Long darID()
+    {
+        return id;
+    }
+   
+    /*
+    *Cambia el id del sitio turistico
+    *@param pid
+    */
+    public void cambiarID(Long pid)
+    {
+        id=pid;
+    }
+    /*
+    *Retornar el nombre del sitio turistico
+    *@return nombre
+    */
+    public String darNombre()
+    {
+        return nombre;
+    }
+    
+    /*
+    *Cambia el nombre del sitio turistico
+    *@param pnombre
+    */
+    public void cambiarNombre(String pnombre)
+    {
+        nombre=pnombre;
+    }
+    
+    /*
+    *Retornar el puntaje de un sitio turistico
+    *@return puntaje
+    */
+    public int darPuntaje()
+    {
+        return puntaje;
+    }
+    
+    /*
+    *Cambia el puntaje de un sitio turistico
+    *@param ppuntaje
+    */
+    public void cambiarPuntaje(int ppuntaje)
+    {
+        puntaje=ppuntaje;
+    }
+    
+     @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+    
+}

@@ -12,7 +12,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author estudiante
  */
 public class CiudadDTO implements Serializable {
-     /*
+     
+    /*
     *Atributo que representa la cantidad de sitios turisticos
     */
     private int cantidadSitiosTuristicos;
@@ -20,7 +21,7 @@ public class CiudadDTO implements Serializable {
     /*
     *Atributo que representa el id de una ciudad
     */
-    private int id;
+    private Long id;
     
     /*
     *Atributo que representa el nombre de una ciudad
@@ -30,7 +31,7 @@ public class CiudadDTO implements Serializable {
     /*
     *Constructor de la clase ciudad
     */
-    public CiudadDTO(int pid, String pnombre)
+    public CiudadDTO(Long pid, String pnombre)
     {
         id=pid;
         nombre=pnombre;
@@ -40,9 +41,14 @@ public class CiudadDTO implements Serializable {
     *Retornar el id de la ciudad
     *@return id
     */
-    public int darID()
+    public Long darID()
     {
         return id;
+    }
+    
+    public void actualizarID(Long pid)
+    {
+        id=pid;
     }
     
     /*
