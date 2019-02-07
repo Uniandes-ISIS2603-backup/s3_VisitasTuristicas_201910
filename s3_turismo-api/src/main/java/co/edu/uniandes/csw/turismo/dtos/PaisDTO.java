@@ -28,30 +28,7 @@ public class PaisDTO implements Serializable
    */
    private int cantidadCiudades;
    
-   /*
-   *Constructor de la clase
-   *@param pnombre nombre del pais
-   *@param pid id del pais
-   *@param pcantidadCiudades cantidad de ciudades en un pais
-   */
-   public PaisDTO(String pnombre, Long pid, int pcantidadCiudades)
-   {
-       nombre=pnombre;
-       id=pid;
-       cantidadCiudades=pcantidadCiudades;
-   }
-    /*
-   *Constructor de la clase
-   *@param pnombre nombre del pais
-   *@param pid id del pais
-   */
-   public PaisDTO(String pnombre, Long pid)
-   {
-       nombre=pnombre;
-       id=pid;
-       cantidadCiudades=0;
-   }
-   
+  
    /*
    *Retornar el nombre del pais
    *@return nombre

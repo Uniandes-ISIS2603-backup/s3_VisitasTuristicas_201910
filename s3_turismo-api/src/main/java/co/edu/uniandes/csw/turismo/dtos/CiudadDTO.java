@@ -31,11 +31,7 @@ public class CiudadDTO implements Serializable {
     /*
     *Constructor de la clase ciudad
     */
-    public CiudadDTO(Long pid, String pnombre)
-    {
-        id=pid;
-        nombre=pnombre;
-    }
+   
     
     /*
     *Retornar el id de la ciudad

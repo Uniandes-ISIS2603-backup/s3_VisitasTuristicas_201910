@@ -51,7 +51,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Cambia el id del sitio turistico
     *@param pid
     */
-    public void cambiarID(Long pid)
+    public void actualizarID(Long pid)
     {
         id=pid;
     }
@@ -68,7 +68,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Cambia el nombre del sitio turistico
     *@param pnombre
     */
-    public void cambiarNombre(String pnombre)
+    public void actualizarNombre(String pnombre)
     {
         nombre=pnombre;
     }
