@@ -13,6 +13,21 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class SitiosTuristicosDTO implements Serializable 
 {
+    
+    public enum Tipo
+    {
+        IGLESIA,
+        MONUMENTO,
+        MUSEO,
+        NATURALEZA,
+        PATRIMONIO_HUMANIDAD,
+        ENTRETENIMIENTO
+    }
+    
+      /**
+     * Tipo de sitio turistico.
+     */
+    private Tipo tipo;
     /*
     *Atributo que representa el id de un sitio turistico
     */
@@ -31,13 +46,18 @@ public class SitiosTuristicosDTO implements Serializable
     /*
     *Constructor de la clase
     */
-    public SitiosTuristicosDTO(Long pid, String pnombre, int ppuntaje)
+    public SitiosTuristicosDTO()
     {
-        id=pid;
-        nombre=pnombre;
-        puntaje=ppuntaje;
     }
     
+    /*
+    *Retornar el tipo de sitio turistico
+    *@return tipo
+    */
+    public Tipo darTipo()
+    {
+        return tipo;
+    }
     /*
     *Retornar el id del sitio turistico
     *@return id

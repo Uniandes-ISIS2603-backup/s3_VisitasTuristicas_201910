@@ -13,10 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class CiudadDTO implements Serializable {
      
-    /*
-    *Atributo que representa la cantidad de sitios turisticos
-    */
-    private int cantidadSitiosTuristicos;
+
    
     /*
     *Atributo que representa el id de una ciudad
@@ -31,7 +28,10 @@ public class CiudadDTO implements Serializable {
     /*
     *Constructor de la clase ciudad
     */
-   
+   public CiudadDTO()
+   {
+       
+   }
     
     /*
     *Retornar el id de la ciudad

@@ -28,7 +28,10 @@ public class PaisDTO implements Serializable
    */
    private int cantidadCiudades;
    
+  public PaisDTO()
+  {
   
+  }
    /*
    *Retornar el nombre del pais
    *@return nombre

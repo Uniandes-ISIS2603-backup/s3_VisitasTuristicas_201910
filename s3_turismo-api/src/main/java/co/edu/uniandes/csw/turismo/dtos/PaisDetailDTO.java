@@ -24,6 +24,7 @@ private ArrayList<CiudadDTO> ciudadesDTO;
 */
 public PaisDetailDTO()
 {
+    super();
     ciudadesDTO=new ArrayList<>();
          
 }
@@ -44,76 +45,10 @@ public ArrayList<CiudadDTO> darCiudades()
 */
 public void actualizarCiudades(ArrayList<CiudadDTO> pciudades)
 {
-    ciudadesDTO=pciudades;
-}
-
-/*
-*Actualizar el nombre de una ciudad por un nombre dado
-*@param pNombreBuscar
-*@param pNombreNuevo
-*/
-public void actualizarCiudadPorNombre(String pNombreBuscar, String pNombreNuevo)
-{
-    for(int i=0;i<ciudadesDTO.size();i++)
-    {
-        if(ciudadesDTO.get(i).darNombre().equalsIgnoreCase(pNombreBuscar))
-        {
-            ciudadesDTO.get(i).actualizarNombre(pNombreNuevo);
-        }
-    }
-}
-
-/*
-*Actualizar el id de una ciudad por un id dado
-*@param idBuscar
-*@param idCambiar
-*/
-public void actualizarCiudadPorid(Long idBuscar, Long idCambiar)
-{
-    for(int i=0;i<ciudadesDTO.size();i++)
-    {
-        
-        if(ciudadesDTO.get(i).darID().equals(idBuscar))
-        {
-            ciudadesDTO.get(i).actualizarID(idCambiar);
-        }
-    }
+    this.ciudadesDTO=pciudades;
 }
 
 
-/*
-*Actualizar el nombre de una ciudad por un id dado
-*@param idBuscar
-*@param pnombre
-*/
-public void actualizarNombreCiudadPorid(Long idBuscar, String pnombre)
-{
-    for(int i=0;i<ciudadesDTO.size();i++)
-    {
-        
-        if(ciudadesDTO.get(i).darID().equals(idBuscar))
-        {
-            ciudadesDTO.get(i).actualizarNombre(pnombre);
-        }
-    }
-}
-
-/*
-*Actualizar el id de una ciudad por un Nombre dado
-*@param pnombre
-*@param idCambiar
-*/
-public void actualizarIDCiudadPorNombre(String pnombre, Long idCambiar)
-{
-    for(int i=0;i<ciudadesDTO.size();i++)
-    {
-        
-        if(ciudadesDTO.get(i).darNombre().equalsIgnoreCase(pnombre))
-        {
-            ciudadesDTO.get(i).actualizarID(idCambiar);
-        }
-    }
-}
     
     
 }
