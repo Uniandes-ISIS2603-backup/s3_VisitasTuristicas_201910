@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author dg.fonseca
+ * @author David Fonseca
  */
 
 @Stateless

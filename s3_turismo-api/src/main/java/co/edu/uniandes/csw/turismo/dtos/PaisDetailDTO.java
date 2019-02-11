@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author estudiante
+ * @author David Fonseca
  */
 public class PaisDetailDTO extends PaisDTO implements Serializable
 {

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 /**
  *
- * @author estudiante
+ * @author David Fonseca
  */
 public class CiudadDetailDTO extends CiudadDTO implements Serializable {
     
