@@ -5,11 +5,10 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
-import co.edu.uniandes.csw.turismo.dtos.CiudadDetailDTO;
+
 import co.edu.uniandes.csw.turismo.dtos.SitiosTuristicosDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.media.Media;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
