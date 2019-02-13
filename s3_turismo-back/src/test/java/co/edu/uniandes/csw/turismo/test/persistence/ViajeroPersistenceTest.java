@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.persistence.ViajeroPersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,6 +35,8 @@ public class ViajeroPersistenceTest {
     @PersistenceContext
     private EntityManager em;
     
+    private List<ViajeroEntity> data = new ArrayList<ViajeroEntity>();
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -43,7 +47,7 @@ public class ViajeroPersistenceTest {
     }
     
     @Test
-    public void createEditorialTest() {
+    public void createViajeroTest() {
         
         PodamFactory factory = new PodamFactoryImpl();
         ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
@@ -60,5 +64,16 @@ public class ViajeroPersistenceTest {
         Assert.assertEquals(newEntity.getTipoDeUsuario(), entity.getTipoDeUsuario());
         Assert.assertEquals(newEntity.getCantidadPlanes(), entity.getCantidadPlanes());
         Assert.assertEquals(newEntity.getInformacionPersonal(), entity.getInformacionPersonal());
+    }
+    
+    @Test
+    public void findViajeroTest() {
+        
+    }
+    
+    @Test
+    public void findAllViajerosTest() {
+        List<ViajeroEntity> list = ep.findAll();
+        Assert.assertEquals(data.size(), list.size());
     }
 }
