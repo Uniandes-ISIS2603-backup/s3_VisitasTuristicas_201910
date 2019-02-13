@@ -33,22 +33,7 @@ public class ViajeroResource {
     public ViajeroDTO getViajero(Long pIdViajero) {
         return new ViajeroDTO();
     }
-    @GET 
-    public String getViajeroNombre(Long pIdViajero) {
-        return "";
-    }
-    @GET
-    public String getViajeroIdioma(Long pIdViajero) {
-        return "";
-    }
-    @GET
-    public String getViajeroTipo(Long pIdViajero) {
-        return "";
-    }
-    @GET
-    public String getViajeroInformacion(Long pIdViajero) {
-        return "";
-    }
+    
     
     @PUT
     public boolean setViajeroNombre(String pNombre) {
