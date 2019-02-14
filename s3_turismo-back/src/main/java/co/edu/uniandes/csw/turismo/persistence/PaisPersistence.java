@@ -78,7 +78,7 @@ public class PaisPersistence {
      public PaisEntity findByName(String name) {
         LOGGER.log(Level.INFO, "Consultando pais por nombre ", name);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From PaisEntity e where e.name = :name", PaisEntity.class);
+        TypedQuery query = em.createQuery("Select e From PaisEntity e where e.nombre = :nombre", PaisEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
         query = query.setParameter("name", name);
         // Se invoca el query se obtiene la lista resultado

@@ -106,13 +106,13 @@ public class CiudadPersistenceTest {
      /**
      * Prueba para consultar la lista de ciudades.
     */
-   /*
+   
     @Test
     public void getCiudadesTest() {
         List<CiudadEntity> list = ciudadPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
         System.out.println(data.size() + list.size());
-        for (CiudadEntity ent : list) {
+        for(CiudadEntity ent : list) {
             boolean found = false;
             for (CiudadEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
@@ -158,7 +158,7 @@ public class CiudadPersistenceTest {
     /**
      * Prueba para consultasr una ciudad por nombre.
      */
-   
+   // ERROR CORREGIR
     /*
     @Test
     public void findCiudadByNameTest() {
