@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author David Fonseca
  */
 
 @Path("/sitios")

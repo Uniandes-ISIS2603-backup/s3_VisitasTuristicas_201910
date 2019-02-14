@@ -38,10 +38,7 @@ public class SitiosTuristicosDTO implements Serializable
     */
     private String nombre;
     
-    /*
-    *Atributo que representa el puntaje de un sitio turistico
-    */
-    private Integer puntaje;
+    
     
     /*
     *Constructor de la clase
@@ -93,23 +90,9 @@ public class SitiosTuristicosDTO implements Serializable
         nombre=pnombre;
     }
     
-    /*
-    *Retornar el puntaje de un sitio turistico
-    *@return puntaje
-    */
-    public Integer darPuntaje()
-    {
-        return puntaje;
-    }
     
-    /*
-    *Cambia el puntaje de un sitio turistico
-    *@param ppuntaje
-    */
-    public void cambiarPuntaje(Integer ppuntaje)
-    {
-        puntaje=ppuntaje;
-    }
+    
+   
     
      @Override
     public String toString() {
