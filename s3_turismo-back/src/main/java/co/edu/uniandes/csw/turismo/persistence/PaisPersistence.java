@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.turismo.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
-import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
+import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,34 +20,32 @@ import javax.persistence.TypedQuery;
  *
  * @author David Fonseca
  */
-
 @Stateless
-public class CiudadPersistence {
-   
-        private static final Logger LOGGER = Logger.getLogger(CiudadPersistence.class.getName());
+public class PaisPersistence {
+     private static final Logger LOGGER = Logger.getLogger(PaisPersistence.class.getName());
 
     
     @PersistenceContext(unitName="turismoPU")
     protected EntityManager em;
     
     /*
-    *Crea una nueva ciudad
-    *@param ciudadEntity
+    *Crea un nuevo pais
+    *@param paisEntity
     */
-    public CiudadEntity create(CiudadEntity ciudadEntity)
+    public PaisEntity create(PaisEntity paisEntity)
     {
-       LOGGER.log(Level.INFO, "Creando una ciudad nueva");
-       em.persist(ciudadEntity);
+       LOGGER.log(Level.INFO, "Creando un pais nuevo");
+       em.persist(paisEntity);
        LOGGER.log(Level.INFO, "Ciudad creada");
-       return ciudadEntity;
+       return paisEntity;
     }
     
     /*
-    *Retorna la lista de ciudades
-    *@return lista de ciudades
+    *Retorna la lista de paises
+    *@return lista de paises
     */
-    public List<CiudadEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos las ciudades");
+    public List<PaisEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todos los paises");
         
         //TODO consulta sql
         Query q = em.createQuery("");
@@ -58,34 +56,34 @@ public class CiudadPersistence {
     *Busca una ciudad con el id dado
     *@return CiudadEntity
     */
-    public CiudadEntity find(Long ciudadId) {
-        LOGGER.log(Level.INFO, "Consultando la ciudad con id={0}", ciudadId);
-        return em.find(CiudadEntity.class, ciudadId);
+    public PaisEntity find(Long paisId) {
+        LOGGER.log(Level.INFO, "Consultando el pais con id={0}", paisId);
+        return em.find(PaisEntity.class, paisId);
     }
     
     /*
-    *Actualiza y retorna una ciudad
-    *@return CiudadEntity
+    *Actualiza y retorna un pais
+    *@return PaisEntity
     */
-    public CiudadEntity update(CiudadEntity ciudadEntity) {
-        LOGGER.log(Level.INFO, "Actualizando la ciudad con id={0}", ciudadEntity.getId());
-        return em.merge(ciudadEntity);
+    public PaisEntity update(PaisEntity paisEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el pais con id={0}", paisEntity.getId());
+        return em.merge(paisEntity);
     }
     
     /*
-    *Busca una ciudad por nombre
+    *Busca un pais por nombre
     *@param name
     *@return result
     */
-     public CiudadEntity findByName(String name) {
-        LOGGER.log(Level.INFO, "Consultando Ciudad por nombre ", name);
+     public PaisEntity findByName(String name) {
+        LOGGER.log(Level.INFO, "Consultando pais por nombre ", name);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From CiudadEntity e where e.name = :name", CiudadEntity.class);
+        TypedQuery query = em.createQuery("Select e From PaisEntity e where e.name = :name", PaisEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
         query = query.setParameter("name", name);
         // Se invoca el query se obtiene la lista resultado
-        List<CiudadEntity> sameName = query.getResultList();
-        CiudadEntity result;
+        List<PaisEntity> sameName = query.getResultList();
+        PaisEntity result;
         if (sameName == null) {
             result = null;
         } else if (sameName.isEmpty()) {
@@ -93,8 +91,7 @@ public class CiudadPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar Ciudad por nombre ", name);
+        LOGGER.log(Level.INFO, "Saliendo de consultar Pais por nombre ", name);
         return result;
     }
-    
 }
