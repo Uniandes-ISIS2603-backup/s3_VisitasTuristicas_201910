@@ -23,10 +23,7 @@ public class PaisDTO implements Serializable
    */
    private Long id;
  
-   /*
-   *Atributo que representa la cantidad de ciudades en un pais
-   */
-   private Integer cantidadCiudades;
+  
    
   public PaisDTO()
   {
@@ -66,24 +63,6 @@ public class PaisDTO implements Serializable
    public void cambiarID(Long pid)
    {
        this.id=pid;
-   }
-   
-   /*
-   *Retornar la cantidad de ciudades del pais
-   *@return cantidadCiudades
-   */
-   public Integer darCantidadCiudades()
-   {
-       return cantidadCiudades;
-   }
-   
-   /*
-   *Cambia la cantidad de ciudades
-   *@param pcantidadciudades
-   */
-   public void cambiarCantidadCiudades(Integer pcantidadciudades)
-   {
-       cantidadCiudades=pcantidadciudades;
    }
    
     @Override

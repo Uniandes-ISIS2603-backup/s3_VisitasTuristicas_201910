@@ -48,7 +48,7 @@ public class PaisPersistence {
         LOGGER.log(Level.INFO, "Consultando todos los paises");
         
         //TODO consulta sql
-        Query q = em.createQuery("");
+        Query q = em.createQuery("SELECT U FROM PaisEntity U ", PaisEntity.class);
         return q.getResultList();
     }
     

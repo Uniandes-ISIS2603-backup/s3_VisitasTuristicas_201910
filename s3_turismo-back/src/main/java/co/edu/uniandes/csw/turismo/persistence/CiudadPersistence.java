@@ -49,7 +49,6 @@ public class CiudadPersistence {
     public List<CiudadEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todos las ciudades");
         
-        //TODO consulta sql
         Query q = em.createQuery("SELECT U FROM CiudadEntity U ", CiudadEntity.class);
         return q.getResultList();
     }

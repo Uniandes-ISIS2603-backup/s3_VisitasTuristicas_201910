@@ -22,10 +22,6 @@ public class PaisEntity extends BaseEntity implements Serializable {
     */
    private String nombre;
  
-   /*
-   *Atributo que representa la cantidad de ciudades en un pais
-   */
-   private int cantidadCiudades;
 
    @PodamExclude
    @OneToMany
@@ -66,23 +62,5 @@ public void actualizarCiudades(List<CiudadEntity> pciudad)
        this.nombre=pNombre;
    }
    
-   
-   /*
-   *Retornar la cantidad de ciudades del pais
-   *@return cantidadCiudades
-   */
-   public int darCantidadCiudades()
-   {
-       return cantidadCiudades;
-   }
-   
-   /*
-   *Cambia la cantidad de ciudades
-   *@param pcantidadciudades
-   */
-   public void cambiarCantidadCiudades(int pcantidadciudades)
-   {
-       cantidadCiudades=pcantidadciudades;
-   }
     
 }

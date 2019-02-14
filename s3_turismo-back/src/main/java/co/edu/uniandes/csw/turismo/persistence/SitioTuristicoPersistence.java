@@ -49,7 +49,7 @@ public class SitioTuristicoPersistence {
         LOGGER.log(Level.INFO, "Consultando todos los Sitios Turisticos");
         
         //TODO consulta sql
-        Query q = em.createQuery("");
+        Query q = em.createQuery("SELECT U FROM SitioTuristicoEntity U ", CiudadEntity.class);
         return q.getResultList();
     }
     

@@ -36,12 +36,6 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     */
     private String nombre;
     
-    /*
-    *Atributo que representa el puntaje de un sitio turistico
-    */
-    private int puntaje;
-    
-
     
     /*
     *Retornar el tipo de sitio turistico
@@ -75,21 +69,8 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
         nombre=pnombre;
     }
     
-    /*
-    *Retornar el puntaje de un sitio turistico
-    *@return puntaje
-    */
-    public int darPuntaje()
-    {
-        return puntaje;
-    }
+
     
-    /*
-    *Cambia el puntaje de un sitio turistico
-    *@param ppuntaje
-    */
-    public void cambiarPuntaje(int ppuntaje)
-    {
-        puntaje=ppuntaje;
-    }
+
+
 }
