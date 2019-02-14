@@ -41,7 +41,7 @@ public class SitiosTuristicosDTO implements Serializable
     /*
     *Atributo que representa el puntaje de un sitio turistico
     */
-    private int puntaje;
+    private Integer puntaje;
     
     /*
     *Constructor de la clase
@@ -97,7 +97,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Retornar el puntaje de un sitio turistico
     *@return puntaje
     */
-    public int darPuntaje()
+    public Integer darPuntaje()
     {
         return puntaje;
     }
@@ -106,7 +106,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Cambia el puntaje de un sitio turistico
     *@param ppuntaje
     */
-    public void cambiarPuntaje(int ppuntaje)
+    public void cambiarPuntaje(Integer ppuntaje)
     {
         puntaje=ppuntaje;
     }

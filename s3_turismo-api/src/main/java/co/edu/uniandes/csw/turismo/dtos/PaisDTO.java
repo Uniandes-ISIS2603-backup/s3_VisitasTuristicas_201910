@@ -26,7 +26,7 @@ public class PaisDTO implements Serializable
    /*
    *Atributo que representa la cantidad de ciudades en un pais
    */
-   private int cantidadCiudades;
+   private Integer cantidadCiudades;
    
   public PaisDTO()
   {
@@ -72,7 +72,7 @@ public class PaisDTO implements Serializable
    *Retornar la cantidad de ciudades del pais
    *@return cantidadCiudades
    */
-   public int darCantidadCiudades()
+   public Integer darCantidadCiudades()
    {
        return cantidadCiudades;
    }
@@ -81,7 +81,7 @@ public class PaisDTO implements Serializable
    *Cambia la cantidad de ciudades
    *@param pcantidadciudades
    */
-   public void cambiarCantidadCiudades(int pcantidadciudades)
+   public void cambiarCantidadCiudades(Integer pcantidadciudades)
    {
        cantidadCiudades=pcantidadciudades;
    }
