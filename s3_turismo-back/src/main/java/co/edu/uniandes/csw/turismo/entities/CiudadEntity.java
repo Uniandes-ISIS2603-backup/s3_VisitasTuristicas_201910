@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -16,7 +19,30 @@ import javax.persistence.Entity;
 public class CiudadEntity extends BaseEntity implements Serializable {
     
     private String nombre;
+    @PodamExclude
+    @OneToMany
+    private List<SitioTuristicoEntity> sitios;
     
+    
+    
+    /*
+    *Actualiza la lista de sitios turisticos
+    *@param sitio
+    */
+    public void actualizarSitios(List<SitioTuristicoEntity> sitio)
+    {
+        this.sitios=sitio;
+    }
+    
+    /*
+    *Retorna la lista de sitios turisticos
+    @return sitios
+    *
+    */
+    public List<SitioTuristicoEntity> darSitios()
+    {
+        return sitios;
+    }
     /*
     *Retorna el nombre de la ciudad
     *@return nombre
