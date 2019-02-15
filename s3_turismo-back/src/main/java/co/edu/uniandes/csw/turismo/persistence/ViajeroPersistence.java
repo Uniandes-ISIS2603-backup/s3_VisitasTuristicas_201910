@@ -50,24 +50,24 @@ public class ViajeroPersistence {
         em.remove(viajero);
     }
     
-//    public void deleteInfo(Long viajerosId) {
-//        LOGGER.log(Level.INFO, "Borrando la informacion del viajero con id = {0}", viajerosId);
-//        ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
-//        viajero.setInformacionPersonal("");
-//        em.merge(viajero);
-//    }
+    public void deleteInfo(Long viajerosId) {
+        LOGGER.log(Level.INFO, "Borrando la informacion del viajero con id = {0}", viajerosId);
+        ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
+        viajero.setInformacionPersonal("");
+        em.merge(viajero);
+    }
     
     public ViajeroEntity update(ViajeroEntity viajeroEntity) {
         LOGGER.log(Level.INFO, "Actualizando viajero con id = {0}", viajeroEntity.getId());
         return em.merge(viajeroEntity);
     }
     
-  //  public ViajeroEntity updateName(Long viajerosId, String newName) {
-  //      LOGGER.log(Level.INFO, "Actualizando nombre del viajero con id = {0}", viajerosId);
-  //       ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
-  //       viajero.setNombreUsuario(newName);
-  //       return em.merge(viajero);
-  //  }
+    public ViajeroEntity updateName(Long viajerosId, String newName) {
+        LOGGER.log(Level.INFO, "Actualizando nombre del viajero con id = {0}", viajerosId);
+         ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
+         viajero.setNombreUsuario(newName);
+         return em.merge(viajero);
+    }
     
   //  public ViajeroEntity updateIdioma(Long viajerosId, String newIdioma) {
   //      LOGGER.log(Level.INFO, "Actualizando idioma del viajero con id = {0}", viajerosId);

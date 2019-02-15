@@ -86,6 +86,28 @@ public class ViajeroPersistenceTest {
         Assert.assertEquals(newEntity.getInformacionPersonal(), entity.getInformacionPersonal());
     
     }
+      @Test
+    public void updateNameTest() {
+        
+        PodamFactory factory = new PodamFactoryImpl();
+        ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
+        ViajeroEntity ve = ep.create(newEntity);
+        ve.setNombreUsuario("hola");
+        ep.update(ve);
+        ViajeroEntity resp = em.find(ViajeroEntity.class, ve.getId());
+        Assert.assertEquals("hola", resp.getNombreUsuario());
+        
+        //List<ViajeroEntity> datos = setUp();
+        //ViajeroEntity entity = datos.get(0);
+        //PodamFactory factory = new PodamFactoryImpl();
+        //ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
+        //ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
+        //newEntity.setNombreUsuario("hola");
+        //ep.update(newEntity);
+        //ViajeroEntity resp = em.find(ViajeroEntity.class, newEntity.getId());
+        //Assert.assertEquals("hola", resp.getNombreUsuario());
+        
+    }
     
     
    
@@ -131,6 +153,7 @@ public class ViajeroPersistenceTest {
     
     @Test
     public void updateTest() {
+        
         List<ViajeroEntity> datos = setUp();
         ViajeroEntity entity = datos.get(0);
         PodamFactory factory = new PodamFactoryImpl();
@@ -142,16 +165,6 @@ public class ViajeroPersistenceTest {
         
     }
     
-//    @Test
-//    public void updateInfoTest() {
-//        List<ViajeroEntity> datos = setUp();
-//        ViajeroEntity entity = datos.get(0);
-//        PodamFactory factory = new PodamFactoryImpl();
-//        ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
-//        newEntity.setInformacionPersonal(entity.getInformacionPersonal());
-//        ep.update(newEntity);
-//        ViajeroEntity resp = em.find(ViajeroEntity.class, newEntity.getId());
-//        Assert.assertEquals(newEntity.getInformacionPersonal(), resp.getInformacionPersonal());
-        
-//    }
+  
+    
 }
