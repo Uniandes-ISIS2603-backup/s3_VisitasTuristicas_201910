@@ -5,10 +5,13 @@
  */
 package co.edu.uniandes.csw.turismo.entities;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author estudiante
  */
+@Entity
 public class TarjetaDeCréditoEntity {
     
 }
