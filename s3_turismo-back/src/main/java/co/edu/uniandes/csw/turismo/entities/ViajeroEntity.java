@@ -27,7 +27,7 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     private int codigoUnico;
     private String idioma;
     private tipoUsuario tipoDeUsuario;
-    private short cantidadPlanes;
+    private int cantidadPlanes;
     public String informacionPersonal;
 
     public Long getIdUsuario() {
@@ -70,11 +70,11 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
-    public short getCantidadPlanes() {
+    public int getCantidadPlanes() {
         return cantidadPlanes;
     }
 
-    public void setCantidadPlanes(short cantidadPlanes) {
+    public void setCantidadPlanes(int cantidadPlanes) {
         this.cantidadPlanes = cantidadPlanes;
     }
 
