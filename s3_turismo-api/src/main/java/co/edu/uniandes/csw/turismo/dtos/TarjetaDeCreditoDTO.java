@@ -25,6 +25,8 @@ public class TarjetaDeCreditoDTO implements Serializable {
     private Integer codigoSeguridad;
     
     private Long idTarjetaDeCredito;
+    
+    private ViajeroDTO viajero;
 
     /**
      * @return the serialVersionUID
