@@ -5,22 +5,23 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
-import java.util.logging.Logger;
+import co.edu.uniandes.csw.turismo.dtos.TarjetaDeCreditoDTO;
 import javax.faces.bean.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 /**
  *
  * @author estudiante
  */
-@Path("tarjetasDeCredito")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
-public class TarjetaDeCreditoResource {
-    private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoResource.class.getName());
-
+public class ViajeroTarjetaDeCreditoResource {
+    
+    @POST
+    public TarjetaDeCreditoDTO createTarjeta(TarjetaDeCreditoDTO tarjeta)
+    {
+        return tarjeta;
+    }
 }
