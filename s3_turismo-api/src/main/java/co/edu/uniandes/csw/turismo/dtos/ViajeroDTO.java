@@ -22,7 +22,7 @@ public class ViajeroDTO implements Serializable {
     private String idioma;
     private tipoUsuario tipoDeUsuario;
     private short cantidadPlanes;
-    public String informacionPersonal;
+    private String informacionPersonal;
     
     public ViajeroDTO() {
         
