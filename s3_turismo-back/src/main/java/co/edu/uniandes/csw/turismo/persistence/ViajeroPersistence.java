@@ -69,18 +69,18 @@ public class ViajeroPersistence {
          return em.merge(viajero);
     }
     
-  //  public ViajeroEntity updateIdioma(Long viajerosId, String newIdioma) {
-  //      LOGGER.log(Level.INFO, "Actualizando idioma del viajero con id = {0}", viajerosId);
-  //      ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
-  //       viajero.setIdioma(newIdioma);
-  //       return em.merge(viajero);
-  //  }
+    public ViajeroEntity updateIdioma(Long viajerosId, String newIdioma) {
+        LOGGER.log(Level.INFO, "Actualizando idioma del viajero con id = {0}", viajerosId);
+        ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
+         viajero.setIdioma(newIdioma);
+         return em.merge(viajero);
+    }
     
-  //  public ViajeroEntity updatePlanes(Long viajerosId, short newNumber) {
-  //      LOGGER.log(Level.INFO, "Actualizando cantidad de planes del viajero con id = {0}", viajerosId);
-  //      ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
-  //       viajero.setCantidadPlanes(newNumber);
-  //       return em.merge(viajero);
-  //  }
+    public ViajeroEntity updatePlanes(Long viajerosId, short newNumber) {
+        LOGGER.log(Level.INFO, "Actualizando cantidad de planes del viajero con id = {0}", viajerosId);
+        ViajeroEntity viajero = em.find(ViajeroEntity.class, viajerosId);
+         viajero.setCantidadPlanes(newNumber);
+         return em.merge(viajero);
+    }
     
 }
