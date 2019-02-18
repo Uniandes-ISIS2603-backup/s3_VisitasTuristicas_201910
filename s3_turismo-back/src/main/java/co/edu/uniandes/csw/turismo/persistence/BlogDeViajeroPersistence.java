@@ -21,7 +21,7 @@ import javax.persistence.Query;
 @Stateless
 public class BlogDeViajeroPersistence {
 
-    private static final Logger LOGGER = Logger.getLogger(CiudadPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BlogDeViajeroPersistence.class.getName());
 
     @PersistenceContext(unitName = "turismoPU")
     protected EntityManager em;

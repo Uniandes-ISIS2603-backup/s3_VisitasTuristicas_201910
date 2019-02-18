@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+
 import co.edu.uniandes.csw.turismo.persistence.BlogDeViajeroPersistence;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
