@@ -39,7 +39,7 @@ public class PaisTest {
     @Inject
     UserTransaction utx;
 
-    private List<PaisEntity> data = new ArrayList<PaisEntity>();
+    private List<PaisEntity> data = new ArrayList<>();
     
     @Deployment
     public static JavaArchive createDeployment() {
@@ -156,7 +156,7 @@ public class PaisTest {
      * Prueba para consultasr una ciudad por nombre.
      */
    // ERROR CORREGIR
-    /*
+    
     @Test
     public void findPaisByNameTest() {
         PaisEntity entity = data.get(0);
@@ -167,5 +167,5 @@ public class PaisTest {
         newEntity = ciudadPersistence.findByName(null);
         Assert.assertNull(newEntity);
     }
-*/
+
 }
