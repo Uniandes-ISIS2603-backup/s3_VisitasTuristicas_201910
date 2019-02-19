@@ -7,7 +7,9 @@ package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -24,9 +26,23 @@ public class PaisEntity extends BaseEntity implements Serializable {
  
 
    @PodamExclude
-   @OneToMany
+   @OneToMany( mappedBy ="pais", cascade = CascadeType.PERSIST,orphanRemoval = true)
    private List<CiudadEntity> ciudades;
    
+   
+   @PodamExclude
+   @ManyToOne
+   private PlanTuristicoEntity plan;
+   
+   
+   public void actualizarPlan(PlanTuristicoEntity pplan)
+   {
+       this.plan=pplan;
+   }
+   public PlanTuristicoEntity darPlanTuristico()
+   {
+     return plan;  
+   }
    /*
    *Retorna las ciudades
    *@return ciudades
