@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -25,6 +27,9 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
         ENTRETENIMIENTO
     }
     
+    @PodamExclude
+    @ManyToOne
+    private CiudadEntity ciudad;
       /**
      * Tipo de sitio turistico.
      */
@@ -38,9 +43,24 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     
     
     /*
+    *Retorna la ciudad a la cual estan asociados los sitios turisticos
+    *@return ciudad
+    */
+    public CiudadEntity darCiudad()
+    {
+        return ciudad;
+    }
+    
+    public void actualizarCiudad(CiudadEntity pciudad)
+    {
+        this.ciudad=pciudad;
+    }
+    
+    /*
     *Retornar el tipo de sitio turistico
     *@return tipo
     */
+
     public Tipo darTipo()
     {
         return tipo;
