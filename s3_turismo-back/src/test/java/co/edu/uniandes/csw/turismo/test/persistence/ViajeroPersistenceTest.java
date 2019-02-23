@@ -109,7 +109,29 @@ public class ViajeroPersistenceTest {
         
     }
     
+    @Test
+    public void updateIdiomaTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
+        ViajeroEntity ve = ep.create(newEntity);
+        ve.setIdioma("Frances");
+        ep.update(ve);
+        ViajeroEntity resp = em.find(ViajeroEntity.class, ve.getId());
+        Assert.assertEquals("Frances", resp.getIdioma());
+    }
     
+    @Test
+    public void updateCantidadPlanesTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
+        ViajeroEntity ve = ep.create(newEntity);
+        ve.setCantidadPlanes(4);
+        ep.update(ve);
+        ViajeroEntity resp = em.find(ViajeroEntity.class, ve.getId());
+        Assert.assertEquals(4, resp.getCantidadPlanes());
+    }
+    
+   
    
     public List<ViajeroEntity> setUp() {
         List<ViajeroEntity> datos = new ArrayList<ViajeroEntity>(); 
@@ -137,6 +159,17 @@ public class ViajeroPersistenceTest {
         ep.delete(ent.getId());
         ViajeroEntity deleted = em.find(ViajeroEntity.class, ent.getId());
         Assert.assertNull(deleted);
+    }
+    
+     @Test
+    public void deleteInfoTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
+        ViajeroEntity ve = ep.create(newEntity);
+        ve.setInformacionPersonal("");
+        ep.update(ve);
+        ViajeroEntity resp = em.find(ViajeroEntity.class, ve.getId());
+        Assert.assertEquals("", resp.getInformacionPersonal());
     }
     
 //    @Test

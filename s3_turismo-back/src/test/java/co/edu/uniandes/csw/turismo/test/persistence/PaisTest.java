@@ -39,7 +39,7 @@ public class PaisTest {
     @Inject
     UserTransaction utx;
 
-    private List<PaisEntity> data = new ArrayList<PaisEntity>();
+    private List<PaisEntity> data = new ArrayList<>();
     
     @Deployment
     public static JavaArchive createDeployment() {
