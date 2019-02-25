@@ -36,4 +36,40 @@ public class TarjetaDeCreditoPersistence {
         TypedQuery<TarjetaDeCreditoEntity> query = em.createQuery("select u from TarjetaDeCreditoEntity u", TarjetaDeCreditoEntity.class);
         return query.getResultList();
     }
+    
+    public TarjetaDeCreditoEntity getByNumber(String number)
+    {
+        TypedQuery<TarjetaDeCreditoEntity> query = em.createQuery("select u from TarjetaDeCreditoEntity u where u.numero = :numero", TarjetaDeCreditoEntity.class);
+        query = query.setParameter("numero", number);
+        List<TarjetaDeCreditoEntity> list = query.getResultList();
+        if(list == null)
+        {
+            return null;
+        }else if(list.isEmpty())
+        {
+            return null;
+        }else
+        {
+            return list.get(0);
+        }
+          
+    }
+    
+    public TarjetaDeCreditoEntity getByCodigoSeguridad(int codigoSeguridad)
+    {
+        TypedQuery<TarjetaDeCreditoEntity> query = em.createQuery("select u from TarjetaDeCreditoEntity u where u.codigoSeguridad = :codigoSeguridad", TarjetaDeCreditoEntity.class);
+        query = query.setParameter("codigoSeguridad", codigoSeguridad);
+        List<TarjetaDeCreditoEntity> list = query.getResultList();
+        if(list == null)
+        {
+            return null;
+        }else if(list.isEmpty())
+        {
+            return null;
+        }else
+        {
+            return list.get(0);
+        }
+          
+    }
 }
