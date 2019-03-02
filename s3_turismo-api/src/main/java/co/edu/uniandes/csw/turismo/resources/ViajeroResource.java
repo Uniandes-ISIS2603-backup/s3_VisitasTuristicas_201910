@@ -10,7 +10,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDTO;
+import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -25,10 +28,16 @@ import javax.ws.rs.core.MediaType;
 public class ViajeroResource {
     private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());
     
+    @Inject
+    private ViajeroLogic logic;
+    
     @POST
-    public ViajeroDTO createViajero(ViajeroDTO viajero) {
-        return viajero;
+    public ViajeroDTO createViajero(ViajeroDTO viajero) throws BusinessLogicException {
+        ViajeroDTO nuevoV = new ViajeroDTO(logic.createViajero(viajero.toEntity()));
+        //logic.createViajero(viajero.toEntity());
+        return nuevoV;
     }
+    
     
     @GET
     public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
