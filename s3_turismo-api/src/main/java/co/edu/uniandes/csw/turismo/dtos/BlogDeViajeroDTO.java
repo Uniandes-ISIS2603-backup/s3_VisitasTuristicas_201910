@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -87,4 +89,20 @@ public class BlogDeViajeroDTO implements Serializable {
         this.likes = likes;
     }
 
+       public BlogDeViajeroEntity toEntity()
+    {
+        BlogDeViajeroEntity respuesta =  new BlogDeViajeroEntity();
+        respuesta.setComentarios(this.comentarios);
+        respuesta.setLikes(this.likes);
+        respuesta.setSugerencias(this.sugerencias);
+        //respuesta.setId(Long.MIN_VALUE);
+        return respuesta;
+    }
+    public BlogDeViajeroDTO(BlogDeViajeroEntity entity)throws BusinessLogicException {
+       if (entity != null) {
+            this.comentarios = entity.getComentarios();
+            this.likes = entity.getLikes();
+            this.sugerencias = entity.getSugerencias();
+        }
+    }
 }

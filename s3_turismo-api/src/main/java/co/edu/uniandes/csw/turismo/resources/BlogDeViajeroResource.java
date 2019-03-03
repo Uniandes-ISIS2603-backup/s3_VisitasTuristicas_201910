@@ -16,6 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDTO;
 import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDetailDTO;
+import co.edu.uniandes.csw.turismo.ejb.BlogDeViajeroLogic;
+import javax.inject.Inject;
 
 @Path("blogDeViajero")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,6 +25,9 @@ import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDetailDTO;
 @RequestScoped
 public class BlogDeViajeroResource {
 
+    @Inject
+    private BlogDeViajeroLogic blogDeViajeroLogic;
+    
     private static final Logger LOGGER = Logger.getLogger(BlogDeViajeroResource.class.getName());
 
     @POST

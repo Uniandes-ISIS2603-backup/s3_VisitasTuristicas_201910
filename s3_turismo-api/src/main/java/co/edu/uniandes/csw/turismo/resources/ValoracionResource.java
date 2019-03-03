@@ -15,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.turismo.dtos.ValoracionDTO;
 import co.edu.uniandes.csw.turismo.dtos.ValoracionDetailDTO;
+import co.edu.uniandes.csw.turismo.ejb.ValoracionLogic;
+import javax.inject.Inject;
 
 @Path("valoracion")
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,6 +24,9 @@ import co.edu.uniandes.csw.turismo.dtos.ValoracionDetailDTO;
 @RequestScoped
 public class ValoracionResource {
 
+    @Inject
+    private ValoracionLogic valoracionLogic;
+    
     private static final Logger LOGGER = Logger.getLogger(ValoracionResource.class.getName());
 
     @POST

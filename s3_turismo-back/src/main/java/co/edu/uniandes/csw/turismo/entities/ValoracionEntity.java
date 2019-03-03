@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.turismo.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -15,6 +17,17 @@ import javax.persistence.Entity;
 @Entity
 public class ValoracionEntity extends BaseEntity implements Serializable {
 
+    @PodamExclude
+    @ManyToOne
+    private PlanTuristicoEntity planTuristico;
+
+    public PlanTuristicoEntity getPlanTuristico() {
+        return planTuristico;
+    }
+
+    public void setPlanTuristico(PlanTuristicoEntity planTuristico) {
+        this.planTuristico = planTuristico;
+    }
     
    /*
 	 *Atributo que representa el id del usuario que realiza la valoración

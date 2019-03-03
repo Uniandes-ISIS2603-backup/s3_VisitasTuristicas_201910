@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 import java.util.ArrayList;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -17,6 +19,17 @@ import java.util.ArrayList;
 @Entity
 public class BlogDeViajeroEntity extends BaseEntity implements Serializable {
 
+     @PodamExclude
+    @ManyToOne
+    private PlanTuristicoEntity planTuristico;
+
+    public PlanTuristicoEntity getPlanTuristico() {
+        return planTuristico;
+    }
+
+    public void setPlanTuristico(PlanTuristicoEntity planTuristico) {
+        this.planTuristico = planTuristico;
+    }
     /*
      *Atributo que representa los comentarios realizados en el
      * blog de viajero correspondiente a un plan turístico

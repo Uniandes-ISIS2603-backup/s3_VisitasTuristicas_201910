@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import java.io.Serializable;
 
 public class BlogDeViajeroDetailDTO extends BlogDeViajeroDTO implements Serializable {
@@ -41,5 +43,20 @@ public class BlogDeViajeroDetailDTO extends BlogDeViajeroDTO implements Serializ
     public void setPlanTuristico(PlanTuristicoDTO pPlanTuristico) {
         planTuristico = pPlanTuristico;
     }
-
+    
+     /**
+     * Transformar un DTO a un Entity
+     *
+     * @return El DTO de la editorial para transformar a Entity
+     */
+    public BlogDeViajeroEntity toEntity(){
+         BlogDeViajeroEntity blogDeViajeroEntity = super.toEntity();
+       if (planTuristico != null) {
+            blogDeViajeroEntity.setPlanTuristico(planTuristico.toEntity());
+        }
+        return blogDeViajeroEntity;
+        
+    }
+    
+    
 }

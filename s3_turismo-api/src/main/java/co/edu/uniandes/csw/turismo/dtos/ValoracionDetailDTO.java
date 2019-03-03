@@ -5,6 +5,9 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+
+import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 
 public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
@@ -37,6 +40,29 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
      */
     public void setPlanTuristico(PlanTuristicoDTO pPlanTuristico) {
         planTuristico = pPlanTuristico;
+    }
+    
+    public ValoracionDetailDTO(ValoracionEntity entity) throws BusinessLogicException{
+        super(entity);
+        if(entity!=null){
+           // ArrayList planes = new ArrayList<>();
+            //for(PlanTuristicoEntity entityPlan:entity.getComentario()){
+                
+            //}
+        }
+    }
+    /**
+     * Transformar un DTO a un Entity
+     *
+     * @return El DTO de la editorial para transformar a Entity
+     */
+    public ValoracionEntity toEntity(){
+         ValoracionEntity valoracionEntity = super.toEntity();
+       if (planTuristico != null) {
+            valoracionEntity.setPlanTuristico(planTuristico.toEntity());
+        }
+        return valoracionEntity;
+        
     }
 
 }
