@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.persistence.PlanTuristicoPersistence;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +27,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class PlanTuristicoPersistenceTest {
+
     @Inject
     private PlanTuristicoPersistence ep;
     @PersistenceContext
@@ -40,20 +42,86 @@ public class PlanTuristicoPersistenceTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
 
     }
-    
+
     @Test
-    public void createPlanTuristicoTest(){
-        PodamFactory factory= new PodamFactoryImpl();
+    public void createPlanTuristicoTest() {
+        PodamFactory factory = new PodamFactoryImpl();
         PlanTuristicoEntity newPlanTuristicoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
-        PlanTuristicoEntity result= ep.create(newPlanTuristicoEntity);
-        
+        PlanTuristicoEntity result = ep.create(newPlanTuristicoEntity);
+
         Assert.assertNotNull(result);
-        
-        PlanTuristicoEntity  entity=em.find(PlanTuristicoEntity.class, result.getId());
-        
-        Assert.assertEquals(newPlanTuristicoEntity.getNombrePlan(),entity.getNombrePlan());
-        
-        
+
+        PlanTuristicoEntity entity = em.find(PlanTuristicoEntity.class, result.getId());
+
+        Assert.assertEquals(newPlanTuristicoEntity.getNombrePlan(), entity.getNombrePlan());
+
+    }
+
+    @Test
+    public void findViajeroTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        PlanTuristicoEntity newEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
+
+        PlanTuristicoEntity planTuristicoEntity = ep.create(newEntity);
+
+        PlanTuristicoEntity entity = em.find(PlanTuristicoEntity.class, planTuristicoEntity.getId());
+
+        Assert.assertEquals(newEntity.getNombrePlan(), entity.getNombrePlan());
+        Assert.assertEquals(newEntity.getTipoPlan(), entity.getTipoPlan());
+        Assert.assertEquals(newEntity.getIdioma(), entity.getIdioma());
+        Assert.assertEquals(newEntity.getCostoPorPersona(), entity.getCostoPorPersona());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(newEntity.getUbicacion(), entity.getUbicacion());
+
+    }
+
+    @Test
+    public void updateNameTest() {
+
+        PodamFactory factory = new PodamFactoryImpl();
+        PlanTuristicoEntity newEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
+        PlanTuristicoEntity planTuristicoEntity = ep.create(newEntity);
+        planTuristicoEntity.setNombrePlan("super plan");
+        ep.update(planTuristicoEntity);
+        PlanTuristicoEntity resp = em.find(PlanTuristicoEntity.class, planTuristicoEntity.getId());
+        Assert.assertEquals("super plan", resp.getNombrePlan());
+
+    }
+
+    @Test
+    public void findAllPlanTuristicoTest() {
+        List<PlanTuristicoEntity> list = ep.findAll();
+        Assert.assertNotNull(list);
+        Assert.assertNotNull(list.get(0));
+
+    }
+
+    @Test
+    public void updateTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        PlanTuristicoEntity newEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
+        PlanTuristicoEntity planTuristicoEntity = ep.create(newEntity);
+
+        PodamFactory factory2 = new PodamFactoryImpl();
+        PlanTuristicoEntity newEntity2 = factory2.manufacturePojo(PlanTuristicoEntity.class);
+        PlanTuristicoEntity planTuristicoEntity2 = ep.create(newEntity2);
+
+        planTuristicoEntity.setId(planTuristicoEntity2.getId());
+        ep.update(planTuristicoEntity);
+        PlanTuristicoEntity resp;
+        resp = em.find(PlanTuristicoEntity.class, planTuristicoEntity.getId());
+        Assert.assertEquals(planTuristicoEntity2.getId(), resp.getId());
+
+    }
+
+    @Test
+    public void deleteTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        PlanTuristicoEntity newPlanTuristicoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
+        PlanTuristicoEntity planTuristicoEntity = ep.create(newPlanTuristicoEntity);
+        ep.delete(planTuristicoEntity.getId());
+        PlanTuristicoEntity planBorrado = em.find(PlanTuristicoEntity.class, planTuristicoEntity.getId());
+        Assert.assertNull(planBorrado);
     }
 
 }

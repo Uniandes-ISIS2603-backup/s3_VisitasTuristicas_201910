@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,6 +41,11 @@ public class TarjetaDeCreditoDTO implements Serializable {
      */
     public static void setSerialVersionUID(long aSerialVersionUID) {
         serialVersionUID = aSerialVersionUID;
+    }
+    
+    public TarjetaDeCreditoDTO()
+    {
+        
     }
 
     /**
@@ -96,6 +102,23 @@ public class TarjetaDeCreditoDTO implements Serializable {
      */
     public void setIdTarjetaDeCredito(Long idTarjetaDeCredito) {
         this.idTarjetaDeCredito = idTarjetaDeCredito;
+    }
+    
+    public TarjetaDeCreditoEntity toEntity()
+    {
+        TarjetaDeCreditoEntity aRetornar = new TarjetaDeCreditoEntity();
+        aRetornar.setNumero(numero);
+        aRetornar.setBanco(banco);
+        aRetornar.setCodigoSeguridad(codigoSeguridad);
+        return aRetornar;
+    }
+    
+    public TarjetaDeCreditoDTO toDTO(TarjetaDeCreditoEntity tarjeta)
+    {
+        this.numero = tarjeta.getNumero();
+        this.banco = tarjeta.getBanco();
+        this.codigoSeguridad = tarjeta.getCodigoSeguridad();
+        return this;
     }
      
 }
