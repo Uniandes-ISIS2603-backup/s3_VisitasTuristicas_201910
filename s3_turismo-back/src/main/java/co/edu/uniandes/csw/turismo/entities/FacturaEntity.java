@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -28,6 +30,15 @@ public class FacturaEntity extends BaseEntity implements Serializable{
     /**
      * crea una nueva factura
      */
+    
+    
+    /**
+     * Crea la relacion con viajero
+     */
+    @PodamExclude
+    @ManyToOne
+    private ViajeroEntity viajero;
+    
     public FacturaEntity()
     {
         
@@ -59,6 +70,20 @@ public class FacturaEntity extends BaseEntity implements Serializable{
      */
     public void setCosto(double costo) {
         this.costo = costo;
+    }
+
+    /**
+     * @return the viajero
+     */
+    public ViajeroEntity getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroEntity viajero) {
+        this.viajero = viajero;
     }
     
 }
