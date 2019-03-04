@@ -5,7 +5,9 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import java.io.Serializable;
+import java.util.List;
 /**
  *
  * @author estudiante
@@ -23,6 +25,52 @@ public class ViajeroDTO implements Serializable {
     private tipoUsuario tipoDeUsuario;
     private short cantidadPlanes;
     private String informacionPersonal;
+    //necesito un detail de preferencia?
+    private List<PreferenciaDTO> preferencias;
+    private TarjetaDeCreditoDTO tarjetaDeCredito;
+    private List<Facturas> facturas;
+    private List<PlanTuristicoDTO> planesTuristicos;
+    private ViajeDTO viaje;
+
+    public List<PreferenciaDTO> getPreferencias() {
+        return preferencias;
+    }
+
+    public void setPreferencias(List<PreferenciaDTO> preferencias) {
+        this.preferencias = preferencias;
+    }
+
+    public TarjetaDeCreditoDTO getTarjetaDeCredito() {
+        return tarjetaDeCredito;
+    }
+
+    public void setTarjetaDeCredito(TarjetaDeCreditoDTO tarjetaDeCredito) {
+        this.tarjetaDeCredito = tarjetaDeCredito;
+    }
+
+    public List<Facturas> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Facturas> facturas) {
+        this.facturas = facturas;
+    }
+
+    public List<PlanTuristicoDTO> getPlanesTuristicos() {
+        return planesTuristicos;
+    }
+
+    public void setPlanesTuristicos(List<PlanTuristicoDTO> planesTuristicos) {
+        this.planesTuristicos = planesTuristicos;
+    }
+
+    public ViajeDTO getViaje() {
+        return viaje;
+    }
+
+    public void setViaje(ViajeDTO viaje) {
+        this.viaje = viaje;
+    }
     
     public ViajeroDTO() {
         
@@ -77,5 +125,27 @@ public class ViajeroDTO implements Serializable {
 
     public void setInformacionPersonal(String informacionPersonal) {
         this.informacionPersonal = informacionPersonal;
+    }
+    
+    public ViajeroEntity toEntity() {
+        ViajeroEntity nuevo = new ViajeroEntity();
+        nuevo.setNombreUsuario(nombreUsuario);
+        nuevo.setCantidadPlanes(this.cantidadPlanes);
+        nuevo.setIdioma(idioma);
+        //nuevo.setFacturas(facturas.toEntity());
+        //nuevo.setPlanesTuristicos(planesTuristicos.toEntity());
+        //nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
+        
+        //nuevo.setTipoDeUsuario(tipoDeUsuario);
+        nuevo.setInformacionPersonal(informacionPersonal);
+        return nuevo;
+    }
+    
+    public ViajeroDTO(ViajeroEntity ent) {
+        this.nombreUsuario = ent.getNombreUsuario();
+        this.idioma = ent.getIdioma();
+        this.informacionPersonal = ent.getInformacionPersonal();
+        //this.facturas = new Facturas(ent.getFacturas());
+        //this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
     }
 }

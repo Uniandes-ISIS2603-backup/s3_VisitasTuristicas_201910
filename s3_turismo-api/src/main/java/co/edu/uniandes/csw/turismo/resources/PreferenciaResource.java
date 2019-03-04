@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.PreferenciaDTO;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -14,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -23,8 +25,8 @@ import javax.ws.rs.core.MediaType;
  */
 
     @Path("/preferencias")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces("application/json")
+@Consumes("application/json")
 @RequestScoped
 public class PreferenciaResource {
     private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());
@@ -35,17 +37,22 @@ public class PreferenciaResource {
     }
     
     @GET
-    public PreferenciaDTO getPreferencia(Long pIdPreferencia) {
+    public PreferenciaDTO getPreferencia(@PathParam("id")Long pIdPreferencia) {
         return new PreferenciaDTO();
     }
     
     @PUT
-    public boolean setPreferencia(PreferenciaDTO preferencia) {
-        return true;
+    public void setPreferencia(@PathParam("id") Long idPreferencia, PreferenciaDTO nuevaPreferencia) {
+        
     }
     
+//    @PUT
+//    public void setPreferencias(ArrayList<PreferenciaDTO> preferencias, ArrayList<PreferenciaDTO> nuevasPreferencias) {
+//        preferencias = nuevasPreferencias;
+//    }
+    
     @DELETE
-    public boolean deletePreferencia(Long pIdViajero) {
-        return true;
+    public void deletePreferencia(Long pIdViajero) {
+       
     }
 }
