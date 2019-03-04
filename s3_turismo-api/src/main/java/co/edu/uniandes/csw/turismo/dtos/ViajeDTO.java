@@ -7,15 +7,19 @@ package co.edu.uniandes.csw.turismo.dtos;
 
 /**
  *
- * @author estudiante
+ * @author Christer Osorio
  */
 public class ViajeDTO {
+
     private String fechaInicio;
     private String fechaFin;
-    private long idViaje; 
+    private Long idViaje;
+    private ViajeroDTO viajero;
+    private PlanTuristicoDTO planTuristico;
+
     //constructor vacio
-    public ViajeDTO(){
-        
+    public ViajeDTO() {
+
     }
 
     /**
@@ -49,15 +53,43 @@ public class ViajeDTO {
     /**
      * @return the idViaje
      */
-    public long getIdViaje() {
+    public Long getIdViaje() {
         return idViaje;
     }
 
     /**
      * @param idViaje the idViaje to set
      */
-    public void setIdViaje(long idViaje) {
+    public void setIdViaje(Long idViaje) {
         this.idViaje = idViaje;
     }
-    
+
+    /**
+     * @return the viajero
+     */
+    public ViajeroDTO getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroDTO viajero) {
+        this.viajero = viajero;
+    }
+
+    /**
+     * @return the planTuristico
+     */
+    public PlanTuristicoDTO getPlanTuristico() {
+        return planTuristico;
+    }
+
+    /**
+     * @param planTuristico the planTuristico to set
+     */
+    public void setPlanTuristico(PlanTuristicoDTO planTuristico) {
+        this.planTuristico = planTuristico;
+    }
+
 }

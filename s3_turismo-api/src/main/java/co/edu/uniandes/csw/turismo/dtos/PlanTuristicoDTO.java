@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Christer Osorio
  */
 public class PlanTuristicoDTO implements Serializable {
     
@@ -18,13 +18,13 @@ public class PlanTuristicoDTO implements Serializable {
     private String costoPorPersona;
     private String descripcion;
     private String ubicacion;
-    private boolean guia;
+    private Boolean guia;
     private String duracion;
     private String idioma;
-    private long idPlanTuristico;
-    //private ViajeroDTO viajero;
-    //private ViajeDTO viaje;
-    // private ArrayList<SitioTuristicoDTO> sitiosTuristicos;
+    private Long idPlanTuristico;
+    private ViajeroDTO viajero;
+    private ViajeDTO viaje;
+    private SitiosTuristicosDTO sitioTuristico;
     
     //Constructor vacio
     public PlanTuristicoDTO(){
@@ -104,14 +104,14 @@ public class PlanTuristicoDTO implements Serializable {
     /**
      * @return the guia
      */
-    public boolean isGuia() {
+    public Boolean getGuia() {
         return guia;
     }
 
     /**
      * @param guia the guia to set
      */
-    public void setGuia(boolean guia) {
+    public void setGuia(Boolean guia) {
         this.guia = guia;
     }
 
@@ -146,16 +146,59 @@ public class PlanTuristicoDTO implements Serializable {
     /**
      * @return the idPlanTuristico
      */
-    public long getIdPlanTuristico() {
+    public Long getIdPlanTuristico() {
         return idPlanTuristico;
     }
 
     /**
      * @param idPlanTuristico the idPlanTuristico to set
      */
-    public void setIdPlanTuristico(long idPlanTuristico) {
+    public void setIdPlanTuristico(Long idPlanTuristico) {
         this.idPlanTuristico = idPlanTuristico;
     }
+
+    /**
+     * @return the viajero
+     */
+    public ViajeroDTO getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroDTO viajero) {
+        this.viajero = viajero;
+    }
+
+    /**
+     * @return the viaje
+     */
+    public ViajeDTO getViaje() {
+        return viaje;
+    }
+
+    /**
+     * @param viaje the viaje to set
+     */
+    public void setViaje(ViajeDTO viaje) {
+        this.viaje = viaje;
+    }
+
+    /**
+     * @return the sitioTuristico
+     */
+    public SitiosTuristicosDTO getSitioTuristico() {
+        return sitioTuristico;
+    }
+
+    /**
+     * @param sitioTuristico the sitioTuristico to set
+     */
+    public void setSitioTuristico(SitiosTuristicosDTO sitioTuristico) {
+        this.sitioTuristico = sitioTuristico;
+    }
+
    
     
     

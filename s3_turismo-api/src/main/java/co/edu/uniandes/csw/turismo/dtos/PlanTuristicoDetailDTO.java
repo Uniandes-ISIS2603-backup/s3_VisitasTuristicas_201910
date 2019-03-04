@@ -10,15 +10,18 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Christer Osorio
  */
-public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializable{
+public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializable {
+
     private List<PaisDTO> paises;
-    //private List<ValoracionDTO> valoraciones;
-    //private List<BlogDeViajeroDTO> blogs;
-    
-    public PlanTuristicoDetailDTO(){
-        
+    private List<ValoracionDTO> valoraciones;
+    private List<BlogDeViajeroDTO> blogs;
+    //private List<TransporteDTO> transportes;
+    private List<PreferenciaDTO> preferencias;
+
+    public PlanTuristicoDetailDTO() {
+
     }
 
     /**
@@ -34,6 +37,47 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
     public void setPaises(List<PaisDTO> paises) {
         this.paises = paises;
     }
-    
-    
+
+    /**
+     * @return the valoraciones
+     */
+    public List<ValoracionDTO> getValoraciones() {
+        return valoraciones;
+    }
+
+    /**
+     * @param valoraciones the valoraciones to set
+     */
+    public void setValoraciones(List<ValoracionDTO> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
+    /**
+     * @return the blogs
+     */
+    public List<BlogDeViajeroDTO> getBlogs() {
+        return blogs;
+    }
+
+    /**
+     * @param blogs the blogs to set
+     */
+    public void setBlogs(List<BlogDeViajeroDTO> blogs) {
+        this.blogs = blogs;
+    }
+
+    /**
+     * @return the preferencias
+     */
+    public List<PreferenciaDTO> getPreferencias() {
+        return preferencias;
+    }
+
+    /**
+     * @param preferencias the preferencias to set
+     */
+    public void setPreferencias(List<PreferenciaDTO> preferencias) {
+        this.preferencias = preferencias;
+    }
+
 }
