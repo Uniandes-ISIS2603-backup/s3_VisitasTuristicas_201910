@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
     private List<PreferenciaDTO> preferencias;
 
     public PlanTuristicoDetailDTO() {
-
+        super();
     }
 
     /**
@@ -78,6 +79,13 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
      */
     public void setPreferencias(List<PreferenciaDTO> preferencias) {
         this.preferencias = preferencias;
+    }
+//
+
+    public PlanTuristicoDetailDTO(PlanTuristicoEntity planTuristicoEntity) {
+        
+        super (planTuristicoEntity);
+
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import java.io.Serializable;
 
 /**
@@ -13,9 +14,10 @@ import java.io.Serializable;
  */
 public class PlanTuristicoDTO implements Serializable {
     
+    private Long planTuristicoId;
     private String nombrePlan;
     private String tipoPlan;
-    private String costoPorPersona;
+    private Double costoPorPersona;
     private String descripcion;
     private String ubicacion;
     private Boolean guia;
@@ -25,10 +27,24 @@ public class PlanTuristicoDTO implements Serializable {
     private ViajeroDTO viajero;
     private ViajeDTO viaje;
     private SitiosTuristicosDTO sitioTuristico;
-    
+
     //Constructor vacio
-    public PlanTuristicoDTO(){
+    public PlanTuristicoDTO() {
         
+    }
+
+    /**
+     * @return the planTuristicoId
+     */
+    public Long getPlanTuristicoId() {
+        return planTuristicoId;
+    }
+
+    /**
+     * @param planTuristicoId the planTuristicoId to set
+     */
+    public void setPlanTuristicoId(Long planTuristicoId) {
+        this.planTuristicoId = planTuristicoId;
     }
 
     /**
@@ -62,14 +78,14 @@ public class PlanTuristicoDTO implements Serializable {
     /**
      * @return the costoPorPersona
      */
-    public String getCostoPorPersona() {
+    public Double getCostoPorPersona() {
         return costoPorPersona;
     }
 
     /**
      * @param costoPorPersona the costoPorPersona to set
      */
-    public void setCostoPorPersona(String costoPorPersona) {
+    public void setCostoPorPersona(Double costoPorPersona) {
         this.costoPorPersona = costoPorPersona;
     }
 
@@ -199,7 +215,33 @@ public class PlanTuristicoDTO implements Serializable {
         this.sitioTuristico = sitioTuristico;
     }
 
-   
+    //
+    public PlanTuristicoEntity toEntity() {
+        PlanTuristicoEntity entity = new PlanTuristicoEntity();
+        
+        entity.setId(planTuristicoId);
+        entity.setNombrePlan(nombrePlan);
+        entity.setTipoPlan(tipoPlan);
+        entity.setCostoPorPersona(costoPorPersona);
+        entity.setDescripcion(descripcion);
+        entity.setUbicacion(ubicacion);
+        entity.setGuia(guia);
+        entity.setDuracion(duracion);
+        entity.setIdioma(idioma);
+        
+        return entity;
+    }
     
+    public PlanTuristicoDTO(PlanTuristicoEntity pEntity) {
+        setIdPlanTuristico(pEntity.getId());
+        setNombrePlan(pEntity.getNombrePlan());
+        setTipoPlan(pEntity.getTipoPlan());
+        setCostoPorPersona(pEntity.getCostoPorPersona());
+        setDescripcion(pEntity.getDescripcion());
+        setUbicacion(pEntity.getUbicacion());
+        setGuia(pEntity.getGuia());
+        setDuracion(pEntity.getDuracion());
+        setIdioma(pEntity.getIdioma());
+    }
     
 }

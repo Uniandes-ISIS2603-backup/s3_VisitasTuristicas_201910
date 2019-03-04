@@ -7,10 +7,14 @@ package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.PlanTuristicoDTO;
 import co.edu.uniandes.csw.turismo.dtos.PlanTuristicoDetailDTO;
+import co.edu.uniandes.csw.turismo.ejb.PlanTuristicoLogic;
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,15 +33,24 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
+
 public class PlanTuristicoResource {
 
+    //para conectar con la logica
+    @Inject
+    private PlanTuristicoLogic logic;
+    
+    
     //private final ArrayList<Object> listaVacia= new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(PlanTuristicoResource.class.getName());
 
     @POST
-    public PlanTuristicoDTO createPlanTuristico(PlanTuristicoDTO planTuristico) {
+    public PlanTuristicoDTO createPlanTuristico(PlanTuristicoDTO planTuristico)throws BusinessLogicException {
 
-        return planTuristico;
+        PlanTuristicoEntity planTuristicoEntity = planTuristico.toEntity();
+        planTuristicoEntity= logic.createPlanTuristico(planTuristicoEntity);
+    
+        return new PlanTuristicoDTO(planTuristicoEntity);
     }
 
     @GET
@@ -45,23 +58,23 @@ public class PlanTuristicoResource {
     public PlanTuristicoDTO getPlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) {
         return null;
     }
-    
+
     @GET
-    public List<PlanTuristicoDetailDTO> getPlanesTuristicos(){
-        ArrayList<PlanTuristicoDetailDTO> planes= new ArrayList<> ();
-       return planes;
+    public List<PlanTuristicoDetailDTO> getPlanesTuristicos() {
+        ArrayList<PlanTuristicoDetailDTO> planes = new ArrayList<>();
+        return planes;
     }
-    
+
     @PUT
     @Path("idPlanTuristico: \\d+}")
-    public PlanTuristicoDTO updatePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico, PlanTuristicoDTO planTuristico){
+    public PlanTuristicoDTO updatePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico, PlanTuristicoDTO planTuristico) {
         return null;
     }
-    
+
     @DELETE
     @Path("idPlanTuristico: \\d+}")
-    public void deletePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico){
-        
+    public void deletePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) {
+
     }
 
 }

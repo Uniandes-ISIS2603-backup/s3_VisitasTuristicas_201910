@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 public class PlanTuristicoEntity extends BaseEntity implements Serializable{
     private String nombrePlan;
     private String tipoPlan;
-    private Integer costoPorPersona;
+    private Double costoPorPersona;
     private String descripcion;
     private String ubicacion;
     private Boolean guia;
@@ -58,14 +58,14 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable{
     /**
      * @return the costoPorPersona
      */
-    public Integer getCostoPorPersona() {
+    public Double getCostoPorPersona() {
         return costoPorPersona;
     }
 
     /**
      * @param costoPorPersona the costoPorPersona to set
      */
-    public void setCostoPorPersona(Integer costoPorPersona) {
+    public void setCostoPorPersona(Double costoPorPersona) {
         this.costoPorPersona = costoPorPersona;
     }
 
