@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.turismo.ejb;
 
-import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.PaisPersistence;
@@ -31,6 +30,35 @@ public class PaisLogic
         
         @Inject
         private PlanTuristicoPersistence plan;
+        
+        
+        
+        
+        
+        /**
+     * Guardar un nuevo Pais
+     *
+     * @param paisEntity La entidad de tipo pais del nuevo pais a persistir.
+     * @return La entidad luego de persistirla
+     * @throws BusinessLogicException Si el nombre es inválido o ya existe en la
+     * persistencia.
+     */
+    public PaisEntity createPais(PaisEntity paisEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del pais");
+        if (paisEntity.darPlanTuristico()== null || plan.find(paisEntity.darPlanTuristico().getId()) == null) {
+            throw new BusinessLogicException("El Plan turistico es inválido");
+        }
+        if (!validateNombre(paisEntity.darNombre())) {
+            throw new BusinessLogicException("El nombre es inválido");
+        }
+        if (pais.findByName(paisEntity.darNombre()) != null) {
+            throw new BusinessLogicException("El nombre ya existe");
+        }
+        pais.create(paisEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del pais");
+        return paisEntity;
+    }
+        
         
         
         /*

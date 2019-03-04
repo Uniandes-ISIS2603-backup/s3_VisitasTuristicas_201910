@@ -51,6 +51,10 @@ public class SitioTuristicoLogic
         if (ciudad.findByName(sitioEntity.darNombre()) != null) {
             throw new BusinessLogicException("El sitio turistico ya existe");
         }
+        if(sitioEntity.darTipo()==null)
+        {
+            throw new BusinessLogicException("El tipo es invalido");
+        }
         sitio.create(sitioEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del sitio");
         return sitioEntity;
