@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -29,12 +31,24 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     
     public ViajeroDetailDTO(ViajeroEntity ent) {
         super(ent);
-        if(ent != null) {
-            return;
-        }
+       if(ent != null) {
+           preferencias = new ArrayList<>();
+           for(PreferenciaEntity entPrefs : ent.getPreferencias()) {
+               preferencias.add(new PreferenciaDTO(entPrefs));
+           }
+       }
     }
     
     public ViajeroEntity toEntity() {
-        return new ViajeroEntity();
+        ViajeroEntity a = new ViajeroEntity();
+        ArrayList<PreferenciaEntity> transformed = new ArrayList<>();
+        if(preferencias != null) {
+            for(PreferenciaDTO pref : preferencias) {
+                transformed.add(pref.toEntity());
+            }
+            a.setPreferencias(transformed);
+        }
+        return a;
+        
     }
 }

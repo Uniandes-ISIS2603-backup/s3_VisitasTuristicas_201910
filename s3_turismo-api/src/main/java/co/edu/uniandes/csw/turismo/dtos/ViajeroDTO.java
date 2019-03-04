@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -23,7 +25,7 @@ public class ViajeroDTO implements Serializable {
     private int codigoUnico;
     private String idioma;
     private tipoUsuario tipoDeUsuario;
-    private short cantidadPlanes;
+    private int cantidadPlanes;
     private String informacionPersonal;
     //necesito un detail de preferencia?
     private List<PreferenciaDTO> preferencias;
@@ -111,11 +113,11 @@ public class ViajeroDTO implements Serializable {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
-    public short getCantidadPlanes() {
+    public int getCantidadPlanes() {
         return cantidadPlanes;
     }
 
-    public void setCantidadPlanes(short cantidadPlanes) {
+    public void setCantidadPlanes(int cantidadPlanes) {
         this.cantidadPlanes = cantidadPlanes;
     }
 
@@ -130,14 +132,20 @@ public class ViajeroDTO implements Serializable {
     public ViajeroEntity toEntity() {
         ViajeroEntity nuevo = new ViajeroEntity();
         nuevo.setNombreUsuario(nombreUsuario);
-        nuevo.setCantidadPlanes(this.cantidadPlanes);
         nuevo.setIdioma(idioma);
+        nuevo.setInformacionPersonal(informacionPersonal);
+        nuevo.setCantidadPlanes(this.cantidadPlanes);
         //nuevo.setFacturas(facturas.toEntity());
         //nuevo.setPlanesTuristicos(planesTuristicos.toEntity());
-        //nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
-        
+        nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
+        List<PreferenciaEntity> qwerty = new ArrayList<>();
+        for(PreferenciaDTO prefs : preferencias) {
+            qwerty.add(prefs.toEntity());
+        }
+        nuevo.setPreferencias(qwerty);
+        //nuevo.setViaje(viaje.toEntity());
         //nuevo.setTipoDeUsuario(tipoDeUsuario);
-        nuevo.setInformacionPersonal(informacionPersonal);
+        
         return nuevo;
     }
     
@@ -145,7 +153,14 @@ public class ViajeroDTO implements Serializable {
         this.nombreUsuario = ent.getNombreUsuario();
         this.idioma = ent.getIdioma();
         this.informacionPersonal = ent.getInformacionPersonal();
+        this.cantidadPlanes = ent.getCantidadPlanes();
         //this.facturas = new Facturas(ent.getFacturas());
+        //this.planesTuristicos = ent.getPlanesTuristicos();
         //this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
+        List<PreferenciaDTO> prefs = new ArrayList<>();
+        for(PreferenciaEntity pr : ent.getPreferencias()) {
+            prefs.add(new PreferenciaDTO(pr));
+        }
+        preferencias = prefs;
     }
 }
