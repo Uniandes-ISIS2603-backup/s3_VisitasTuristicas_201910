@@ -5,6 +5,9 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+
+import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 
 public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
@@ -20,7 +23,6 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
      */
     public ValoracionDetailDTO() {
         super();
-        planTuristico = new PlanTuristicoDTO();
     }
 
     /*
@@ -37,6 +39,35 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
      */
     public void setPlanTuristico(PlanTuristicoDTO pPlanTuristico) {
         planTuristico = pPlanTuristico;
+    }
+    
+     /**
+     * Crea un objeto ValoracionDetailDTO a partir de un objeto ValoracionEntity
+     * incluyendo los atributos de ValoracionDTO
+     * @param valoracionEntity Entidad ValoracionEntity desde la cual se va a crear el
+     * nuevo objeto.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     *
+     */
+    public ValoracionDetailDTO(ValoracionEntity valoracionEntity)throws BusinessLogicException {
+        super(valoracionEntity);
+        if (valoracionEntity.getPlanTuristico() != null) {
+            this.planTuristico = new PlanTuristicoDTO(valoracionEntity.getPlanTuristico());
+        }
+    }
+
+    /**
+     * Transformar un DTO a un Entity
+     *
+     * @return El DTO de la editorial para transformar a Entity
+     */
+    public ValoracionEntity toEntity(){
+         ValoracionEntity valoracionEntity = super.toEntity();
+       if (planTuristico != null) {
+            valoracionEntity.setPlanTuristico(planTuristico.toEntity());
+        }
+        return valoracionEntity;
+        
     }
 
 }
