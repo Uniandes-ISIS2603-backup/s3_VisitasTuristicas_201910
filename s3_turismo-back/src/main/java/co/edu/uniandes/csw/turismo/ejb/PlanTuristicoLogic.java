@@ -69,6 +69,15 @@ public class PlanTuristicoLogic {
         }
     }
 
+    public PlanTuristicoEntity getPlanTuristico(Long planTuristicoId)
+    {
+        PlanTuristicoEntity planTuristicolEntity = persistence.find(planTuristicoId);
+        if (planTuristicolEntity == null) {
+           
+        }
+       
+        return planTuristicolEntity;
+    }
     public List<PlanTuristicoEntity> getPlanesTuristicos() {
      
         List<PlanTuristicoEntity> planes = persistence.findAll();

@@ -23,7 +23,7 @@ public class PlanTuristicoDTO implements Serializable {
     private Boolean guia;
     private String duracion;
     private String idioma;
-    private Long idPlanTuristico;
+ 
     private ViajeroDTO viajero;
     private ViajeDTO viaje;
     private SitiosTuristicosDTO sitioTuristico;
@@ -33,9 +33,7 @@ public class PlanTuristicoDTO implements Serializable {
         
     }
 
-    PlanTuristicoDTO(PlanTuristicoEntity planTuristico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     /**
      * @return the planTuristicoId
@@ -163,19 +161,7 @@ public class PlanTuristicoDTO implements Serializable {
         this.idioma = idioma;
     }
 
-    /**
-     * @return the idPlanTuristico
-     */
-    public Long getIdPlanTuristico() {
-        return idPlanTuristico;
-    }
-
-    /**
-     * @param idPlanTuristico the idPlanTuristico to set
-     */
-    public void setIdPlanTuristico(Long idPlanTuristico) {
-        this.idPlanTuristico = idPlanTuristico;
-    }
+    
 
     /**
      * @return the viajero
@@ -237,7 +223,7 @@ public class PlanTuristicoDTO implements Serializable {
     }
     
     public PlanTuristicoDTO(PlanTuristicoEntity pEntity) {
-        setIdPlanTuristico(pEntity.getId());
+        setPlanTuristicoId(pEntity.getId());
         setNombrePlan(pEntity.getNombrePlan());
         setTipoPlan(pEntity.getTipoPlan());
         setCostoPorPersona(pEntity.getCostoPorPersona());
