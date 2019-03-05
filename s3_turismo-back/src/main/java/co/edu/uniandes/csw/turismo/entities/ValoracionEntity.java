@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.entities;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -17,8 +18,9 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ValoracionEntity extends BaseEntity implements Serializable {
 
+
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private PlanTuristicoEntity planTuristico;
 
     public PlanTuristicoEntity getPlanTuristico() {

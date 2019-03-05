@@ -6,11 +6,14 @@
 package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
+import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.BlogDeViajeroPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import co.edu.uniandes.csw.turismo.persistence.PlanTuristicoPersistence;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -21,8 +24,14 @@ import javax.inject.Inject;
 
 @Stateless
 public class BlogDeViajeroLogic {
+    
+    private static final Logger LOGGER = Logger.getLogger(BlogDeViajeroLogic.class.getName());
+    
       @Inject
     private BlogDeViajeroPersistence persistence;
+      
+       @Inject
+    private PlanTuristicoPersistence planPersistence;
     
        /*
         *Crea un blog de viajero
@@ -30,10 +39,14 @@ public class BlogDeViajeroLogic {
         *@return BlogDeViajeroEntity
         *@throw BusinnesLogicException
         */
-      
-    public BlogDeViajeroEntity createBlogDeViajero(BlogDeViajeroEntity blogDeViajero)throws BusinessLogicException{ 
-         LOGGER.log(Level.INFO, "Inicia proceso de creación del blog de viajero");
-        if(persistence.find(blogDeViajero.getId()) != null)
+    public BlogDeViajeroEntity createBlogDeViajero(Long planTuristicoId,BlogDeViajeroEntity blogDeViajero)throws BusinessLogicException{ 
+         PlanTuristicoEntity plan = planPersistence.find(planTuristicoId);
+          if(plan==null)
+          {
+              throw new BusinessLogicException("No existe el plan para hacer el blog ");
+          }
+          blogDeViajero.setPlanTuristico(plan);
+        if(persistence.find(planTuristicoId,blogDeViajero.getId()) != null)
         {
             throw new BusinessLogicException("Ya existe un blog de viajero con el id \""+ blogDeViajero.getId()+"\"");
         }
@@ -42,7 +55,7 @@ public class BlogDeViajeroLogic {
              throw new BusinessLogicException("El número de likes no pueden ser negativos, el número\""+ blogDeViajero.getLikes()+" no es válido\"");
         }
         blogDeViajero = persistence.create(blogDeViajero);
-        LOGGER.log(Level.INFO, "Termina proceso de creación del blog de viajero");
+       
         //condición del blog de viajero
         return blogDeViajero;
     }
@@ -50,10 +63,11 @@ public class BlogDeViajeroLogic {
          *Retorna una lista de blogs de viajero
          *@return listaBlogDeViajero
          */
-         public List<BlogDeViajeroEntity> getBlogs() {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los blogs de viajero");
+         public List<BlogDeViajeroEntity> getBlogs(Long planId) {
+         PlanTuristicoEntity planEntity = planPersistence.find(planId);
+            //return planEntity.getBlogs(); Se debe crear el método getBlogs en planEntity
         List<BlogDeViajeroEntity> listaBlogs = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los blogs de viajero");
+
         return listaBlogs;
          }
          
@@ -62,15 +76,15 @@ public class BlogDeViajeroLogic {
         *@param blogDeViajeroId
         *@return blogDeViajeroEntity
         */
-         public BlogDeViajeroEntity getBlog(Long blogDeViajeroId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el blog de viajerocon id = {0}", blogDeViajeroId);
-        BlogDeViajeroEntity blogDeViajeroEntity = persistence.find(blogDeViajeroId);
+         public BlogDeViajeroEntity getBlog(Long planId, Long blogDeViajeroId) throws BusinessLogicException {
+
+        BlogDeViajeroEntity blogDeViajeroEntity = persistence.find(planId,blogDeViajeroId);
         if (blogDeViajeroEntity == null) {
-            LOGGER.log(Level.SEVERE, "El blog de viajero con el id = {0} no existe", blogDeViajeroId);
+
             throw new BusinessLogicException("El blog de viajero es inválido");
 
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el blog de viajero con id = {0}", blogDeViajeroId);
+
         return blogDeViajeroEntity;
     }
          
@@ -80,9 +94,9 @@ public class BlogDeViajeroLogic {
          *@param blogDeViajeroId
          *@return nuevaEntidad
          */
-         public BlogDeViajeroEntity updateBlog(Long blogDeViajeroId, BlogDeViajeroEntity blogDeViajeroEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el blog de viajero con id = {0}", blogDeViajeroId);
-        if (persistence.find(blogDeViajeroId)!=null) {
+         public BlogDeViajeroEntity updateBlog(Long planId, BlogDeViajeroEntity blogDeViajeroEntity) throws BusinessLogicException {
+
+        if (persistence.find(planId, blogDeViajeroEntity.getId())!=null) {
             throw new BusinessLogicException("No existe blog de viajero a actualizar");
         }
           if(blogDeViajeroEntity.getLikes()<=0)
@@ -90,7 +104,24 @@ public class BlogDeViajeroLogic {
              throw new BusinessLogicException("El blog de viajero a actualizar debe tener un número de likes positivos, el número\""+ blogDeViajeroEntity.getLikes()+" no es válido\"");
         }
         BlogDeViajeroEntity nuevaEntidad = persistence.update(blogDeViajeroEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el blog de viajero con id = {0}", blogDeViajeroEntity.getId());
+       
         return nuevaEntidad;
+    }
+         /**
+     * Elimina una instancia de blog de la base de datos.
+     *
+     * @param blogId Identificador de la instancia a eliminar.
+     * @param planId id del plan el cual es padre del blog.
+     * @throws BusinessLogicException Si el blog no esta asociado al plan.
+     *
+     */
+    public void deleteBlog(Long planId, Long blogId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el blog con id = {0} del plan con id = " + planId, blogId);
+        BlogDeViajeroEntity old = getBlog(planId, blogId);
+        if (old == null) {
+            throw new BusinessLogicException("El blog con id = " + blogId + " no esta asociado a el plan con id = " + planId);
+        }
+        persistence.delete(old.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el blog con id = {0} del plan con id = " + planId, blogId);
     }
 }

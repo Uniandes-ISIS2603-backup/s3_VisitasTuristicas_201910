@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -19,8 +20,9 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class BlogDeViajeroEntity extends BaseEntity implements Serializable {
 
-     @PodamExclude
-    @ManyToOne
+
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private PlanTuristicoEntity planTuristico;
 
     public PlanTuristicoEntity getPlanTuristico() {

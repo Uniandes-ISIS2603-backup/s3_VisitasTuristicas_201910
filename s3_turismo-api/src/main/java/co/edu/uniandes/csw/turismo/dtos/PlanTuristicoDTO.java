@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import java.io.Serializable;
 
 /**
@@ -29,6 +30,10 @@ public class PlanTuristicoDTO implements Serializable {
     //Constructor vacio
     public PlanTuristicoDTO(){
         
+    }
+
+    PlanTuristicoDTO(PlanTuristicoEntity planTuristico) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

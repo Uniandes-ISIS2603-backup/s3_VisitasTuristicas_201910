@@ -23,7 +23,6 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
      */
     public ValoracionDetailDTO() {
         super();
-        planTuristico = new PlanTuristicoDTO();
     }
 
     /*
@@ -42,15 +41,21 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
         planTuristico = pPlanTuristico;
     }
     
-    public ValoracionDetailDTO(ValoracionEntity entity) throws BusinessLogicException{
-        super(entity);
-        if(entity!=null){
-           // ArrayList planes = new ArrayList<>();
-            //for(PlanTuristicoEntity entityPlan:entity.getComentario()){
-                
-            //}
+     /**
+     * Crea un objeto ValoracionDetailDTO a partir de un objeto ValoracionEntity
+     * incluyendo los atributos de ValoracionDTO
+     * @param valoracionEntity Entidad ValoracionEntity desde la cual se va a crear el
+     * nuevo objeto.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     *
+     */
+    public ValoracionDetailDTO(ValoracionEntity valoracionEntity)throws BusinessLogicException {
+        super(valoracionEntity);
+        if (valoracionEntity.getPlanTuristico() != null) {
+            this.planTuristico = new PlanTuristicoDTO(valoracionEntity.getPlanTuristico());
         }
     }
+
     /**
      * Transformar un DTO a un Entity
      *

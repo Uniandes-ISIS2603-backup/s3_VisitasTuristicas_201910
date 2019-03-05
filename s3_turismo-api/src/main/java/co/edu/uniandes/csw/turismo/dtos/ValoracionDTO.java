@@ -11,6 +11,19 @@ import java.io.Serializable;
 
 public class ValoracionDTO implements Serializable {
 
+       /*
+    * Relación a un plan
+    * dado que esta tiene cardinalidad 1.
+     */
+    private PlanTuristicoDTO plan;
+
+    public PlanTuristicoDTO getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanTuristicoDTO plan) {
+        this.plan = plan;
+    }
     /*
 	 *Atributo que representa el id del usuario que realiza la valoración
      */
@@ -92,6 +105,9 @@ public class ValoracionDTO implements Serializable {
         respuesta.setIdUsuario(this.idUsuario);
         respuesta.setValoracion(this.valoracion);
         //respuesta.setId(Long.MIN_VALUE);
+        if (this.plan != null) {
+            respuesta.setPlanTuristico(this.plan.toEntity());
+        }
         return respuesta;
     }
     public ValoracionDTO(ValoracionEntity entity)throws BusinessLogicException {
@@ -99,6 +115,13 @@ public class ValoracionDTO implements Serializable {
             this.comentario = entity.getComentario();
             this.idUsuario = entity.getIdUsuario();
             this.valoracion = entity.getValoracion();
+            
+             if (entity.getPlanTuristico() != null) {
+                this.plan = new PlanTuristicoDTO(entity.getPlanTuristico());
+            } else {
+                this.plan = null;
+            
+        }
         }
     }
     
