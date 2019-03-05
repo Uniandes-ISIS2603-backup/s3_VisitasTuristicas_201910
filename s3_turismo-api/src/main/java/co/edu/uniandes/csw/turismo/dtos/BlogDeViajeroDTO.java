@@ -5,11 +5,27 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BlogDeViajeroDTO implements Serializable {
 
+     /*
+    * Relación a un plan
+    * dado que esta tiene cardinalidad 1.
+     */
+    private PlanTuristicoDTO plan;
+
+    public PlanTuristicoDTO getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanTuristicoDTO plan) {
+        this.plan = plan;
+    }
+    
     /*
 	 *Atributo que representa los comentarios realizados en el
 	 * blog de viajero correspondiente a un plan turístico
@@ -87,4 +103,31 @@ public class BlogDeViajeroDTO implements Serializable {
         this.likes = likes;
     }
 
+       public BlogDeViajeroEntity toEntity()
+    {
+        BlogDeViajeroEntity respuesta =  new BlogDeViajeroEntity();
+        respuesta.setComentarios(this.comentarios);
+        respuesta.setLikes(this.likes);
+        respuesta.setSugerencias(this.sugerencias);
+        //respuesta.setId(Long.MIN_VALUE);
+        
+        if (this.plan != null) {
+            respuesta.setPlanTuristico(this.plan.toEntity());
+        }
+        return respuesta;
+    }
+    public BlogDeViajeroDTO(BlogDeViajeroEntity entity)throws BusinessLogicException {
+       if (entity != null) {
+            this.comentarios = entity.getComentarios();
+            this.likes = entity.getLikes();
+            this.sugerencias = entity.getSugerencias();
+       
+            if (entity.getPlanTuristico() != null) {
+                this.plan = new PlanTuristicoDTO(entity.getPlanTuristico());
+            } else {
+                this.plan = null;
+            
+        }
+    }
+}
 }

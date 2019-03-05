@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -35,15 +36,35 @@ public class ValoracionPersistence {
         em.persist(valoracionEntity);
         LOGGER.log(Level.INFO, "Valoracion creada");
         return valoracionEntity;
+        
     }
     
-     /*
-    *Busca una valoracion con el id indicado
-    *@return ValoracionEntity
-    */
-    public ValoracionEntity find(Long valoracionId) {
-        LOGGER.log(Level.INFO, "Consultando la valoracion con id={0}", valoracionId);
-        return em.find(ValoracionEntity.class, valoracionId);
+      /**
+     * Buscar una valoracion
+     *
+     * Busca si hay alguna valoracion asociada a un plan y con un ID específico
+     *
+     * @param planId El ID del lan con respecto al cual se busca
+     * @param valoracionId El ID de la valoracion buscada
+     * @return La valoracion encontrada o null. Nota: Si existe una o más valoraciones
+     * devuelve siempre la primera que encuentra
+     */
+    public ValoracionEntity find(Long planId, Long valoracionId) {
+        LOGGER.log(Level.INFO, "Consultando la valoracion con id = {0} del plan con id = " + planId, valoracionId);
+        TypedQuery<ValoracionEntity> q = em.createQuery("select p from ValoracionEntity p where (p.plan.id = :planid) and (p.id = :valoracionId)", ValoracionEntity.class);
+        q.setParameter("planId", planId);
+        q.setParameter("valoracionId", valoracionId);
+        List<ValoracionEntity> results = q.getResultList();
+        ValoracionEntity valoracion = null;
+        if (results == null) {
+            valoracion = null;
+        } else if (results.isEmpty()) {
+            valoracion = null;
+        } else if (results.size() >= 1) {
+            valoracion = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar la valoracion con id = {0} del plan con id =" + planId, valoracionId);
+        return valoracion;
     }
      /*
     *Retorna la lista de valoraciones
@@ -63,5 +84,20 @@ public class ValoracionPersistence {
         LOGGER.log(Level.INFO, "Actualizando la valoracion con id={0}", valoracionEntity.getId());
         return em.merge(valoracionEntity);
         
+        
+    }
+    
+    /**
+     * Eliminar una valoracion
+     *
+     * Elimina la valoracion asociada al ID que recibe
+     *
+     * @param valoracionId El ID de la valoracion que se desea borrar
+     */
+    public void delete(Long valoracionId) {
+        LOGGER.log(Level.INFO, "Borrando valoracion con id = {0}", valoracionId);
+        ValoracionEntity valoracionEntity = em.find(ValoracionEntity.class, valoracionId);
+        em.remove(valoracionEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar la valoracion con id = {0}", valoracionId);
     }
 }
