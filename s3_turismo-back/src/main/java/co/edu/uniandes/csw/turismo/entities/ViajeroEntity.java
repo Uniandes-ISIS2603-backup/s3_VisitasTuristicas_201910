@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -31,18 +32,23 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     private int cantidadPlanes;
     public String informacionPersonal;
     
+    @PodamExclude
     @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
     List<PreferenciaEntity> preferencias;
     
+    @PodamExclude
     @javax.persistence.OneToOne(mappedBy = "viajero", fetch = javax.persistence.FetchType.EAGER)
     TarjetaDeCreditoEntity tarjetaDeCredito;
     
+    @PodamExclude
     @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
     List<FacturaEntity> facturas;
     
+    @PodamExclude
     @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
     List<PlanTuristicoEntity> planesTuristicos;
     
+    @PodamExclude
     @javax.persistence.OneToOne(mappedBy = "viajero", fetch = javax.persistence.FetchType.EAGER)
     ViajeEntity viaje;
 
