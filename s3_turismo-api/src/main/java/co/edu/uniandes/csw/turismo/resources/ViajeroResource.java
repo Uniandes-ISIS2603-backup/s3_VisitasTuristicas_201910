@@ -10,6 +10,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDTO;
+import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -18,42 +22,56 @@ import javax.ws.rs.core.MediaType;
  * @author estudiante
  */
 @Path("/viajeros")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces("application/json")
+@Consumes("application/json")
 @RequestScoped
 public class ViajeroResource {
     private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());
     
+    @Inject
+    private ViajeroLogic logic;
+    
     @POST
-    public ViajeroDTO createViajero(ViajeroDTO viajero) {
-        return viajero;
+    public ViajeroDTO createViajero(ViajeroDTO viajero) throws BusinessLogicException {
+        ViajeroDTO nuevoV = new ViajeroDTO(logic.createViajero(viajero.toEntity()));
+        //logic.createViajero(viajero.toEntity());
+        return nuevoV;
     }
     
+    
     @GET
-    public ViajeroDTO getViajero(Long pIdViajero) {
+    public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
         return new ViajeroDTO();
     }
     
-    
     @PUT
-    public boolean setViajeroNombre(String pNombre) {
-        return true;
-    }
-    @PUT
-    public boolean setViajeroIdioma(String pIdioma) {
-        return true;
-    }
-    @PUT
-    public boolean setCantidadViajes(int n) {
-        return true;
+    public void setViajero(@PathParam("id") Long idViajero, ViajeroDTO nuevoViajero) {
+        
     }
     
+//    @PUT
+//    public void setViajeros(ArrayList<ViajeroDTO> viajeros, ArrayList<ViajeroDTO> nuevosViajeros) {
+//        viajeros = nuevosViajeros;
+//    }
+//    @PUT
+//    public void setViajeroNombre(String pNombre) {
+//        
+//    }
+//    @PUT
+//    public void setViajeroIdioma(String pIdioma) {
+        
+//    }
+//    @PUT
+//    public void setCantidadViajes(int n) {
+        
+//    }
+    
     @DELETE
-    public boolean deleteViajero(Long pIdViajero) {
-        return true;
+    public void deleteViajero(Long pIdViajero) {
+        
     }
-    @DELETE
-    public boolean deleteViajeroInformacion(Long pIdViajero) {
-        return true;
-    }
+//    @DELETE
+//    public void deleteViajeroInformacion(Long pIdViajero) {
+        
+//    }
 }

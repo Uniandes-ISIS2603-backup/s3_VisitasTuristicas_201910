@@ -6,10 +6,12 @@
 package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -29,6 +31,66 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     private tipoUsuario tipoDeUsuario;
     private int cantidadPlanes;
     public String informacionPersonal;
+    
+    @PodamExclude
+    @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
+    List<PreferenciaEntity> preferencias;
+    
+    @PodamExclude
+    @javax.persistence.OneToOne(mappedBy = "viajero", fetch = javax.persistence.FetchType.EAGER)
+    TarjetaDeCreditoEntity tarjetaDeCredito;
+    
+    @PodamExclude
+    @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
+    List<FacturaEntity> facturas;
+    
+    @PodamExclude
+    @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
+    List<PlanTuristicoEntity> planesTuristicos;
+    
+    @PodamExclude
+    @javax.persistence.OneToOne(mappedBy = "viajero", fetch = javax.persistence.FetchType.EAGER)
+    ViajeEntity viaje;
+
+    public List<PreferenciaEntity> getPreferencias() {
+        return preferencias;
+    }
+
+    public void setPreferencias(List<PreferenciaEntity> preferencias) {
+        this.preferencias = preferencias;
+    }
+
+    public TarjetaDeCreditoEntity getTarjetaDeCredito() {
+        return tarjetaDeCredito;
+    }
+
+    public void setTarjetaDeCredito(TarjetaDeCreditoEntity tarjetaDeCredito) {
+        this.tarjetaDeCredito = tarjetaDeCredito;
+    }
+
+    public List<FacturaEntity> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<FacturaEntity> facturas) {
+        this.facturas = facturas;
+    }
+
+    public List<PlanTuristicoEntity> getPlanesTuristicos() {
+        return planesTuristicos;
+    }
+
+    public void setPlanesTuristicos(List<PlanTuristicoEntity> planesTuristicos) {
+        this.planesTuristicos = planesTuristicos;
+    }
+
+    public ViajeEntity getViaje() {
+        return viaje;
+    }
+
+    public void setViaje(ViajeEntity viaje) {
+        this.viaje = viaje;
+    }
 
     public Long getIdUsuario() {
         return idUsuario;

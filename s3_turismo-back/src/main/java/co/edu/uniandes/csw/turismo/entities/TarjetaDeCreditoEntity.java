@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- *
+ * prueba
  * @author jd.castrellon
  */
 @Entity

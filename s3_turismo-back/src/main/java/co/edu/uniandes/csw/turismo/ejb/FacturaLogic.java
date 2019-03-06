@@ -12,12 +12,14 @@ import co.edu.uniandes.csw.turismo.persistence.ViajeroPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author jd.castrellon
  */
+@Stateless
 public class FacturaLogic {
      private static final Logger LOGGER = Logger.getLogger(FacturaLogic.class.getName());
 

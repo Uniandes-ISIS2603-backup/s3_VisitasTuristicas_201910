@@ -26,7 +26,7 @@ public class PreferenciaPersistence {
     private static final Logger LOGGER= Logger.getLogger (PlanTuristicoPersistence.class .getName());
     
     public PreferenciaEntity create (PreferenciaEntity preferenciaEntity){
-        LOGGER.log(Level.INFO, "Creando una preferencia nueva");
+       LOGGER.log(Level.INFO, "Creando una preferencia nueva");
        em.persist(preferenciaEntity);
        return preferenciaEntity;
    }
