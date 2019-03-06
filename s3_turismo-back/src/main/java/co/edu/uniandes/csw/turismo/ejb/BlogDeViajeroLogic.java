@@ -27,10 +27,10 @@ public class BlogDeViajeroLogic {
     
     private static final Logger LOGGER = Logger.getLogger(BlogDeViajeroLogic.class.getName());
     
-      @Inject
+    @Inject
     private BlogDeViajeroPersistence persistence;
       
-       @Inject
+    @Inject
     private PlanTuristicoPersistence planPersistence;
     
        /*
