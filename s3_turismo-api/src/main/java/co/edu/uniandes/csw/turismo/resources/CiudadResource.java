@@ -38,10 +38,11 @@ public class CiudadResource {
     
     @GET
     @Path("{id: \\d+}")
-    public CiudadDetailDTO darCiudad(@PathParam("id") Long idciudad) {
+    public CiudadDTO darCiudad(@PathParam("id") Long idciudad) {
         LOGGER.log(Level.INFO, "CiudadResource darCiudad: input: {0}", idciudad);
-        CiudadDetailDTO detailDTO = new CiudadDetailDTO();
-        LOGGER.log(Level.INFO, "CiudadResource darCiudad: output: {0}", detailDTO);
-        return detailDTO;
+        
+        //CiudadDetailDTO detailDTO = new CiudadDetailDTO();
+        //LOGGER.log(Level.INFO, "CiudadResource darCiudad: output: {0}", detailDTO);
+        return new CiudadDTO();
     }
 }

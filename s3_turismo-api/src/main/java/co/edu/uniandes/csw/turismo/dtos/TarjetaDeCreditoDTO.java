@@ -113,12 +113,11 @@ public class TarjetaDeCreditoDTO implements Serializable {
         return aRetornar;
     }
     
-    public TarjetaDeCreditoDTO toDTO(TarjetaDeCreditoEntity tarjeta)
+    public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta)
     {
         this.numero = tarjeta.getNumero();
         this.banco = tarjeta.getBanco();
         this.codigoSeguridad = tarjeta.getCodigoSeguridad();
-        return this;
     }
      
 }
