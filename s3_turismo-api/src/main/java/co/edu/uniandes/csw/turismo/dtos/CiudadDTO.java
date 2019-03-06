@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.turismo.dtos;
+import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -24,6 +25,8 @@ public class CiudadDTO implements Serializable {
     *Atributo que representa el nombre de una ciudad
     */
     private String nombre;
+    
+    private PaisDTO pais;
     
     /*
     *Constructor de la clase ciudad
@@ -69,4 +72,37 @@ public class CiudadDTO implements Serializable {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
     
+    public CiudadDTO(CiudadEntity e)
+    {
+        this.id=e.getId();
+        
+        this.nombre = e.darNombre();
+        
+        this.pais = new PaisDTO(e.darPais());
+    }
+    
+    public CiudadEntity toEntity()
+    {
+        CiudadEntity ret = new CiudadEntity();
+        
+        ret.setId(this.id);  
+        ret.actualizarNombre(this.nombre);
+        ret.actualizarPais(this.pais.toEntity());
+        
+        return ret;
+    }
+
+    /**
+     * @return the pais
+     */
+    public PaisDTO getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(PaisDTO pais) {
+        this.pais = pais;
+    }
 }
