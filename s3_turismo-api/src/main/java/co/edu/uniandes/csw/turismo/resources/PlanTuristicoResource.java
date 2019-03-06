@@ -55,7 +55,16 @@ public class PlanTuristicoResource {
 
     @GET
     @Path("{idPlanTuristico: \\d+}")
-    public PlanTuristicoDTO getPlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) {
+    public PlanTuristicoDetailDTO getPlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) throws WebApplicationException {
+        /**PlanTuristicoEntity planTuristicoEntity= logic.getPlanTuristico(idPlanTuristico);
+        if(planTuristicoEntity==null)
+        {
+            throw new WebApplicationException("El recurso /planesTuristicos/" + idPlanTuristico + " no existe.", 404);
+        }
+        
+        PlanTuristicoDetailDTO detailDTO= new PlanTuristicoDetailDTO(planTuristicoEntity);
+        return detailDTO;
+        */
         return null;
     }
 
