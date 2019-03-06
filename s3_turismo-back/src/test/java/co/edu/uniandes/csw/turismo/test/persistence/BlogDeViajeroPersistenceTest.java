@@ -28,7 +28,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class BlogDeViajeroPersistenceTest {
-      @Inject
+    
+    @Inject
     private BlogDeViajeroPersistence blogDeViajeroPersistence;
 
     @PersistenceContext

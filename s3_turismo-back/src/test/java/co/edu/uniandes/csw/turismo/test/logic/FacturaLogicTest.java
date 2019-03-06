@@ -112,7 +112,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void createFacturaTest() throws BusinessLogicException {
@@ -130,7 +130,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura con codigo inválido
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTestConDescripcionInvalido() throws BusinessLogicException {
@@ -144,7 +144,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura con codigo inválido
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTestConDescripcionInvalido2() throws BusinessLogicException {
@@ -158,7 +158,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura con codigo inválido
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTestConCostoInvalido() throws BusinessLogicException {
@@ -171,7 +171,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura con codigo existente.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTestConISBNExistente() throws BusinessLogicException {
@@ -184,7 +184,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura con un viajero que no existe.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     *@throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTestConViajeroInexistente() throws BusinessLogicException {
@@ -198,7 +198,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para crear un Factura sin viajero en null.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createFacturaTestConNullViajero() throws BusinessLogicException {
@@ -241,7 +241,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para actualizar un Factura.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void updateFacturaTest() throws BusinessLogicException {
@@ -258,7 +258,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para actualizar un Factura con descripcion inválido.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaConDescripcionInvalidoTest() throws BusinessLogicException {
@@ -272,7 +272,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para actualizar un Factura con descripcion inválido.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     *@throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaConDescripcionInvalidoTest2() throws BusinessLogicException {
@@ -286,7 +286,7 @@ public class FacturaLogicTest {
         /**
      * Prueba para actualizar un Factura con costo inválido.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void updateFacturaConCostoInvalidoTest() throws BusinessLogicException {
@@ -300,7 +300,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para eliminar un Factura.
      *
-     * @throws co.edu.uniandes.csw.tarjetastore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void deleteFacturaTest() throws BusinessLogicException {
