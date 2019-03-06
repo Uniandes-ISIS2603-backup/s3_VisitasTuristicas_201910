@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -32,7 +33,7 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     //Relacion con blogs
     @PodamExclude
 
-    @OneToMany(mappedBy = "planTuristico", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
 
     private List<BlogDeViajeroEntity> blogs = new ArrayList<BlogDeViajeroEntity>();
 
@@ -42,6 +43,10 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "planTuristico", cascade = CascadeType.PERSIST, orphanRemoval = true)
 
     private List<ValoracionEntity> valoraciones = new ArrayList<ValoracionEntity>();
+    
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private ViajeroEntity viajero;
 
     public PlanTuristicoEntity() {
 
@@ -217,6 +222,20 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
 
         this.valoraciones = valoraciones;
 
+    }
+
+    /**
+     * @return the viajero
+     */
+    public ViajeroEntity getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroEntity viajero) {
+        this.viajero = viajero;
     }
 
 }

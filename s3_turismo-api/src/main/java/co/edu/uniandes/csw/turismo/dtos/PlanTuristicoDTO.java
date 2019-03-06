@@ -233,5 +233,6 @@ public class PlanTuristicoDTO implements Serializable {
         setDuracion(pEntity.getDuracion());
         setIdioma(pEntity.getIdioma());
     }
+
     
 }

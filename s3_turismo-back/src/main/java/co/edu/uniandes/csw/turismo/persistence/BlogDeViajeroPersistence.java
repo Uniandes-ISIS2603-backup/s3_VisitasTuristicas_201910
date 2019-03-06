@@ -52,8 +52,8 @@ public class BlogDeViajeroPersistence {
     public BlogDeViajeroEntity find(Long planId, Long blogId) {
         LOGGER.log(Level.INFO, "Consultando el blog con id = {0} del plan con id = " + planId, blogId);
         TypedQuery<BlogDeViajeroEntity> q = em.createQuery("select p from BlogDeViajeroEntity p where (p.plan.id = :planId) and (p.id = :blogId)", BlogDeViajeroEntity.class);
-        q.setParameter("planId", planId);
-        q.setParameter("blogId", blogId);
+        q = q.setParameter("planId", planId);
+        q = q.setParameter("blogId", blogId);
         List<BlogDeViajeroEntity> results = q.getResultList();
         BlogDeViajeroEntity blog = null;
         if (results == null) {
@@ -73,7 +73,7 @@ public class BlogDeViajeroPersistence {
     public List<BlogDeViajeroEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todos los blogs de viajero");
         
-        Query q = em.createQuery("SELECT U FROM BlogDeViajeroEntity U ", BlogDeViajeroEntity.class);
+        Query q = em.createQuery("select u from BlogDeViajeroEntity u ", BlogDeViajeroEntity.class);
         return q.getResultList();
     }
      /*
@@ -82,8 +82,7 @@ public class BlogDeViajeroPersistence {
     */
     public BlogDeViajeroEntity update(BlogDeViajeroEntity blogEntity) {
         LOGGER.log(Level.INFO, "Actualizando el blog de viajero con id={0}", blogEntity.getId());
-        return em.merge(blogEntity);
-        
+        return em.merge(blogEntity);     
     }
     
     /**
