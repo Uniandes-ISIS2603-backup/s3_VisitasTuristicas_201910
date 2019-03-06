@@ -72,6 +72,4 @@ public class BlogDeViajeroDetailDTO extends BlogDeViajeroDTO implements Serializ
         return blogDeViajeroEntity;
         
     }
-    
-    
 }
