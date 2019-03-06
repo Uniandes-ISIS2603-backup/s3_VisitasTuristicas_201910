@@ -74,4 +74,12 @@ public class ViajeroResource {
 //    public void deleteViajeroInformacion(Long pIdViajero) {
         
 //    }
+    
+    @Path("{viajeroId: \\d+/tarjetaDeCredito}")
+    public Class<TarjetaDeCreditoResource> getTarjetaDeCreditoResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
+        if(logic.getViajero(viajeroId) == null) {
+            throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
+        }
+        return TarjetaDeCreditoResource.class;
+    }
 }
