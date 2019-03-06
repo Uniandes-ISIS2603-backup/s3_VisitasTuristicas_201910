@@ -76,12 +76,12 @@ public class CiudadPersistence {
     *@param name
     *@return result
     */
-     public CiudadEntity findByName(String name) {
-        LOGGER.log(Level.INFO, "Consultando Ciudad por nombre ", name);
+     public CiudadEntity findByName(String nombre) {
+        LOGGER.log(Level.INFO, "Consultando Ciudad por nombre ", nombre);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From CiudadEntity e where e.nombre = :nombre", CiudadEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
-        query = query.setParameter("nombre", name);
+        query = query.setParameter("nombre", nombre);
         // Se invoca el query se obtiene la lista resultado
         List<CiudadEntity> sameName = query.getResultList();
         CiudadEntity result;
@@ -92,7 +92,7 @@ public class CiudadPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar Ciudad por nombre ", name);
+        LOGGER.log(Level.INFO, "Saliendo de consultar Ciudad por nombre ", nombre);
         return result;
     }
     

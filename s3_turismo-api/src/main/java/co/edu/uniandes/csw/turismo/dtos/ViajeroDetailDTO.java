@@ -5,17 +5,18 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import java.io.Serializable;
 import java.util.List;
 /**
  *
  * @author estudiante
  */
-public class ViajeroDetailDTO implements Serializable {
+public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<PreferenciaDTO> preferencias;
     
     public ViajeroDetailDTO() {
-        
+        super();
     }
     
     public List<PreferenciaDTO> getPreferencias() {
@@ -24,5 +25,16 @@ public class ViajeroDetailDTO implements Serializable {
     
     public void setPreferencias(List<PreferenciaDTO> nuevo) {
         preferencias = nuevo;
+    }
+    
+    public ViajeroDetailDTO(ViajeroEntity ent) {
+        super(ent);
+        if(ent != null) {
+            return;
+        }
+    }
+    
+    public ViajeroEntity toEntity() {
+        return new ViajeroEntity();
     }
 }

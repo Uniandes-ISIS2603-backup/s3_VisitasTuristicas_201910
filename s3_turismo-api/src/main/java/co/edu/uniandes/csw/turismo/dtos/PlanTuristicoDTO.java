@@ -5,30 +5,48 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Christer Osorio
  */
 public class PlanTuristicoDTO implements Serializable {
     
+    private Long planTuristicoId;
     private String nombrePlan;
     private String tipoPlan;
-    private String costoPorPersona;
+    private Double costoPorPersona;
     private String descripcion;
     private String ubicacion;
-    private boolean guia;
+    private Boolean guia;
     private String duracion;
     private String idioma;
-    private long idPlanTuristico;
-    //private ViajeroDTO viajero;
-    //private ViajeDTO viaje;
-    // private ArrayList<SitioTuristicoDTO> sitiosTuristicos;
-    
+ 
+    private ViajeroDTO viajero;
+    private ViajeDTO viaje;
+    private SitiosTuristicosDTO sitioTuristico;
+
     //Constructor vacio
-    public PlanTuristicoDTO(){
+    public PlanTuristicoDTO() {
         
+    }
+
+    
+
+    /**
+     * @return the planTuristicoId
+     */
+    public Long getPlanTuristicoId() {
+        return planTuristicoId;
+    }
+
+    /**
+     * @param planTuristicoId the planTuristicoId to set
+     */
+    public void setPlanTuristicoId(Long planTuristicoId) {
+        this.planTuristicoId = planTuristicoId;
     }
 
     /**
@@ -62,14 +80,14 @@ public class PlanTuristicoDTO implements Serializable {
     /**
      * @return the costoPorPersona
      */
-    public String getCostoPorPersona() {
+    public Double getCostoPorPersona() {
         return costoPorPersona;
     }
 
     /**
      * @param costoPorPersona the costoPorPersona to set
      */
-    public void setCostoPorPersona(String costoPorPersona) {
+    public void setCostoPorPersona(Double costoPorPersona) {
         this.costoPorPersona = costoPorPersona;
     }
 
@@ -104,14 +122,14 @@ public class PlanTuristicoDTO implements Serializable {
     /**
      * @return the guia
      */
-    public boolean isGuia() {
+    public Boolean getGuia() {
         return guia;
     }
 
     /**
      * @param guia the guia to set
      */
-    public void setGuia(boolean guia) {
+    public void setGuia(Boolean guia) {
         this.guia = guia;
     }
 
@@ -143,20 +161,77 @@ public class PlanTuristicoDTO implements Serializable {
         this.idioma = idioma;
     }
 
+    
+
     /**
-     * @return the idPlanTuristico
+     * @return the viajero
      */
-    public long getIdPlanTuristico() {
-        return idPlanTuristico;
+    public ViajeroDTO getViajero() {
+        return viajero;
     }
 
     /**
-     * @param idPlanTuristico the idPlanTuristico to set
+     * @param viajero the viajero to set
      */
-    public void setIdPlanTuristico(long idPlanTuristico) {
-        this.idPlanTuristico = idPlanTuristico;
+    public void setViajero(ViajeroDTO viajero) {
+        this.viajero = viajero;
     }
-   
+
+    /**
+     * @return the viaje
+     */
+    public ViajeDTO getViaje() {
+        return viaje;
+    }
+
+    /**
+     * @param viaje the viaje to set
+     */
+    public void setViaje(ViajeDTO viaje) {
+        this.viaje = viaje;
+    }
+
+    /**
+     * @return the sitioTuristico
+     */
+    public SitiosTuristicosDTO getSitioTuristico() {
+        return sitioTuristico;
+    }
+
+    /**
+     * @param sitioTuristico the sitioTuristico to set
+     */
+    public void setSitioTuristico(SitiosTuristicosDTO sitioTuristico) {
+        this.sitioTuristico = sitioTuristico;
+    }
+
+    //
+    public PlanTuristicoEntity toEntity() {
+        PlanTuristicoEntity entity = new PlanTuristicoEntity();
+        
+        entity.setId(planTuristicoId);
+        entity.setNombrePlan(nombrePlan);
+        entity.setTipoPlan(tipoPlan);
+        entity.setCostoPorPersona(costoPorPersona);
+        entity.setDescripcion(descripcion);
+        entity.setUbicacion(ubicacion);
+        entity.setGuia(guia);
+        entity.setDuracion(duracion);
+        entity.setIdioma(idioma);
+        
+        return entity;
+    }
     
+    public PlanTuristicoDTO(PlanTuristicoEntity pEntity) {
+        setPlanTuristicoId(pEntity.getId());
+        setNombrePlan(pEntity.getNombrePlan());
+        setTipoPlan(pEntity.getTipoPlan());
+        setCostoPorPersona(pEntity.getCostoPorPersona());
+        setDescripcion(pEntity.getDescripcion());
+        setUbicacion(pEntity.getUbicacion());
+        setGuia(pEntity.getGuia());
+        setDuracion(pEntity.getDuracion());
+        setIdioma(pEntity.getIdioma());
+    }
     
 }
