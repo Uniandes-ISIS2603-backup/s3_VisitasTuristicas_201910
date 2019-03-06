@@ -232,7 +232,7 @@ public class PlanTuristicoLogicTest {
     public void updatePlanTuristicoConCostoNulo() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
-        pojoEntity.setCostoPorPersona(-100.20);
+        pojoEntity.setCostoPorPersona(-100.2);
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 }

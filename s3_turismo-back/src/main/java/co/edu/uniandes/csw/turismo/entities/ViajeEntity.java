@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.turismo.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +24,8 @@ public class ViajeEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFin;
 
+    @OneToOne()
+    private ViajeroEntity viajero;
     public ViajeEntity() {
 
     }
@@ -53,6 +56,20 @@ public class ViajeEntity extends BaseEntity implements Serializable {
      */
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    /**
+     * @return the viajero
+     */
+    public ViajeroEntity getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroEntity viajero) {
+        this.viajero = viajero;
     }
 
 }
