@@ -6,27 +6,47 @@
 package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Christer Osorio
  */
 @Entity
-public class PlanTuristicoEntity extends BaseEntity implements Serializable{
+public class PlanTuristicoEntity extends BaseEntity implements Serializable {
+
     private String nombrePlan;
     private String tipoPlan;
-    private Integer costoPorPersona;
+    private Double costoPorPersona;
     private String descripcion;
     private String ubicacion;
     private Boolean guia;
     private String duracion;
     private String idioma;
-  
 
-    public PlanTuristicoEntity(){
-        
+    //Relacion con blogs
+    @PodamExclude
+
+    @OneToMany(mappedBy = "planTuristico", cascade = CascadeType.PERSIST, orphanRemoval = true)
+
+    private List<BlogDeViajeroEntity> blogs = new ArrayList<BlogDeViajeroEntity>();
+
+    // Relacion con valoraciones
+    @PodamExclude
+
+    @OneToMany(mappedBy = "planTuristico", cascade = CascadeType.PERSIST, orphanRemoval = true)
+
+    private List<ValoracionEntity> valoraciones = new ArrayList<ValoracionEntity>();
+
+    public PlanTuristicoEntity() {
+
     }
+
     /**
      * @return the nombrePlan
      */
@@ -58,14 +78,14 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable{
     /**
      * @return the costoPorPersona
      */
-    public Integer getCostoPorPersona() {
+    public Double getCostoPorPersona() {
         return costoPorPersona;
     }
 
     /**
      * @param costoPorPersona the costoPorPersona to set
      */
-    public void setCostoPorPersona(Integer costoPorPersona) {
+    public void setCostoPorPersona(Double costoPorPersona) {
         this.costoPorPersona = costoPorPersona;
     }
 
@@ -139,6 +159,64 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable{
         this.idioma = idioma;
     }
 
-   
-    
+    /**
+     *
+     * Devuelve los blogs del plan.
+     *
+     *
+     *
+     * @return Lista de entidades de tipo BlogDeViajero
+     *
+     */
+    public List<BlogDeViajeroEntity> getBlogs() {
+
+        return blogs;
+
+    }
+
+    /**
+     *
+     * Modifica los blogs de un plan.
+     *
+     *
+     *
+     * @param blogs Los nuevos blogs.
+     *
+     */
+    public void setBlogs(List<BlogDeViajeroEntity> blogs) {
+
+        this.blogs = blogs;
+
+    }
+
+    /**
+     *
+     * Devuelve las valoraciones del plan.
+     *
+     *
+     *
+     * @return Lista de entidades de tipo Valoracion
+     *
+     */
+    public List<ValoracionEntity> getValoraciones() {
+
+        return valoraciones;
+
+    }
+
+    /**
+     *
+     * Modifica las valoraciones de un plan.
+     *
+     *
+     *
+     * @param valoraciones Las nuevas valoraciones .
+     *
+     */
+    public void setValoraciones(List<ValoracionEntity> valoraciones) {
+
+        this.valoraciones = valoraciones;
+
+    }
+
 }

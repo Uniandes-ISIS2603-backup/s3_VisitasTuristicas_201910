@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
 import java.io.Serializable;
 /**
  *
@@ -31,5 +32,13 @@ public class PreferenciaDTO implements Serializable {
         this.nombrePreferencia = nombrePreferencia;
     }
     
+    public PreferenciaEntity toEntity() {
+        PreferenciaEntity nuevo = new PreferenciaEntity();
+        nuevo.setNombrePreferencia(nombrePreferencia);
+        return nuevo;
+    }
     
+    public PreferenciaDTO(PreferenciaEntity ent) {
+        this.nombrePreferencia = ent.getNombrePreferencia();
+    }
 }
