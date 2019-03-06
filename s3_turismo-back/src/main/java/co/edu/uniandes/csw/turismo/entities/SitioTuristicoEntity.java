@@ -60,6 +60,10 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     *Retornar el tipo de sitio turistico
     *@return tipo
     */
+    
+    public void actualizarTipo(Tipo p) {
+        tipo = p;
+    }
 
     public Tipo darTipo()
     {
@@ -90,6 +94,9 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     }
     
 
+    public CiudadEntity getCiudad() {
+        return ciudad;
+    }
     
 
 
