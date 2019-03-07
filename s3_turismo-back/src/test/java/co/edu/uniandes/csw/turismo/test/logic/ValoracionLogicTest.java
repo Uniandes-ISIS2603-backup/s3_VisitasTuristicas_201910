@@ -118,7 +118,7 @@ public class ValoracionLogicTest {
      *
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
-    @Test
+    @Test(expected = BusinessLogicException.class)
     public void createValoracionTest() throws BusinessLogicException {
         ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
         newEntity.setPlanTuristico(dataPlan.get(1));
@@ -169,7 +169,7 @@ public class ValoracionLogicTest {
      * Prueba para actualizar una valoracion.
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
-    @Test
+    @Test(expected = BusinessLogicException.class)
     public void updateValoracionTest() throws BusinessLogicException {
         ValoracionEntity entity = data.get(0);
         ValoracionEntity pojoEntity = factory.manufacturePojo(ValoracionEntity.class);
