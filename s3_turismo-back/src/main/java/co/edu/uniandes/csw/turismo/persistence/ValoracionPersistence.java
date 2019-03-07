@@ -51,7 +51,7 @@ public class ValoracionPersistence {
      */
     public ValoracionEntity find(Long planId, Long valoracionId) {
         LOGGER.log(Level.INFO, "Consultando la valoracion con id = {0} del plan con id = " + planId, valoracionId);
-        TypedQuery<ValoracionEntity> q = em.createQuery("select p from ValoracionEntity p where (p.plan.id = :planid) and (p.id = :valoracionId)", ValoracionEntity.class);
+        TypedQuery<ValoracionEntity> q = em.createQuery("select p from ValoracionEntity p where (p.planTuristico.id = :planId) and (p.id = :valoracionId)", ValoracionEntity.class);
         q.setParameter("planId", planId);
         q.setParameter("valoracionId", valoracionId);
         List<ValoracionEntity> results = q.getResultList();
