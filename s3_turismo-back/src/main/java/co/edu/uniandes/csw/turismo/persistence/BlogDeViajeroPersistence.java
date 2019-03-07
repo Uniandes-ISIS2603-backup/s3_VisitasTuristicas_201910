@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.turismo.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
-import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +50,7 @@ public class BlogDeViajeroPersistence {
      */
     public BlogDeViajeroEntity find(Long planId, Long blogId) {
         LOGGER.log(Level.INFO, "Consultando el blog con id = {0} del plan con id = " + planId, blogId);
-        TypedQuery<BlogDeViajeroEntity> q = em.createQuery("select p from BlogDeViajeroEntity p where (p.plan.id = :planId) and (p.id = :blogId)", BlogDeViajeroEntity.class);
+        TypedQuery<BlogDeViajeroEntity> q = em.createQuery("select p from BlogDeViajeroEntity p where (p.planTuristico.id = :planId) and (p.id = :blogId)", BlogDeViajeroEntity.class);
         q = q.setParameter("planId", planId);
         q = q.setParameter("blogId", blogId);
         List<BlogDeViajeroEntity> results = q.getResultList();
