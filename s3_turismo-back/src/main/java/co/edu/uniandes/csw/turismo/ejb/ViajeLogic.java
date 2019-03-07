@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Christer Osorio
  */
 @Stateless
 public class ViajeLogic {
@@ -41,10 +41,10 @@ public class ViajeLogic {
             throw new BusinessLogicException("El Viajero no es valido");
         }
 
-        if (!fechasValidas(viajeEntity.getFechaInicio(), viajeEntity.getFechaFin())) {
+      /**  if (!fechasValidas(viajeEntity.getFechaInicio(), viajeEntity.getFechaFin())) {
             throw new BusinessLogicException("La fecha inicial no puede ser posterior a la final");
         }
-
+*/
         persistence.create(viajeEntity);
 
         return viajeEntity;
@@ -57,7 +57,9 @@ public class ViajeLogic {
      * @return true si el ISBN es valido.
      */
     private boolean fechasValidas(Date fechaInicio, Date fechaFin) {
+        
         return (fechaInicio.before(fechaFin));
+        
     }
 
     /**
@@ -96,12 +98,12 @@ public class ViajeLogic {
      * @throws BusinessLogicException Si el IBN de la actualización es inválido
      */
     public ViajeEntity updateViaje(Long viajesId, ViajeEntity viajeEntity) throws BusinessLogicException {
-       
-        if (!fechasValidas(viajeEntity.getFechaInicio(), viajeEntity.getFechaFin())) {
+
+     /**   if (!fechasValidas(viajeEntity.getFechaInicio(), viajeEntity.getFechaFin())) {
             throw new BusinessLogicException("La fecha inicial no puede ser posterior a la final");
-        }
+       }*/
         ViajeEntity newEntity = persistence.update(viajeEntity);
-       
+
         return newEntity;
     }
 
@@ -111,9 +113,8 @@ public class ViajeLogic {
      * @param viajessId El ID del viaje a eliminar
      */
     public void deleteViaje(Long viajessId) {
-       
 
         persistence.delete(viajessId);
-       
+
     }
 }
