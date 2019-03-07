@@ -26,7 +26,7 @@ public class FacturaEntity extends BaseEntity implements Serializable{
     /**
      * representa el valor total de la factura
      */
-    private double costo;
+    private Double costo;
     
     /**
      * crea una nueva factura
@@ -62,7 +62,7 @@ public class FacturaEntity extends BaseEntity implements Serializable{
     /**
      * @return the costo
      */
-    public double getCosto() {
+    public Double getCosto() {
         return costo;
     }
 

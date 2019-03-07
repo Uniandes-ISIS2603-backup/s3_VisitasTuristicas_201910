@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.turismo.dtos;
+import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -68,5 +69,21 @@ public class PaisDTO implements Serializable
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+    
+    public PaisDTO(PaisEntity e)
+    {
+        this.id = e.getId();
+        this.nombre = e.darNombre();
+    }
+    
+    public PaisEntity toEntity()
+    {
+        PaisEntity aRet = new PaisEntity();
+        
+        aRet.setId(id);
+        aRet.cambiarNombre(nombre);
+        
+        return aRet;
     }
 }

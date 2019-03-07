@@ -143,9 +143,13 @@ public class PlanTuristicoLogicTest {
     public void updatePlanTuristicoTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
+        
         pojoEntity.setId(entity.getId());
+        
         planTuristicoLogic.updatePlanTuristico(pojoEntity.getId(), pojoEntity);
+        
         PlanTuristicoEntity resp = em.find(PlanTuristicoEntity.class, entity.getId());
+        
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getNombrePlan(), resp.getNombrePlan());
         Assert.assertEquals(pojoEntity.getTipoPlan(), resp.getTipoPlan());

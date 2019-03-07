@@ -4,8 +4,14 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.turismo.dtos;
+import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
+import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 /**
  *
  * @author David Fonseca
@@ -26,6 +32,31 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
     {
         super();
         sitiosTuristicosDto=new ArrayList<>();
+    }
+    
+    public CiudadDetailDTO(CiudadEntity ciudadEntity)throws BusinessLogicException {
+        super(ciudadEntity);
+        if (ciudadEntity.darSitios() != null) {
+            sitiosTuristicosDto = new ArrayList<>();
+            for(SitioTuristicoEntity sitio: ciudadEntity.darSitios())
+            {
+                sitiosTuristicosDto.add(new SitiosTuristicosDTO(sitio));
+            }
+        }
+    }
+    
+    public CiudadEntity toEntity()
+    {
+        CiudadEntity aRet = super.toEntity();
+        ArrayList<SitioTuristicoEntity> trans = new ArrayList<>();
+        if (sitiosTuristicosDto != null) {
+            for(SitiosTuristicosDTO sitio : sitiosTuristicosDto)
+            {
+                trans.add(sitio.toEntity());
+            }
+        }
+        aRet.actualizarSitios(trans);
+        return aRet;
     }
     /*
 *Retornar los sitios tuiristicos

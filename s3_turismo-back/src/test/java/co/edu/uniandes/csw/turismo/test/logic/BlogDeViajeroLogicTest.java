@@ -173,7 +173,7 @@ public class BlogDeViajeroLogicTest {
 
         pojoEntity.setId(entity.getId());
 
-        blogDeViajeroLogic.updateBlog(dataPlan.get(1).getId(), pojoEntity);
+        blogDeViajeroLogic.updateBlog(pojoEntity.getId(), pojoEntity);
 
         BlogDeViajeroEntity resp = em.find(BlogDeViajeroEntity.class, entity.getId());
 

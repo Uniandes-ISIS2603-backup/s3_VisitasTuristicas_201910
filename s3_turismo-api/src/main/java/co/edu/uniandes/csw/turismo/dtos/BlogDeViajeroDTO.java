@@ -103,7 +103,7 @@ public class BlogDeViajeroDTO implements Serializable {
         this.likes = likes;
     }
 
-       public BlogDeViajeroEntity toEntity()
+    public BlogDeViajeroEntity toEntity()
     {
         BlogDeViajeroEntity respuesta =  new BlogDeViajeroEntity();
         respuesta.setComentarios(this.comentarios);

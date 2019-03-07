@@ -55,7 +55,11 @@ public class PlanTuristicoResource {
 
     @GET
     @Path("{idPlanTuristico: \\d+}")
-    public PlanTuristicoDTO getPlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) {
+
+   
+
+    public PlanTuristicoDetailDTO getPlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) {
+
         return null;
     }
 

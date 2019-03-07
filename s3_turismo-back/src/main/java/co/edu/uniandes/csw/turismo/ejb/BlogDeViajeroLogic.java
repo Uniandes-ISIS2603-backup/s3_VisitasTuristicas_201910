@@ -27,10 +27,10 @@ public class BlogDeViajeroLogic {
     
     private static final Logger LOGGER = Logger.getLogger(BlogDeViajeroLogic.class.getName());
     
-      @Inject
+    @Inject
     private BlogDeViajeroPersistence persistence;
       
-       @Inject
+    @Inject
     private PlanTuristicoPersistence planPersistence;
     
        /*
@@ -99,7 +99,7 @@ public class BlogDeViajeroLogic {
         if (persistence.find(planId, blogDeViajeroEntity.getId())!=null) {
             throw new BusinessLogicException("No existe blog de viajero a actualizar");
         }
-          if(blogDeViajeroEntity.getLikes()<=0)
+        if(blogDeViajeroEntity.getLikes()<0)
         {
              throw new BusinessLogicException("El blog de viajero a actualizar debe tener un número de likes positivos, el número\""+ blogDeViajeroEntity.getLikes()+" no es válido\"");
         }

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.turismo.dtos;
+import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
+import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -24,10 +26,10 @@ public class SitiosTuristicosDTO implements Serializable
         ENTRETENIMIENTO
     }
     
-      /**
+    /**
      * Tipo de sitio turistico.
      */
-    private Tipo tipo;
+    private SitioTuristicoEntity.Tipo tipo;
     /*
     *Atributo que representa el id de un sitio turistico
     */
@@ -38,20 +40,45 @@ public class SitiosTuristicosDTO implements Serializable
     */
     private String nombre;
     
-    
+    private CiudadDTO ciudad;
     
     /*
     *Constructor de la clase
     */
     public SitiosTuristicosDTO()
     {
+        
+    }
+    
+    public SitiosTuristicosDTO(SitioTuristicoEntity e)
+    {
+        this.id=e.getId();
+        
+        this.nombre = e.darNombre();
+        
+        this.tipo = e.darTipo();
+        
+        this.ciudad = new CiudadDTO(e.darCiudad());
+        
+    }
+    
+    public SitioTuristicoEntity toEntity()
+    {
+        SitioTuristicoEntity ret = new SitioTuristicoEntity();
+        
+        ret.setId(this.id);  
+        ret.actualizarNombre(this.nombre);
+        ret.actualizarTipo(this.darTipo());
+        ret.actualizarCiudad(this.ciudad.toEntity());
+        
+        return ret;
     }
     
     /*
     *Retornar el tipo de sitio turistico
     *@return tipo
     */
-    public Tipo darTipo()
+    public SitioTuristicoEntity.Tipo darTipo()
     {
         return tipo;
     }

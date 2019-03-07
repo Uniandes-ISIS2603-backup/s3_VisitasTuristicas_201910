@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -24,8 +25,13 @@ public class ViajeEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFin;
 
+    @PodamExclude
     @OneToOne()
     private ViajeroEntity viajero;
+    @PodamExclude
+    @OneToOne()
+    private PlanTuristicoEntity planTuristico;
+    
     public ViajeEntity() {
 
     }
@@ -70,6 +76,20 @@ public class ViajeEntity extends BaseEntity implements Serializable {
      */
     public void setViajero(ViajeroEntity viajero) {
         this.viajero = viajero;
+    }
+
+    /**
+     * @return the planTuristico
+     */
+    public PlanTuristicoEntity getPlanTuristico() {
+        return planTuristico;
+    }
+
+    /**
+     * @param planTuristico the planTuristico to set
+     */
+    public void setPlanTuristico(PlanTuristicoEntity planTuristico) {
+        this.planTuristico = planTuristico;
     }
 
 }
