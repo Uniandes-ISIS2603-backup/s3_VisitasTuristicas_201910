@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.turismo.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.ViajeEntity;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,5 +39,25 @@ public class ViajePersistence{
     public List<ViajeEntity> findAll(){
         TypedQuery<ViajeEntity> query= em.createQuery("select u from ViajeEntity u", ViajeEntity.class);
         return query.getResultList();
+    }
+    
+    
+    
+    public ViajeEntity update(ViajeEntity viajeEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el viaje con id={0}", viajeEntity.getId());
+        return em.merge(viajeEntity);
+    }
+
+    /**
+     *
+     * Borra un viaje de la base de datos recibiendo como argumento el id del
+     * viaje
+     *
+     * @param viajesId: id correspondiente al viaje a borrar.
+     */
+    public void delete(Long viajesId) {
+        LOGGER.log(Level.INFO, "Borrando el viaje con id={0}", viajesId);
+        ViajeEntity bookEntity = em.find(ViajeEntity.class, viajesId);
+        em.remove(bookEntity);
     }
 }
