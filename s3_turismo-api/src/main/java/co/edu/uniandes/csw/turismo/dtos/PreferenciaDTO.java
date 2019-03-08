@@ -52,7 +52,11 @@ public class PreferenciaDTO implements Serializable {
      * @return PreferenciaEntity
      */
     public PreferenciaEntity toEntity() {
+        
         PreferenciaEntity nuevo = new PreferenciaEntity();
+        
+        nuevo.setId(this.getIdPreferencia());
+        
         nuevo.setNombrePreferencia(nombrePreferencia);
         return nuevo;
     }
@@ -62,6 +66,9 @@ public class PreferenciaDTO implements Serializable {
      * @param ent 
      */
     public PreferenciaDTO(PreferenciaEntity ent) {
+        
+        this.idPreferencia = ent.getId();
+        
         this.nombrePreferencia = ent.getNombrePreferencia();
     }
 }

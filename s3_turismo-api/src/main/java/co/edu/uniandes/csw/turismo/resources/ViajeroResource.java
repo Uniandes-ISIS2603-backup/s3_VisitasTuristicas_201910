@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Juan Sebastian Gutierrez S.
  */
 @Path("/viajeros")
 @Produces("application/json")
@@ -31,6 +31,12 @@ public class ViajeroResource {
     @Inject
     private ViajeroLogic logic;
     
+    /**
+     * crea un viajero
+     * @param viajero
+     * @return nuevoViajero
+     * @throws BusinessLogicException 
+     */
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) throws BusinessLogicException {
         ViajeroDTO nuevoV = new ViajeroDTO(logic.createViajero(viajero.toEntity()));
@@ -38,12 +44,21 @@ public class ViajeroResource {
         return nuevoV;
     }
     
-    
+    /**
+     * retorna un viajero con un id
+     * @param pIdViajero
+     * @return Viajero
+     */
     @GET
     public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
         return new ViajeroDTO();
     }
     
+    /**
+     * asigna un viajero
+     * @param idViajero
+     * @param nuevoViajero 
+     */
     @PUT
     public void setViajero(@PathParam("id") Long idViajero, ViajeroDTO nuevoViajero) {
         
@@ -66,20 +81,82 @@ public class ViajeroResource {
         
 //    }
     
+    /**
+     * elimina un viajero
+     * @param pIdViajero 
+     */
     @DELETE
     public void deleteViajero(Long pIdViajero) {
         
     }
-//    @DELETE
-//    public void deleteViajeroInformacion(Long pIdViajero) {
-        
-//    }
-    
+
+    /**
+     * asigna path para tarjetaDeCredito
+     * @param viajeroId
+     * @return TarjetaDeCreditoResource
+     * @throws BusinessLogicException 
+     */
     @Path("{viajeroId: \\d+/tarjetaDeCredito}")
     public Class<TarjetaDeCreditoResource> getTarjetaDeCreditoResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
         if(logic.getViajero(viajeroId) == null) {
             throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
         }
         return TarjetaDeCreditoResource.class;
+    }
+    
+    /**
+     * asigna path viaje
+     * @param viajeroId
+     * @return ViajeResource
+     * @throws BusinessLogicException 
+     */
+    @Path("{viajeroId: \\d+/viaje}")
+    public Class<ViajeResource> getViajeResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
+        if(logic.getViajero(viajeroId) == null) {
+            throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
+        }
+        return ViajeResource.class;
+    }
+    
+    /**
+     * asigna path preferencia
+     * @param viajeroId
+     * @return PreferenciaResource
+     * @throws BusinessLogicException 
+     */
+    @Path("{viajeroId: \\d+/preferencias}")
+    public Class<PreferenciaResource> getPreferenciaResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
+        if (logic.getViajero(viajeroId) == null) {
+            throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
+        }
+        return PreferenciaResource.class;
+    }
+    
+    /**
+     * asigna path planTuristico
+     * @param viajeroId
+     * @return PlanTuristicoResource
+     * @throws BusinessLogicException 
+     */
+    @Path("{viajeroId: \\d+/planesTuristicos")
+    public Class<PlanTuristicoResource> getPlanTuristicoResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
+        if (logic.getViajero(viajeroId) == null) {
+            throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
+        }
+        return PlanTuristicoResource.class;
+    }
+    
+    /**
+     * asigna path factura
+     * @param viajeroId
+     * @return FacturaResource
+     * @throws BusinessLogicException 
+     */
+    @Path("{viajeroId: \\d+/planesTuristicos")
+    public Class<FacturasResources> getFacturaResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
+        if (logic.getViajero(viajeroId) == null) {
+            throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
+        }
+        return FacturasResources.class;
     }
 }

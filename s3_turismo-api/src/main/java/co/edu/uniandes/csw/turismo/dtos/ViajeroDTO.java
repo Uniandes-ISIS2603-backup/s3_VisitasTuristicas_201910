@@ -181,6 +181,9 @@ public class ViajeroDTO implements Serializable {
      */
     public ViajeroEntity toEntity() {
         ViajeroEntity nuevo = new ViajeroEntity();
+        
+        nuevo.setId(this.idUsuario);
+        
         nuevo.setNombreUsuario(nombreUsuario);
         nuevo.setCantidadPlanes(this.cantidadPlanes);
         nuevo.setIdioma(idioma);
@@ -198,6 +201,9 @@ public class ViajeroDTO implements Serializable {
      * @param ent 
      */
     public ViajeroDTO(ViajeroEntity ent) {
+        
+        this.idUsuario = ent.getId();
+        
         this.nombreUsuario = ent.getNombreUsuario();
         this.idioma = ent.getIdioma();
         this.informacionPersonal = ent.getInformacionPersonal();
