@@ -96,7 +96,7 @@ public class BlogDeViajeroLogic {
          */
          public BlogDeViajeroEntity updateBlog(Long planId, BlogDeViajeroEntity blogDeViajeroEntity) throws BusinessLogicException {
 
-        if (persistence.find(planId, blogDeViajeroEntity.getId())!=null) {
+        if (persistence.find(planId, blogDeViajeroEntity.getId())==null) {
             throw new BusinessLogicException("No existe blog de viajero a actualizar");
         }
         if(blogDeViajeroEntity.getLikes()<0)

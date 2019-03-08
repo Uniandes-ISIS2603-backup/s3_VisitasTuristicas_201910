@@ -173,7 +173,8 @@ public class BlogDeViajeroLogicTest {
      */
     @Test
     public void updateBlogTest() throws BusinessLogicException {
-        BlogDeViajeroEntity entity = data.get(0);
+        BlogDeViajeroEntity entity = data.get(0); int i = 1;
+       
         BlogDeViajeroEntity pojoEntity = factory.manufacturePojo(BlogDeViajeroEntity.class);
         String a = "asdasda";
 
