@@ -37,7 +37,7 @@ public class TarjetaDeCreditoLogicTest {
    private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private TarjetaDeCreditoLogic planTuristicoLogic;
+    private TarjetaDeCreditoLogic tarjetaLogic;
     @Inject
     private TarjetaDeCreditoPersistence ep;
     @PersistenceContext
@@ -108,14 +108,14 @@ public class TarjetaDeCreditoLogicTest {
 
         TarjetaDeCreditoEntity newTarjetaDeCreditoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         newTarjetaDeCreditoEntity.setNumero(data.get(0).getNumero());
-        planTuristicoLogic.createTarjetaDeCredito(newTarjetaDeCreditoEntity);
+        tarjetaLogic.createTarjetaDeCredito(newTarjetaDeCreditoEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
     public void createTarjetaDeCreditoConDescripcionInvalidoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         newEntity.setNumero("");
-        planTuristicoLogic.createTarjetaDeCredito(newEntity);
+        tarjetaLogic.createTarjetaDeCredito(newEntity);
     }
 
     @Test
@@ -136,8 +136,9 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         
         pojoEntity.setId(entity.getId());
+        pojoEntity.setCodigoSeguridad(entity.getCodigoSeguridad());
         
-        planTuristicoLogic.updateTarjetaDeCredito(pojoEntity.getId(), pojoEntity);
+        tarjetaLogic.updateTarjetaDeCredito(pojoEntity.getId(), pojoEntity);
         
         TarjetaDeCreditoEntity resp = em.find(TarjetaDeCreditoEntity.class, entity.getId());
         
@@ -154,7 +155,7 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         pojoEntity.setNumero("");
-        planTuristicoLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
@@ -162,7 +163,7 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         pojoEntity.setNumero(null);
-        planTuristicoLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
     }
     
     
@@ -171,7 +172,7 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         pojoEntity.setCodigoSeguridad(-1);
-        planTuristicoLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -179,7 +180,7 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         pojoEntity.setNumero("");
-        planTuristicoLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
     }
     
      @Test(expected = BusinessLogicException.class)
@@ -187,7 +188,7 @@ public class TarjetaDeCreditoLogicTest {
         TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         pojoEntity.setNumero(null);
-        planTuristicoLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
     }
     
      
