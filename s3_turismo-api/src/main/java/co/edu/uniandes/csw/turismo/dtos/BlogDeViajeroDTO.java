@@ -30,13 +30,13 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Atributo que representa los comentarios realizados en el
 	 * blog de viajero correspondiente a un plan turístico
      */
-    private ArrayList<String> comentarios;
+    private String comentarios;
 
     /*
 	 *Atributo que representa las sugerencias realizadas en el
 	 * blog de viajero correspondiente a un plan turístico
      */
-    private ArrayList<String> sugerencias;
+    private String sugerencias;
 
     /*
 	 *Atributo que representa la cantidad de likes recibidos en el blog de viajero
@@ -59,7 +59,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Retornar la lista de comentarios de un blog de viajero
 	 *@return comentarios
      */
-    public ArrayList<String> getComentarios() {
+    public String getComentarios() {
         return comentarios;
     }
 
@@ -67,7 +67,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Cambia la lista de comentarios de un blog de viajero
 	 *@param comentarios
      */
-    public void setComentarios(ArrayList<String> comentarios) {
+    public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
 
@@ -75,7 +75,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Retornar la lista de sugerencias de un blog de viajero
 	 *@return sugerencias
      */
-    public ArrayList<String> getSugerencias() {
+    public String getSugerencias() {
         return sugerencias;
     }
 
@@ -83,7 +83,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Cambia la lista de sugerencias de un blog de viajero
 	 *@param sugerencias
      */
-    public void setSugerencias(ArrayList<String> sugerencias) {
+    public void setSugerencias(String sugerencias) {
         this.sugerencias = sugerencias;
     }
 
