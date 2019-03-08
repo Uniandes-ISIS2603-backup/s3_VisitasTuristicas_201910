@@ -10,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDTO;
+import co.edu.uniandes.csw.turismo.dtos.ViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -50,9 +51,14 @@ public class ViajeroResource {
      * @return Viajero
      */
     @GET
-    public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
-        return new ViajeroDTO();
+    public ViajeroDetailDTO getViajeros(@PathParam("id")Long pIdViajero) {
+        return new ViajeroDetailDTO();
     }
+    
+    //@GET
+    //public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
+    //    return new ViajeroDTO();
+    //}
     
     /**
      * asigna un viajero
