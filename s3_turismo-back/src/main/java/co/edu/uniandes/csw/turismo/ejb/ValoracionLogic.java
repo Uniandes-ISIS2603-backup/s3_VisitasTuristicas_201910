@@ -50,14 +50,10 @@ public class ValoracionLogic {
         {
             throw new BusinessLogicException("Ya existe una valoracion con el id \""+ valoracion.getId()+"\"");
         }        
-        if(valoracion.getValoracion()<=0||valoracion.getValoracion()>5)
+        if(valoracion.getValoracion()<0||valoracion.getValoracion()>5)
         {
              throw new BusinessLogicException("La valoración debe estar entre 0 y 5, el número\""+ valoracion.getValoracion()+" no es válido\"");
         }
-        //if(valoracion.getComentario()==null)
-        //{
-        // throw new BusinessLogicException("La valoración debe tener un comentario");   
-        //} 
         valoracion = persistence.create(valoracion);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la valoracion");
         return valoracion;

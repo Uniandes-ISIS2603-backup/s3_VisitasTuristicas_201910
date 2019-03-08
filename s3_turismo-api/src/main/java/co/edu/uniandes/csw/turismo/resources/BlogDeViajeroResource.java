@@ -58,17 +58,9 @@ public class BlogDeViajeroResource {
           LOGGER.log(Level.INFO, "BlogDeViajeroResource crearBlog: output: {0}", nuevoBlogDeViajeroDTO.toString());
         return nuevoBlogDeViajeroDTO;
     }
+    
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("blogsDeViajeroPorPlan")
-    public BlogDeViajeroDetailDTO darBlogDeViajero() {
-          BlogDeViajeroDetailDTO bv = new BlogDeViajeroDetailDTO();
-        bv.setComentarios(new ArrayList());
-        bv.setLikes(5);
-        bv.setSugerencias(new ArrayList());
-        return bv;
-    }
+    
  /**
      * Busca y devuelve todos los blogs que existen en un plan.
      *
