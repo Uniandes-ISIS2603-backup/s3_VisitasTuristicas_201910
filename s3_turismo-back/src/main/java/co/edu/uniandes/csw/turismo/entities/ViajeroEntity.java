@@ -8,19 +8,18 @@ package co.edu.uniandes.csw.turismo.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author estudiante
  */
+
 @Entity
 public class ViajeroEntity  extends BaseEntity  implements Serializable{
     
-   enum tipoUsuario {
+   public enum TipoUsuario {
         TURISTA, GUIA, ADMIN
     }
     
@@ -28,9 +27,9 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     private String nombreUsuario;
     private int codigoUnico;
     private String idioma;
-    private tipoUsuario tipoDeUsuario;
+    private TipoUsuario tipoDeUsuario;
     private int cantidadPlanes;
-    public String informacionPersonal;
+    private String informacionPersonal;
     
     @PodamExclude
     @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
@@ -124,11 +123,11 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
         this.idioma = idioma;
     }
 
-    public tipoUsuario getTipoDeUsuario() {
+    public TipoUsuario getTipoDeUsuario() {
         return tipoDeUsuario;
     }
 
-    public void setTipoDeUsuario(tipoUsuario tipoDeUsuario) {
+    public void setTipoDeUsuario(TipoUsuario tipoDeUsuario) {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
