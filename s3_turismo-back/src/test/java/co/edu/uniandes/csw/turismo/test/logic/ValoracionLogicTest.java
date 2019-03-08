@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.turismo.persistence.ValoracionPersistence;
 import static com.ctc.wstx.util.DataUtil.Long;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,6 +36,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class ValoracionLogicTest {
 
+      private Random rand = new Random();
     PodamFactory factory = new PodamFactoryImpl();
     @Inject
     private ValoracionLogic valoracionLogic;
@@ -118,10 +120,13 @@ public class ValoracionLogicTest {
      *
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
+    @Test
     public void createValoracionTest() throws BusinessLogicException {
         ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
         newEntity.setPlanTuristico(dataPlan.get(1));
+        // Obtain a number between [0 - 2000].
+        int n = rand.nextInt(5);
+        newEntity.setValoracion(n);
         ValoracionEntity result = valoracionLogic.createValoracion(dataPlan.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         ValoracionEntity entity = em.find(ValoracionEntity.class, result.getId());
