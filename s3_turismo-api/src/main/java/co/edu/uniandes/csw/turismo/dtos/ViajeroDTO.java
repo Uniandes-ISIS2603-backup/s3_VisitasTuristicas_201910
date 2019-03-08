@@ -20,10 +20,10 @@ public class ViajeroDTO implements Serializable {
     
     private Long idUsuario;
     private String nombreUsuario;
-    private int codigoUnico;
+    private Integer codigoUnico;
     private String idioma;
     private tipoUsuario tipoDeUsuario;
-    private short cantidadPlanes;
+    private Integer cantidadPlanes;
     private String informacionPersonal;
     //necesito un detail de preferencia?
     //private List<PreferenciaDTO> preferencias;
@@ -147,7 +147,7 @@ public class ViajeroDTO implements Serializable {
      * se retorna la cantidad de planes
      * @return cantidadPlanes
      */
-    public short getCantidadPlanes() {
+    public Integer getCantidadPlanes() {
         return cantidadPlanes;
     }
 
@@ -155,7 +155,7 @@ public class ViajeroDTO implements Serializable {
      * se asigna la cantidad de planes
      * @param cantidadPlanes 
      */
-    public void setCantidadPlanes(short cantidadPlanes) {
+    public void setCantidadPlanes(Integer cantidadPlanes) {
         this.cantidadPlanes = cantidadPlanes;
     }
 
