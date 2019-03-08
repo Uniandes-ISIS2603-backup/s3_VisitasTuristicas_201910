@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.PaisEntity;
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.PaisPersistence;
 import co.edu.uniandes.csw.turismo.persistence.PlanTuristicoPersistence;
@@ -32,7 +33,16 @@ public class PaisLogic
         @Inject
         private PlanTuristicoPersistence plan;
         
-        
+          public PaisEntity createPais(PaisEntity paisE) throws BusinessLogicException {
+        if (pais.findByName(paisE.darNombre()) != null) {
+            throw new BusinessLogicException("Ya existe un pais  con ese nombre");
+        }
+        if (!validateNombre(paisE.darNombre())) {
+            throw new BusinessLogicException("El nombre del pais no es valido");
+        }
+        paisE = pais.create(paisE);
+        return paisE;
+    }
         /*
         *Retorna una lista de paises
         *@return listaPais
