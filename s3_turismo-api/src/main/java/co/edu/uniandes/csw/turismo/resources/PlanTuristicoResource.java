@@ -108,7 +108,7 @@ public class PlanTuristicoResource {
      * Error de lógica que se genera cuando no se encuentra el plan.
      *
      */
-    @Path("{planesId: ¡Error! Referencia de hipervínculo no válida.")
+    @Path("{planesId: ¡Error! Referencia de hipervínculo no válida. O_O}")
 
     public Class<ValoracionResource> getValoracionResource(@PathParam("planesId ") Long planesId) {
 
@@ -148,7 +148,7 @@ public class PlanTuristicoResource {
      * Error de lógica que se genera cuando no se encuentra el plan.
      *
      */
-    @Path("{planesId: ¡Error! Referencia de hipervínculo no válida.")
+    @Path("{planesId: ¡Error! Referencia de hipervínculo no válida.}")
 
     public Class<BlogDeViajeroResource> getBlogDeViajeroResource(@PathParam("planesId ") Long planesId) {
 
