@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.turismo.test.logic;
 import co.edu.uniandes.csw.turismo.ejb.BlogDeViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
+import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.BlogDeViajeroPersistence;
 import static com.ctc.wstx.util.DataUtil.Long;
@@ -105,12 +106,10 @@ public class BlogDeViajeroLogicTest {
             em.persist(plan);
             dataPlan.add(plan);
         }
-        for (int i = 0; i < 3; i++) {
-            BlogDeViajeroEntity entity = factory.manufacturePojo(BlogDeViajeroEntity.class);
-            entity.setId(Long.MIN_VALUE);
-            entity.setPlanTuristico(dataPlan.get(1));
-            em.persist(entity);
-            data.add(entity);
+       for (int i = 0; i < 3; i++) {
+            BlogDeViajeroEntity newBlogViajero = factory.manufacturePojo(BlogDeViajeroEntity.class);
+            em.persist(newBlogViajero);
+            data.add(newBlogViajero);
         }
     }
 
@@ -171,30 +170,25 @@ public class BlogDeViajeroLogicTest {
      * Prueba para actualizar un blog.
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
-    @Test
-    public void updateBlogTest() throws BusinessLogicException {
-        BlogDeViajeroEntity entity = data.get(0); int i = 1;
-       
+   @Test
+    public void updateBlogViajeroTest() throws BusinessLogicException {
+        BlogDeViajeroEntity entity = data.get(0);
         BlogDeViajeroEntity pojoEntity = factory.manufacturePojo(BlogDeViajeroEntity.class);
-        String a = "asdasda";
-
-        // Obtain a number between [0 - 2000].
-        int n = rand.nextInt(2000);
-        entity.setLikes(n);
-        entity.setComentarios(a);
+        
         pojoEntity.setId(entity.getId());
-        pojoEntity.setLikes(entity.getLikes());
+        pojoEntity.setSugerencias(entity.getSugerencias());
         pojoEntity.setComentarios(entity.getComentarios());
-        pojoEntity.setSugerencias(a);
-
+        pojoEntity.setLikes(entity.getLikes());
+        
         blogDeViajeroLogic.updateBlog(pojoEntity.getId(), pojoEntity);
-
+        
         BlogDeViajeroEntity resp = em.find(BlogDeViajeroEntity.class, entity.getId());
-
+        
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getComentarios(), resp.getComentarios());
         Assert.assertEquals(pojoEntity.getLikes(), resp.getLikes());
         Assert.assertEquals(pojoEntity.getSugerencias(), resp.getSugerencias());
+
     }
 
     /**
