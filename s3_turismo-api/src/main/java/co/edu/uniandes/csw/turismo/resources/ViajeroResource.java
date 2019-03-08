@@ -144,7 +144,7 @@ public class ViajeroResource {
      * @return PlanTuristicoResource
      * @throws BusinessLogicException 
      */
-    @Path("{viajeroId: \\d+/planesTuristicos")
+    @Path("{viajeroId: \\d+/planesTuristicos}")
     public Class<PlanTuristicoResource> getPlanTuristicoResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
         if (logic.getViajero(viajeroId) == null) {
             throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
@@ -158,7 +158,7 @@ public class ViajeroResource {
      * @return FacturaResource
      * @throws BusinessLogicException 
      */
-    @Path("{viajeroId: \\d+/planesTuristicos")
+    @Path("{viajeroId: \\d+/facturas}")
     public Class<FacturasResources> getFacturaResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
         if (logic.getViajero(viajeroId) == null) {
             throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
