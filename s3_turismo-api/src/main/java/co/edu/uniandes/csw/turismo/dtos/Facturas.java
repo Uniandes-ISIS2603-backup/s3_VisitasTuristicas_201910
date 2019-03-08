@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
+
 /**
  *
  * @author estudiante
@@ -12,8 +14,9 @@ package co.edu.uniandes.csw.turismo.dtos;
 public class Facturas {
     
     private String descripción;
-            
-    private Integer costo;
+    //En Entity está como Double; jsgs        
+    //private Integer costo;
+    private Double costo;
     
     private Integer id;
 
@@ -34,14 +37,14 @@ public class Facturas {
     /**
      * @return the costo
      */
-    public Integer getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
     /**
      * @param costo the costo to set
      */
-    public void setCosto(Integer costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
     }
 
@@ -57,6 +60,19 @@ public class Facturas {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public FacturaEntity toEntity() {
+        FacturaEntity newEntity = new FacturaEntity();
+        newEntity.setCosto(this.costo);
+        newEntity.setDescripcion(descripción);
+        //newEntity.setViajero(viajero);
+        return newEntity;
+    }
+    
+    public Facturas(FacturaEntity ent) {
+        costo = ent.getCosto();
+        descripción = ent.getDescripcion();
     }
     
 }
