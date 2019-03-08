@@ -7,14 +7,18 @@ package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.ViajeEntity;
 import co.edu.uniandes.csw.turismo.persistence.ViajePersistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -28,9 +32,13 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class ViajePersistenceTest {
     
     @Inject
-    private ViajePersistence ep;
+    private ViajePersistence viajePersistence;
     @PersistenceContext
     private EntityManager em;
+     @Inject
+    UserTransaction utx;
+     
+      private List<ViajeEntity> data = new ArrayList<ViajeEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -42,11 +50,50 @@ public class ViajePersistenceTest {
 
     }
     
+       @Before
+    public void configTest() {
+        try {
+            utx.begin();
+            em.joinTransaction();
+            clearData();
+            insertData();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
+   /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
+    private void insertData() {
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < 3; i++) {
+            ViajeEntity entity = factory.manufacturePojo(ViajeEntity.class);
+
+            em.persist(entity);
+            data.add(entity);
+        }
+    }
+    
+     /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
+    private void clearData() {
+        em.createQuery("delete from ViajeEntity").executeUpdate();
+    }
+    
     @Test
     public void createViajeTest(){
         PodamFactory factory= new PodamFactoryImpl();
         ViajeEntity newViajeEntity = factory.manufacturePojo(ViajeEntity.class);
-        ViajeEntity result= ep.create(newViajeEntity);
+        ViajeEntity result= viajePersistence.create(newViajeEntity);
         
         Assert.assertNotNull(result);
         
@@ -58,4 +105,38 @@ public class ViajePersistenceTest {
         
     }
     
+    @Test
+    public void getViajeTest() {
+        ViajeEntity entity = data.get(0);
+        ViajeEntity newEntity = viajePersistence.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getFechaInicio(), newEntity.getFechaInicio());
+        Assert.assertEquals(entity.getFechaFin(), newEntity.getFechaFin());
+        
+    }
+    
+     @Test
+    public void deleteViajeTest() {
+        ViajeEntity entity = data.get(0);
+        viajePersistence.delete(entity.getId());
+        ViajeEntity deleted = em.find(ViajeEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+    
+    @Test
+    public void updateBookTest() {
+        ViajeEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ViajeEntity newEntity = factory.manufacturePojo(ViajeEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        viajePersistence.update(newEntity);
+
+        ViajeEntity resp = em.find(ViajeEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getFechaInicio(), resp.getFechaInicio());
+        Assert.assertEquals(newEntity.getFechaFin(), resp.getFechaFin());
+        
+    }
 }
