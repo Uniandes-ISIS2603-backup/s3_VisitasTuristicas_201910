@@ -14,41 +14,73 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  *
- * @author estudiante
+ * @author Juan Sebastian Gutierrez S.
  */
 public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<PreferenciaDTO> preferencias;
     private List<Facturas> facturas;
     private List<PlanTuristicoDTO> planesTuristicos;
 
+    /**
+     * se retorna la lista de facturas que tiene el viajero
+     * @return 
+     */
     public List<Facturas> getFacturas() {
         return facturas;
     }
 
+    /**
+     * se asigna la lista de facturas
+     * @param facturas 
+     */
     public void setFacturas(List<Facturas> facturas) {
         this.facturas = facturas;
     }
 
+    /**
+     * se retorna la lista de planes turisticos
+     * @return planesTuristicos
+     */
     public List<PlanTuristicoDTO> getPlanesTuristicos() {
         return planesTuristicos;
     }
 
+    /**
+     * se asigna la lista de planes turisticos
+     * @param planesTuristicos 
+     */
     public void setPlanesTuristicos(List<PlanTuristicoDTO> planesTuristicos) {
         this.planesTuristicos = planesTuristicos;
     }
     
+    /**
+     * constructor vacio; llama a ViajeroDTO
+     */
     public ViajeroDetailDTO() {
         super();
     }
     
+    /**
+     * se retorna la lista de preferencias
+     * @return preferencias
+     */
     public List<PreferenciaDTO> getPreferencias() {
         return preferencias;
     }
     
+    /**
+     * se asigna la lista de preferencias
+     * @param nuevo 
+     */
     public void setPreferencias(List<PreferenciaDTO> nuevo) {
         preferencias = nuevo;
     }
     
+    /**
+     * constructor que recibe una Entity por parametro
+     * Llama al padre, transforma y asigna todas las listas necesarias
+     * @param ent 
+     */
     public ViajeroDetailDTO(ViajeroEntity ent) {
         super(ent);
         if(ent != null) {
@@ -70,7 +102,34 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
         }
     }
     
+    /**
+     * Transforma todos los atributos a un  nuevo ViajeroEntity
+     * @return ViajeroEntity
+     */
     public ViajeroEntity toEntity() {
-        return new ViajeroEntity();
+        ViajeroEntity toReturn = new ViajeroEntity();
+        toReturn.setCantidadPlanes(this.getCantidadPlanes());
+        toReturn.setIdioma(this.getIdioma());
+        toReturn.setInformacionPersonal(this.getInformacionPersonal());
+        toReturn.setNombreUsuario(this.getNombreUsuario());
+        toReturn.setTarjetaDeCredito(this.getTarjetaDeCredito().toEntity());
+        toReturn.setViaje(this.getViaje().toEntity());
+        List<FacturaEntity> toAdd1 = new ArrayList<>();
+        for(Facturas f : facturas) {
+            toAdd1.add(f.toEntity());
+        }
+        toReturn.setFacturas(toAdd1);
+        List<PlanTuristicoEntity> toAdd2 = new ArrayList<>();
+        for(PlanTuristicoDTO p : planesTuristicos) {
+            toAdd2.add(p.toEntity());
+        }
+        toReturn.setPlanesTuristicos(toAdd2);
+        List<PreferenciaEntity> toAdd3 = new ArrayList<>();
+        for(PreferenciaDTO pr : preferencias) {
+            toAdd3.add(pr.toEntity());
+        }
+        toReturn.setPreferencias(toAdd3);
+        
+        return toReturn;
     }
 }
