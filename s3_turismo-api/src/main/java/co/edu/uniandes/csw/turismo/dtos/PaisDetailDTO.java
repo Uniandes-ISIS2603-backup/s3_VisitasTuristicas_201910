@@ -5,8 +5,12 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
+import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
+import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -29,6 +33,10 @@ public PaisDetailDTO()
          
 }
 
+    public PaisDetailDTO(PaisEntity paisEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 /*
 *Retornar las ciudades
 *@return ciudadesDTO
@@ -48,7 +56,29 @@ public void actualizarCiudades(ArrayList<CiudadDTO> pciudades)
     this.ciudadesDTO=pciudades;
 }
 
+ public PaisEntity toEntity()
+    {
+        PaisEntity aRet = new PaisEntity();
+        
 
+        aRet.cambiarNombre(this.darNombre());
+        aRet.setId(this.darID());
+         if (ciudadesDTO != null) {
+
+            List<CiudadEntity> ciudadEntity = new ArrayList<>();
+
+            for (CiudadDTO dtoCiudad : darCiudades()) {
+
+                ciudadEntity.add(dtoCiudad.toEntity());
+
+            }
+
+            aRet.actualizarCiudades(ciudadEntity);
+
+        }
+        
+        return aRet;
+    }
     
     
 }

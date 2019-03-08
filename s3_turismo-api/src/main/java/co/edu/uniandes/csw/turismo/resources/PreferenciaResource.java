@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Juan Sebastian Gutierrez S.
  */
 
     @Path("/preferencias")
@@ -31,16 +31,31 @@ import javax.ws.rs.core.MediaType;
 public class PreferenciaResource {
     private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());
     
+    /**
+     * crea una preferencia
+     * @param preferencia
+     * @return Preferencia
+     */
     @POST
     public PreferenciaDTO createPreferencia(PreferenciaDTO preferencia) {
         return preferencia;
     }
     
+    /**
+     * retorna un viajero con un id
+     * @param pIdPreferencia
+     * @return 
+     */
     @GET
     public PreferenciaDTO getPreferencia(@PathParam("id")Long pIdPreferencia) {
         return new PreferenciaDTO();
     }
     
+    /**
+     * asigna un viajero
+     * @param idPreferencia
+     * @param nuevaPreferencia 
+     */
     @PUT
     public void setPreferencia(@PathParam("id") Long idPreferencia, PreferenciaDTO nuevaPreferencia) {
         
@@ -51,6 +66,10 @@ public class PreferenciaResource {
 //        preferencias = nuevasPreferencias;
 //    }
     
+    /**
+     * elimina un viajero
+     * @param pIdViajero 
+     */
     @DELETE
     public void deletePreferencia(Long pIdViajero) {
        

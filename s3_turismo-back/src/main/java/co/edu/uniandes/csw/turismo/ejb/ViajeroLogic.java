@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Juan Sebastian Gutierrez S.
  */
 @Stateless
 public class ViajeroLogic {
@@ -26,6 +26,12 @@ public class ViajeroLogic {
     
     private static final Logger LOGGER = Logger.getLogger(ViajeroLogic.class.getName());
     
+    /**
+     * crear un viajero, revisar regla de negocio 
+     * @param entity
+     * @return
+     * @throws BusinessLogicException 
+     */
     public ViajeroEntity createViajero(ViajeroEntity entity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del viajero");
         
@@ -38,6 +44,12 @@ public class ViajeroLogic {
         return entity;
     }
     
+    /**
+     * retorna un viajero basado en ese id. Se asegura que exista el viajero
+     * @param pIdViajero
+     * @return
+     * @throws BusinessLogicException 
+     */
     public ViajeroEntity getViajero(Long pIdViajero) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia búsqueda de un viajero");
         ViajeroEntity viajero = persistence.find(pIdViajero);
@@ -45,6 +57,11 @@ public class ViajeroLogic {
         return viajero;
     }
     
+    /**
+     * retorna todos los viajeros que hay
+     * @return
+     * @throws BusinessLogicException 
+     */
     public List<ViajeroEntity> getViajeros() throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de retorno de todos los viajeros");
         List<ViajeroEntity> lista = persistence.findAll();
@@ -52,6 +69,14 @@ public class ViajeroLogic {
         return lista;
     }
     
+    /**
+     * actualiza un viajero;
+     * se asegura que tenga nombre, idioma, y tipo
+     * @param pIdViajero
+     * @param nouveau
+     * @return
+     * @throws BusinessLogicException 
+     */
     public ViajeroEntity updateViajero(Long pIdViajero, ViajeroEntity nouveau) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia actualizacion de usuario");
         if(nouveau.getIdioma() == null) throw new BusinessLogicException("No tiene un idioma");
@@ -63,6 +88,13 @@ public class ViajeroLogic {
         return viajeroUpdate;
     }
     
+    /**
+     * se elimina un viajero;
+     * se asegura que no esté en la base de datos
+     * @param pIdViajero
+     * @return
+     * @throws BusinessLogicException 
+     */
     public ViajeroEntity deleteViajero(Long pIdViajero) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de eliminacion de viajero");
         ViajeroEntity ret = persistence.find(pIdViajero);
