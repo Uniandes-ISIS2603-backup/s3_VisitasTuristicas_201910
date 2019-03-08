@@ -26,19 +26,13 @@ public class ViajeroDTO implements Serializable {
     private short cantidadPlanes;
     private String informacionPersonal;
     //necesito un detail de preferencia?
-    private List<PreferenciaDTO> preferencias;
+    //private List<PreferenciaDTO> preferencias;
     private TarjetaDeCreditoDTO tarjetaDeCredito;
-    private List<Facturas> facturas;
-    private List<PlanTuristicoDTO> planesTuristicos;
+    //private List<Facturas> facturas;
+    //private List<PlanTuristicoDTO> planesTuristicos;
     private ViajeDTO viaje;
 
-    public List<PreferenciaDTO> getPreferencias() {
-        return preferencias;
-    }
-
-    public void setPreferencias(List<PreferenciaDTO> preferencias) {
-        this.preferencias = preferencias;
-    }
+    
 
     public TarjetaDeCreditoDTO getTarjetaDeCredito() {
         return tarjetaDeCredito;
@@ -48,21 +42,7 @@ public class ViajeroDTO implements Serializable {
         this.tarjetaDeCredito = tarjetaDeCredito;
     }
 
-    public List<Facturas> getFacturas() {
-        return facturas;
-    }
-
-    public void setFacturas(List<Facturas> facturas) {
-        this.facturas = facturas;
-    }
-
-    public List<PlanTuristicoDTO> getPlanesTuristicos() {
-        return planesTuristicos;
-    }
-
-    public void setPlanesTuristicos(List<PlanTuristicoDTO> planesTuristicos) {
-        this.planesTuristicos = planesTuristicos;
-    }
+    
 
     public ViajeDTO getViaje() {
         return viaje;
@@ -134,7 +114,7 @@ public class ViajeroDTO implements Serializable {
         nuevo.setIdioma(idioma);
         //nuevo.setFacturas(facturas.toEntity());
         //nuevo.setPlanesTuristicos(planesTuristicos.toEntity());
-        //nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
+        nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
         
         //nuevo.setTipoDeUsuario(tipoDeUsuario);
         nuevo.setInformacionPersonal(informacionPersonal);
@@ -146,6 +126,6 @@ public class ViajeroDTO implements Serializable {
         this.idioma = ent.getIdioma();
         this.informacionPersonal = ent.getInformacionPersonal();
         //this.facturas = new Facturas(ent.getFacturas());
-        //this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
+        this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
     }
 }
