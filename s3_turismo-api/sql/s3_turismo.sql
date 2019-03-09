@@ -14,3 +14,28 @@ insert into PreferenciaEntity(nombrePreferencia) values ('Queso');
 insert into PreferenciaEntity(nombrePreferencia) values ('Cabezas decapitadas');
 insert into PreferenciaEntity(nombrePreferencia) values ('Museos');
 insert into PreferenciaEntity(nombrePreferencia) values ('Pizza');
+
+
+
+insert into PaisEntity(id,nombre) values (1,'Colombia');
+insert into PaisEntity(id,nombre) values (2,'Canada');
+insert into PaisEntity(id,nombre) values (3,'España');
+insert into PaisEntity(id,nombre) values (4,'Costa Rica');
+insert into PaisEntity(id,nombre) values (5,'Paises Bajos');
+
+insert into CiudadEntity(id,nombre) values (1,'Bogota');
+insert into CiudadEntity(id,nombre) values (2,'Otawa');
+insert into CiudadEntity(id,nombre) values (3,'Madrid');
+insert into CiudadEntity(id,nombre) values (4,'San Juan');
+insert into CiudadEntity(id,nombre) values (5,'Amsterdam');
+
+
+insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Iglesia','monserrate');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Parque','Parque Otawa');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Palacio','Palacio de oriente');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Castillo','Castillo san jose');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Calle','Calle rosa');
+
+
+
+
