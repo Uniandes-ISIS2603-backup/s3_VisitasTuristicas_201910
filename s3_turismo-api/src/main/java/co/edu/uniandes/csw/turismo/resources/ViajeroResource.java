@@ -12,8 +12,11 @@ import javax.ws.rs.Path;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDTO;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -40,9 +43,13 @@ public class ViajeroResource {
      */
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) throws BusinessLogicException {
-        ViajeroDTO nuevoV = new ViajeroDTO(logic.createViajero(viajero.toEntity()));
+        //ViajeroDTO nuevoV = new ViajeroDTO(logic.createViajero(viajero.toEntity()));
         //logic.createViajero(viajero.toEntity());
-        return nuevoV;
+        //return nuevoV;
+        LOGGER.log(Level.INFO, "CrearViajeroResource crearViajero", "a");
+        ViajeroDTO nuevoViajeroDTO = new ViajeroDTO(logic.createViajero( viajero.toEntity()));
+          LOGGER.log(Level.INFO, "PreferenciaResource crearBlog: output: {0}", nuevoViajeroDTO.toString());
+        return nuevoViajeroDTO;
     }
     
     /**
@@ -51,10 +58,28 @@ public class ViajeroResource {
      * @return Viajero
      */
     @GET
-    public ViajeroDetailDTO getViajeros(@PathParam("id")Long pIdViajero) {
-        return new ViajeroDetailDTO();
+    public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) throws BusinessLogicException {
+        //return new ViajeroDetailDTO();
+        LOGGER.log(Level.INFO, "getViajeroResource");
+        ViajeroDTO listaDTOs = new ViajeroDTO(logic.getViajero(pIdViajero));
+        LOGGER.log(Level.INFO, "getViajeroResource", listaDTOs.toString());
+        return listaDTOs;
     }
+    //@GET
+    //public List<ViajeroDTO> getViajeros(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
+    //    LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", planTuristicoId);
+    //    List<ViajeroDTO> listaDTOs = listEntity2DTO(logic.getViajeros());
+    //    LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
+    //    return listaDTOs;
+    //}
     
+    //private List<ViajeroDTO> listEntity2DTO(List<ViajeroEntity> entityList)throws BusinessLogicException {
+    //    List<ViajeroDTO> list = new ArrayList<ViajeroDTO>();
+    //    for (ViajeroEntity entity : entityList) {
+    //        list.add(new ViajeroDTO(entity));
+    //    }
+    //    return list;
+    //}
     //@GET
     //public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
     //    return new ViajeroDTO();
@@ -66,8 +91,9 @@ public class ViajeroResource {
      * @param nuevoViajero 
      */
     @PUT
-    public void setViajero(@PathParam("id") Long idViajero, ViajeroDTO nuevoViajero) {
-        
+    public void setViajero(@PathParam("id") Long idViajero, ViajeroDTO nuevoViajero) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "updateViajero");
+        logic.updateViajero(idViajero, nuevoViajero.toEntity());
     }
     
 //    @PUT
@@ -92,8 +118,8 @@ public class ViajeroResource {
      * @param pIdViajero 
      */
     @DELETE
-    public void deleteViajero(Long pIdViajero) {
-        
+    public void deleteViajero(Long pIdViajero) throws BusinessLogicException {
+        logic.deleteViajero(pIdViajero);
     }
 
     /**
