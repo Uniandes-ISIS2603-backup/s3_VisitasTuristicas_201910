@@ -40,9 +40,6 @@ public class ViajePersistence{
         TypedQuery<ViajeEntity> query= em.createQuery("select u from ViajeEntity u", ViajeEntity.class);
         return query.getResultList();
     }
-    
-    
-    
     public ViajeEntity update(ViajeEntity viajeEntity) {
         LOGGER.log(Level.INFO, "Actualizando el viaje con id={0}", viajeEntity.getId());
         return em.merge(viajeEntity);
