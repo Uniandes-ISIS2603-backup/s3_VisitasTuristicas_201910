@@ -102,7 +102,7 @@ public class ViajePersistenceTest {
         Assert.assertEquals(newViajeEntity.getFechaInicio(),entity.getFechaInicio());
         Assert.assertEquals(newViajeEntity.getFechaFin(),entity.getFechaFin());
         
-        
+
     }
     
     @Test

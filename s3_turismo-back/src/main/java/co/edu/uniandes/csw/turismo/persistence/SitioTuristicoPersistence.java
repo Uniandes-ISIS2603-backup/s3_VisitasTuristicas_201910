@@ -20,63 +20,61 @@ import javax.persistence.TypedQuery;
  *
  * @author David Fonseca
  */
-
 @Stateless
 public class SitioTuristicoPersistence {
+
     private static final Logger LOGGER = Logger.getLogger(SitioTuristicoPersistence.class.getName());
 
-    
-    @PersistenceContext(unitName="turismoPU")
+    @PersistenceContext(unitName = "turismoPU")
     protected EntityManager em;
-    
+
     /*
     *Crea un nuevo sitio turistico
     *@param sitioEntity
-    */
-    public SitioTuristicoEntity create(SitioTuristicoEntity sitioEntity)
-    {
-       LOGGER.log(Level.INFO, "Creando un sitio turistico nuevo");
-       em.persist(sitioEntity);
-       LOGGER.log(Level.INFO, "SitioTuristio creado");
-       return sitioEntity;
+     */
+    public SitioTuristicoEntity create(SitioTuristicoEntity sitioEntity) {
+        LOGGER.log(Level.INFO, "Creando un sitio turistico nuevo");
+        em.persist(sitioEntity);
+        LOGGER.log(Level.INFO, "SitioTuristio creado");
+        return sitioEntity;
     }
-    
+
     /*
     *Retorna la lista de sitios turisticos
     *@return lista de sitios turisticos
-    */
+     */
     public List<SitioTuristicoEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todos los Sitios Turisticos");
-        
+
         //TODO consulta sql
         Query q = em.createQuery("SELECT U FROM SitioTuristicoEntity U ", CiudadEntity.class);
         return q.getResultList();
     }
-    
+
     /*
     *Busca un sitio turistico con el id dado
     *@return SitioTuristicoEntity
-    */
+     */
     public SitioTuristicoEntity find(Long ciudadId) {
         LOGGER.log(Level.INFO, "Consultando el SitioTuristico con id={0}", ciudadId);
         return em.find(SitioTuristicoEntity.class, ciudadId);
     }
-    
+
     /*
     *Actualiza y retorna un sitio turistico
     *@return sitioEntity
-    */
+     */
     public SitioTuristicoEntity update(SitioTuristicoEntity sitioEntity) {
         LOGGER.log(Level.INFO, "Actualizando el sitioTuristico con id={0}", sitioEntity.getId());
         return em.merge(sitioEntity);
-        
+
     }
-    
+
     /*
     *Busca un sitio turistico por nombre
     *@param name
     *@return result
-    */
+     */
     public SitioTuristicoEntity findByName(String nombre) {
         LOGGER.log(Level.INFO, "Consultando sitio turistico por nombre ", nombre);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
@@ -96,5 +94,5 @@ public class SitioTuristicoPersistence {
         LOGGER.log(Level.INFO, "Saliendo de consultar SitioTuristico por nombre ", nombre);
         return result;
     }
-    
+
 }

@@ -19,64 +19,62 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class PaisEntity extends BaseEntity implements Serializable {
-     /*
-    *Atributo que representa el nombre de un pais
-    */
-   private String nombre;
- 
 
-   @PodamExclude
-   @OneToMany( mappedBy ="pais", cascade = CascadeType.PERSIST,orphanRemoval = true)
-   private List<CiudadEntity> ciudades;
-   
-   
-   @PodamExclude
-   @ManyToOne
-   private PlanTuristicoEntity plan;
-   
-   
-   public void actualizarPlan(PlanTuristicoEntity pplan)
-   {
-       this.plan=pplan;
-   }
-   public PlanTuristicoEntity darPlanTuristico()
-   {
-     return plan;  
-   }
-   /*
+    /*
+    *Atributo que representa el nombre de un pais
+     */
+    private String nombre;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CiudadEntity> ciudades;
+
+    @PodamExclude
+    @ManyToOne
+    private PlanTuristicoEntity plan;
+
+    /*
+   *Actualiza el plan turistico
+   *@param pplan
+     */
+    public void actualizarPlan(PlanTuristicoEntity pplan) {
+        this.plan = pplan;
+    }
+
+    public PlanTuristicoEntity darPlanTuristico() {
+        return plan;
+    }
+
+    /*
    *Retorna las ciudades
    *@return ciudades
-   */
-public List<CiudadEntity> darCiudades()
-{
-    return ciudades;
-}
+     */
+    public List<CiudadEntity> darCiudades() {
+        return ciudades;
+    }
 
-/*
+    /*
 *Actualiza la lista de ciudades
 *@param pciudad
-*/
-public void actualizarCiudades(List<CiudadEntity> pciudad)
-{
-    this.ciudades=pciudad;
-}
-   /*
+     */
+    public void actualizarCiudades(List<CiudadEntity> pciudad) {
+        this.ciudades = pciudad;
+    }
+
+    /*
    *Retornar el nombre del pais
    *@return nombre
-   */
-   public String darNombre()
-   {
-       return nombre;
-   }
+     */
+    public String darNombre() {
+        return nombre;
+    }
 
-   /*
+    /*
    *Cambia el nombre del pais
    *@param pNombre
-   */
-   public void cambiarNombre(String pNombre)
-   {
-       this.nombre=pNombre;
-   }
-   
-    
+     */
+    public void cambiarNombre(String pNombre) {
+        this.nombre = pNombre;
+    }
+
 }

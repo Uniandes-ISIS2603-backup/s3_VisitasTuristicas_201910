@@ -6,11 +6,10 @@
 package co.edu.uniandes.csw.turismo.test.logic;
 
 import co.edu.uniandes.csw.turismo.ejb.PaisLogic;
-import co.edu.uniandes.csw.turismo.ejb.PaisLogic;
-import co.edu.uniandes.csw.turismo.entities.PaisEntity;
+
 import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.turismo.persistence.PaisPersistence;
+
 import co.edu.uniandes.csw.turismo.persistence.PaisPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +34,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class PaisLogicTest {
-    
-        private PodamFactory factory = new PodamFactoryImpl();
 
-        @Inject
+    private final PodamFactory factory = new PodamFactoryImpl();
+
+    @Inject
     private PaisLogic paisLogic;
     @Inject
     private PaisPersistence ep;
@@ -48,8 +47,13 @@ public class PaisLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<PaisEntity> data = new ArrayList<>();
+    private final List<PaisEntity> data = new ArrayList<>();
 
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -61,6 +65,9 @@ public class PaisLogicTest {
 
     }
 
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -78,10 +85,17 @@ public class PaisLogicTest {
         }
     }
 
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from PaisEntity").executeUpdate();
     }
 
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
 
         for (int i = 0; i < 3; i++) {
@@ -90,9 +104,13 @@ public class PaisLogicTest {
             data.add(newPaisEntity);
         }
     }
-    
-    
-     @Test
+
+    /**
+     * Prueba para crear una ciudad
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
+    @Test
     public void createPaisTest() throws BusinessLogicException {
 
         PaisEntity newPaisEntity = factory.manufacturePojo(PaisEntity.class);
@@ -106,6 +124,11 @@ public class PaisLogicTest {
 
     }
 
+    /**
+     * Prueba para crear un pais con nombre inválido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createPaisConMismoNombreTest() throws BusinessLogicException {
 
@@ -113,7 +136,12 @@ public class PaisLogicTest {
         newPaisEntity.cambiarNombre(data.get(0).darNombre());
         paisLogic.createPais(newPaisEntity);
     }
-    
+
+    /**
+     * Prueba para crear un pais con nombre inválido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createPaisConNombreInvalidoTest() throws BusinessLogicException {
         PaisEntity newEntity = factory.manufacturePojo(PaisEntity.class);
@@ -121,36 +149,48 @@ public class PaisLogicTest {
         paisLogic.createPais(newEntity);
     }
 
-    
-
+    /**
+     * Prueba para actualizar un pais.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test
     public void updatePaisTest() throws BusinessLogicException {
         PaisEntity entity = data.get(0);
         entity.cambiarNombre("hola");
         PaisEntity pojoEntity = factory.manufacturePojo(PaisEntity.class);
-        
+
         pojoEntity.setId(entity.getId());
         pojoEntity.cambiarNombre(entity.darNombre());
-        
+
         paisLogic.updatePais(pojoEntity.getId(), pojoEntity);
-        
+
         PaisEntity resp = em.find(PaisEntity.class, entity.getId());
-        
+
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.darNombre(), resp.darNombre());
         Assert.assertEquals(pojoEntity.darPlanTuristico(), resp.darPlanTuristico());
 
-
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    /**
+     * Prueba para actualizar un pais con nombre invalido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
     public void updatePaisConNombreVacioTest() throws BusinessLogicException {
         PaisEntity entity = data.get(0);
         PaisEntity pojoEntity = factory.manufacturePojo(PaisEntity.class);
         pojoEntity.cambiarNombre("");
         paisLogic.updatePais(entity.getId(), pojoEntity);
     }
-    
+
+    /**
+     * Prueba para actualizar un pais con nombre invalido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePaisConNombreNuloTest() throws BusinessLogicException {
         PaisEntity entity = data.get(0);
@@ -158,8 +198,5 @@ public class PaisLogicTest {
         pojoEntity.cambiarNombre(null);
         paisLogic.updatePais(entity.getId(), pojoEntity);
     }
-    
-   
-    
-   
+
 }

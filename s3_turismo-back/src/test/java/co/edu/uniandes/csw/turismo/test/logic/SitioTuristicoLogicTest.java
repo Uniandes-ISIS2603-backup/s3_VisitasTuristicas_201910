@@ -47,6 +47,11 @@ public class SitioTuristicoLogicTest {
 
     private List<SitioTuristicoEntity> data = new ArrayList<>();
 
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -58,6 +63,9 @@ public class SitioTuristicoLogicTest {
 
     }
 
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -75,10 +83,19 @@ public class SitioTuristicoLogicTest {
         }
     }
 
+    
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from SitioTuristicoEntity").executeUpdate();
     }
 
+    
+     /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
 
         for (int i = 0; i < 3; i++) {
@@ -88,7 +105,11 @@ public class SitioTuristicoLogicTest {
         }
     }
     
-    
+     /**
+     * Prueba para crear un sitio turistico
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
      @Test
     public void createSitioTuristicoTest() throws BusinessLogicException {
 
@@ -103,6 +124,11 @@ public class SitioTuristicoLogicTest {
 
     }
 
+    /**
+     * Prueba para crear un sitio turistico con nombre invalido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createSitioTuristicoConMismoNombreTest() throws BusinessLogicException {
 
@@ -111,6 +137,11 @@ public class SitioTuristicoLogicTest {
         sitioTuristicoLogic.createSitio(newSitioTuristicoEntity);
     }
     
+    /**
+     * Prueba para crear un sitio turistico con nombre invalido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createSitioTuristicoConNombreInvalidoTest() throws BusinessLogicException {
         SitioTuristicoEntity newEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
@@ -119,7 +150,10 @@ public class SitioTuristicoLogicTest {
     }
 
     
-
+/**
+     * Prueba para actualizar un sitio turistico.
+     *
+     */
     @Test
     public void updateSitioTuristicoTest() throws BusinessLogicException {
         SitioTuristicoEntity entity = data.get(0);
@@ -140,6 +174,10 @@ public class SitioTuristicoLogicTest {
 
     }
     
+    /**
+     * Prueba para actualizar un sitio turistico invalido.
+     *
+     */
      @Test(expected = BusinessLogicException.class)
     public void updateSitioTuristicoConNombreVacioTest() throws BusinessLogicException {
         SitioTuristicoEntity entity = data.get(0);
@@ -148,6 +186,10 @@ public class SitioTuristicoLogicTest {
         sitioTuristicoLogic.updateSitio(entity.getId(), pojoEntity);
     }
     
+    /**
+     * Prueba para actualizar un sitio turistico invalido.
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateSitioTuristicoConNombreNuloTest() throws BusinessLogicException {
         SitioTuristicoEntity entity = data.get(0);

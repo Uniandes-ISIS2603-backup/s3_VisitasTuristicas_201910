@@ -20,63 +20,60 @@ import javax.persistence.TypedQuery;
  *
  * @author David Fonseca
  */
-
 @Stateless
 public class CiudadPersistence {
-   
-        private static final Logger LOGGER = Logger.getLogger(CiudadPersistence.class.getName());
 
-    
-    @PersistenceContext(unitName="turismoPU")
+    private static final Logger LOGGER = Logger.getLogger(CiudadPersistence.class.getName());
+
+    @PersistenceContext(unitName = "turismoPU")
     protected EntityManager em;
-    
+
     /*
     *Crea una nueva ciudad
     *@param ciudadEntity
-    */
-    public CiudadEntity create(CiudadEntity ciudadEntity)
-    {
-       LOGGER.log(Level.INFO, "Creando una ciudad nueva");
-       em.persist(ciudadEntity);
-       LOGGER.log(Level.INFO, "Ciudad creada");
-       return ciudadEntity;
+     */
+    public CiudadEntity create(CiudadEntity ciudadEntity) {
+        LOGGER.log(Level.INFO, "Creando una ciudad nueva");
+        em.persist(ciudadEntity);
+        LOGGER.log(Level.INFO, "Ciudad creada");
+        return ciudadEntity;
     }
-    
+
     /*
     *Retorna la lista de ciudades
     *@return lista de ciudades
-    */
+     */
     public List<CiudadEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todos las ciudades");
-        
+
         Query q = em.createQuery("SELECT U FROM CiudadEntity U ", CiudadEntity.class);
         return q.getResultList();
     }
-    
+
     /*
     *Busca una ciudad con el id dado
     *@return CiudadEntity
-    */
+     */
     public CiudadEntity find(Long ciudadId) {
         LOGGER.log(Level.INFO, "Consultando la ciudad con id={0}", ciudadId);
         return em.find(CiudadEntity.class, ciudadId);
     }
-    
+
     /*
     *Actualiza y retorna una ciudad
     *@return CiudadEntity
-    */
+     */
     public CiudadEntity update(CiudadEntity ciudadEntity) {
         LOGGER.log(Level.INFO, "Actualizando la ciudad con id={0}", ciudadEntity.getId());
         return em.merge(ciudadEntity);
     }
-    
+
     /*
     *Busca una ciudad por nombre
     *@param name
     *@return result
-    */
-     public CiudadEntity findByName(String nombre) {
+     */
+    public CiudadEntity findByName(String nombre) {
         LOGGER.log(Level.INFO, "Consultando Ciudad por nombre ", nombre);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From CiudadEntity e where e.nombre = :nombre", CiudadEntity.class);
@@ -95,5 +92,5 @@ public class CiudadPersistence {
         LOGGER.log(Level.INFO, "Saliendo de consultar Ciudad por nombre ", nombre);
         return result;
     }
-    
+
 }

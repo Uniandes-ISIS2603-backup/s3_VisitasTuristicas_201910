@@ -34,7 +34,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class CiudadLogicTest {
     
-        private PodamFactory factory = new PodamFactoryImpl();
+        private final PodamFactory factory = new PodamFactoryImpl();
 
         @Inject
     private CiudadLogic paisLogic;
@@ -46,8 +46,15 @@ public class CiudadLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CiudadEntity> data = new ArrayList<>();
+    private final List<CiudadEntity> data = new ArrayList<>();
 
+    
+    
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -58,7 +65,9 @@ public class CiudadLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
 
     }
-
+/**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -75,11 +84,16 @@ public class CiudadLogicTest {
             }
         }
     }
-
+/**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from CiudadEntity").executeUpdate();
     }
-
+/**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
 
         for (int i = 0; i < 3; i++) {
@@ -89,7 +103,11 @@ public class CiudadLogicTest {
         }
     }
     
-    
+    /**
+     * Prueba para crear una ciudad
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
      @Test
     public void createCiudadTest() throws BusinessLogicException {
 
@@ -103,7 +121,11 @@ public class CiudadLogicTest {
         Assert.assertEquals(newCiudadEntity.darNombre(), entity.darNombre());
 
     }
-
+/**
+     * Prueba para crear una ciudad con el mismo nombre
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createCiudadConMismoNombreTest() throws BusinessLogicException {
 
@@ -111,7 +133,11 @@ public class CiudadLogicTest {
         newCiudadEntity.actualizarNombre(data.get(0).darNombre());
         paisLogic.createCiudad(newCiudadEntity);
     }
-    
+    /**
+     * Prueba para crear una ciudad con nombre invalido
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void createCiudadConNombreInvalidoTest() throws BusinessLogicException {
         CiudadEntity newEntity = factory.manufacturePojo(CiudadEntity.class);
@@ -120,7 +146,11 @@ public class CiudadLogicTest {
     }
 
     
-
+/**
+     * Prueba para actualizar una ciudad.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test
     public void updateCiudadTest() throws BusinessLogicException {
         CiudadEntity entity = data.get(0);
@@ -139,7 +169,11 @@ public class CiudadLogicTest {
 
 
     }
-    
+    /**
+     * Prueba para actualizar una ciudad con nombre vacio.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
      @Test(expected = BusinessLogicException.class)
     public void updateCiudadConNombreVacioTest() throws BusinessLogicException {
         CiudadEntity entity = data.get(0);
@@ -148,6 +182,12 @@ public class CiudadLogicTest {
         paisLogic.updateCiudad(entity.getId(), pojoEntity);
     }
     
+    
+    /**
+     * Prueba para actualizar un ciudad con nombre nulo.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateCiudadConNombreNuloTest() throws BusinessLogicException {
         CiudadEntity entity = data.get(0);

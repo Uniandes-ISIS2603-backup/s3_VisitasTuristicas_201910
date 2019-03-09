@@ -1,5 +1,8 @@
 delete from ViajeroEntity;
 delete from PreferenciaEntity;
+delete from PaisEntity;
+delete from CiudadEntity;
+delete from SitioTuristicoEntity;
 
 insert into ViajeroEntity(idUsuario, nombreUsuario, idioma, cantidadPlanes, informacionPersonal) values (7392, 'Felipe Aguirre', 'Ingles', 1, 'soy venezolano');
 insert into ViajeroEntity(idUsuario, nombreUsuario, idioma, cantidadPlanes, informacionPersonal) values (71312, 'Mariana Rodriguez', 'Japones', 7, 'hola');
@@ -31,10 +34,10 @@ insert into CiudadEntity(id,nombre) values (5,'Amsterdam');
 
 
 insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Iglesia','monserrate');
-insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Parque','Parque Otawa');
-insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Palacio','Palacio de oriente');
-insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Castillo','Castillo san jose');
-insert into SitioTuristicoEntity(id,tipo,nombre) values (1,'Calle','Calle rosa');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (2,'Parque','Parque Otawa');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (3,'Palacio','Palacio de oriente');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (4,'Castillo','Castillo san jose');
+insert into SitioTuristicoEntity(id,tipo,nombre) values (5,'Calle','Calle rosa');
 
 
 

@@ -19,70 +19,63 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class CiudadEntity extends BaseEntity implements Serializable {
-    
+
     private String nombre;
     @PodamExclude
-    @OneToMany( mappedBy ="ciudad", cascade = CascadeType.PERSIST,orphanRemoval = true)
+    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<SitioTuristicoEntity> sitios;
-    
+
     @PodamExclude
     @ManyToOne
     private PaisEntity pais;
-    
-    
-    
+
     /*
     *Retorna el pais al que la ciudad pertenece
     *@return pais
-    */
-    public PaisEntity darPais()   
-    {
+     */
+    public PaisEntity darPais() {
         return pais;
     }
-    
+
     /*
     *Actualiza el pais
     *@param ppais
-    */
-    public void actualizarPais(PaisEntity ppais)
-    {
-        this.pais=ppais;
+     */
+    public void actualizarPais(PaisEntity ppais) {
+        this.pais = ppais;
     }
-    
+
     /*
     *Actualiza la lista de sitios turisticos
     *@param sitio
-    */
-    public void actualizarSitios(List<SitioTuristicoEntity> sitio)
-    {
-        this.sitios=sitio;
+     */
+    public void actualizarSitios(List<SitioTuristicoEntity> sitio) {
+        this.sitios = sitio;
     }
-    
+
     /*
     *Retorna la lista de sitios turisticos
     @return sitios
     *
-    */
-    public List<SitioTuristicoEntity> darSitios()
-    {
+     */
+    public List<SitioTuristicoEntity> darSitios() {
         return sitios;
     }
+
     /*
     *Retorna el nombre de la ciudad
     *@return nombre
-    */
-    public String darNombre()
-    {
+     */
+    public String darNombre() {
         return nombre;
     }
-    
+
     /*
     *Actualiza el nombre de la ciudad
     *@param pnombre
-    */
-    public void actualizarNombre(String pnombre)
-    {
-        this.nombre=pnombre;
+     */
+    public void actualizarNombre(String pnombre) {
+        this.nombre = pnombre;
     }
-    
+
 }
