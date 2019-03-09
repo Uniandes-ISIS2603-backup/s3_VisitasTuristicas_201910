@@ -133,6 +133,7 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void updateTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entity = data.get(0);
+        entity.setCodigoSeguridad(15543);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         
         pojoEntity.setId(entity.getId());
