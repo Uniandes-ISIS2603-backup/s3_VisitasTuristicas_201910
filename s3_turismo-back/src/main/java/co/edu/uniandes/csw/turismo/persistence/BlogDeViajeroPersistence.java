@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.entities.ViajeEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,12 +44,17 @@ public class BlogDeViajeroPersistence {
      *
      * Busca si hay algun blog asociada a un plan y con un ID específico
      *
-     * @param planId El ID del lan con respecto al cual se busca
      * @param blogId El ID del blog buscada
      * @return El blog encontrado o null. Nota: Si existe uno o más blogs
      * devuelve siempre la primera que encuentra
      */
-    public BlogDeViajeroEntity find(Long planId, Long blogId) {
+     public BlogDeViajeroEntity find(Long blogId) {
+        return em.find(BlogDeViajeroEntity.class, blogId);
+        
+        
+        
+    }
+    public BlogDeViajeroEntity findPlan(Long planId, Long blogId) {
         LOGGER.log(Level.INFO, "Consultando el blog con id = {0} del plan con id = " + planId, blogId);
         TypedQuery<BlogDeViajeroEntity> q = em.createQuery("select p from BlogDeViajeroEntity p where (p.planTuristico.id = :planId) and (p.id = :blogId)", BlogDeViajeroEntity.class);
         q = q.setParameter("planId", planId);
