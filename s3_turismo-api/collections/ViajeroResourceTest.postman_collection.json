@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "77ccd3fc-9f6e-4951-8aef-ee2e36e55f8a",
+		"name": "ViajeroResourceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all viajeros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "951c5b8a-d29f-43af-8a5d-52aa572c9206",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_turismo-api/api/viajeros",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajeros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{ip}}:{{puerto}}/s3_turismo-api/api/?Content-Type=application/json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "806972b7-8b25-4958-b10a-c1d2e1f0fb95",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(new_id_e, data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code == 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"idUsuario\": \"385783\",\n\t\"nombreUsuario\": \"Daniel Gomez\",\n\t\"codigoUnico\": \"34\",\n\t\"idioma\": \"Spanglish\",\n\t\"TipoDeUsuario\": \"VIAJERO\",\n\t\"cantidadPlanes\": \"2\",\n\t\"informacionPersonal\": \"Hola mundo\",\n\t\"preferencias\": [{\"nombrePreferencia\": \"Iglesia\"}, {\"nombrePreferencia\": \"Parque\"}],\n\t\"tarjetaDeCredito\": {\"numero\": \"1357\", \"banco\": \"Davivienda\", \"codigoSeguridad\": \"123\"},\n\t\"facturas\": [{\"descripcion\": \"Hola que hace\", \"costo\": \"12.5\"}],\n\t\"planesTuristicos\": {\"nombrePlan\": \"Rodaran Cabezas\", \"tipoPlan\": \"Familiar\", \"costoPorPersona\": \"34.2\", \"descripcion\": \"cabezas rodaran\", \"ubicacion\": \"Francia\", \"guia\": \"false\", \"duracion\": \"562\", \"idioma\": \"Dothraki\", \"blogs\": [], \n\t\"valoraciones\": \"a\"}, \"viaje\": {\"fechaInicio\": \"12-03-2017\", \"fechaFinal\": \"23-06-2020\"}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_turismo-api/api/?Content-Type=application/json",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						""
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
