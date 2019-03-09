@@ -59,16 +59,6 @@ public class ValoracionResource {
         return nuevoValoracionDTO;
     }
 
-    @GET
-    @Path("valoracion")
-    @Produces("application/json")
-    public ValoracionDetailDTO darValoracion() {
-        ValoracionDetailDTO vd = new ValoracionDetailDTO();
-        vd.setIdUsuario(1);
-        vd.setValoracion(5);
-        vd.setComentario("muy Bueno");
-        return vd;
-    }
      /**
      * Busca y devuelve todas las valoraciones que existen en un plan.
      *

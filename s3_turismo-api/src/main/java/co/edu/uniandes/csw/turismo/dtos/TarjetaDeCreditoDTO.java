@@ -49,6 +49,21 @@ public class TarjetaDeCreditoDTO implements Serializable {
     }
 
     /**
+    * @return the viajero
+    */
+    public ViajeroDTO getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroDTO viajero) {
+        this.viajero = viajero;
+    }
+
+    
+    /**
      * @return the numero
      */
     public String getNumero() {
