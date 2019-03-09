@@ -88,6 +88,11 @@ public class PlanTuristicoLogicTest {
         }
     }
 
+    /**
+     *
+     * Prueba si se puede crear el Plan turistico
+     *
+     */
     @Test
     public void createPlanTuristicoTest() throws BusinessLogicException {
 
@@ -102,6 +107,11 @@ public class PlanTuristicoLogicTest {
 
     }
 
+     /**
+     *
+     * Prueba que no se pueda crear plan turistico con nombre repetido
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void createPlanTuristicoConMismoNombreTest() throws BusinessLogicException {
 
@@ -110,6 +120,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.createPlanTuristico(newPlanTuristicoEntity);
     }
 
+     /**
+     *
+     * Prueba que no se pueda crear plan turistico con nombre invalido
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void createPlanTuristicoConNombreInvalidoTest() throws BusinessLogicException {
         PlanTuristicoEntity newEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
@@ -117,6 +132,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.createPlanTuristico(newEntity);
     }
 
+    /**
+     *
+     * Prueba que se haya borrado el plan turistico
+     *
+     */
     @Test
     public void deletePlanTuristicoTest() throws BusinessLogicException {
         PlanTuristicoEntity newPlanTuristicoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
@@ -129,6 +149,11 @@ public class PlanTuristicoLogicTest {
 
     }
 
+    /**
+     *
+     * Prueba que no se pueda borrar un plan turistico que no exista
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void deletePlanTuristicoNoExisteTest() throws BusinessLogicException {
         PlanTuristicoEntity newPlanTuristicoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
@@ -139,6 +164,12 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.deletePlanTuristico(result.getId());
     }
 
+    
+    /**
+     *
+     * Prueba que se haya modificado el plan turistico y que los valores sean correctos
+     *
+     */
     @Test
     public void updatePlanTuristicoTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -160,6 +191,11 @@ public class PlanTuristicoLogicTest {
 
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con nombre vacio
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConNombreVacioTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -167,6 +203,12 @@ public class PlanTuristicoLogicTest {
         pojoEntity.setNombrePlan("");
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
+    
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con nombre nulo
+     *
+     */
 
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConNombreNuloTest() throws BusinessLogicException {
@@ -176,6 +218,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con duracion vacia
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDuracionVaciaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -184,6 +231,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con duracion nula
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDuracionNulaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -192,6 +244,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con descripcion vacia
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDescripcionVaciaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -200,6 +257,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con descripcion nula
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDescripcionNula() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -208,6 +270,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con ubicacion vacia
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConUbicacionVaciaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -216,6 +283,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con ubicacion nula
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConUbicacionNula() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -224,6 +296,11 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con costo negativo
+     *
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConCostoNegativoTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -232,6 +309,10 @@ public class PlanTuristicoLogicTest {
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
 
+    /**
+     *
+     * Prueba que no se pueda actualizar un plan turistico con costo nulo
+     */
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConCostoNulo() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
