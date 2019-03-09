@@ -17,15 +17,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     
-    public enum Tipo
-    {
-        IGLESIA,
-        MONUMENTO,
-        MUSEO,
-        NATURALEZA,
-        PATRIMONIO_HUMANIDAD,
-        ENTRETENIMIENTO
-    }
+    
     
     @PodamExclude
     @ManyToOne
@@ -33,7 +25,7 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
       /**
      * Tipo de sitio turistico.
      */
-    private Tipo tipo;
+    private String tipo;
 
     
     /*
@@ -61,16 +53,16 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     *@return tipo
     */
     
-    public void actualizarTipo(Tipo p) {
+    public void actualizarTipo(String p) {
         tipo = p;
     }
 
-    public Tipo darTipo()
+    public String darTipo()
     {
         return tipo;
     }
     
-    public void cambiarTipo(Tipo ptipo)
+    public void cambiarTipo(String ptipo)
     {
         this.tipo=ptipo;
     }

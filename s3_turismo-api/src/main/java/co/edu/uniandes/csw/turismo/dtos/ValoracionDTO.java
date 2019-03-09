@@ -27,11 +27,11 @@ public class ValoracionDTO implements Serializable {
     /*
 	 *Atributo que representa el id del usuario que realiza la valoración
      */
-    private int idUsuario;
+    private Integer idUsuario;
     /*
 	 *Atributo que representa la valoración numérica de un plan turístico
      */
-    private int valoracion;
+    private Integer valoracion;
     /*
 	 *Atributo que representa el comentario correspondiente a un plan turístico
      */

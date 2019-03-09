@@ -6,9 +6,9 @@
 package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.TarjetaDeCreditoDTO;
-import javax.faces.bean.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 /**
@@ -17,6 +17,7 @@ import javax.ws.rs.Produces;
  */
 @Produces("application/json")
 @Consumes("application/json")
+@Path("TarjetaViajero")
 public class ViajeroTarjetaDeCreditoResource {
     
     @POST

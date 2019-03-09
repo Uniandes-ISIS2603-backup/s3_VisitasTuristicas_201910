@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -55,9 +56,6 @@ public class PlanTuristicoResource {
 
     @GET
     @Path("{idPlanTuristico: \\d+}")
-
-   
-
     public PlanTuristicoDetailDTO getPlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) throws BusinessLogicException {
 
       
@@ -71,21 +69,31 @@ public class PlanTuristicoResource {
     }
 
     @GET
-    public List<PlanTuristicoDetailDTO> getPlanesTuristicos() {
-        ArrayList<PlanTuristicoDetailDTO> planes = new ArrayList<>();
-        return planes;
+    public List<PlanTuristicoDetailDTO> getPlanesTuristicos() throws BusinessLogicException {
+        List<PlanTuristicoDetailDTO> listaDTOs = listEntity2DTO(logic.getPlanesTuristicos());
+        return listaDTOs;
     }
 
     @PUT
     @Path("idPlanTuristico: \\d+}")
-    public PlanTuristicoDTO updatePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico, PlanTuristicoDTO planTuristico) {
-        return null;
+    public PlanTuristicoDTO updatePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico, PlanTuristicoDTO planTuristico) throws BusinessLogicException {
+        planTuristico.setPlanTuristicoId(idPlanTuristico);
+        if (logic.getPlanTuristico(idPlanTuristico) == null) {
+            throw new WebApplicationException("El recurso /planTuristico/" + idPlanTuristico + " no existe.", 404);
+        }
+        PlanTuristicoDTO planTuristicoDTO = new PlanTuristicoDTO(logic.updatePlanTuristico(idPlanTuristico, planTuristico.toEntity()));
+        
+        return planTuristicoDTO;
     }
 
     @DELETE
     @Path("idPlanTuristico: \\d+}")
-    public void deletePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) {
-
+    public void deletePlanTuristico(@PathParam("idPlanTuristico") Long idPlanTuristico) throws BusinessLogicException {
+        PlanTuristicoEntity entity = logic.getPlanTuristico(idPlanTuristico);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /planTuristico/" + idPlanTuristico + " no existe.", 404);
+        }
+        logic.deletePlanTuristico(idPlanTuristico);
     }
 
     // Parte para las relaciones con blogs y valoraciones
@@ -132,7 +140,7 @@ public class PlanTuristicoResource {
     /**
      *
      * Conexión con el servicio de blogs para un plan.
-     * {@link BlogDeViajeroResource}
+     * {@link PlanTuristicoResource}
      *
      *
      *
@@ -157,7 +165,7 @@ public class PlanTuristicoResource {
      */
     @Path("{planesId: ¡Error! Referencia de hipervínculo no válida.}")
 
-    public Class<BlogDeViajeroResource> getBlogDeViajeroResource(@PathParam("planesId ") Long planesId) {
+    public Class<PlanTuristicoResource> getPlanTuristicoResource(@PathParam("planesId ") Long planesId) {
 
         if (logic.getPlanTuristico(planesId) == null) {
 
@@ -165,7 +173,15 @@ public class PlanTuristicoResource {
 
         }
 
-        return BlogDeViajeroResource.class;
+        return PlanTuristicoResource.class;
 
+    }
+    
+     private List<PlanTuristicoDetailDTO> listEntity2DTO(List<PlanTuristicoEntity> entityList)throws BusinessLogicException {
+        List<PlanTuristicoDetailDTO> list = new ArrayList<PlanTuristicoDetailDTO>();
+        for (PlanTuristicoEntity entity : entityList) {
+            list.add(new PlanTuristicoDetailDTO(entity));
+        }
+        return list;
     }
 }
