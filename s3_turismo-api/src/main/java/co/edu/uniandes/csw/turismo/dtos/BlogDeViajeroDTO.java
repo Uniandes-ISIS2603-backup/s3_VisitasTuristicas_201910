@@ -42,7 +42,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Atributo que representa la cantidad de likes recibidos en el blog de viajero
 	 * correspondiente a un plan turístico
      */
-    private int likes;
+    private Integer likes;
 
     //Métodos
 
