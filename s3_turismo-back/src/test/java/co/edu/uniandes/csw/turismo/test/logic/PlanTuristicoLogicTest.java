@@ -109,7 +109,7 @@ public class PlanTuristicoLogicTest {
         newPlanTuristicoEntity.setNombrePlan(data.get(0).getNombrePlan());
         planTuristicoLogic.createPlanTuristico(newPlanTuristicoEntity);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void createPlanTuristicoConNombreInvalidoTest() throws BusinessLogicException {
         PlanTuristicoEntity newEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
@@ -143,13 +143,13 @@ public class PlanTuristicoLogicTest {
     public void updatePlanTuristicoTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
-        
+
         pojoEntity.setId(entity.getId());
-        
+
         planTuristicoLogic.updatePlanTuristico(pojoEntity.getId(), pojoEntity);
-        
+
         PlanTuristicoEntity resp = em.find(PlanTuristicoEntity.class, entity.getId());
-        
+
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getNombrePlan(), resp.getNombrePlan());
         Assert.assertEquals(pojoEntity.getTipoPlan(), resp.getTipoPlan());
@@ -159,15 +159,15 @@ public class PlanTuristicoLogicTest {
         Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
 
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConNombreVacioTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
         pojoEntity.setNombrePlan("");
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConNombreNuloTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -175,7 +175,7 @@ public class PlanTuristicoLogicTest {
         pojoEntity.setNombrePlan(null);
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
+
     @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDuracionVaciaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
@@ -183,8 +183,8 @@ public class PlanTuristicoLogicTest {
         pojoEntity.setDuracion("");
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDuracionNulaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
@@ -199,40 +199,40 @@ public class PlanTuristicoLogicTest {
         pojoEntity.setDescripcion("");
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConDescripcionNula() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
         pojoEntity.setDescripcion(null);
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConUbicacionVaciaTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
         pojoEntity.setUbicacion("");
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConUbicacionNula() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
         pojoEntity.setUbicacion(null);
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConCostoNegativoTest() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);
         pojoEntity.setCostoPorPersona(-5.5);
         planTuristicoLogic.updatePlanTuristico(entity.getId(), pojoEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
+
+    @Test(expected = BusinessLogicException.class)
     public void updatePlanTuristicoConCostoNulo() throws BusinessLogicException {
         PlanTuristicoEntity entity = data.get(0);
         PlanTuristicoEntity pojoEntity = factory.manufacturePojo(PlanTuristicoEntity.class);

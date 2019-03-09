@@ -31,7 +31,7 @@ public class ViajeEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne()
     private PlanTuristicoEntity planTuristico;
-    
+
     public ViajeEntity() {
 
     }
