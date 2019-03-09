@@ -46,7 +46,7 @@ public class BlogDeViajeroLogic {
               throw new BusinessLogicException("No existe el plan para hacer el blog ");
           }
           blogDeViajero.setPlanTuristico(plan);
-        if(persistence.find(planTuristicoId,blogDeViajero.getId()) != null)
+        if(persistence.find(planTuristicoId) != null)
         {
             throw new BusinessLogicException("Ya existe un blog de viajero con el id \""+ blogDeViajero.getId()+"\"");
         }
@@ -78,7 +78,7 @@ public class BlogDeViajeroLogic {
         */
          public BlogDeViajeroEntity getBlog(Long planId, Long blogDeViajeroId) throws BusinessLogicException {
 
-        BlogDeViajeroEntity blogDeViajeroEntity = persistence.find(planId,blogDeViajeroId);
+        BlogDeViajeroEntity blogDeViajeroEntity = persistence.find(planId);
         if (blogDeViajeroEntity == null) {
 
             throw new BusinessLogicException("El blog de viajero es inválido");
@@ -96,7 +96,7 @@ public class BlogDeViajeroLogic {
          */
          public BlogDeViajeroEntity updateBlog(Long planId, BlogDeViajeroEntity blogDeViajeroEntity) throws BusinessLogicException {
 
-        if (persistence.find(planId, blogDeViajeroEntity.getId())==null) {
+        if (persistence.find(blogDeViajeroEntity.getId())==null ){
             throw new BusinessLogicException("No existe blog de viajero a actualizar");
         }
         if(blogDeViajeroEntity.getLikes()<0)
@@ -123,5 +123,11 @@ public class BlogDeViajeroLogic {
         }
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el blog con id = {0} del plan con id = " + planId, blogId);
+    }
+    
+    
+    public void delete(Long id)
+    {
+        persistence.delete(id);
     }
 }
