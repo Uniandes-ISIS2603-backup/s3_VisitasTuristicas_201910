@@ -43,6 +43,11 @@ public class PlanTuristicoPersistenceTest {
 
     }
 
+    /**
+     *
+     * Prueba que el plan turistico haya quedado en la base de datos
+     *
+     */
     @Test
     public void createPlanTuristicoTest() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -57,6 +62,11 @@ public class PlanTuristicoPersistenceTest {
 
     }
 
+    /**
+     *
+     * Prueba que el plan turistico pueda ser encontrado
+     *
+     */
     @Test
     public void findViajeroTest() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -75,6 +85,11 @@ public class PlanTuristicoPersistenceTest {
 
     }
 
+    /**
+     *
+     * Prueba que el plan turistico pueda ser actualizado en la base de datos
+     *
+     */
     @Test
     public void updateNameTest() {
 
@@ -88,6 +103,11 @@ public class PlanTuristicoPersistenceTest {
 
     }
 
+    /**
+     *
+     * Prueba que se puedan encontrar los planes turisticos en la base de datos
+     *
+     */
     @Test
     public void findAllPlanTuristicoTest() {
         List<PlanTuristicoEntity> list = ep.findAll();
@@ -96,6 +116,11 @@ public class PlanTuristicoPersistenceTest {
 
     }
 
+    /**
+     *
+     * Prueba que la actualizacion del plan turistico sea correcta
+     *
+     */
     @Test
     public void updateTest() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -114,6 +139,11 @@ public class PlanTuristicoPersistenceTest {
 
     }
 
+    /**
+     *
+     * Prueba que el plan turistico haya sido borrado de la base de datos
+     *
+     */
     @Test
     public void deleteTest() {
         PodamFactory factory = new PodamFactoryImpl();

@@ -24,6 +24,13 @@ public class PlanTuristicoLogic {
     @Inject
     private PlanTuristicoPersistence persistence;
 
+    /**
+     *
+     * Hace las verificaciones de las reglas de negocio para crear un plan
+     * turistico
+     *
+     */
+
     public PlanTuristicoEntity createPlanTuristico(PlanTuristicoEntity planTuristico) throws BusinessLogicException {
         if (persistence.findByName(planTuristico.getNombrePlan()) != null) {
             throw new BusinessLogicException("Ya existe un plan turistico con ese nombre");
@@ -49,7 +56,7 @@ public class PlanTuristicoLogic {
         if (!costoPorPersonaEsValido(planTuristico.getCostoPorPersona())) {
             throw new BusinessLogicException("El costo del plan no es valido");
         }
-        
+
         if (!guiaValido(planTuristico.getGuia())) {
             throw new BusinessLogicException("Guia no puede ser nulo");
         }
@@ -57,6 +64,12 @@ public class PlanTuristicoLogic {
         return planTuristico;
     }
 
+    /**
+     *
+     * Hace las verificaciones de las reglas de negocio para Borrar un plan
+     * turistico
+     *
+     */
     public void deletePlanTuristico(Long planTuristicoId) throws BusinessLogicException {
         if (persistence.find(planTuristicoId) == null) {
             throw new BusinessLogicException("No existe un planturistico con ese id");
@@ -69,24 +82,42 @@ public class PlanTuristicoLogic {
         }
     }
 
-    public PlanTuristicoEntity getPlanTuristico(Long planTuristicoId)
-    {
+    /**
+     *
+     * Hace las verificaciones de las reglas de negocio para retornar un plan
+     * turistico
+     *
+     */
+    public PlanTuristicoEntity getPlanTuristico(Long planTuristicoId) {
         PlanTuristicoEntity planTuristicolEntity = persistence.find(planTuristicoId);
         if (planTuristicolEntity == null) {
-           
+
         }
-       
+
         return planTuristicolEntity;
     }
+
+    /**
+     *
+     * Hace las verificaciones de las reglas de negocio para retornar un plan
+     * turistico
+     *
+     */
     public List<PlanTuristicoEntity> getPlanesTuristicos() {
-     
+
         List<PlanTuristicoEntity> planes = persistence.findAll();
-        
+
         return planes;
     }
 
+    /**
+     *
+     * Hace las verificaciones de las reglas de negocio para actualizar un plan
+     * turistico
+     *
+     */
     public PlanTuristicoEntity updatePlanTuristico(Long planTuristicoId, PlanTuristicoEntity planTuristicoEntity) throws BusinessLogicException {
-      
+
         if (!nombrePlanEsValido(planTuristicoEntity.getNombrePlan())) {
             throw new BusinessLogicException("El nombre del plan no es valido");
         }
@@ -112,7 +143,7 @@ public class PlanTuristicoLogic {
             throw new BusinessLogicException("Guia no puede ser nulo");
         }
         PlanTuristicoEntity newEntity = persistence.update(planTuristicoEntity);
-      
+
         return newEntity;
     }
 
