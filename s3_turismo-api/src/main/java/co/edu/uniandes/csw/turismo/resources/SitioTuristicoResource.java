@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.turismo.resources;
 
 
 import co.edu.uniandes.csw.turismo.dtos.SitiosTuristicosDTO;
+import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
+import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
+import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -16,6 +19,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -29,21 +33,25 @@ import javax.ws.rs.Produces;
 public class SitioTuristicoResource {
     private static final Logger LOGGER=Logger.getLogger(SitioTuristicoResource.class.getName());
     
-    
+    private SitioTuristicoLogic logic;
     @POST
-    public SitiosTuristicosDTO crearSitioTuristico(SitiosTuristicosDTO sitio)
+    public SitiosTuristicosDTO crearSitioTuristico(SitiosTuristicosDTO sitio) throws BusinessLogicException
     {
-
-        return sitio;
+        SitiosTuristicosDTO nuevoV = new SitiosTuristicosDTO(logic.createSitio(sitio.toEntity()));
+        //logic.createViajero(viajero.toEntity());
+        return nuevoV;  
     }
     
      @GET
     @Path("{id: \\d+}")
-    public SitiosTuristicosDTO darSitiosTuristicos(@PathParam("id") Long idsitio) {
-        LOGGER.log(Level.INFO, "CiudadResource darCiudad: input: {0}", idsitio);
-        SitiosTuristicosDTO detailDTO = new SitiosTuristicosDTO();
-        LOGGER.log(Level.INFO, "CiudadResource darCiudad: output: {0}", detailDTO);
-        return detailDTO;
+    public SitiosTuristicosDTO darSitiosTuristicos(@PathParam("id") Long idsitio) throws BusinessLogicException {
+        SitioTuristicoEntity entity = logic.getSitio(idsitio);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /plan/" + idsitio, 404);
+        }
+        SitiosTuristicosDTO blogDTO = new SitiosTuristicosDTO(entity);
+       // LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", ValoracionDTO.toString());
+        return blogDTO;
     }
     
 }

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.turismo.dtos;
-import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -16,20 +15,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class SitiosTuristicosDTO implements Serializable 
 {
     
-    public enum Tipo
-    {
-        IGLESIA,
-        MONUMENTO,
-        MUSEO,
-        NATURALEZA,
-        PATRIMONIO_HUMANIDAD,
-        ENTRETENIMIENTO
-    }
+    
     
     /**
      * Tipo de sitio turistico.
      */
-    private SitioTuristicoEntity.Tipo tipo;
+    private String tipo;
     /*
     *Atributo que representa el id de un sitio turistico
     */
@@ -78,7 +69,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Retornar el tipo de sitio turistico
     *@return tipo
     */
-    public SitioTuristicoEntity.Tipo darTipo()
+    public String darTipo()
     {
         return tipo;
     }
@@ -114,7 +105,12 @@ public class SitiosTuristicosDTO implements Serializable
     */
     public void actualizarNombre(String pnombre)
     {
-        nombre=pnombre;
+        this.nombre=pnombre;
+    }
+    
+    public void actualizarTipo(String p)
+    {
+        this.tipo=p;
     }
     
     
