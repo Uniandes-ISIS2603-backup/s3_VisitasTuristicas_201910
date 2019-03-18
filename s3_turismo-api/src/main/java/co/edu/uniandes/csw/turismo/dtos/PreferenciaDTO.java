@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
 import java.io.Serializable;
 /**
  *
- * @author Juan Sebastian Gutierrez S.
+ * @author Juan Sebastian Gutierrez S. modificado por David Fonseca agregado set de id.
  */
 public class PreferenciaDTO implements Serializable {
     
@@ -29,6 +29,15 @@ public class PreferenciaDTO implements Serializable {
      */
     public Long getIdPreferencia() {
         return idPreferencia;
+    }
+    
+    /*
+    *Actualizar id
+    *@param pid
+    */
+    public void setIdPreferencia(Long pid)
+    {
+        this.idPreferencia=pid;
     }
 
     /**

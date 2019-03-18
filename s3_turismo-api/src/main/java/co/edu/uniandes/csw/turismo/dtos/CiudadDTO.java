@@ -40,12 +40,12 @@ public class CiudadDTO implements Serializable {
     *Retornar el id de la ciudad
     *@return id
     */
-    public Long darID()
+    public Long getID()
     {
         return id;
     }
     
-    public void actualizarID(Long pid)
+    public void setID(Long pid)
     {
         id=pid;
     }
@@ -54,7 +54,7 @@ public class CiudadDTO implements Serializable {
     *Retornar el nombre de la ciudad
     *@return nombre
     */
-    public String darNombre()
+    public String getNombre()
     {
         return nombre;
     }
@@ -63,7 +63,7 @@ public class CiudadDTO implements Serializable {
     *Actualizar el nombre de una ciudad por otro
     *@param pNombre
     */
-    public void actualizarNombre(String pNombre)
+    public void setNombre(String pNombre)
     {
         this.nombre=pNombre;
     }  

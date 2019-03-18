@@ -10,6 +10,9 @@ import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/*
+*     @author estudiante  Modificado por David Fonseca agregado el serializable y cambiados tipos de atributos a serializables.
+*/
 public class BlogDeViajeroDTO implements Serializable {
 
      /*
@@ -18,6 +21,8 @@ public class BlogDeViajeroDTO implements Serializable {
      */
     private PlanTuristicoDTO plan;
 
+    private Long id;
+    
     public PlanTuristicoDTO getPlan() {
         return plan;
     }
@@ -55,6 +60,15 @@ public class BlogDeViajeroDTO implements Serializable {
 
     //Getters & Setters
 
+    
+    public Long getId()
+    {
+        return id;
+    }
+    public void setId(Long pid)
+    {
+        this.id=pid;
+    }
     /*
 	 *Retornar la lista de comentarios de un blog de viajero
 	 *@return comentarios
@@ -91,7 +105,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Retornar el número de likes de un blog de viajero
 	 *@return likes
      */
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
@@ -99,7 +113,7 @@ public class BlogDeViajeroDTO implements Serializable {
 	 *Cambia el número de likes de un blog de viajero
 	 *@param likes
      */
-    public void setLikes(int likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
@@ -130,4 +144,5 @@ public class BlogDeViajeroDTO implements Serializable {
         }
     }
 }
+    
 }

@@ -18,14 +18,14 @@ import java.util.List;
  */
 public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<PreferenciaDTO> preferencias;
-    private List<Facturas> facturas;
+    private List<FacturasDTO> facturas;
     private List<PlanTuristicoDTO> planesTuristicos;
 
     /**
      * se retorna la lista de facturas que tiene el viajero
      * @return 
      */
-    public List<Facturas> getFacturas() {
+    public List<FacturasDTO> getFacturas() {
         return facturas;
     }
 
@@ -33,7 +33,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      * se asigna la lista de facturas
      * @param facturas 
      */
-    public void setFacturas(List<Facturas> facturas) {
+    public void setFacturas(List<FacturasDTO> facturas) {
         this.facturas = facturas;
     }
 
@@ -89,9 +89,9 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
                 toAdd.add(new PreferenciaDTO(a));
             }
             this.preferencias = toAdd;
-            List<Facturas> toAdd2 = new ArrayList<>();
+            List<FacturasDTO> toAdd2 = new ArrayList<>();
             for(FacturaEntity b : ent.getFacturas()) {
-                toAdd2.add(new Facturas(b));
+                toAdd2.add(new FacturasDTO(b));
             }
             this.facturas = toAdd2;
             List<PlanTuristicoDTO> toAdd3 = new ArrayList<>();
@@ -115,7 +115,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
         toReturn.setTarjetaDeCredito(this.getTarjetaDeCredito().toEntity());
         toReturn.setViaje(this.getViaje().toEntity());
         List<FacturaEntity> toAdd1 = new ArrayList<>();
-        for(Facturas f : facturas) {
+        for(FacturasDTO f : facturas) {
             toAdd1.add(f.toEntity());
         }
         toReturn.setFacturas(toAdd1);

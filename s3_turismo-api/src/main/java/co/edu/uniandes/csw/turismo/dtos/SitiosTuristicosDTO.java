@@ -59,7 +59,7 @@ public class SitiosTuristicosDTO implements Serializable
         
         ret.setId(this.id);  
         ret.actualizarNombre(this.nombre);
-        ret.actualizarTipo(this.darTipo());
+        ret.actualizarTipo(this.tipo);
         ret.actualizarCiudad(this.ciudad.toEntity());
         
         return ret;
@@ -69,7 +69,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Retornar el tipo de sitio turistico
     *@return tipo
     */
-    public String darTipo()
+    public String getTipo()
     {
         return tipo;
     }
@@ -77,7 +77,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Retornar el id del sitio turistico
     *@return id
     */
-    public Long darID()
+    public Long getID()
     {
         return id;
     }
@@ -86,7 +86,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Cambia el id del sitio turistico
     *@param pid
     */
-    public void actualizarID(Long pid)
+    public void setID(Long pid)
     {
         id=pid;
     }
@@ -94,7 +94,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Retornar el nombre del sitio turistico
     *@return nombre
     */
-    public String darNombre()
+    public String getNombre()
     {
         return nombre;
     }
@@ -103,14 +103,24 @@ public class SitiosTuristicosDTO implements Serializable
     *Cambia el nombre del sitio turistico
     *@param pnombre
     */
-    public void actualizarNombre(String pnombre)
+    public void setNombre(String pnombre)
     {
         this.nombre=pnombre;
     }
     
-    public void actualizarTipo(String p)
+    public void setTipo(String p)
     {
         this.tipo=p;
+    }
+    
+    public CiudadDTO getCiudad()
+    {
+        return ciudad;
+    }
+    
+    public void setCiudad(CiudadDTO pciudad)
+    {
+        this.ciudad=pciudad;
     }
     
     

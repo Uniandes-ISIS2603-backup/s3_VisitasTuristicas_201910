@@ -14,9 +14,9 @@ import javax.persistence.Id;
 
 /**
  *
- * @author estudiante
+ * @author estudiante modificado por David Fonseca cambiados atributos por serializables
  */
-public class TarjetaDeCreditoDTO implements Serializable {
+public class TarjetaDeCreditoDTO implements Serializable  {
 
     private static long serialVersionUID = 1L;
     private String numero;

@@ -30,6 +30,13 @@ public class PaisDTO implements Serializable
   {
   
   }
+  
+  /*
+  *Falta conectar con logica.
+  */
+  
+  
+  
    /*
    *Retornar el nombre del pais
    *@return nombre

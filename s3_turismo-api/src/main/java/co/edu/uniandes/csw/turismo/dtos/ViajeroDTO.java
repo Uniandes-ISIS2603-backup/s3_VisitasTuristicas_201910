@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 /**
  *
- * @author Juan Sebastian Gutierrez S.
+ * @author Juan Sebastian Gutierrez S. modificado por David Fonseca cambiados atributos por atributos serializables
  */
 public class ViajeroDTO implements Serializable {
     
@@ -99,7 +99,7 @@ public class ViajeroDTO implements Serializable {
      * se retorna el codigo unico
      * @return codigoUnico
      */
-    public int getCodigoUnico() {
+    public Integer getCodigoUnico() {
         return codigoUnico;
     }
 
@@ -107,7 +107,7 @@ public class ViajeroDTO implements Serializable {
      * se asigna el codigo unico
      * @param codigoUnico 
      */
-    public void setCodigoUnico(int codigoUnico) {
+    public void setCodigoUnico(Integer codigoUnico) {
         this.codigoUnico = codigoUnico;
     }
 
