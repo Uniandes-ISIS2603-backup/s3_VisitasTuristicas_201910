@@ -21,6 +21,14 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<FacturasDTO> facturas;
     private List<PlanTuristicoDTO> planesTuristicos;
 
+    
+        /**
+     * constructor vacio; llama a ViajeroDTO
+     */
+    public ViajeroDetailDTO() {
+        super();
+    }
+    
     /**
      * se retorna la lista de facturas que tiene el viajero
      * @return 
@@ -53,13 +61,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
         this.planesTuristicos = planesTuristicos;
     }
     
-    /**
-     * constructor vacio; llama a ViajeroDTO
-     */
-    public ViajeroDetailDTO() {
-        super();
-    }
-    
+
     /**
      * se retorna la lista de preferencias
      * @return preferencias
@@ -73,7 +75,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      * @param nuevo 
      */
     public void setPreferencias(List<PreferenciaDTO> nuevo) {
-        preferencias = nuevo;
+        this.preferencias = nuevo;
     }
     
     /**
@@ -106,6 +108,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      * Transforma todos los atributos a un  nuevo ViajeroEntity
      * @return ViajeroEntity
      */
+    @Override
     public ViajeroEntity toEntity() {
         ViajeroEntity toReturn = new ViajeroEntity();
         toReturn.setCantidadPlanes(this.getCantidadPlanes());

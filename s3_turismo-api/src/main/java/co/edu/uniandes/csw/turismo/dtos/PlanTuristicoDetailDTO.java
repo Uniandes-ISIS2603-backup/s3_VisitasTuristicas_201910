@@ -140,6 +140,7 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
         this.preferencias = preferencias;
     }
 
+    @Override
     public PlanTuristicoEntity toEntity() {
         PlanTuristicoEntity planTuristicoEntity = new PlanTuristicoEntity();
 

@@ -38,7 +38,7 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
 	     *@param pPlanTuristico
      */
     public void setPlanTuristico(PlanTuristicoDTO pPlanTuristico) {
-        planTuristico = pPlanTuristico;
+        this.planTuristico = pPlanTuristico;
     }
     
      /**
@@ -61,6 +61,7 @@ public class ValoracionDetailDTO extends ValoracionDTO implements Serializable {
      *
      * @return El DTO de la editorial para transformar a Entity
      */
+    @Override
     public ValoracionEntity toEntity(){
          ValoracionEntity valoracionEntity = super.toEntity();
        if (planTuristico != null) {
