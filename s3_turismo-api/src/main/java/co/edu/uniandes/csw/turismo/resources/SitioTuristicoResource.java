@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.turismo.dtos.SitiosTuristicosDTO;
 import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;

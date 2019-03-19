@@ -32,9 +32,15 @@ public PaisDetailDTO()
 }
 //Falta conectar con entidad
     public PaisDetailDTO(PaisEntity paisEntity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+super(paisEntity);
+if(paisEntity != null) {
+            ArrayList<CiudadDTO> toAdd = new ArrayList<>();
+            for(CiudadEntity a : paisEntity.darCiudades()) {
+                toAdd.add(new CiudadDTO(a));
+            }
+            this.ciudadesDTO=toAdd;
+        }
     }
-
 /*
 *Retornar las ciudades
 *@return ciudadesDTO
