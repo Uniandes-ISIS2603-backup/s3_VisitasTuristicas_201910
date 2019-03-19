@@ -15,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDTO;
-import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.BlogDeViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -67,6 +66,7 @@ public class BlogDeViajeroResource {
      * @param planTuristicoId El ID del plan del cual se buscan los blogs
      * @return JSONArray {@link BlogDeViajeroDTO} - Los blogs encontrados en el
      * plam. Si no hay ninguno retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
     public List<BlogDeViajeroDTO> getBlogs(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {

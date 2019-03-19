@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -31,7 +32,7 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class SitioTuristicoResource {
     private static final Logger LOGGER=Logger.getLogger(SitioTuristicoResource.class.getName());
-    
+    @Inject
     private SitioTuristicoLogic logic;
     @POST
     public SitiosTuristicosDTO crearSitioTuristico(SitiosTuristicosDTO sitio) throws BusinessLogicException
