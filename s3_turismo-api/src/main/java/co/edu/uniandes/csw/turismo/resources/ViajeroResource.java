@@ -58,20 +58,20 @@ public class ViajeroResource {
      * @return Viajero
      */
     @GET
-    public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) throws BusinessLogicException {
+    public ViajeroDetailDTO getViajero(@PathParam("id")Long pIdViajero) throws BusinessLogicException {
         //return new ViajeroDetailDTO();
         LOGGER.log(Level.INFO, "getViajeroResource");
-        ViajeroDTO listaDTOs = new ViajeroDTO(logic.getViajero(pIdViajero));
+        ViajeroDetailDTO listaDTOs = new ViajeroDetailDTO(logic.getViajero(pIdViajero));
         LOGGER.log(Level.INFO, "getViajeroResource", listaDTOs.toString());
         return listaDTOs;
     }
-    //@GET
-    //public List<ViajeroDTO> getViajeros(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
-    //    LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", planTuristicoId);
-    //    List<ViajeroDTO> listaDTOs = listEntity2DTO(logic.getViajeros());
-    //    LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
-    //    return listaDTOs;
-    //}
+    @GET
+    public List<ViajeroDetailDTO> getViajeros(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", planTuristicoId);
+        List<ViajeroDetailDTO> listaDTOs = listEntity2DTO(logic.getViajeros());
+        LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
+        return listaDTOs;
+    }
     
     //private List<ViajeroDTO> listEntity2DTO(List<ViajeroEntity> entityList)throws BusinessLogicException {
     //    List<ViajeroDTO> list = new ArrayList<ViajeroDTO>();
@@ -177,7 +177,12 @@ public class ViajeroResource {
         }
         return PlanTuristicoResource.class;
     }
-    
+            private List<ViajeroDetailDTO> listEntity2DTO(List<ViajeroEntity> entityList) {
+        List<ViajeroDetailDTO> list = new ArrayList<>();
+        for (ViajeroEntity entity : entityList) {
+            list.add(new ViajeroDetailDTO(entity));
+        }
+        return list;}
     /**
      * asigna path factura
      * @param viajeroId
@@ -191,4 +196,7 @@ public class ViajeroResource {
         }
         return FacturasResources.class;
     }
+    
+
+
 }

@@ -38,13 +38,12 @@ public class SitioTuristicoResource {
     public SitiosTuristicosDTO crearSitioTuristico(SitiosTuristicosDTO sitio) throws BusinessLogicException
     {
         SitiosTuristicosDTO nuevoV = new SitiosTuristicosDTO(logic.createSitio(sitio.toEntity()));
-        //logic.createViajero(viajero.toEntity());
         return nuevoV;  
     }
     
      @GET
     @Path("{id: \\d+}")
-    public SitiosTuristicosDTO darSitiosTuristicos(@PathParam("id") Long idsitio) throws BusinessLogicException {
+    public SitiosTuristicosDTO getSitioTuristico(@PathParam("id") Long idsitio) throws BusinessLogicException {
         SitioTuristicoEntity entity = logic.getSitio(idsitio);
         if (entity == null) {
             throw new WebApplicationException("El recurso /plan/" + idsitio, 404);

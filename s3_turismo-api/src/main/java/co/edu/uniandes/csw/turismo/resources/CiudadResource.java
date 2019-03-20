@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.turismo.dtos.CiudadDetailDTO;
 import co.edu.uniandes.csw.turismo.dtos.CiudadDTO;
 import co.edu.uniandes.csw.turismo.dtos.CiudadDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.CiudadLogic;
+import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class CiudadResource {
     
     @Inject
     private CiudadLogic ciudadLogic;
+    
+
     
     
     @POST
@@ -74,6 +77,7 @@ public class CiudadResource {
         return ciudadDetailDTO;
     }
     
+    
     @PUT
     @Path("{ciudadId: \\d+}")
     public CiudadDetailDTO updateCiudad(@PathParam("ciudadId") Long ciudadId, CiudadDetailDTO ciudad) throws BusinessLogicException {
@@ -87,6 +91,14 @@ public class CiudadResource {
         return detailDTO;
     }
     
+     @Path("{ciudadId: \\d+}/SitiosTuristicos")
+    public Class<SitioTuristicoResource> getSitiosTuristicosResource(@PathParam("ciudadId") Long ciudadId) throws BusinessLogicException {
+        if (ciudadLogic.getCiudad(ciudadId) != null) {
+                    return SitioTuristicoResource.class;
+        } else {
+            throw new WebApplicationException("El recurso /ciudades/" + ciudadId + "/SitiosTuristicos no existe.", 404);
+        }
+    }
     
     
     private List<CiudadDetailDTO> listEntity2DetailDTO(List<CiudadEntity> entityList) throws BusinessLogicException {

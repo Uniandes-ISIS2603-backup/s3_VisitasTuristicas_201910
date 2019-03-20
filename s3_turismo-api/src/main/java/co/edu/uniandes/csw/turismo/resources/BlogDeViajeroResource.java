@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDTO;
+import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.BlogDeViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -69,9 +70,9 @@ public class BlogDeViajeroResource {
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
-    public List<BlogDeViajeroDTO> getBlogs(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
+    public List<BlogDeViajeroDetailDTO> getBlogs(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", planTuristicoId);
-        List<BlogDeViajeroDTO> listaDTOs = listEntity2DTO(blogDeViajeroLogic.getBlogs(planTuristicoId));
+        List<BlogDeViajeroDetailDTO> listaDTOs = listEntity2DTO(blogDeViajeroLogic.getBlogs(planTuristicoId));
         LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
         return listaDTOs;
     }
@@ -90,13 +91,14 @@ public class BlogDeViajeroResource {
      */
     @GET
     @Path("{blogId: \\d+}")
-    public BlogDeViajeroDTO getBlog(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("blogId") Long blogId) throws BusinessLogicException {
+    public BlogDeViajeroDetailDTO getBlog(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("blogId") Long blogId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlog: input: {0}", blogId);
         BlogDeViajeroEntity entity = blogDeViajeroLogic.getBlog(planTuristicoId, blogId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /plan/" + planTuristicoId + "/blog/" + blogId + " no existe.", 404);
         }
-        BlogDeViajeroDTO blogDTO = new BlogDeViajeroDTO(entity);
+        BlogDeViajeroDetailDTO blogDTO;
+        blogDTO = new BlogDeViajeroDetailDTO(entity);
        // LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", ValoracionDTO.toString());
         return blogDTO;
     }
@@ -162,10 +164,10 @@ public class BlogDeViajeroResource {
      * vamos a convertir a DTO.
      * @return la lista de blogs en forma DTO (json)
      */
-    private List<BlogDeViajeroDTO> listEntity2DTO(List<BlogDeViajeroEntity> entityList)throws BusinessLogicException {
-        List<BlogDeViajeroDTO> list = new ArrayList<BlogDeViajeroDTO>();
+    private List<BlogDeViajeroDetailDTO> listEntity2DTO(List<BlogDeViajeroEntity> entityList)throws BusinessLogicException {
+        List<BlogDeViajeroDetailDTO> list = new ArrayList<BlogDeViajeroDetailDTO>();
         for (BlogDeViajeroEntity entity : entityList) {
-            list.add(new BlogDeViajeroDTO(entity));
+            list.add(new BlogDeViajeroDetailDTO(entity));
         }
         return list;
     }

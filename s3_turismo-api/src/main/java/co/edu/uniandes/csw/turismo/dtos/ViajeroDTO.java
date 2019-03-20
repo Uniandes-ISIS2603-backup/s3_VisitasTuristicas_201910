@@ -201,7 +201,7 @@ public class ViajeroDTO implements Serializable {
         this.idUsuario = ent.getId();
         this.cantidadPlanes=ent.getCantidadPlanes();
         this.codigoUnico=ent.getCodigoUnico();
-        //this.tipoDeUsuario=ent.getTipoDeUsuario();
+//        this.tipoDeUsuario=ent.getTipoDeUsuario();
         this.viaje=new ViajeDTO(ent.getViaje());
         this.nombreUsuario = ent.getNombreUsuario();
         this.idioma = ent.getIdioma();

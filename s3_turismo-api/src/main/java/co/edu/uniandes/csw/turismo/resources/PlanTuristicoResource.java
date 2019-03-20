@@ -29,7 +29,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Christer Osorio
+ * @author Christer Osorio modificado por david fonseca, agregado los paises asociados
  */
 @Path("planesTuristicos")
 @Produces(MediaType.APPLICATION_JSON)
@@ -176,7 +176,13 @@ public class PlanTuristicoResource {
         return PlanTuristicoResource.class;
 
     }
-    
+        @Path("{booksId: \\d+}/authors")
+    public Class<PaisResource> getBookAuthorsResource(@PathParam("planesId") Long planesId) {
+        if (logic.getPlanTuristico(planesId) == null) {
+            throw new WebApplicationException("El recurso /Plan/" + planesId + " no existe.", 404);
+        }
+        return PaisResource.class;
+    }
      private List<PlanTuristicoDetailDTO> listEntity2DTO(List<PlanTuristicoEntity> entityList)throws BusinessLogicException {
         List<PlanTuristicoDetailDTO> list = new ArrayList<PlanTuristicoDetailDTO>();
         for (PlanTuristicoEntity entity : entityList) {
