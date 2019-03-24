@@ -7,14 +7,13 @@ package co.edu.uniandes.csw.turismo.dtos;
 
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import java.io.Serializable;
-import java.util.List;
 /**
  *
- * @author Juan Sebastian Gutierrez S.
+ * @author Juan Sebastian Gutierrez S. modificado por David Fonseca cambiados atributos por atributos serializables y agregado constructor entity
  */
 public class ViajeroDTO implements Serializable {
     
-    enum tipoUsuario {
+   public enum TipoUsuario {
         TURISTA, GUIA, ADMIN
     }
     
@@ -22,14 +21,11 @@ public class ViajeroDTO implements Serializable {
     private String nombreUsuario;
     private Integer codigoUnico;
     private String idioma;
-    private tipoUsuario tipoDeUsuario;
+    private TipoUsuario tipoDeUsuario;
     private Integer cantidadPlanes;
     private String informacionPersonal;
     //necesito un detail de preferencia?
-    //private List<PreferenciaDTO> preferencias;
     private TarjetaDeCreditoDTO tarjetaDeCredito;
-    //private List<Facturas> facturas;
-    //private List<PlanTuristicoDTO> planesTuristicos;
     private ViajeDTO viaje;
 
     
@@ -99,7 +95,7 @@ public class ViajeroDTO implements Serializable {
      * se retorna el codigo unico
      * @return codigoUnico
      */
-    public int getCodigoUnico() {
+    public Integer getCodigoUnico() {
         return codigoUnico;
     }
 
@@ -107,7 +103,7 @@ public class ViajeroDTO implements Serializable {
      * se asigna el codigo unico
      * @param codigoUnico 
      */
-    public void setCodigoUnico(int codigoUnico) {
+    public void setCodigoUnico(Integer codigoUnico) {
         this.codigoUnico = codigoUnico;
     }
 
@@ -131,7 +127,7 @@ public class ViajeroDTO implements Serializable {
      * se retorna el tipo de usuario
      * @return tipoDeUsuario
      */
-    public tipoUsuario getTipoDeUsuario() {
+    public TipoUsuario getTipoDeUsuario() {
         return tipoDeUsuario;
     }
 
@@ -139,7 +135,7 @@ public class ViajeroDTO implements Serializable {
      * se asigna el tipo de usuario
      * @param tipoDeUsuario 
      */
-    public void setTipoDeUsuario(tipoUsuario tipoDeUsuario) {
+    public void setTipoDeUsuario(TipoUsuario tipoDeUsuario) {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
@@ -203,11 +199,13 @@ public class ViajeroDTO implements Serializable {
     public ViajeroDTO(ViajeroEntity ent) {
         
         this.idUsuario = ent.getId();
-        
+        this.cantidadPlanes=ent.getCantidadPlanes();
+        this.codigoUnico=ent.getCodigoUnico();
+//        this.tipoDeUsuario=ent.getTipoDeUsuario();
+        this.viaje=new ViajeDTO(ent.getViaje());
         this.nombreUsuario = ent.getNombreUsuario();
         this.idioma = ent.getIdioma();
         this.informacionPersonal = ent.getInformacionPersonal();
-        //this.facturas = new Facturas(ent.getFacturas());
         this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
     }
 }

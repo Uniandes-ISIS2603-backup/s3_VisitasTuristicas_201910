@@ -88,6 +88,13 @@ public class PaisResource {
         return detailDTO;
     }
     
+     @Path("{booksId: \\d+}/authors")
+    public Class<CiudadResource> getCiudadesResource(@PathParam("paisesId") Long paisesId) throws BusinessLogicException {
+        if (paisLogic.getPais(paisesId) == null) {
+            throw new WebApplicationException("El recurso /books/" + paisesId + " no existe.", 404);
+        }
+        return CiudadResource.class;
+    }
     
     
     private List<PaisDetailDTO> listEntity2DetailDTO(List<PaisEntity> entityList) {

@@ -70,8 +70,12 @@ public class ViajeResource {
    
     @GET
     @Path("{idViaje: \\d+}")
-    public ViajeDTO getViaje(@PathParam("idViaje") Long idViaje) {
-        return new ViajeDTO();
+    public ViajeDTO getViaje(@PathParam("idViaje") Long idViaje) throws BusinessLogicException {
+       if(viajeLogic.getViaje(idViaje)==null)
+       {
+           throw new WebApplicationException("El recurso /viaje/" + idViaje + " no existe.", 404);
+       }
+        return new ViajeDTO(viajeLogic.getViaje(idViaje));
     }
     
   

@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.turismo.dtos;
 
 import co.edu.uniandes.csw.turismo.adapters.DateAdapter;
 import co.edu.uniandes.csw.turismo.entities.ViajeEntity;
+import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *
  * @author Christer Osorio
  */
-public class ViajeDTO {
+public class ViajeDTO implements Serializable{
 
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaInicio;

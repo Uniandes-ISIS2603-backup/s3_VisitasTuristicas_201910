@@ -59,16 +59,6 @@ public class ValoracionResource {
         return nuevoValoracionDTO;
     }
 
-    @GET
-    @Path("valoracion")
-    @Produces("application/json")
-    public ValoracionDetailDTO darValoracion() {
-        ValoracionDetailDTO vd = new ValoracionDetailDTO();
-        vd.setIdUsuario(1);
-        vd.setValoracion(5);
-        vd.setComentario("muy Bueno");
-        return vd;
-    }
      /**
      * Busca y devuelve todas las valoraciones que existen en un plan.
      *
@@ -77,9 +67,9 @@ public class ValoracionResource {
      * plam. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<ValoracionDTO> getValoraciones(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
+    public List<ValoracionDetailDTO> getValoraciones(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource getValoraciones: input: {0}", planTuristicoId);
-        List<ValoracionDTO> listaDTOs = listEntity2DTO(valoracionLogic.getValoraciones(planTuristicoId));
+        List<ValoracionDetailDTO> listaDTOs = listEntity2DTO(valoracionLogic.getValoraciones(planTuristicoId));
         LOGGER.log(Level.INFO, "PlanTuristicoResource getValoraciones: output: {0}", listaDTOs.toString());
         return listaDTOs;
     }
@@ -98,13 +88,13 @@ public class ValoracionResource {
      */
     @GET
     @Path("{valoracionId: \\d+}")
-    public ValoracionDTO getValoracion(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("valoracionId") Long valoracionId) throws BusinessLogicException {
+    public ValoracionDetailDTO getValoracion(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("valoracionId") Long valoracionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource getValoracion: input: {0}", valoracionId);
         ValoracionEntity entity = valoracionLogic.getValoracion(planTuristicoId, valoracionId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /plan/" + planTuristicoId + "/valoracion/" + valoracionId + " no existe.", 404);
         }
-        ValoracionDTO valoracionDTO = new ValoracionDTO(entity);
+        ValoracionDetailDTO valoracionDTO = new ValoracionDetailDTO(entity);
        // LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", ValoracionDTO.toString());
         return valoracionDTO;
     }
@@ -124,7 +114,7 @@ public class ValoracionResource {
      */
     @PUT
     @Path("{valoracionId: \\d+}")
-    public ValoracionDTO updateValoracion(@PathParam("planId") Long planId, @PathParam("valoracionId") Long valoracionId, ValoracionDTO valoracion) throws BusinessLogicException {
+    public ValoracionDetailDTO updateValoracion(@PathParam("planId") Long planId, @PathParam("valoracionId") Long valoracionId, ValoracionDTO valoracion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: input: planId: {0} , valoracionId: {1} , valoracion:{2}", new Object[]{planId, valoracionId, valoracion.toString()});
         if (valoracionId.equals(valoracion.toEntity().getId())) {
             throw new BusinessLogicException("Los ids de la valoracion no coinciden.");
@@ -134,7 +124,7 @@ public class ValoracionResource {
             throw new WebApplicationException("El recurso /plan/" + planId + "/valoracion/" + valoracionId + " no existe.", 404);
 
         }
-        ValoracionDTO valoracionDTO = new ValoracionDTO(valoracionLogic.updateValoracion(planId,valoracion.toEntity()));
+        ValoracionDetailDTO valoracionDTO = new ValoracionDetailDTO(valoracionLogic.updateValoracion(planId,valoracion.toEntity()));
         LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: output:{0}", valoracionDTO.toString());
         return valoracionDTO;
 
@@ -170,10 +160,10 @@ public class ValoracionResource {
      * vamos a convertir a DTO.
      * @return la lista de valoraciones en forma DTO (json)
      */
-    private List<ValoracionDTO> listEntity2DTO(List<ValoracionEntity> entityList)throws BusinessLogicException {
-        List<ValoracionDTO> list = new ArrayList<ValoracionDTO>();
+    private List<ValoracionDetailDTO> listEntity2DTO(List<ValoracionEntity> entityList)throws BusinessLogicException {
+        List<ValoracionDetailDTO> list = new ArrayList<ValoracionDetailDTO>();
         for (ValoracionEntity entity : entityList) {
-            list.add(new ValoracionDTO(entity));
+            list.add(new ValoracionDetailDTO(entity));
         }
         return list;
     }

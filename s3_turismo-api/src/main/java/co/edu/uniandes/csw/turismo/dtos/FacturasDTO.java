@@ -6,20 +6,24 @@
 package co.edu.uniandes.csw.turismo.dtos;
 
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
+import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author estudiante modificado por David Fonseca
  */
-public class Facturas {
+public class FacturasDTO implements Serializable {
     
     private String descripción;
     //En Entity está como Double; jsgs        
     //private Integer costo;
     private Double costo;
     
-    private Integer id;
+    private Long id;
 
+    public FacturasDTO()
+    {
+    }
     /**
      * @return the descripción
      */
@@ -51,14 +55,14 @@ public class Facturas {
     /**
      * @return the id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
@@ -70,7 +74,7 @@ public class Facturas {
         return newEntity;
     }
     
-    public Facturas(FacturaEntity ent) {
+    public FacturasDTO(FacturaEntity ent) {
         costo = ent.getCosto();
         descripción = ent.getDescripcion();
     }

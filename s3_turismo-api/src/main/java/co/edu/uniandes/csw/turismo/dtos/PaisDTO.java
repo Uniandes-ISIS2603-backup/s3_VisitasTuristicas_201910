@@ -24,12 +24,19 @@ public class PaisDTO implements Serializable
    */
    private Long id;
  
-  
+ 
    
   public PaisDTO()
   {
   
   }
+  
+  /*
+  *Falta conectar con logica.
+  */
+  
+  
+  
    /*
    *Retornar el nombre del pais
    *@return nombre

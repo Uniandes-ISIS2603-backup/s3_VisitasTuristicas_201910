@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 
-import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import java.io.Serializable;
@@ -29,19 +28,24 @@ private ArrayList<CiudadDTO> ciudadesDTO;
 public PaisDetailDTO()
 {
     super();
-    ciudadesDTO=new ArrayList<>();
          
 }
-
+//Falta conectar con entidad
     public PaisDetailDTO(PaisEntity paisEntity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+super(paisEntity);
+if(paisEntity != null) {
+            ArrayList<CiudadDTO> toAdd = new ArrayList<>();
+            for(CiudadEntity a : paisEntity.darCiudades()) {
+                toAdd.add(new CiudadDTO(a));
+            }
+            this.ciudadesDTO=toAdd;
+        }
     }
-
 /*
 *Retornar las ciudades
 *@return ciudadesDTO
 */
-public ArrayList<CiudadDTO> darCiudades()
+public ArrayList<CiudadDTO> getCiudades()
 {
     return ciudadesDTO;
 }
@@ -51,11 +55,12 @@ public ArrayList<CiudadDTO> darCiudades()
 *Actualizar la lista de ciudades
 *@param pciudades
 */
-public void actualizarCiudades(ArrayList<CiudadDTO> pciudades)
+public void setCiudades(ArrayList<CiudadDTO> pciudades)
 {
     this.ciudadesDTO=pciudades;
 }
 
+@Override
  public PaisEntity toEntity()
     {
         PaisEntity aRet = new PaisEntity();
@@ -67,7 +72,7 @@ public void actualizarCiudades(ArrayList<CiudadDTO> pciudades)
 
             List<CiudadEntity> ciudadEntity = new ArrayList<>();
 
-            for (CiudadDTO dtoCiudad : darCiudades()) {
+            for (CiudadDTO dtoCiudad : getCiudades()) {
 
                 ciudadEntity.add(dtoCiudad.toEntity());
 

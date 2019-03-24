@@ -34,6 +34,7 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
 
     //constructor
     public PlanTuristicoDetailDTO(PlanTuristicoEntity planEntity) throws BusinessLogicException {
+        super(planEntity);
         if (planEntity.getBlogs() != null) {
 
             blogs = new ArrayList<>();
@@ -139,6 +140,7 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
         this.preferencias = preferencias;
     }
 
+    @Override
     public PlanTuristicoEntity toEntity() {
         PlanTuristicoEntity planTuristicoEntity = new PlanTuristicoEntity();
 

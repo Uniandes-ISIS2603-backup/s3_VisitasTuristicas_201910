@@ -14,11 +14,10 @@ import javax.persistence.Id;
 
 /**
  *
- * @author estudiante
+ * @author estudiante modificado por David Fonseca cambiados atributos por serializables y agregado constructor entity
  */
-public class TarjetaDeCreditoDTO implements Serializable {
+public class TarjetaDeCreditoDTO implements Serializable  {
 
-    private static long serialVersionUID = 1L;
     private String numero;
     
     private String banco;
@@ -29,25 +28,28 @@ public class TarjetaDeCreditoDTO implements Serializable {
     
     private ViajeroDTO viajero;
 
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
     
     public TarjetaDeCreditoDTO()
     {
         
     }
 
+    /**
+    * @return the viajero
+    */
+    public ViajeroDTO getViajero() {
+        return viajero;
+    }
+
+    /**
+     * @param viajero the viajero to set
+     */
+    public void setViajero(ViajeroDTO viajero) {
+        this.viajero = viajero;
+    }
+
+    
     /**
      * @return the numero
      */
@@ -118,6 +120,8 @@ public class TarjetaDeCreditoDTO implements Serializable {
         this.numero = tarjeta.getNumero();
         this.banco = tarjeta.getBanco();
         this.codigoSeguridad = tarjeta.getCodigoSeguridad();
+        this.idTarjetaDeCredito=tarjeta.getId();
+        this.viajero=new ViajeroDTO(tarjeta.getViajero());
     }
      
 }

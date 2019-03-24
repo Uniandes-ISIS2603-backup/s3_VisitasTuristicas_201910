@@ -30,15 +30,15 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class ViajePersistenceTest {
-    
+
     @Inject
     private ViajePersistence viajePersistence;
     @PersistenceContext
     private EntityManager em;
-     @Inject
+    @Inject
     UserTransaction utx;
-     
-      private List<ViajeEntity> data = new ArrayList<ViajeEntity>();
+
+    private List<ViajeEntity> data = new ArrayList<ViajeEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -49,8 +49,8 @@ public class ViajePersistenceTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
 
     }
-    
-       @Before
+
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -67,8 +67,8 @@ public class ViajePersistenceTest {
             }
         }
     }
-    
-   /**
+
+    /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
@@ -81,30 +81,39 @@ public class ViajePersistenceTest {
             data.add(entity);
         }
     }
-    
-     /**
+
+    /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from ViajeEntity").executeUpdate();
     }
-    
+
+    /**
+     *
+     * Prueba que el viaje haya quedado en la base de datos
+     *
+     */
     @Test
-    public void createViajeTest(){
-        PodamFactory factory= new PodamFactoryImpl();
+    public void createViajeTest() {
+        PodamFactory factory = new PodamFactoryImpl();
         ViajeEntity newViajeEntity = factory.manufacturePojo(ViajeEntity.class);
-        ViajeEntity result= viajePersistence.create(newViajeEntity);
-        
+        ViajeEntity result = viajePersistence.create(newViajeEntity);
+
         Assert.assertNotNull(result);
-        
-        ViajeEntity  entity=em.find(ViajeEntity.class, result.getId());
-        
-        Assert.assertEquals(newViajeEntity.getFechaInicio(),entity.getFechaInicio());
-        Assert.assertEquals(newViajeEntity.getFechaFin(),entity.getFechaFin());
-        
-        
+
+        ViajeEntity entity = em.find(ViajeEntity.class, result.getId());
+
+        Assert.assertEquals(newViajeEntity.getFechaInicio(), entity.getFechaInicio());
+        Assert.assertEquals(newViajeEntity.getFechaFin(), entity.getFechaFin());
+
     }
-    
+
+    /**
+     *
+     * Prueba que el viaje se pueda encontrar en la base de datos
+     *
+     */
     @Test
     public void getViajeTest() {
         ViajeEntity entity = data.get(0);
@@ -112,17 +121,27 @@ public class ViajePersistenceTest {
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getFechaInicio(), newEntity.getFechaInicio());
         Assert.assertEquals(entity.getFechaFin(), newEntity.getFechaFin());
-        
+
     }
-    
-     @Test
+
+    /**
+     *
+     * Prueba que el viaje haya sido borrado la base de datos
+     *
+     */
+    @Test
     public void deleteViajeTest() {
         ViajeEntity entity = data.get(0);
         viajePersistence.delete(entity.getId());
         ViajeEntity deleted = em.find(ViajeEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-    
+
+    /**
+     *
+     * Prueba que el viaje haya sido modificado en la base de datos
+     *
+     */
     @Test
     public void updateBookTest() {
         ViajeEntity entity = data.get(0);
@@ -137,6 +156,6 @@ public class ViajePersistenceTest {
 
         Assert.assertEquals(newEntity.getFechaInicio(), resp.getFechaInicio());
         Assert.assertEquals(newEntity.getFechaFin(), resp.getFechaFin());
-        
+
     }
 }

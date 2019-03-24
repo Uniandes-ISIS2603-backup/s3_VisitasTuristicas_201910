@@ -16,22 +16,14 @@ public class ValoracionDTO implements Serializable {
     * dado que esta tiene cardinalidad 1.
      */
     private PlanTuristicoDTO plan;
-
-    public PlanTuristicoDTO getPlan() {
-        return plan;
-    }
-
-    public void setPlan(PlanTuristicoDTO plan) {
-        this.plan = plan;
-    }
     /*
 	 *Atributo que representa el id del usuario que realiza la valoración
      */
-    private int idUsuario;
+    private Integer idUsuario;
     /*
 	 *Atributo que representa la valoración numérica de un plan turístico
      */
-    private int valoracion;
+    private Integer valoracion;
     /*
 	 *Atributo que representa el comentario correspondiente a un plan turístico
      */
@@ -57,12 +49,19 @@ public class ValoracionDTO implements Serializable {
         return idUsuario;
     }
 
+        public PlanTuristicoDTO getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanTuristicoDTO plan) {
+        this.plan = plan;
+    }
     /*
 	 *Cambia el id del usuario que realiza la valoración de un
 	 *blog de viajero
 	 *@param idUsuario
      */
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -78,7 +77,7 @@ public class ValoracionDTO implements Serializable {
 	 *Cambia la valoración numérica de un plan turístico
 	 *@param valoracion
      */
-    public void setValoracion(int valoracion) {
+    public void setValoracion(Integer valoracion) {
         this.valoracion = valoracion;
     }
 

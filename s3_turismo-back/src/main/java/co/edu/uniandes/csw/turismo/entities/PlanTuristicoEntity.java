@@ -43,7 +43,7 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "planTuristico", cascade = CascadeType.PERSIST, orphanRemoval = true)
 
     private List<ValoracionEntity> valoraciones = new ArrayList<ValoracionEntity>();
-    
+
     @PodamExclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ViajeroEntity viajero;
