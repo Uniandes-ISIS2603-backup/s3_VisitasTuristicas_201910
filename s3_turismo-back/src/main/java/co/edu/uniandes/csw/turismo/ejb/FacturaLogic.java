@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.turismo.persistence.ViajeroPersistence;
@@ -27,7 +28,7 @@ public class FacturaLogic {
     private FacturaPersistence persistence;
 
     @Inject
-    private ViajeroPersistence editorialPersistence;
+    private ViajeroPersistence viajeroPersistence;
 
     /**
      * Guardar una nueva factura
@@ -36,35 +37,25 @@ public class FacturaLogic {
      * @return La entidad luego de persistirla
      * @throws BusinessLogicException Si el el costo o la descripcion son inválidos
      */
-    public FacturaEntity createFactura(FacturaEntity facturaEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación de la factura");
-        if (facturaEntity.getViajero() == null || editorialPersistence.find(facturaEntity.getViajero().getId()) == null) {
-            throw new BusinessLogicException("El usuario es inválido");
-        }
-        if(!validateCosto(facturaEntity.getCosto()))
-        {
-            throw new BusinessLogicException("El costo no es valido");
-        }  
-        if(!validateDescripcion(facturaEntity.getDescripcion()))
-        {
-            throw new BusinessLogicException("La descripcion no es valida");
-        }
-            
-        persistence.create(facturaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación de la factura");
-        return facturaEntity;
+   public FacturaEntity createFactura(Long booksId, FacturaEntity reviewEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de crear review");
+        ViajeroEntity book = viajeroPersistence.find(booksId);
+        reviewEntity.setViajero(book);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del review");
+        return persistence.create(reviewEntity);
     }
 
     /**
      * Devuelve todas las facturas.
      *
+     * @param viajeroId
      * @return Lista de entidades de tipo factura.
      */
-    public List<FacturaEntity> getFacturas() {
+    public List<FacturaEntity> getFacturas(Long viajeroId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las facturas");
-        List<FacturaEntity> facturas = persistence.findAll();
+ViajeroEntity viajero = viajeroPersistence.find(viajeroId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar todas las facturas");
-        return facturas;
+        return viajero.getFacturas();
     }
 
     /**
@@ -73,9 +64,9 @@ public class FacturaLogic {
      * @param facturasId El id a buscar
      * @return La factura encontrado, null si no lo encuentra.
      */
-    public FacturaEntity getFactura(Long facturasId) {
+    public FacturaEntity getFactura(Long facturasId, Long viajeroId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar una factura con id = {0}", facturasId);
-        FacturaEntity facturaEntity = persistence.find(facturasId);
+        FacturaEntity facturaEntity = persistence.find(facturasId, viajeroId);
         if (facturaEntity == null) {
             LOGGER.log(Level.SEVERE, "La factura con el id = {0} no existe", facturasId);
         }
@@ -110,10 +101,14 @@ public class FacturaLogic {
      *
      * @param facturasId El id a eliminar
      */
-    public void deleteFactura(Long facturasId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el libro con id = {0}", facturasId);
-        persistence.delete(facturasId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el libro con id = {0}", facturasId);
+    public void deleteFactura(Long facturasId, Long viajeroId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + viajeroId, facturasId);
+        FacturaEntity old = getFactura(facturasId, viajeroId);
+        if (old == null) {
+            throw new BusinessLogicException("El review con id = " + viajeroId + " no esta asociado a el libro con id = " + facturasId);
+        }
+        persistence.delete(old.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + viajeroId, facturasId);
     }
 
     /**

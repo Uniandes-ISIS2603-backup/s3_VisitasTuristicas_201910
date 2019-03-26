@@ -8,14 +8,13 @@ package co.edu.uniandes.csw.turismo.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 
-import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author lm.rodriguezc2
+ * @author lm.rodriguezc2 modificado por David Fonseca Cambiado el tipo del atributo a serializable
  */
 @Entity
 public class BlogDeViajeroEntity extends BaseEntity implements Serializable {
@@ -48,7 +47,7 @@ public class BlogDeViajeroEntity extends BaseEntity implements Serializable {
 	 *Atributo que representa la cantidad de likes recibidos en el blog de viajero
 	 * correspondiente a un plan turístico
      */
-    private int likes;
+    private Integer likes;
     //Métodos
 
     /*
@@ -97,7 +96,7 @@ public class BlogDeViajeroEntity extends BaseEntity implements Serializable {
 	 *Retornar el número de likes de un blog de viajero
 	 *@return likes
      */
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
@@ -105,7 +104,7 @@ public class BlogDeViajeroEntity extends BaseEntity implements Serializable {
 	 *Cambia el número de likes de un blog de viajero
 	 *@param likes
      */
-    public void setLikes(int likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 

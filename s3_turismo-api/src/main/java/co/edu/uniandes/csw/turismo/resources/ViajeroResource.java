@@ -25,9 +25,9 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Juan Sebastian Gutierrez S.
  */
-@Path("/viajeros")
-@Produces("application/json")
-@Consumes("application/json")
+@Path("viajero")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class ViajeroResource {
     private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());
@@ -56,6 +56,7 @@ public class ViajeroResource {
      * retorna un viajero con un id
      * @param pIdViajero
      * @return Viajero
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
     public ViajeroDetailDTO getViajero(@PathParam("id")Long pIdViajero) throws BusinessLogicException {
@@ -66,8 +67,8 @@ public class ViajeroResource {
         return listaDTOs;
     }
     @GET
-    public List<ViajeroDetailDTO> getViajeros(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", planTuristicoId);
+    public List<ViajeroDetailDTO> getViajeros() throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", "asdasda");
         List<ViajeroDetailDTO> listaDTOs = listEntity2DTO(logic.getViajeros());
         LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
         return listaDTOs;

@@ -64,7 +64,7 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
 *Retornar los sitios tuiristicos
 *@return sitiosTuristicosDTO
 */
-public ArrayList<SitiosTuristicosDTO> getSitiosTuristicos()
+public ArrayList<SitiosTuristicosDTO> getSitiosTuristicosDTO()
 {
     return sitiosTuristicosDto;
 }
@@ -74,7 +74,7 @@ public ArrayList<SitiosTuristicosDTO> getSitiosTuristicos()
 *Actualizar la lista de sitios turisticos
 *@param psitios
 */
-public void setSitiosTuristicos(ArrayList<SitiosTuristicosDTO> psitios)
+public void setSitiosTuristicosDTO(ArrayList<SitiosTuristicosDTO> psitios)
 {
     this.sitiosTuristicosDto=psitios;
 }

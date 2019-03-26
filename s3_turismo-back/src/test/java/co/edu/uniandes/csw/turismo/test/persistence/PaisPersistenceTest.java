@@ -28,7 +28,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author David Fonseca
  */
 @RunWith(Arquillian.class)
-public class PaisTest {
+public class PaisPersistenceTest {
      
     @Inject
     private PaisPersistence ciudadPersistence;
@@ -97,7 +97,7 @@ public class PaisTest {
         PaisEntity result = ciudadPersistence.create(newEntity);
         Assert.assertNotNull(result);
         PaisEntity entity = em.find(PaisEntity.class, result.getId());
-        Assert.assertEquals(newEntity.darNombre(), entity.darNombre());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
     
      /**
@@ -129,7 +129,7 @@ public class PaisTest {
         PaisEntity entity = data.get(0);
         PaisEntity newEntity =ciudadPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.darNombre(), newEntity.darNombre());
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
 
     }
     
@@ -148,7 +148,7 @@ public class PaisTest {
 
         PaisEntity resp = em.find(PaisEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.darNombre(), resp.darNombre());
+        Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
 
     }
     

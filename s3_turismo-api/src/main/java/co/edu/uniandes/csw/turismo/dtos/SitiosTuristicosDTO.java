@@ -77,7 +77,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Retornar el id del sitio turistico
     *@return id
     */
-    public Long getID()
+    public Long getId()
     {
         return id;
     }
@@ -86,7 +86,7 @@ public class SitiosTuristicosDTO implements Serializable
     *Cambia el id del sitio turistico
     *@param pid
     */
-    public void setID(Long pid)
+    public void setId(Long pid)
     {
         id=pid;
     }

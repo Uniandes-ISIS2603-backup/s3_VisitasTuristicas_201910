@@ -107,32 +107,7 @@ public class FacturaLogicTest {
 
     }
 
-    @Test(expected = BusinessLogicException.class)
-    public void createFacturaConMismoDescripcionTest() throws BusinessLogicException {
-
-        FacturaEntity newFacturaEntity = factory.manufacturePojo(FacturaEntity.class);
-        newFacturaEntity.setDescripcion(data.get(0).getDescripcion());
-        planTuristicoLogic.createFactura(newFacturaEntity);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createFacturaConDescripcionInvalidoTest() throws BusinessLogicException {
-        FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
-        newEntity.setDescripcion("");
-        planTuristicoLogic.createFactura(newEntity);
-    }
-
-    @Test
-    public void deleteFacturaTest() throws BusinessLogicException {
-        FacturaEntity newFacturaEntity = factory.manufacturePojo(FacturaEntity.class);
-        FacturaEntity result = ep.create(newFacturaEntity);
-        Assert.assertNotNull(result);
-        FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
-        Assert.assertNotNull(entity);
-        ep.delete(entity.getId());
-        Assert.assertNull(ep.find(result.getId()));
-
-    }
+ 
 
     @Test
     public void updateFacturaTest() throws BusinessLogicException {

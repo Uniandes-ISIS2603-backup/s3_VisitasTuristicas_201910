@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -31,23 +32,23 @@ public class PaisEntity extends BaseEntity implements Serializable {
    
    
    @PodamExclude
-   @ManyToOne
-   private PlanTuristicoEntity plan;
+   @ManyToMany(mappedBy="paises")  
+   private List<PlanTuristicoEntity> planes;
    
    
-   public void actualizarPlan(PlanTuristicoEntity pplan)
+   public void setPlanes(List<PlanTuristicoEntity> pplan)
    {
-       this.plan=pplan;
+       this.planes=pplan;
    }
-   public PlanTuristicoEntity darPlanTuristico()
+   public List<PlanTuristicoEntity> getPlanesTuristicos()
    {
-     return plan;  
+     return planes;  
    }
    /*
    *Retorna las ciudades
    *@return ciudades
    */
-public List<CiudadEntity> darCiudades()
+public List<CiudadEntity> getCiudades()
 {
     return ciudades;
 }
@@ -56,7 +57,7 @@ public List<CiudadEntity> darCiudades()
 *Actualiza la lista de ciudades
 *@param pciudad
 */
-public void actualizarCiudades(List<CiudadEntity> pciudad)
+public void setCiudades(List<CiudadEntity> pciudad)
 {
     this.ciudades=pciudad;
 }
@@ -64,7 +65,7 @@ public void actualizarCiudades(List<CiudadEntity> pciudad)
    *Retornar el nombre del pais
    *@return nombre
    */
-   public String darNombre()
+   public String getNombre()
    {
        return nombre;
    }
@@ -73,7 +74,7 @@ public void actualizarCiudades(List<CiudadEntity> pciudad)
    *Cambia el nombre del pais
    *@param pNombre
    */
-   public void cambiarNombre(String pNombre)
+   public void setNombre(String pNombre)
    {
        this.nombre=pNombre;
    }
