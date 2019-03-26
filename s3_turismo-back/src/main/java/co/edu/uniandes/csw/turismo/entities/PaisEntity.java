@@ -32,7 +32,7 @@ public class PaisEntity extends BaseEntity implements Serializable {
    
    
    @PodamExclude
-   @ManyToMany(mappedBy="paises")  
+   @ManyToMany 
    private List<PlanTuristicoEntity> planes;
    
    

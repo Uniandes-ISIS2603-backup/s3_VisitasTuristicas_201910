@@ -59,20 +59,27 @@ public class ViajeroResource {
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
-    public ViajeroDetailDTO getViajero(@PathParam("id")Long pIdViajero) throws BusinessLogicException {
-        //return new ViajeroDetailDTO();
-        LOGGER.log(Level.INFO, "getViajeroResource");
-        ViajeroDetailDTO listaDTOs = new ViajeroDetailDTO(logic.getViajero(pIdViajero));
-        LOGGER.log(Level.INFO, "getViajeroResource", listaDTOs.toString());
-        return listaDTOs;
-    }
-    @GET
     public List<ViajeroDetailDTO> getViajeros() throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", "asdasda");
-        List<ViajeroDetailDTO> listaDTOs = listEntity2DTO(logic.getViajeros());
-        LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
-        return listaDTOs;
+        LOGGER.info("BookResource getBooks: input: void");
+        List<ViajeroDetailDTO> listaBooks = listEntity2DTO(logic.getViajeros());
+        LOGGER.log(Level.INFO, "BookResource getBooks: output: {0}", listaBooks);
+        return listaBooks;
     }
+    
+    
+    @GET
+    @Path("{viajeroId: \\d+}")
+    public ViajeroDetailDTO getBook(@PathParam("viajeroId") Long booksId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "BookResource getBook: input: {0}", booksId);
+        ViajeroEntity bookEntity = logic.getViajero(booksId);
+        if (bookEntity == null) {
+            throw new WebApplicationException("El recurso /books/" + booksId + " no existe.", 404);
+        }
+        ViajeroDetailDTO bookDetailDTO = new ViajeroDetailDTO(bookEntity);
+        LOGGER.log(Level.INFO, "BookResource getBook: output: {0}", bookDetailDTO);
+        return bookDetailDTO;
+    }
+
     
     //private List<ViajeroDTO> listEntity2DTO(List<ViajeroEntity> entityList)throws BusinessLogicException {
     //    List<ViajeroDTO> list = new ArrayList<ViajeroDTO>();
