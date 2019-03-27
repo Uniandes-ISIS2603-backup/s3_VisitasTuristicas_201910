@@ -45,7 +45,7 @@ public class ValoracionDTO implements Serializable {
 	 *blog de viajero
 	 *@return idUsuario
      */
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
@@ -69,7 +69,7 @@ public class ValoracionDTO implements Serializable {
 	 *Retornar la valoración numérica de un plan turístico
 	 *@return valoracion
      */
-    public int getValoracion() {
+    public Integer getValoracion() {
         return valoracion;
     }
 
@@ -103,7 +103,7 @@ public class ValoracionDTO implements Serializable {
         respuesta.setComentario(this.comentario);
         respuesta.setIdUsuario(this.idUsuario);
         respuesta.setValoracion(this.valoracion);
-        //respuesta.setId(Long.MIN_VALUE);
+        respuesta.setId(Long.MIN_VALUE);        
         if (this.plan != null) {
             respuesta.setPlanTuristico(this.plan.toEntity());
         }

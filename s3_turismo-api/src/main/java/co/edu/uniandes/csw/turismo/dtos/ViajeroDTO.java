@@ -13,18 +13,15 @@ import java.io.Serializable;
  */
 public class ViajeroDTO implements Serializable {
     
-   public enum TipoUsuario {
-        TURISTA, GUIA, ADMIN
-    }
+  
     
     private Long idUsuario;
     private String nombreUsuario;
     private Integer codigoUnico;
     private String idioma;
-    private TipoUsuario tipoDeUsuario;
+    private String tipoDeUsuario;
     private Integer cantidadPlanes;
     private String informacionPersonal;
-    //necesito un detail de preferencia?
     private TarjetaDeCreditoDTO tarjetaDeCredito;
     private ViajeDTO viaje;
 
@@ -127,7 +124,7 @@ public class ViajeroDTO implements Serializable {
      * se retorna el tipo de usuario
      * @return tipoDeUsuario
      */
-    public TipoUsuario getTipoDeUsuario() {
+    public String getTipoDeUsuario() {
         return tipoDeUsuario;
     }
 
@@ -135,7 +132,7 @@ public class ViajeroDTO implements Serializable {
      * se asigna el tipo de usuario
      * @param tipoDeUsuario 
      */
-    public void setTipoDeUsuario(TipoUsuario tipoDeUsuario) {
+    public void setTipoDeUsuario(String tipoDeUsuario) {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
@@ -183,11 +180,9 @@ public class ViajeroDTO implements Serializable {
         nuevo.setNombreUsuario(nombreUsuario);
         nuevo.setCantidadPlanes(this.cantidadPlanes);
         nuevo.setIdioma(idioma);
-        //nuevo.setFacturas(facturas.toEntity());
-        //nuevo.setPlanesTuristicos(planesTuristicos.toEntity());
         nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
         
-        //nuevo.setTipoDeUsuario(tipoDeUsuario);
+        nuevo.setTipoDeUsuario(tipoDeUsuario);
         nuevo.setInformacionPersonal(informacionPersonal);
         return nuevo;
     }
@@ -201,7 +196,7 @@ public class ViajeroDTO implements Serializable {
         this.idUsuario = ent.getId();
         this.cantidadPlanes=ent.getCantidadPlanes();
         this.codigoUnico=ent.getCodigoUnico();
-//        this.tipoDeUsuario=ent.getTipoDeUsuario();
+      this.tipoDeUsuario=ent.getTipoDeUsuario();
         this.viaje=new ViajeDTO(ent.getViaje());
         this.nombreUsuario = ent.getNombreUsuario();
         this.idioma = ent.getIdioma();

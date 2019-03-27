@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.turismo.dtos;
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /*
 *     @author estudiante  Modificado por David Fonseca agregado el serializable y cambiados tipos de atributos a serializables.
@@ -123,7 +122,7 @@ public class BlogDeViajeroDTO implements Serializable {
         respuesta.setComentarios(this.comentarios);
         respuesta.setLikes(this.likes);
         respuesta.setSugerencias(this.sugerencias);
-        //respuesta.setId(Long.MIN_VALUE);
+        respuesta.setId(this.id);
         
         if (this.plan != null) {
             respuesta.setPlanTuristico(this.plan.toEntity());

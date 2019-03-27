@@ -19,15 +19,13 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ViajeroEntity  extends BaseEntity  implements Serializable{
     
-   public enum TipoUsuario {
-        TURISTA, GUIA, ADMIN
-    }
+   
     
     private Long idUsuario;
     private String nombreUsuario;
     private int codigoUnico;
     private String idioma;
-    private TipoUsuario tipoDeUsuario;
+    private String tipoDeUsuario;
     private int cantidadPlanes;
     private String informacionPersonal;
     
@@ -123,11 +121,11 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
         this.idioma = idioma;
     }
 
-    public TipoUsuario getTipoDeUsuario() {
+    public String getTipoDeUsuario() {
         return tipoDeUsuario;
     }
 
-    public void setTipoDeUsuario(TipoUsuario tipoDeUsuario) {
+    public void setTipoDeUsuario(String tipoDeUsuario) {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 

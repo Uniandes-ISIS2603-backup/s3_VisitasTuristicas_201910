@@ -88,7 +88,7 @@ public class SitiosTuristicosDTO implements Serializable
     */
     public void setId(Long pid)
     {
-        id=pid;
+        this.id=pid;
     }
     /*
     *Retornar el nombre del sitio turistico

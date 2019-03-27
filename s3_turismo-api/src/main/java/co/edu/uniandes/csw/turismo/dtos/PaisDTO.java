@@ -30,11 +30,7 @@ public class PaisDTO implements Serializable
   {
   
   }
-  
- 
-  
-  
-  
+
    /*
    *Retornar el nombre del pais
    *@return nombre

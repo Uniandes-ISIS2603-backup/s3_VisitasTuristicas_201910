@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.turismo.dtos;
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import java.io.Serializable;
 
+
+
 /**
  *
  * @author estudiante modificado por David Fonseca
@@ -15,8 +17,7 @@ import java.io.Serializable;
 public class FacturasDTO implements Serializable {
     
     private String descripción;
-    //En Entity está como Double; jsgs        
-    //private Integer costo;
+    
     private Double costo;
     
     private Long id;
