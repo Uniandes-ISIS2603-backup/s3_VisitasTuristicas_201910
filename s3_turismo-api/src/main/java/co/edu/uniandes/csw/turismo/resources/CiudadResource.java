@@ -5,12 +5,11 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
-import co.edu.uniandes.csw.turismo.dtos.CiudadDTO;
-import co.edu.uniandes.csw.turismo.dtos.CiudadDetailDTO;
+
+
 import co.edu.uniandes.csw.turismo.dtos.CiudadDTO;
 import co.edu.uniandes.csw.turismo.dtos.CiudadDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.CiudadLogic;
-import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -34,8 +34,8 @@ import javax.ws.rs.WebApplicationException;
  */
 
 @Path("/ciudades")
-@Produces("application/json")
-@Consumes("application/json" )
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON )
 @RequestScoped
 public class CiudadResource {
     private static final Logger LOGGER=Logger.getLogger(CiudadResource.class.getName());

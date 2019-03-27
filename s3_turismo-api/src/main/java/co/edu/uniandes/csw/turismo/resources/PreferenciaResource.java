@@ -7,10 +7,7 @@ package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.PreferenciaDTO;
 import co.edu.uniandes.csw.turismo.ejb.PreferenciaLogic;
-import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -31,8 +28,8 @@ import javax.ws.rs.core.MediaType;
  */
 
     @Path("/preferencias")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class PreferenciaResource {
     private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());

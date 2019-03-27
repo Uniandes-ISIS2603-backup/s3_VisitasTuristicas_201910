@@ -5,13 +5,10 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
-import co.edu.uniandes.csw.turismo.dtos.CiudadDetailDTO;
 import co.edu.uniandes.csw.turismo.dtos.PaisDTO;
 import co.edu.uniandes.csw.turismo.dtos.PaisDetailDTO;
-import co.edu.uniandes.csw.turismo.dtos.PlanTuristicoDTO;
 import co.edu.uniandes.csw.turismo.ejb.PaisLogic;
 import co.edu.uniandes.csw.turismo.entities.PaisEntity;
-import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +24,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -34,8 +32,8 @@ import javax.ws.rs.WebApplicationException;
  */
 
 @Path("/paises")
-@Produces("application/json")
-@Consumes("application/json" )
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON )
 @RequestScoped
 public class PaisResource {
     private static final Logger LOGGER=Logger.getLogger(PaisResource.class.getName());

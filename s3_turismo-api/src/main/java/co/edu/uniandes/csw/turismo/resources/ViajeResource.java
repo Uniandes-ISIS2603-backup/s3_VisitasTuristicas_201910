@@ -6,12 +6,9 @@
 package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.ViajeDTO;
-import co.edu.uniandes.csw.turismo.ejb.PlanTuristicoLogic;
 import co.edu.uniandes.csw.turismo.ejb.ViajeLogic;
-import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.ViajeEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -43,12 +40,9 @@ public class ViajeResource {
      @Inject
     private ViajeLogic viajeLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
-    @Inject
-    private ViajeroLogic viajeroLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+   
 
-    @Inject
-    private PlanTuristicoLogic planTuristicoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-   /**
+       /**
      * Crea un nuevo viaje con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la
      * base de datos.

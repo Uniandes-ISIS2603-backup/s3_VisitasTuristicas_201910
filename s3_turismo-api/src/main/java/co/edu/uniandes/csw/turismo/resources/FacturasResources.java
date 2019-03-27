@@ -40,11 +40,12 @@ public class FacturasResources {
     @Inject
     private FacturaLogic facturaLogic;
     
-    @POST
-    public FacturasDTO createFactura( FacturasDTO factura, Long idUsuario) throws BusinessLogicException
-    {
-        return new FacturasDTO(facturaLogic.createFactura(idUsuario,factura.toEntity()));
-        
+     @POST
+    public FacturasDTO createFactura(@PathParam("facuraId") Long facturaId, FacturasDTO review) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Factura Resource create factura: input: {0}", review);
+        FacturasDTO nuevoReviewDTO = new FacturasDTO(facturaLogic.createFactura(facturaId, review.toEntity()));
+        LOGGER.log(Level.INFO, "factura resource create factura: output: {0}", nuevoReviewDTO);
+        return nuevoReviewDTO;
     }
     
     @GET

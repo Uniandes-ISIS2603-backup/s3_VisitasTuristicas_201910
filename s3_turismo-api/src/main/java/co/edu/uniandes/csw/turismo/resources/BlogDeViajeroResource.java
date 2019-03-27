@@ -26,7 +26,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
-@Path("blogDeViajero")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -50,7 +49,6 @@ public class BlogDeViajeroResource {
      * Error de lógica que se genera cuando ya existe el blog.
      */
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
     public BlogDeViajeroDTO crearBlog(@PathParam("planTuristicoId")Long planTuristicoId, BlogDeViajeroDTO blog)throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BlogDeViajeroResource crearBlog: input: {0}", blog.toString());
         BlogDeViajeroDTO nuevoBlogDeViajeroDTO = new BlogDeViajeroDTO(blogDeViajeroLogic.createBlogDeViajero(planTuristicoId, blog.toEntity()));
