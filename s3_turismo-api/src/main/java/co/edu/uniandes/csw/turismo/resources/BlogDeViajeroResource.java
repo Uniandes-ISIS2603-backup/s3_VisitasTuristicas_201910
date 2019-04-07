@@ -15,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDTO;
-import co.edu.uniandes.csw.turismo.dtos.BlogDeViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.BlogDeViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -27,7 +26,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
-@Path("blogDeViajero")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -51,7 +49,6 @@ public class BlogDeViajeroResource {
      * Error de lógica que se genera cuando ya existe el blog.
      */
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
     public BlogDeViajeroDTO crearBlog(@PathParam("planTuristicoId")Long planTuristicoId, BlogDeViajeroDTO blog)throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BlogDeViajeroResource crearBlog: input: {0}", blog.toString());
         BlogDeViajeroDTO nuevoBlogDeViajeroDTO = new BlogDeViajeroDTO(blogDeViajeroLogic.createBlogDeViajero(planTuristicoId, blog.toEntity()));
@@ -70,9 +67,9 @@ public class BlogDeViajeroResource {
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
-    public List<BlogDeViajeroDetailDTO> getBlogs(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
+    public List<BlogDeViajeroDTO> getBlogs(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlogs: input: {0}", planTuristicoId);
-        List<BlogDeViajeroDetailDTO> listaDTOs = listEntity2DTO(blogDeViajeroLogic.getBlogs(planTuristicoId));
+        List<BlogDeViajeroDTO> listaDTOs = listEntity2DTO(blogDeViajeroLogic.getBlogs(planTuristicoId));
         LOGGER.log(Level.INFO, "PlanTuristicoResource getBlogs: output: {0}", listaDTOs.toString());
         return listaDTOs;
     }
@@ -91,14 +88,14 @@ public class BlogDeViajeroResource {
      */
     @GET
     @Path("{blogId: \\d+}")
-    public BlogDeViajeroDetailDTO getBlog(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("blogId") Long blogId) throws BusinessLogicException {
+    public BlogDeViajeroDTO getBlog(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("blogId") Long blogId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BlogDeViajeroResource getBlog: input: {0}", blogId);
         BlogDeViajeroEntity entity = blogDeViajeroLogic.getBlog(planTuristicoId, blogId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /plan/" + planTuristicoId + "/blog/" + blogId + " no existe.", 404);
         }
-        BlogDeViajeroDetailDTO blogDTO;
-        blogDTO = new BlogDeViajeroDetailDTO(entity);
+        BlogDeViajeroDTO blogDTO;
+        blogDTO = new BlogDeViajeroDTO(entity);
        // LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", ValoracionDTO.toString());
         return blogDTO;
     }
@@ -164,10 +161,10 @@ public class BlogDeViajeroResource {
      * vamos a convertir a DTO.
      * @return la lista de blogs en forma DTO (json)
      */
-    private List<BlogDeViajeroDetailDTO> listEntity2DTO(List<BlogDeViajeroEntity> entityList)throws BusinessLogicException {
-        List<BlogDeViajeroDetailDTO> list = new ArrayList<BlogDeViajeroDetailDTO>();
+    private List<BlogDeViajeroDTO> listEntity2DTO(List<BlogDeViajeroEntity> entityList)throws BusinessLogicException {
+        List<BlogDeViajeroDTO> list = new ArrayList<BlogDeViajeroDTO>();
         for (BlogDeViajeroEntity entity : entityList) {
-            list.add(new BlogDeViajeroDetailDTO(entity));
+            list.add(new BlogDeViajeroDTO(entity));
         }
         return list;
     }

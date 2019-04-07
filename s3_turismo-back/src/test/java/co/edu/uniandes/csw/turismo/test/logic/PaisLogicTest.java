@@ -102,7 +102,7 @@ public class PaisLogicTest {
 
         PaisEntity entity = em.find(PaisEntity.class, result.getId());
 
-        Assert.assertEquals(newPaisEntity.darNombre(), entity.darNombre());
+        Assert.assertEquals(newPaisEntity.getNombre(), entity.getNombre());
 
     }
 
@@ -110,14 +110,14 @@ public class PaisLogicTest {
     public void createPaisConMismoNombreTest() throws BusinessLogicException {
 
         PaisEntity newPaisEntity = factory.manufacturePojo(PaisEntity.class);
-        newPaisEntity.cambiarNombre(data.get(0).darNombre());
+        newPaisEntity.setNombre(data.get(0).getNombre());
         paisLogic.createPais(newPaisEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
     public void createPaisConNombreInvalidoTest() throws BusinessLogicException {
         PaisEntity newEntity = factory.manufacturePojo(PaisEntity.class);
-        newEntity.cambiarNombre("");
+        newEntity.setNombre("");
         paisLogic.createPais(newEntity);
     }
 
@@ -126,19 +126,19 @@ public class PaisLogicTest {
     @Test
     public void updatePaisTest() throws BusinessLogicException {
         PaisEntity entity = data.get(0);
-        entity.cambiarNombre("hola");
+        entity.setNombre("hola");
         PaisEntity pojoEntity = factory.manufacturePojo(PaisEntity.class);
         
         pojoEntity.setId(entity.getId());
-        pojoEntity.cambiarNombre(entity.darNombre());
+        pojoEntity.setNombre(entity.getNombre());
         
         paisLogic.updatePais(pojoEntity.getId(), pojoEntity);
         
         PaisEntity resp = em.find(PaisEntity.class, entity.getId());
         
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.darNombre(), resp.darNombre());
-        Assert.assertEquals(pojoEntity.darPlanTuristico(), resp.darPlanTuristico());
+        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        Assert.assertEquals(pojoEntity.getPlanesTuristicos(), resp.getPlanesTuristicos());
 
 
     }
@@ -147,7 +147,7 @@ public class PaisLogicTest {
     public void updatePaisConNombreVacioTest() throws BusinessLogicException {
         PaisEntity entity = data.get(0);
         PaisEntity pojoEntity = factory.manufacturePojo(PaisEntity.class);
-        pojoEntity.cambiarNombre("");
+        pojoEntity.setNombre("");
         paisLogic.updatePais(entity.getId(), pojoEntity);
     }
     
@@ -155,7 +155,7 @@ public class PaisLogicTest {
     public void updatePaisConNombreNuloTest() throws BusinessLogicException {
         PaisEntity entity = data.get(0);
         PaisEntity pojoEntity = factory.manufacturePojo(PaisEntity.class);
-        pojoEntity.cambiarNombre(null);
+        pojoEntity.setNombre(null);
         paisLogic.updatePais(entity.getId(), pojoEntity);
     }
     

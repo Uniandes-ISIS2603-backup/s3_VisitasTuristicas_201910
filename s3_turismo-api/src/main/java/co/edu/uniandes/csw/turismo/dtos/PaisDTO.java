@@ -30,18 +30,12 @@ public class PaisDTO implements Serializable
   {
   
   }
-  
-  /*
-  *Falta conectar con logica.
-  */
-  
-  
-  
+
    /*
    *Retornar el nombre del pais
    *@return nombre
    */
-   public String darNombre()
+   public String getNombre()
    {
        return nombre;
    }
@@ -50,7 +44,7 @@ public class PaisDTO implements Serializable
    *Cambia el nombre del pais
    *@param pNombre
    */
-   public void cambiarNombre(String pNombre)
+   public void setNombre(String pNombre)
    {
        this.nombre=pNombre;
    }
@@ -59,7 +53,7 @@ public class PaisDTO implements Serializable
    *Retornar el di del pais
    *@return id
    */
-   public Long darID()
+   public Long getID()
    {
        return id;
    }
@@ -68,7 +62,7 @@ public class PaisDTO implements Serializable
    *Cambia el id del pais
    *@param pid
    */
-   public void cambiarID(Long pid)
+   public void setID(Long pid)
    {
        this.id=pid;
    }
@@ -81,7 +75,7 @@ public class PaisDTO implements Serializable
     public PaisDTO(PaisEntity e)
     {
         this.id = e.getId();
-        this.nombre = e.darNombre();
+        this.nombre = e.getNombre();
     }
     
     public PaisEntity toEntity()
@@ -89,7 +83,8 @@ public class PaisDTO implements Serializable
         PaisEntity aRet = new PaisEntity();
         
         aRet.setId(id);
-        aRet.cambiarNombre(nombre);
+        aRet.setNombre(nombre);
+        
         
         return aRet;
     }

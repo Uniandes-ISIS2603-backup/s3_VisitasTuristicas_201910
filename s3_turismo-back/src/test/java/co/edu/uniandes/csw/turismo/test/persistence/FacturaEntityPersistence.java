@@ -140,7 +140,7 @@ public class FacturaEntityPersistence {
     @Test
     public void getFacturaTest() {
         FacturaEntity entity = data.get(0);
-        FacturaEntity newEntity = facturaPersistence.find(entity.getId());
+        FacturaEntity newEntity = facturaPersistence.find(entity.getId(),entity.getViajero().getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
         Assert.assertEquals(entity.getCosto(), newEntity.getCosto());

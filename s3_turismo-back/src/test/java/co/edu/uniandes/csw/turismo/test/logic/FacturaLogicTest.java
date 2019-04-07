@@ -15,6 +15,7 @@ import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
+import com.gs.collections.impl.list.fixed.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class FacturaLogicTest {
  private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private FacturaLogic planTuristicoLogic;
+    private FacturaLogic facturaLogic;
     @Inject
     private FacturaPersistence ep;
     @PersistenceContext
@@ -51,6 +52,7 @@ public class FacturaLogicTest {
     private UserTransaction utx;
 
     private List<FacturaEntity> data = new ArrayList<>();
+    private List<ViajeroEntity> dataViajero= new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -91,107 +93,78 @@ public class FacturaLogicTest {
             em.persist(newFacturaEntity);
             data.add(newFacturaEntity);
         }
+        for (int i = 0; i < 3; i++) {
+            ViajeroEntity newFacturaEntity2 = factory.manufacturePojo(ViajeroEntity.class);
+            em.persist(newFacturaEntity2);
+            dataViajero.add(newFacturaEntity2);
+        }
     }
 
     @Test
     public void createFacturaTest() throws BusinessLogicException {
-
-        FacturaEntity newFacturaEntity = factory.manufacturePojo(FacturaEntity.class);
-        FacturaEntity result = ep.create(newFacturaEntity);
-
-        Assert.assertNotNull(result);
-
-        FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
-
-        Assert.assertEquals(newFacturaEntity.getId(), entity.getId());
-
-    }
-
-    @Test(expected = BusinessLogicException.class)
-    public void createFacturaConMismoDescripcionTest() throws BusinessLogicException {
-
-        FacturaEntity newFacturaEntity = factory.manufacturePojo(FacturaEntity.class);
-        newFacturaEntity.setDescripcion(data.get(0).getDescripcion());
-        planTuristicoLogic.createFactura(newFacturaEntity);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createFacturaConDescripcionInvalidoTest() throws BusinessLogicException {
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
-        newEntity.setDescripcion("");
-        planTuristicoLogic.createFactura(newEntity);
-    }
-
-    @Test
-    public void deleteFacturaTest() throws BusinessLogicException {
-        FacturaEntity newFacturaEntity = factory.manufacturePojo(FacturaEntity.class);
-        FacturaEntity result = ep.create(newFacturaEntity);
+        newEntity.setViajero(dataViajero.get(1));
+        FacturaEntity result = facturaLogic.createFactura(dataViajero.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
-        Assert.assertNotNull(entity);
-        ep.delete(entity.getId());
-        Assert.assertNull(ep.find(result.getId()));
-
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
     }
 
+    /**
+     * Prueba para consultar la lista de Reviews.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
     @Test
-    public void updateFacturaTest() throws BusinessLogicException {
+    public void getFacturasTest() throws BusinessLogicException {
+        List<FacturaEntity> list = facturaLogic.getFacturas(dataViajero.get(1).getId());
+
+        Assert.assertEquals(data.size(),list.size() );
+        for (FacturaEntity entity : list) {
+            boolean found = false;
+            for (FacturaEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar un Review.
+     */
+    @Test
+    public void getFacturaTest() {
         FacturaEntity entity = data.get(0);
-        FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
-        
-        pojoEntity.setId(entity.getId());
-        
-        planTuristicoLogic.updateFactura(pojoEntity.getId(), pojoEntity);
-        
-        FacturaEntity resp = em.find(FacturaEntity.class, entity.getId());
-        
-        Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
-        Assert.assertEquals(pojoEntity.getCosto(), resp.getCosto());
-        Assert.assertEquals(pojoEntity.getViajero(), resp.getViajero());
-
-
+        FacturaEntity resultEntity = facturaLogic.getFactura(dataViajero.get(1).getId(), entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getCosto(), resultEntity.getCosto());
+        Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
+        Assert.assertEquals(entity.getViajero(), resultEntity.getViajero());
     }
     
-     @Test(expected = BusinessLogicException.class)
-    public void updateFacturaConDescripcionVacioTest() throws BusinessLogicException {
+        @Test
+    public void deleteFacturaTest() throws BusinessLogicException {
         FacturaEntity entity = data.get(0);
-        FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
-        pojoEntity.setDescripcion("");
-        planTuristicoLogic.updateFactura(entity.getId(), pojoEntity);
+        facturaLogic.deleteFactura(dataViajero.get(1).getId(), entity.getId());
+        FacturaEntity deleted = em.find(FacturaEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
-    
+
+    /**
+     * Prueba para eliminarle un review a un book del cual no pertenece.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
-    public void updateFacturaConDescripcionNuloTest() throws BusinessLogicException {
+    public void deleteReviewConBookNoAsociadoTest() throws BusinessLogicException {
         FacturaEntity entity = data.get(0);
-        FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
-        pojoEntity.setDescripcion(null);
-        planTuristicoLogic.updateFactura(entity.getId(), pojoEntity);
-    }
-    
-    
-     @Test(expected = BusinessLogicException.class)
-    public void updateFacturaConCostoNegativoTest() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
-        pojoEntity.setCosto(-1);
-        planTuristicoLogic.updateFactura(entity.getId(), pojoEntity);
-    }
-
-    @Test(expected = BusinessLogicException.class)
-    public void updateFacturaConDescripcionVaciaTest() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
-        pojoEntity.setDescripcion("");
-        planTuristicoLogic.updateFactura(entity.getId(), pojoEntity);
-    }
-    
-     @Test(expected = BusinessLogicException.class)
-    public void updateFacturaConDescripcionNula() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        FacturaEntity pojoEntity = factory.manufacturePojo(FacturaEntity.class);
-        pojoEntity.setDescripcion(null);
-        planTuristicoLogic.updateFactura(entity.getId(), pojoEntity);
+        facturaLogic.deleteFactura(dataViajero.get(0).getId(), entity.getId());
     }
     
      

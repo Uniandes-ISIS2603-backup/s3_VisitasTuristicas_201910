@@ -31,9 +31,22 @@ public class FacturaPersistence {
         return facturaEntity;
     }
     
-    public FacturaEntity find(Long facturaEntityID){
-        return em.find(FacturaEntity.class, facturaEntityID);
-    }
+    public FacturaEntity find(Long facturaEntityID, Long usuarioEntityId){
+         LOGGER.log(Level.INFO, "Consultando el review con id = {0} del libro con id = " + usuarioEntityId, facturaEntityID);
+        TypedQuery<FacturaEntity> q = em.createQuery("select p from FacturaEntity p where (p.viajero.id = :bookid) and (p.id = :reviewsId)", FacturaEntity.class);
+        q.setParameter("bookid", usuarioEntityId);
+        q.setParameter("reviewsId", facturaEntityID);
+        List<FacturaEntity> results = q.getResultList();
+        FacturaEntity review = null;
+        if (results == null) {
+            review = null;
+        } else if (results.isEmpty()) {
+            review = null;
+        } else if (results.size() >= 1) {
+            review = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el review con id = {0} del libro con id =" + usuarioEntityId, facturaEntityID);
+        return review;    }
     
     public List<FacturaEntity> findAll(){
         TypedQuery<FacturaEntity> query = em.createQuery("select u from FacturaEntity u", FacturaEntity.class);

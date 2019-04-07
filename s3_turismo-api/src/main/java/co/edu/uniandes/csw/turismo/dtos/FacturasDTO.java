@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.turismo.dtos;
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import java.io.Serializable;
 
+
+
 /**
  *
  * @author estudiante modificado por David Fonseca
@@ -15,14 +17,48 @@ import java.io.Serializable;
 public class FacturasDTO implements Serializable {
     
     private String descripción;
-    //En Entity está como Double; jsgs        
-    //private Integer costo;
+    
     private Double costo;
     
     private Long id;
+    
+    private ViajeroDTO viajero;
 
     public FacturasDTO()
     {
+    }
+    
+    public FacturasDTO(FacturaEntity ent) {
+         if (ent != null) {
+            this.id = ent.getId();
+            this.descripción = ent.getDescripcion();
+            this.costo = ent.getCosto();
+            if (ent.getViajero()!= null) {
+                this.viajero = new ViajeroDTO(ent.getViajero());
+            } else {
+                this.viajero = null;
+            }
+        }
+    }
+    
+     public FacturaEntity toEntity() {
+        FacturaEntity reviewEntity = new FacturaEntity();
+        reviewEntity.setId(this.id);
+        reviewEntity.setCosto(this.costo);
+        reviewEntity.setDescripcion(this.descripción);
+        if (this.viajero != null) {
+            reviewEntity.setViajero(this.viajero.toEntity());
+        }
+        return reviewEntity;
+    }
+    
+    public ViajeroDTO getViajero()
+    {
+        return viajero;
+    }
+    public void setViajero(ViajeroDTO viajero)
+    {
+        this.viajero=viajero;
     }
     /**
      * @return the descripción
@@ -66,17 +102,8 @@ public class FacturasDTO implements Serializable {
         this.id = id;
     }
     
-    public FacturaEntity toEntity() {
-        FacturaEntity newEntity = new FacturaEntity();
-        newEntity.setCosto(this.costo);
-        newEntity.setDescripcion(descripción);
-        //newEntity.setViajero(viajero);
-        return newEntity;
-    }
     
-    public FacturasDTO(FacturaEntity ent) {
-        costo = ent.getCosto();
-        descripción = ent.getDescripcion();
-    }
+    
+    
     
 }

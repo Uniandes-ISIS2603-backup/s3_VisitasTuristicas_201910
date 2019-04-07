@@ -34,10 +34,10 @@ public class PaisLogic
         private PlanTuristicoPersistence plan;
         
           public PaisEntity createPais(PaisEntity paisE) throws BusinessLogicException {
-        if (pais.findByName(paisE.darNombre()) != null) {
+        if (pais.findByName(paisE.getNombre()) != null) {
             throw new BusinessLogicException("Ya existe un pais  con ese nombre");
         }
-        if (!validateNombre(paisE.darNombre())) {
+        if (!validateNombre(paisE.getNombre())) {
             throw new BusinessLogicException("El nombre del pais no es valido");
         }
         paisE = pais.create(paisE);
@@ -80,7 +80,7 @@ public class PaisLogic
          */
          public PaisEntity updatePais(Long paisId, PaisEntity paisEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pais  con id = {0}", paisId);
-        if (!validateNombre(paisEntity.darNombre())) {
+        if (!validateNombre(paisEntity.getNombre())) {
             throw new BusinessLogicException("El nombre es inválido");
         }
         PaisEntity newEntity = pais.update(paisEntity);
