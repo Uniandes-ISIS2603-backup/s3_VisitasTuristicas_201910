@@ -16,7 +16,7 @@ public class SitiosTuristicosDTO implements Serializable
 {
     
     
-    
+    private Long id;
     /**
      * Tipo de sitio turistico.
      */
@@ -24,7 +24,7 @@ public class SitiosTuristicosDTO implements Serializable
     /*
     *Atributo que representa el id de un sitio turistico
     */
-    private Long id;
+    
     
     /*
     *Atributo que representa el nombre de un sitio turistico
