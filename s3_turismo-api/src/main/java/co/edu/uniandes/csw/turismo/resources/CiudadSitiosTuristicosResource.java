@@ -70,7 +70,7 @@ public class CiudadSitiosTuristicosResource {
     @GET
     public List<SitiosTuristicosDTO> getSitios(@PathParam("ciudadId") Long ciudadId) {
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: input: {0}", ciudadId);
-        List<SitiosTuristicosDTO> listaDetailDTOs = booksListEntity2DTO(ciudadSitioLogic.getSitioTuristicos(ciudadId));
+        List<SitiosTuristicosDTO> listaDetailDTOs = sitiosListEntity2DTO(ciudadSitioLogic.getSitioTuristicos(ciudadId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
@@ -112,13 +112,13 @@ public class CiudadSitiosTuristicosResource {
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
     @PUT
-    public List<SitiosTuristicosDTO> replaceBooks(@PathParam("ciudadId") Long ciudadId, List<SitiosTuristicosDTO> sitios) throws BusinessLogicException {
+    public List<SitiosTuristicosDTO> replaceSitio(@PathParam("ciudadId") Long ciudadId, List<SitiosTuristicosDTO> sitios) throws BusinessLogicException {
         for (SitiosTuristicosDTO book : sitios) {
             if (sitioLogic.getSitio(book.getId()) == null) {
                 throw new WebApplicationException("El recurso /books/" + book.getId() + " no existe.", 404);
             }
         }
-        List<SitiosTuristicosDTO> listaDetailDTOs = booksListEntity2DTO(ciudadSitioLogic.replaceSitioTuristicos(ciudadId, booksListDTO2Entity(sitios)));
+        List<SitiosTuristicosDTO> listaDetailDTOs = sitiosListEntity2DTO(ciudadSitioLogic.replaceSitioTuristicos(ciudadId, sitiosListDTO2Entity(sitios)));
         LOGGER.log(Level.INFO, "EditorialBooksResource replaceBooks: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
@@ -129,7 +129,7 @@ public class CiudadSitiosTuristicosResource {
      * @param entityList Lista de BookEntity a convertir.
      * @return Lista de BookDTO convertida.
      */
-    private List<SitiosTuristicosDTO> booksListEntity2DTO(List<SitioTuristicoEntity> entityList) {
+    private List<SitiosTuristicosDTO> sitiosListEntity2DTO(List<SitioTuristicoEntity> entityList) {
         List<SitiosTuristicosDTO> list = new ArrayList();
         for (SitioTuristicoEntity entity : entityList) {
             list.add(new SitiosTuristicosDTO(entity));
@@ -143,7 +143,7 @@ public class CiudadSitiosTuristicosResource {
      * @param dtos Lista de BookDetailDTO a convertir.
      * @return Lista de BookEntity convertida.
      */
-    private List<SitioTuristicoEntity> booksListDTO2Entity(List<SitiosTuristicosDTO> dtos) {
+    private List<SitioTuristicoEntity> sitiosListDTO2Entity(List<SitiosTuristicosDTO> dtos) {
         List<SitioTuristicoEntity> list = new ArrayList<>();
         for (SitiosTuristicosDTO dto : dtos) {
             list.add(dto.toEntity());
