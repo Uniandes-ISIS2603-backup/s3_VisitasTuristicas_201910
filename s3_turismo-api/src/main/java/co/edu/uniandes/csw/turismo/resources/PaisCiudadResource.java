@@ -57,7 +57,7 @@ public class PaisCiudadResource {
         if (ciudadLogic.getCiudad(ciudadId) == null) {
             throw new WebApplicationException("El recurso /books/" + ciudadId + " no existe.", 404);
         }
-        CiudadDetailDTO ciudadDTO = new CiudadDetailDTO(paisCiudadLogic.agregarCiudad(ciudadId, ciudadId));
+        CiudadDetailDTO ciudadDTO = new CiudadDetailDTO(paisCiudadLogic.addCiudad(ciudadId, ciudadId));
         LOGGER.log(Level.INFO, "EditorialBooksResource addBook: output: {0}", ciudadDTO);
         return ciudadDTO;
     }
@@ -70,9 +70,9 @@ public class PaisCiudadResource {
      * editorial. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<CiudadDetailDTO> getCiudads(@PathParam("ciudadId") Long ciudadId) {
+    public List<CiudadDetailDTO> getCiudads(@PathParam("ciudadId") Long ciudadId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: input: {0}", ciudadId);
-        List<CiudadDetailDTO> listaDetailDTOs = ciudadsListEntity2DTO(paisCiudadLogic.getCiudad(ciudadId));
+        List<CiudadDetailDTO> listaDetailDTOs = ciudadsListEntity2DTO(paisCiudadLogic.getCiudads(ciudadId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
@@ -96,11 +96,12 @@ public class PaisCiudadResource {
         if (ciudadLogic.getCiudad(ciudadId) == null) {
             throw new WebApplicationException("El recurso /editorials/" + ciudadId + "/books/" + ciudadId + " no existe.", 404);
         }
-        CiudadDetailDTO ciudadDto = new CiudadDetailDTO(paisCiudadLogic.getCiudadTuristico(ciudadId, ciudadId));
+        CiudadDetailDTO ciudadDto = new CiudadDetailDTO(paisCiudadLogic.getCiudad(ciudadId, ciudadId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBook: output: {0}", ciudadDto);
         return ciudadDto;
     }
 
+    
     /**
      * Remplaza las instancias de Book asociadas a una instancia de Editorial
      *
@@ -120,7 +121,7 @@ public class PaisCiudadResource {
                 throw new WebApplicationException("El recurso /books/" + book.getID() + " no existe.", 404);
             }
         }
-        List<CiudadDetailDTO> listaDetailDTOs = ciudadsListEntity2DTO(paisCiudadLogic.replaceCiudadTuristicos(ciudadId, ciudadsListDTO2Entity(ciudads)));
+        List<CiudadDetailDTO> listaDetailDTOs = ciudadsListEntity2DTO(paisCiudadLogic.replaceCiudads(ciudadId, ciudadsListDTO2Entity(ciudads)));
         LOGGER.log(Level.INFO, "EditorialBooksResource replaceBooks: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
