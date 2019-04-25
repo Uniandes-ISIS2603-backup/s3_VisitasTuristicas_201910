@@ -64,9 +64,9 @@ private static final Logger LOGGER = Logger.getLogger(CiudadPaisResource.class.g
         if (paisLogic.getPais(pais.getID()) == null) {
             throw new WebApplicationException("El recurso /paiss/" + pais.getID() + " no existe.", 404);
         }
-        CiudadDetailDTO ciudadDetailDTO = new CiudadDetailDTO(ciudadPaisLogic.replace(ciudadsId, pais.getID()));
-        LOGGER.log(Level.INFO, "CiudadPaisResource replacePais: output: {0}", ciudadDetailDTO);
-        return ciudadDetailDTO;
+      //  CiudadDetailDTO ciudadDetailDTO = new CiudadDetailDTO(ciudadPaisLogic.replace(ciudadsId, pais.getID()));
+     //   LOGGER.log(Level.INFO, "CiudadPaisResource replacePais: output: {0}", ciudadDetailDTO);
+       return null;
     }
 
 
