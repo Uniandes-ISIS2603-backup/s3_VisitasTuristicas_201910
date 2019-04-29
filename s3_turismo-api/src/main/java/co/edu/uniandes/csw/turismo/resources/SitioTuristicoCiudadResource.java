@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.CiudadDTO;
-import co.edu.uniandes.csw.turismo.dtos.SitiosTuristicosDTO;
+import co.edu.uniandes.csw.turismo.dtos.SitioTuristicosDTO;
 import co.edu.uniandes.csw.turismo.ejb.CiudadLogic;
 import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoCiudadLogic;
 import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
@@ -55,15 +55,15 @@ public class SitioTuristicoCiudadResource {
      * libro.
      */
     @PUT
-    public SitiosTuristicosDTO replaceCiudad(@PathParam("sitioTuristicosId") Long sitioTuristicosId, CiudadDTO ciudad) throws BusinessLogicException {
+    public SitioTuristicosDTO replaceCiudad(@PathParam("sitioTuristicosId") Long sitioTuristicosId, CiudadDTO ciudad) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SitioTuristicoCiudadResource replaceCiudad: input: sitioTuristicosId{0} , Ciudad:{1}", new Object[]{sitioTuristicosId, ciudad});
         if (sitioTuristicoLogic.getSitio(sitioTuristicosId) == null) {
             throw new WebApplicationException("El recurso /sitioTuristicos/" + sitioTuristicosId + " no existe.", 404);
         }
-        if (ciudadLogic.getCiudad(ciudad.getID()) == null) {
-            throw new WebApplicationException("El recurso /ciudads/" + ciudad.getID() + " no existe.", 404);
+        if (ciudadLogic.getCiudad(ciudad.getId()) == null) {
+            throw new WebApplicationException("El recurso /ciudads/" + ciudad.getId() + " no existe.", 404);
         }
-        SitiosTuristicosDTO sitioTuristicoDetailDTO = new SitiosTuristicosDTO(sitioTuristicoCiudadLogic.replaceCiudad(sitioTuristicosId, ciudad.getID()));
+        SitioTuristicosDTO sitioTuristicoDetailDTO = new SitioTuristicosDTO(sitioTuristicoCiudadLogic.replaceCiudad(sitioTuristicosId, ciudad.getId()));
         LOGGER.log(Level.INFO, "SitioTuristicoCiudadResource replaceCiudad: output: {0}", sitioTuristicoDetailDTO);
         return sitioTuristicoDetailDTO;
     }

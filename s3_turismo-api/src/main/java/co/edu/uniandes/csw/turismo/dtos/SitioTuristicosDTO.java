@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author David Fonseca
  */
-public class SitiosTuristicosDTO implements Serializable 
+public class SitioTuristicosDTO implements Serializable 
 {
     
     
@@ -36,20 +36,28 @@ public class SitiosTuristicosDTO implements Serializable
     /*
     *Constructor de la clase
     */
-    public SitiosTuristicosDTO()
+    public SitioTuristicosDTO()
     {
         
     }
     
-    public SitiosTuristicosDTO(SitioTuristicoEntity e)
+    public SitioTuristicosDTO(SitioTuristicoEntity e)
     {
-        this.id=e.getId();
+        if(e!=null)
+        {
+            this.id=e.getId();
         
-        this.nombre = e.darNombre();
+            this.nombre = e.darNombre();
         
-        this.tipo = e.darTipo();
-        
-        this.ciudad = new CiudadDTO(e.darCiudad());
+            this.tipo = e.darTipo();
+            if(e.darCiudad()!=null)
+            {
+                this.ciudad = new CiudadDTO(e.darCiudad());  
+            }else{
+                this.ciudad = null;
+            }
+             
+        }
         
     }
     

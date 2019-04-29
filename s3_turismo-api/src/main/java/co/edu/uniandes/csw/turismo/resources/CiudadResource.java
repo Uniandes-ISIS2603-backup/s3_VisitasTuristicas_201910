@@ -82,7 +82,7 @@ public class CiudadResource {
     @Path("{ciudadId: \\d+}")
     public CiudadDetailDTO updateCiudad(@PathParam("ciudadId") Long ciudadId, CiudadDetailDTO ciudad) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BookResource updateBook: input: id: {0} , book: {1}", new Object[]{ciudadId, ciudad});
-        ciudad.setID(ciudadId);
+        ciudad.setId(ciudadId);
         if (ciudadLogic.getCiudad(ciudadId) == null) {
             throw new WebApplicationException("El recurso /books/" + ciudadId + " no existe.", 404);
         }

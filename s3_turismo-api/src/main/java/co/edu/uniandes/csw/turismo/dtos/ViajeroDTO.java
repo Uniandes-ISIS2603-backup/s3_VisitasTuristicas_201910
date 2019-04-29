@@ -178,12 +178,17 @@ public class ViajeroDTO implements Serializable {
         nuevo.setId(this.idUsuario);
         
         nuevo.setNombreUsuario(nombreUsuario);
-        nuevo.setCantidadPlanes(this.cantidadPlanes);
+        nuevo.setCodigoUnico(codigoUnico);
         nuevo.setIdioma(idioma);
-        nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
-        
         nuevo.setTipoDeUsuario(tipoDeUsuario);
+        nuevo.setCantidadPlanes(this.cantidadPlanes);
         nuevo.setInformacionPersonal(informacionPersonal);
+        if(this.tarjetaDeCredito!= null){            
+            nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
+        }
+        if(this.viaje!= null){            
+            nuevo.setViaje(this.viaje.toEntity());
+        }
         return nuevo;
     }
     
@@ -193,14 +198,21 @@ public class ViajeroDTO implements Serializable {
      */
     public ViajeroDTO(ViajeroEntity ent) {
         
-        this.idUsuario = ent.getId();
-        this.cantidadPlanes=ent.getCantidadPlanes();
-        this.codigoUnico=ent.getCodigoUnico();
-      this.tipoDeUsuario=ent.getTipoDeUsuario();
-        this.viaje=new ViajeDTO(ent.getViaje());
-        this.nombreUsuario = ent.getNombreUsuario();
-        this.idioma = ent.getIdioma();
-        this.informacionPersonal = ent.getInformacionPersonal();
-        this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
+        if(ent!=null)
+        {    
+            this.idUsuario = ent.getId();
+            this.cantidadPlanes=ent.getCantidadPlanes();
+            this.codigoUnico=ent.getCodigoUnico();
+            this.tipoDeUsuario=ent.getTipoDeUsuario();
+            if (ent.getViaje()!= null) {
+                this.viaje = new ViajeDTO(ent.getViaje());
+            } else {
+                this.viaje = null;
+            }
+            this.nombreUsuario = ent.getNombreUsuario();
+            this.idioma = ent.getIdioma();
+            this.informacionPersonal = ent.getInformacionPersonal();
+            this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
+        }
     }
 }

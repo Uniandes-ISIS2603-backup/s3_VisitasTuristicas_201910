@@ -117,8 +117,8 @@ public class PaisCiudadResource {
     @PUT
     public List<CiudadDetailDTO> replaceCiudad(@PathParam("ciudadId") Long ciudadId, List<CiudadDetailDTO> ciudads) throws BusinessLogicException {
         for (CiudadDetailDTO book : ciudads) {
-            if (ciudadLogic.getCiudad(book.getID()) == null) {
-                throw new WebApplicationException("El recurso /books/" + book.getID() + " no existe.", 404);
+            if (ciudadLogic.getCiudad(book.getId()) == null) {
+                throw new WebApplicationException("El recurso /books/" + book.getId() + " no existe.", 404);
             }
         }
         List<CiudadDetailDTO> listaDetailDTOs = ciudadsListEntity2DTO(paisCiudadLogic.replaceCiudads(ciudadId, ciudadsListDTO2Entity(ciudads)));

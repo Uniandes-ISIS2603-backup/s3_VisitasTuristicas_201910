@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.dtos;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
+import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -25,7 +26,6 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
     // relación cero o muchos blogs 
     private List<BlogDeViajeroDTO> blogs;
     //private List<TransporteDTO> transportes;
-    private List<PreferenciaDTO> preferencias;
 //Constructor por defecto
 
     public PlanTuristicoDetailDTO() {
@@ -126,32 +126,10 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
         this.blogs = blogs;
     }
 
-    /**
-     * @return the preferencias
-     */
-    public List<PreferenciaDTO> getPreferencias() {
-        return preferencias;
-    }
-
-    /**
-     * @param preferencias the preferencias to set
-     */
-    public void setPreferencias(List<PreferenciaDTO> preferencias) {
-        this.preferencias = preferencias;
-    }
 
     @Override
     public PlanTuristicoEntity toEntity() {
-        PlanTuristicoEntity planTuristicoEntity = new PlanTuristicoEntity();
-
-        planTuristicoEntity.setId(this.getPlanTuristicoId());
-        planTuristicoEntity.setCostoPorPersona(this.getCostoPorPersona());
-        planTuristicoEntity.setDescripcion(this.getDescripcion());
-        planTuristicoEntity.setDuracion(this.getDuracion());
-        planTuristicoEntity.setGuia(this.getGuia());
-        planTuristicoEntity.setIdioma(this.getIdioma());
-        planTuristicoEntity.setTipoPlan(this.getTipoPlan());
-        planTuristicoEntity.setNombrePlan(this.getNombrePlan());
+        PlanTuristicoEntity planTuristicoEntity = super.toEntity();
 
         if (blogs != null) {
 
@@ -178,6 +156,20 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
             }
 
             planTuristicoEntity.setValoraciones(valoracionesEntity);
+
+        }
+        
+        if (paises != null) {
+
+            List<PaisEntity> paisEntity = new ArrayList<>();
+
+            for (PaisDTO dtoPais : getPaises()) {
+
+                paisEntity.add(dtoPais.toEntity());
+
+            }
+
+            planTuristicoEntity.setPaises(paisEntity);
 
         }
 

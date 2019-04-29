@@ -49,38 +49,10 @@ public class PaisDetailDTO extends PaisDTO implements Serializable {
         }
     }
 
-    /*
-*Retornar las ciudades
-*@return ciudadesDTO
-     */
-    public ArrayList<CiudadDTO> getCiudadesDTO() {
-        return ciudadesDTO;
-    }
-
-
-    /*
-*Actualizar la lista de ciudades
-*@param pciudades
-     */
-    public void setCiudadesDTO(ArrayList<CiudadDTO> pciudades) {
-        this.ciudadesDTO = pciudades;
-    }
-
-    public ArrayList<PlanTuristicoDTO> getPlanesTuristicos() {
-        return planTuristico;
-    }
-
-    public void setPlanesTuristicos(ArrayList<PlanTuristicoDTO> plan) {
-        this.planTuristico = plan;
-    }
-
     @Override
     public PaisEntity toEntity() {
-        PaisEntity aRet = new PaisEntity();
-
-        aRet.setNombre(this.getNombre());
-        aRet.setId(this.getID());
-        if (ciudadesDTO != null) {
+        PaisEntity aRet = super.toEntity();
+        if (getCiudadesDTO() != null) {
 
             List<CiudadEntity> ciudadEntity = new ArrayList<>();
 
@@ -93,11 +65,11 @@ public class PaisDetailDTO extends PaisDTO implements Serializable {
             aRet.setCiudades(ciudadEntity);
 
         }
-        if (planTuristico != null) {
+        if (getPlanTuristico() != null) {
 
             List<PlanTuristicoEntity> planEntity = new ArrayList<>();
 
-            for (PlanTuristicoDTO dtoCiudad : getPlanesTuristicos()) {
+            for (PlanTuristicoDTO dtoCiudad : getPlanTuristico()) {
 
                 planEntity.add(dtoCiudad.toEntity());
 
@@ -110,4 +82,34 @@ public class PaisDetailDTO extends PaisDTO implements Serializable {
         return aRet;
     }
 
+    /**
+     * @return the ciudadesDTO
+     */
+    public ArrayList<CiudadDTO> getCiudadesDTO() {
+        return ciudadesDTO;
+    }
+
+    /**
+     * @param ciudadesDTO the ciudadesDTO to set
+     */
+    public void setCiudadesDTO(ArrayList<CiudadDTO> ciudadesDTO) {
+        this.ciudadesDTO = ciudadesDTO;
+    }
+
+    /**
+     * @return the planTuristico
+     */
+    public ArrayList<PlanTuristicoDTO> getPlanTuristico() {
+        return planTuristico;
+    }
+
+    /**
+     * @param planTuristico the planTuristico to set
+     */
+    public void setPlanTuristico(ArrayList<PlanTuristicoDTO> planTuristico) {
+        this.planTuristico = planTuristico;
+    }
+
+    
+    
 }

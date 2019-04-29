@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
-import co.edu.uniandes.csw.turismo.dtos.SitiosTuristicosDTO;
+import co.edu.uniandes.csw.turismo.dtos.SitioTuristicosDTO;
 import co.edu.uniandes.csw.turismo.ejb.CiudadSitiosTuristicosLogic;
 import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
@@ -50,12 +50,12 @@ public class CiudadSitiosTuristicosResource {
      */
     @POST
     @Path("{sitiosId: \\d+}")
-    public SitiosTuristicosDTO addSitio(@PathParam("ciudadId") Long ciudadId, @PathParam("sitiosId") Long sitioId) throws BusinessLogicException {
+    public SitioTuristicosDTO addSitio(@PathParam("ciudadId") Long ciudadId, @PathParam("sitiosId") Long sitioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EditorialBooksResource addBook: input: editorialsID: {0} , booksId: {1}", new Object[]{ciudadId, sitioId});
         if (sitioLogic.getSitio(sitioId) == null) {
             throw new WebApplicationException("El recurso /books/" + sitioId + " no existe.", 404);
         }
-        SitiosTuristicosDTO sitioDTO = new SitiosTuristicosDTO(ciudadSitioLogic.addSitioTuristico(sitioId, ciudadId));
+        SitioTuristicosDTO sitioDTO = new SitioTuristicosDTO(ciudadSitioLogic.addSitioTuristico(sitioId, ciudadId));
         LOGGER.log(Level.INFO, "EditorialBooksResource addBook: output: {0}", sitioDTO);
         return sitioDTO;
     }
@@ -68,9 +68,9 @@ public class CiudadSitiosTuristicosResource {
      * editorial. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<SitiosTuristicosDTO> getSitios(@PathParam("ciudadId") Long ciudadId) {
+    public List<SitioTuristicosDTO> getSitios(@PathParam("ciudadId") Long ciudadId) {
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: input: {0}", ciudadId);
-        List<SitiosTuristicosDTO> listaDetailDTOs = sitiosListEntity2DTO(ciudadSitioLogic.getSitioTuristicos(ciudadId));
+        List<SitioTuristicosDTO> listaDetailDTOs = sitiosListEntity2DTO(ciudadSitioLogic.getSitioTuristicos(ciudadId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
@@ -89,12 +89,12 @@ public class CiudadSitiosTuristicosResource {
      */
     @GET
     @Path("{sitiosId: \\d+}")
-    public SitiosTuristicosDTO getSitio(@PathParam("ciudadId") Long ciudadId, @PathParam("sitiosId") Long sitioId) throws BusinessLogicException {
+    public SitioTuristicosDTO getSitio(@PathParam("ciudadId") Long ciudadId, @PathParam("sitiosId") Long sitioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EditorialBooksResource getBook: input: editorialsID: {0} , booksId: {1}", new Object[]{ciudadId, sitioId});
         if (sitioLogic.getSitio(sitioId) == null) {
             throw new WebApplicationException("El recurso /editorials/" + ciudadId + "/books/" + sitioId + " no existe.", 404);
         }
-        SitiosTuristicosDTO sitioDto = new SitiosTuristicosDTO(ciudadSitioLogic.getSitioTuristico(ciudadId, sitioId));
+        SitioTuristicosDTO sitioDto = new SitioTuristicosDTO(ciudadSitioLogic.getSitioTuristico(ciudadId, sitioId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBook: output: {0}", sitioDto);
         return sitioDto;
     }
@@ -112,13 +112,13 @@ public class CiudadSitiosTuristicosResource {
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
     @PUT
-    public List<SitiosTuristicosDTO> replaceSitio(@PathParam("ciudadId") Long ciudadId, List<SitiosTuristicosDTO> sitios) throws BusinessLogicException {
-        for (SitiosTuristicosDTO book : sitios) {
+    public List<SitioTuristicosDTO> replaceSitio(@PathParam("ciudadId") Long ciudadId, List<SitioTuristicosDTO> sitios) throws BusinessLogicException {
+        for (SitioTuristicosDTO book : sitios) {
             if (sitioLogic.getSitio(book.getId()) == null) {
                 throw new WebApplicationException("El recurso /books/" + book.getId() + " no existe.", 404);
             }
         }
-        List<SitiosTuristicosDTO> listaDetailDTOs = sitiosListEntity2DTO(ciudadSitioLogic.replaceSitioTuristicos(ciudadId, sitiosListDTO2Entity(sitios)));
+        List<SitioTuristicosDTO> listaDetailDTOs = sitiosListEntity2DTO(ciudadSitioLogic.replaceSitioTuristicos(ciudadId, sitiosListDTO2Entity(sitios)));
         LOGGER.log(Level.INFO, "EditorialBooksResource replaceBooks: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
@@ -129,10 +129,10 @@ public class CiudadSitiosTuristicosResource {
      * @param entityList Lista de BookEntity a convertir.
      * @return Lista de BookDTO convertida.
      */
-    private List<SitiosTuristicosDTO> sitiosListEntity2DTO(List<SitioTuristicoEntity> entityList) {
-        List<SitiosTuristicosDTO> list = new ArrayList();
+    private List<SitioTuristicosDTO> sitiosListEntity2DTO(List<SitioTuristicoEntity> entityList) {
+        List<SitioTuristicosDTO> list = new ArrayList();
         for (SitioTuristicoEntity entity : entityList) {
-            list.add(new SitiosTuristicosDTO(entity));
+            list.add(new SitioTuristicosDTO(entity));
         }
         return list;
     }
@@ -143,9 +143,9 @@ public class CiudadSitiosTuristicosResource {
      * @param dtos Lista de BookDetailDTO a convertir.
      * @return Lista de BookEntity convertida.
      */
-    private List<SitioTuristicoEntity> sitiosListDTO2Entity(List<SitiosTuristicosDTO> dtos) {
+    private List<SitioTuristicoEntity> sitiosListDTO2Entity(List<SitioTuristicosDTO> dtos) {
         List<SitioTuristicoEntity> list = new ArrayList<>();
-        for (SitiosTuristicosDTO dto : dtos) {
+        for (SitioTuristicosDTO dto : dtos) {
             list.add(dto.toEntity());
         }
         return list;
