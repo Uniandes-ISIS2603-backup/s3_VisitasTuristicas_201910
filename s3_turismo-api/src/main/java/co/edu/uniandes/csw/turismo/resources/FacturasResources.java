@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
-import co.edu.uniandes.csw.turismo.dtos.FacturasDTO;
+import co.edu.uniandes.csw.turismo.dtos.FacturaDTO;
 import co.edu.uniandes.csw.turismo.ejb.FacturaLogic;
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -41,30 +41,30 @@ public class FacturasResources {
     private FacturaLogic facturaLogic;
     
      @POST
-    public FacturasDTO createFactura(@PathParam("facuraId") Long facturaId, FacturasDTO review) throws BusinessLogicException {
+    public FacturaDTO createFactura(@PathParam("facuraId") Long facturaId, FacturaDTO review) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Factura Resource create factura: input: {0}", review);
-        FacturasDTO nuevoReviewDTO = new FacturasDTO(facturaLogic.createFactura(facturaId, review.toEntity()));
+        FacturaDTO nuevoReviewDTO = new FacturaDTO(facturaLogic.createFactura(facturaId, review.toEntity()));
         LOGGER.log(Level.INFO, "factura resource create factura: output: {0}", nuevoReviewDTO);
         return nuevoReviewDTO;
     }
     
     @GET
-    public List<FacturasDTO> getFacturas(@PathParam("usuarioId") Long booksId) {
+    public List<FacturaDTO> getFacturas(@PathParam("usuarioId") Long booksId) {
         LOGGER.log(Level.INFO, "Facturas getFacturas: input: {0}", booksId);
-        List<FacturasDTO> listaDTOs = listEntity2DTO(facturaLogic.getFacturas(booksId));
+        List<FacturaDTO> listaDTOs = listEntity2DTO(facturaLogic.getFacturas(booksId));
         LOGGER.log(Level.INFO, "Facturas getFacturas: output: {0}", listaDTOs);
         return listaDTOs;
     }
     
     @GET
     @Path("{facturasId: \\d+}")
-    public FacturasDTO getFactura(@PathParam("viajeroId") Long viajeroId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {
+    public FacturaDTO getFactura(@PathParam("viajeroId") Long viajeroId, @PathParam("facturaId") Long facturaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "factura resource getFactura: input: {0}", facturaId);
         FacturaEntity entity = facturaLogic.getFactura(viajeroId, facturaId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /books/" + viajeroId + "/reviews/" + facturaId + " no existe.", 404);
         }
-        FacturasDTO facturaDTO = new FacturasDTO(entity);
+        FacturaDTO facturaDTO = new FacturaDTO(entity);
         LOGGER.log(Level.INFO, "ReviewResource getReview: output: {0}", facturaDTO);
         return facturaDTO;
     }
@@ -81,10 +81,10 @@ public class FacturasResources {
     }
     
     
-     private List<FacturasDTO> listEntity2DTO(List<FacturaEntity> entityList) {
-        List<FacturasDTO> list = new ArrayList<FacturasDTO>();
+     private List<FacturaDTO> listEntity2DTO(List<FacturaEntity> entityList) {
+        List<FacturaDTO> list = new ArrayList<FacturaDTO>();
         for (FacturaEntity entity : entityList) {
-            list.add(new FacturasDTO(entity));
+            list.add(new FacturaDTO(entity));
         }
         return list;
     }

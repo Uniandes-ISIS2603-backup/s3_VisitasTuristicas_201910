@@ -118,11 +118,19 @@ public class TarjetaDeCreditoDTO implements Serializable  {
     
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta)
     {
-        this.numero = tarjeta.getNumero();
-        this.banco = tarjeta.getBanco();
-        this.codigoSeguridad = tarjeta.getCodigoSeguridad();
-        this.idTarjetaDeCredito=tarjeta.getId();
-        this.viajero=new ViajeroDTO(tarjeta.getViajero());
+        if(tarjeta!=null)
+        {    
+            this.numero = tarjeta.getNumero();
+            this.banco = tarjeta.getBanco();
+            this.codigoSeguridad = tarjeta.getCodigoSeguridad();
+            this.idTarjetaDeCredito=tarjeta.getId();
+            if(tarjeta.getViajero()!=null)
+            {  
+                this.viajero=new ViajeroDTO(tarjeta.getViajero());
+            }else{
+                this.viajero = null;
+            }
+        }
     }
      
 }

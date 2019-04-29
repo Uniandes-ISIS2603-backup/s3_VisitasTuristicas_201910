@@ -21,7 +21,7 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
     *Atributo que representa la lista de sitios turisticos
     *
     */
-    private ArrayList<SitiosTuristicosDTO> sitiosTuristicosDto;
+    private ArrayList<SitioTuristicosDTO> sitiosTuristicosDto;
     
     /*
     *Metodo Constructor
@@ -37,7 +37,7 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
             sitiosTuristicosDto = new ArrayList<>();
             for(SitioTuristicoEntity sitio: ciudadEntity.darSitios())
             {
-                sitiosTuristicosDto.add(new SitiosTuristicosDTO(sitio));
+                sitiosTuristicosDto.add(new SitioTuristicosDTO(sitio));
             }
         }
     }
@@ -51,8 +51,8 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
     {
         CiudadEntity aRet = super.toEntity();
         ArrayList<SitioTuristicoEntity> trans = new ArrayList<>();
-        if (sitiosTuristicosDto != null) {
-            for(SitiosTuristicosDTO sitio : sitiosTuristicosDto)
+        if (getSitiosTuristicosDto() != null) {
+            for(SitioTuristicosDTO sitio : getSitiosTuristicosDto())
             {
                 trans.add(sitio.toEntity());
             }
@@ -60,25 +60,20 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
         aRet.actualizarSitios(trans);
         return aRet;
     }
-    /*
-*Retornar los sitios tuiristicos
-*@return sitiosTuristicosDTO
-*/
-public ArrayList<SitiosTuristicosDTO> getSitiosTuristicosDTO()
-{
-    return sitiosTuristicosDto;
-}
 
+    /**
+     * @return the sitiosTuristicosDto
+     */
+    public ArrayList<SitioTuristicosDTO> getSitiosTuristicosDto() {
+        return sitiosTuristicosDto;
+    }
 
-/*
-*Actualizar la lista de sitios turisticos
-*@param psitios
-*/
-public void setSitiosTuristicosDTO(ArrayList<SitiosTuristicosDTO> psitios)
-{
-    this.sitiosTuristicosDto=psitios;
-}
-
-
-
+    /**
+     * @param sitiosTuristicosDto the sitiosTuristicosDto to set
+     */
+    public void setSitiosTuristicosDto(ArrayList<SitioTuristicosDTO> sitiosTuristicosDto) {
+        this.sitiosTuristicosDto = sitiosTuristicosDto;
+    }
+    
+    
 }

@@ -77,7 +77,7 @@ public class PaisResource {
     @Path("{paisId: \\d+}")
     public PaisDetailDTO updatePais(@PathParam("paisId") Long paisId, PaisDetailDTO pais) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BookResource updateBook: input: id: {0} , book: {1}", new Object[]{paisId, pais});
-        pais.setID(paisId);
+        pais.setId(paisId);
         if (paisLogic.getPais(paisId) == null) {
             throw new WebApplicationException("El recurso /books/" + paisId + " no existe.", 404);
         }

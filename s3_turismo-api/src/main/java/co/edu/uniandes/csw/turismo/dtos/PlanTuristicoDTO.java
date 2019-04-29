@@ -25,8 +25,6 @@ public class PlanTuristicoDTO implements Serializable {
     private String idioma;
  
     private ViajeroDTO viajero;
-    private ViajeDTO viaje;
-    private SitiosTuristicosDTO sitioTuristico;
 
     //Constructor vacio
     public PlanTuristicoDTO() {
@@ -177,34 +175,6 @@ public class PlanTuristicoDTO implements Serializable {
         this.viajero = viajero;
     }
 
-    /**
-     * @return the viaje
-     */
-    public ViajeDTO getViaje() {
-        return viaje;
-    }
-
-    /**
-     * @param viaje the viaje to set
-     */
-    public void setViaje(ViajeDTO viaje) {
-        this.viaje = viaje;
-    }
-
-    /**
-     * @return the sitioTuristico
-     */
-    public SitiosTuristicosDTO getSitioTuristico() {
-        return sitioTuristico;
-    }
-
-    /**
-     * @param sitioTuristico the sitioTuristico to set
-     */
-    public void setSitioTuristico(SitiosTuristicosDTO sitioTuristico) {
-        this.sitioTuristico = sitioTuristico;
-    }
-
     //
     public PlanTuristicoEntity toEntity() {
         PlanTuristicoEntity entity = new PlanTuristicoEntity();
@@ -218,6 +188,10 @@ public class PlanTuristicoDTO implements Serializable {
         entity.setGuia(guia);
         entity.setDuracion(duracion);
         entity.setIdioma(idioma);
+        
+        if(this.viajero!=null){
+            entity.setViajero(viajero.toEntity());
+        }
         
         return entity;
     }

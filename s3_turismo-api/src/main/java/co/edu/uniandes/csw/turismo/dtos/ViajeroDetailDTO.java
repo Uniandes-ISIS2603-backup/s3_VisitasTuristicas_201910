@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<PreferenciaDTO> preferencias;
-    private List<FacturasDTO> facturas;
+    private List<FacturaDTO> facturas;
     private List<PlanTuristicoDTO> planesTuristicos;
 
     
@@ -33,7 +33,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      * se retorna la lista de facturas que tiene el viajero
      * @return 
      */
-    public List<FacturasDTO> getFacturas() {
+    public List<FacturaDTO> getFacturas() {
         return facturas;
     }
 
@@ -41,7 +41,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      * se asigna la lista de facturas
      * @param facturas 
      */
-    public void setFacturas(List<FacturasDTO> facturas) {
+    public void setFacturas(List<FacturaDTO> facturas) {
         this.facturas = facturas;
     }
 
@@ -91,9 +91,9 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
                 toAdd.add(new PreferenciaDTO(a));
             }
             this.preferencias = toAdd;
-            List<FacturasDTO> toAdd2 = new ArrayList<>();
+            List<FacturaDTO> toAdd2 = new ArrayList<>();
             for(FacturaEntity b : ent.getFacturas()) {
-                toAdd2.add(new FacturasDTO(b));
+                toAdd2.add(new FacturaDTO(b));
             }
             this.facturas = toAdd2;
             List<PlanTuristicoDTO> toAdd3 = new ArrayList<>();
@@ -110,29 +110,28 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      */
     @Override
     public ViajeroEntity toEntity() {
-        ViajeroEntity toReturn = new ViajeroEntity();
-        toReturn.setCantidadPlanes(this.getCantidadPlanes());
-        toReturn.setIdioma(this.getIdioma());
-        toReturn.setInformacionPersonal(this.getInformacionPersonal());
-        toReturn.setNombreUsuario(this.getNombreUsuario());
-        toReturn.setTarjetaDeCredito(this.getTarjetaDeCredito().toEntity());
-        toReturn.setViaje(this.getViaje().toEntity());
-        List<FacturaEntity> toAdd1 = new ArrayList<>();
-        for(FacturasDTO f : facturas) {
-            toAdd1.add(f.toEntity());
+        ViajeroEntity toReturn = super.toEntity();
+        if(preferencias != null){
+            List<PreferenciaEntity> preferenciaEntity = new ArrayList<>();
+            for(PreferenciaDTO preferencia: getPreferencias()){
+                preferenciaEntity.add(preferencia.toEntity());
+            } 
+            toReturn.setPreferencias(preferenciaEntity);
         }
-        toReturn.setFacturas(toAdd1);
-        List<PlanTuristicoEntity> toAdd2 = new ArrayList<>();
-        for(PlanTuristicoDTO p : planesTuristicos) {
-            toAdd2.add(p.toEntity());
+        if(facturas != null){
+            List<FacturaEntity> facturaEntity = new ArrayList<>();
+            for(FacturaDTO factura: getFacturas()){
+                facturaEntity.add(factura.toEntity());
+            } 
+            toReturn.setFacturas(facturaEntity);
         }
-        toReturn.setPlanesTuristicos(toAdd2);
-        List<PreferenciaEntity> toAdd3 = new ArrayList<>();
-        for(PreferenciaDTO pr : preferencias) {
-            toAdd3.add(pr.toEntity());
+        if(planesTuristicos != null){
+            List<PlanTuristicoEntity> planEntity = new ArrayList<>();
+            for(PlanTuristicoDTO plan: getPlanesTuristicos()){
+                planEntity.add(plan.toEntity());
+            } 
+            toReturn.setPlanesTuristicos(planEntity);
         }
-        toReturn.setPreferencias(toAdd3);
-        
         return toReturn;
     }
 }

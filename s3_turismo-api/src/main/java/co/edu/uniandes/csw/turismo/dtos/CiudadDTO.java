@@ -36,60 +36,55 @@ public class CiudadDTO implements Serializable {
        
    }
     
-    /*
-    *Retornar el id de la ciudad
-    *@return id
-    */
-    public Long getID()
-    {
-        return id;
-    }
-    
-    public void setID(Long pid)
-    {
-        id=pid;
-    }
-    
-    /*
-    *Retornar el nombre de la ciudad
-    *@return nombre
-    */
-    public String getNombre()
-    {
-        return nombre;
-    }
-    
-    /*
-    *Actualizar el nombre de una ciudad por otro
-    *@param pNombre
-    */
-    public void setNombre(String pNombre)
-    {
-        this.nombre=pNombre;
-    }  
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-    
     public CiudadDTO(CiudadEntity e)
     {
-        this.id=e.getId();
+        if(e!=null)
+        {    
+            this.id=e.getId();
         
-        this.nombre = e.darNombre();
+            this.nombre = e.darNombre();
         
-        this.pais = new PaisDTO(e.darPais());
+            this.pais = new PaisDTO(e.darPais());
+        }
     }
     
     public CiudadEntity toEntity()
     {
         CiudadEntity ret = new CiudadEntity();
         
-        ret.setId(this.id);  
-        ret.actualizarNombre(this.nombre);
-        ret.actualizarPais(this.pais.toEntity());
+        ret.setId(this.getId());  
+        ret.actualizarNombre(this.getNombre());
+        ret.actualizarPais(this.getPais().toEntity());
         
         return ret;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -105,4 +100,6 @@ public class CiudadDTO implements Serializable {
     public void setPais(PaisDTO pais) {
         this.pais = pais;
     }
+
+    
 }

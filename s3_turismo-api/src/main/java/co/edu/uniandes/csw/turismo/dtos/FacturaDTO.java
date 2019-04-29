@@ -14,7 +14,7 @@ import java.io.Serializable;
  *
  * @author estudiante modificado por David Fonseca
  */
-public class FacturasDTO implements Serializable {
+public class FacturaDTO implements Serializable {
     
     private String descripción;
     
@@ -24,11 +24,11 @@ public class FacturasDTO implements Serializable {
     
     private ViajeroDTO viajero;
 
-    public FacturasDTO()
+    public FacturaDTO()
     {
     }
     
-    public FacturasDTO(FacturaEntity ent) {
+    public FacturaDTO(FacturaEntity ent) {
          if (ent != null) {
             this.id = ent.getId();
             this.descripción = ent.getDescripcion();

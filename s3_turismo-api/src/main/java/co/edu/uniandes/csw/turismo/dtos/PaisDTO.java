@@ -30,42 +30,6 @@ public class PaisDTO implements Serializable
   {
   
   }
-
-   /*
-   *Retornar el nombre del pais
-   *@return nombre
-   */
-   public String getNombre()
-   {
-       return nombre;
-   }
-
-   /*
-   *Cambia el nombre del pais
-   *@param pNombre
-   */
-   public void setNombre(String pNombre)
-   {
-       this.nombre=pNombre;
-   }
-   
-   /*
-   *Retornar el di del pais
-   *@return id
-   */
-   public Long getID()
-   {
-       return id;
-   }
-   
-   /*
-   *Cambia el id del pais
-   *@param pid
-   */
-   public void setID(Long pid)
-   {
-       this.id=pid;
-   }
    
     @Override
     public String toString() {
@@ -82,10 +46,40 @@ public class PaisDTO implements Serializable
     {
         PaisEntity aRet = new PaisEntity();
         
-        aRet.setId(id);
-        aRet.setNombre(nombre);
+        aRet.setId(getId());
+        aRet.setNombre(getNombre());
         
         
         return aRet;
     }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
 }

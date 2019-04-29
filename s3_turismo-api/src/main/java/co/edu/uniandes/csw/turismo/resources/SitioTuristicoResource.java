@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.turismo.resources;
 
 
-import co.edu.uniandes.csw.turismo.dtos.SitiosTuristicosDTO;
+import co.edu.uniandes.csw.turismo.dtos.SitioTuristicosDTO;
 import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -36,20 +36,20 @@ public class SitioTuristicoResource {
     @Inject
     private SitioTuristicoLogic logic;
     @POST
-    public SitiosTuristicosDTO crearSitioTuristico(SitiosTuristicosDTO sitio) throws BusinessLogicException
+    public SitioTuristicosDTO crearSitioTuristico(SitioTuristicosDTO sitio) throws BusinessLogicException
     {
-        SitiosTuristicosDTO nuevoV = new SitiosTuristicosDTO(logic.createSitio(sitio.toEntity()));
+        SitioTuristicosDTO nuevoV = new SitioTuristicosDTO(logic.createSitio(sitio.toEntity()));
         return nuevoV;  
     }
     
      @GET
     @Path("{id: \\d+}")
-    public SitiosTuristicosDTO getSitioTuristico(@PathParam("id") Long idsitio) throws BusinessLogicException {
+    public SitioTuristicosDTO getSitioTuristico(@PathParam("id") Long idsitio) throws BusinessLogicException {
         SitioTuristicoEntity entity = logic.getSitio(idsitio);
         if (entity == null) {
             throw new WebApplicationException("El recurso /plan/" + idsitio, 404);
         }
-        SitiosTuristicosDTO blogDTO = new SitiosTuristicosDTO(entity);
+        SitioTuristicosDTO blogDTO = new SitioTuristicosDTO(entity);
        // LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", ValoracionDTO.toString());
         return blogDTO;
     }

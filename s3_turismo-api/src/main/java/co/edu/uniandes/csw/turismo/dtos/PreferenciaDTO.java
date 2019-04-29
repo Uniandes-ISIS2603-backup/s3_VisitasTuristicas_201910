@@ -75,9 +75,10 @@ public class PreferenciaDTO implements Serializable {
      * @param ent 
      */
     public PreferenciaDTO(PreferenciaEntity ent) {
+        if(ent!=null){
+            this.idPreferencia = ent.getId();
         
-        this.idPreferencia = ent.getId();
-        
-        this.nombrePreferencia = ent.getNombrePreferencia();
+            this.nombrePreferencia = ent.getNombrePreferencia();
+        }
     }
 }
