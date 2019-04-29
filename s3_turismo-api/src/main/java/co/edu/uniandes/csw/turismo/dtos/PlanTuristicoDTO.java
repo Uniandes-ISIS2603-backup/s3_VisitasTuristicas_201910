@@ -197,15 +197,17 @@ public class PlanTuristicoDTO implements Serializable {
     }
     
     public PlanTuristicoDTO(PlanTuristicoEntity pEntity) {
-        setPlanTuristicoId(pEntity.getId());
-        setNombrePlan(pEntity.getNombrePlan());
-        setTipoPlan(pEntity.getTipoPlan());
-        setCostoPorPersona(pEntity.getCostoPorPersona());
-        setDescripcion(pEntity.getDescripcion());
-        setUbicacion(pEntity.getUbicacion());
-        setGuia(pEntity.getGuia());
-        setDuracion(pEntity.getDuracion());
-        setIdioma(pEntity.getIdioma());
+        if(pEntity != null){
+            this.planTuristicoId = pEntity.getId();
+            this.nombrePlan = pEntity.getNombrePlan();
+            this.tipoPlan = pEntity.getTipoPlan();
+            this.costoPorPersona = pEntity.getCostoPorPersona();
+            this.descripcion = pEntity.getDescripcion();
+            this.ubicacion = pEntity.getUbicacion();
+            this.guia = pEntity.getGuia();
+            this.duracion = pEntity.getDuracion();
+            this.idioma = pEntity.getIdioma();
+        }
     }
 
     

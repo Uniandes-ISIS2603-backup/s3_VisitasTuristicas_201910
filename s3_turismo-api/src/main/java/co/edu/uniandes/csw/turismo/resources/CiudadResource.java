@@ -93,11 +93,11 @@ public class CiudadResource {
     
      @Path("{ciudadId: \\d+}/SitiosTuristicos")
     public Class<SitioTuristicoResource> getSitiosTuristicosResource(@PathParam("ciudadId") Long ciudadId) throws BusinessLogicException {
-        if (ciudadLogic.getCiudad(ciudadId) != null) {
-                    return SitioTuristicoResource.class;
-        } else {
-            throw new WebApplicationException("El recurso /ciudades/" + ciudadId + "/SitiosTuristicos no existe.", 404);
-        }
+        CiudadEntity ciudad = ciudadLogic.getCiudad(ciudadId);
+        if (ciudad == null) {
+                throw new WebApplicationException("El recurso /ciudades/" + ciudadId + "/SitiosTuristicos no existe.", 404);
+        } 
+        return SitioTuristicoResource.class;
     }
     
     
