@@ -91,6 +91,7 @@ public class CiudadResource {
         return detailDTO;
     }
     
+     
      @Path("{ciudadId: \\d+}/SitiosTuristicos")
     public Class<SitioTuristicoResource> getSitiosTuristicosResource(@PathParam("ciudadId") Long ciudadId) throws BusinessLogicException {
         CiudadEntity ciudad = ciudadLogic.getCiudad(ciudadId);
