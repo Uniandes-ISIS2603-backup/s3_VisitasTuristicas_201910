@@ -46,8 +46,8 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     private List<ValoracionEntity> valoraciones = new ArrayList<ValoracionEntity>();
 
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private ViajeroEntity viajero;
+    @ManyToMany
+    private List<ViajeroEntity> viajeros;
     
     @PodamExclude
     @ManyToMany(mappedBy="planes")
@@ -241,15 +241,15 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     /**
      * @return the viajero
      */
-    public ViajeroEntity getViajero() {
-        return viajero;
+    public List<ViajeroEntity> getViajeros() {
+        return viajeros;
     }
 
     /**
      * @param viajero the viajero to set
      */
-    public void setViajero(ViajeroEntity viajero) {
-        this.viajero = viajero;
+    public void setViajero(List<ViajeroEntity> viajero) {
+        this.viajeros = viajero;
     }
 
 }

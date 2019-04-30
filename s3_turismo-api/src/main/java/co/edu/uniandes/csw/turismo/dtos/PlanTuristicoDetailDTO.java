@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.entities.PaisEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
     private List<ValoracionDTO> valoraciones;
     // relación cero o muchos blogs 
     private List<BlogDeViajeroDTO> blogs;
+    
+    private List<ViajeroDTO> viajeros;
     //private List<TransporteDTO> transportes;
 //Constructor por defecto
 
@@ -58,6 +61,14 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
             }
 
         }
+        if(planEntity.getViajeros() !=null)
+        {
+            viajeros=new ArrayList<>();
+            for(ViajeroEntity entityViajero : planEntity.getViajeros())
+            {
+                viajeros.add(new ViajeroDTO(entityViajero));
+            }
+        }
     }
 
     /**
@@ -65,6 +76,15 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
      */
     public List<PaisDTO> getPaises() {
         return paises;
+    }
+    
+    public void setViajeros(List<ViajeroDTO> via)
+    {
+        this.viajeros=via;
+    }
+    public List<ViajeroDTO> getViajeros()
+    {
+        return viajeros;
     }
 
     /**
@@ -171,6 +191,15 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
 
             planTuristicoEntity.setPaises(paisEntity);
 
+        }
+        if(viajeros!=null)
+        {
+            List<ViajeroEntity> viajeroEntity= new ArrayList<>();
+            for(ViajeroDTO dtoViajero:getViajeros())
+            {
+                viajeroEntity.add(dtoViajero.toEntity());
+            }
+            planTuristicoEntity.setViajero(viajeroEntity);
         }
 
         return planTuristicoEntity;
