@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.turismo.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -21,7 +22,6 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     
    
     
-    private Long idUsuario;
     private String nombreUsuario;
     private int codigoUnico;
     private String idioma;
@@ -42,7 +42,7 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     List<FacturaEntity> facturas;
     
     @PodamExclude
-    @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
+    @ManyToMany(mappedBy="viajeros")
     List<PlanTuristicoEntity> planesTuristicos;
     
     @PodamExclude
@@ -89,13 +89,7 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
         this.viaje = viaje;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public String getNombreUsuario() {
         return nombreUsuario;
