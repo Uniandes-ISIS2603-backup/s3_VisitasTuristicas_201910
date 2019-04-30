@@ -11,12 +11,12 @@ delete from PaisEntity;
 delete from PlanTuristicoEntity;
 delete from ViajeroEntity;
 
-insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoUsuario, cantidadPlanes, informacionPersonal) values (13111, 'Felipe Aguirre', 121, 'Ingles', 'Preferencial', 1, 'soy venezolano');
-insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoUsuario, cantidadPlanes, informacionPersonal) values (13222, 'Mariana Rodriguez', 122, 'Japonés', 'Normal', 7, 'hola');
-insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoUsuario, cantidadPlanes, informacionPersonal) values (13333, 'Carlos Sanchez', 123, 'Italiano', 'Habitual', 5, 'adios');
-insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoUsuario, cantidadPlanes, informacionPersonal) values (13444, 'Luisa Cifuentes', 124, 'Aleman', 'Normal', 8, 'hasta la vista, baby');
-insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoUsuario, cantidadPlanes, informacionPersonal) values (13555, 'Daenerys Targaryen', 125, 'Dothraki', 'Habitual', 8, 'Fire and Blood');
-insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoUsuario, cantidadPlanes, informacionPersonal) values (13666, 'Annabeth Chase', 126, 'Griego', 'Preferencial', 2, 'Seaweed Brain');
+insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13111, 'Felipe Aguirre', 121, 'Ingles', 'Preferencial', 1, 'soy venezolano');
+insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13222, 'Mariana Rodriguez', 122, 'Japonés', 'Normal', 7, 'hola');
+insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13333, 'Carlos Sanchez', 123, 'Italiano', 'Habitual', 5, 'adios');
+insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13444, 'Luisa Cifuentes', 124, 'Aleman', 'Normal', 8, 'hasta la vista, baby');
+insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13555, 'Daenerys Targaryen', 125, 'Dothraki', 'Habitual', 8, 'Fire and Blood');
+insert into ViajeroEntity(idUsuario, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13666, 'Annabeth Chase', 126, 'Griego', 'Preferencial', 2, 'Seaweed Brain');
 
 
 insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma, viajero_id) values (111, 'Cataratas de diversión', 'Todo incluido', 120000.0, 'Viaje a las cataratas del Niagara', 'Estados Unidos', 0, '2 días', 'Inglés', 13111);
@@ -27,12 +27,23 @@ insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descr
 insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma, viajero_id) values (116, 'Into the Abyss', 'Todo incluido', 130000.0, 'Viaje a las minas más asombrosas', 'Abbys', 0, '5 días', 'Japonés', 13666);
 
 
-insert into PaisEntity(id, nombre, plan_id) values (171,'Estados Unidos', 111);
-insert into PaisEntity(id, nombre, plan_id) values (172,'Neverland', 112);
-insert into PaisEntity(id, nombre, plan_id) values (173,'Nicaragua', 113);
-insert into PaisEntity(id, nombre, plan_id) values (174,'Woo', 114);
-insert into PaisEntity(id, nombre, plan_id) values (175,'Roma', 115);
-insert into PaisEntity(id, nombre, plan_id) values (176,'Abbys', 116);
+insert into PaisEntity(id, nombre) values (171,'Estados Unidos');
+insert into PaisEntity(id, nombre) values (172,'Neverland');
+insert into PaisEntity(id, nombre) values (173,'Nicaragua');
+insert into PaisEntity(id, nombre) values (174,'Woo');
+insert into PaisEntity(id, nombre) values (175,'Roma');
+insert into PaisEntity(id, nombre) values (176,'Abbys');
+
+insert into PlanTuristicoEntity_PaisEntity(idPlan,idPais) values (111,171);
+insert into PlanTuristicoEntity_PaisEntity(idPlan,idPais) values (111,172);
+insert into PlanTuristicoEntity_PaisEntity(idPlan,idPais) values (111,173);
+insert into PlanTuristicoEntity_PaisEntity(idPlan,idPais) values (111,174);
+
+insert into PlanTuristicoEntity_PaisEntity(idPlan,idPais) values (112,171);
+insert into PlanTuristicoEntity_PaisEntity(idPlan,idPais) values (112,172);
+
+
+
 
 
 insert into CiudadEntity(id, nombre, pais_id) values (191, 'Bogota', 171);
