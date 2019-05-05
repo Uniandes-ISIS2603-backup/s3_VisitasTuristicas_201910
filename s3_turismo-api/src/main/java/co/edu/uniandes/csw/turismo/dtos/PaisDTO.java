@@ -38,8 +38,11 @@ public class PaisDTO implements Serializable
     
     public PaisDTO(PaisEntity e)
     {
-        this.id = e.getId();
-        this.nombre = e.getNombre();
+        if(e!= null)
+        {    
+            this.id = e.getId();
+            this.nombre = e.getNombre();
+        }
     }
     
     public PaisEntity toEntity()

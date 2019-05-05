@@ -24,7 +24,6 @@ public class PlanTuristicoDTO implements Serializable {
     private String duracion;
     private String idioma;
  
-    private ViajeroDTO viajero;
 
     //Constructor vacio
     public PlanTuristicoDTO() {
@@ -161,19 +160,7 @@ public class PlanTuristicoDTO implements Serializable {
 
     
 
-    /**
-     * @return the viajero
-     */
-    public ViajeroDTO getViajero() {
-        return viajero;
-    }
-
-    /**
-     * @param viajero the viajero to set
-     */
-    public void setViajero(ViajeroDTO viajero) {
-        this.viajero = viajero;
-    }
+    
 
     //
     public PlanTuristicoEntity toEntity() {
@@ -188,24 +175,23 @@ public class PlanTuristicoDTO implements Serializable {
         entity.setGuia(guia);
         entity.setDuracion(duracion);
         entity.setIdioma(idioma);
-        
-        if(this.viajero!=null){
-            entity.setViajero(viajero.toEntity());
-        }
+       
         
         return entity;
     }
     
     public PlanTuristicoDTO(PlanTuristicoEntity pEntity) {
-        setPlanTuristicoId(pEntity.getId());
-        setNombrePlan(pEntity.getNombrePlan());
-        setTipoPlan(pEntity.getTipoPlan());
-        setCostoPorPersona(pEntity.getCostoPorPersona());
-        setDescripcion(pEntity.getDescripcion());
-        setUbicacion(pEntity.getUbicacion());
-        setGuia(pEntity.getGuia());
-        setDuracion(pEntity.getDuracion());
-        setIdioma(pEntity.getIdioma());
+        if(pEntity != null){
+            this.planTuristicoId = pEntity.getId();
+            this.nombrePlan = pEntity.getNombrePlan();
+            this.tipoPlan = pEntity.getTipoPlan();
+            this.costoPorPersona = pEntity.getCostoPorPersona();
+            this.descripcion = pEntity.getDescripcion();
+            this.ubicacion = pEntity.getUbicacion();
+            this.guia = pEntity.getGuia();
+            this.duracion = pEntity.getDuracion();
+            this.idioma = pEntity.getIdioma();
+        }
     }
 
     
