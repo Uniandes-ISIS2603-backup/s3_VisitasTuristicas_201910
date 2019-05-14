@@ -144,32 +144,21 @@ public class FacturaLogicTest {
     @Test
     public void getFacturaTest() {
         FacturaEntity entity = data.get(0);
-        FacturaEntity resultEntity = facturaLogic.getFactura(dataViajero.get(0).getId(), entity.getId());
+        ViajeroEntity viajero = dataViajero.get(0);
+        FacturaEntity resultEntity = facturaLogic.getFactura(entity.getId(),viajero.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getCosto(), resultEntity.getCosto());
-        Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
-        Assert.assertEquals(entity.getViajero(), resultEntity.getViajero());
     }
-    
-        @Test
+    @Test
     public void deleteFacturaTest() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        facturaLogic.deleteFactura(dataViajero.get(0).getId(), entity.getId());
+        FacturaEntity entity = data.get(1);
+        ViajeroEntity viajero= dataViajero.get(0);
+        facturaLogic.deleteFactura(entity.getId(),viajero.getId());
         FacturaEntity deleted = em.find(FacturaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
-    /**
-     * Prueba para eliminarle un review a un book del cual no pertenece.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteReviewConBookNoAsociadoTest() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        facturaLogic.deleteFactura(dataViajero.get(0).getId(), entity.getId());
-    }
+ 
     
      
  

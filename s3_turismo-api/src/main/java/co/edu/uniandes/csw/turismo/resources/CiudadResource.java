@@ -64,7 +64,7 @@ public class CiudadResource {
     
     
     
-     @GET
+    @GET
     @Path("{ciudadId: \\d+}")
     public CiudadDetailDTO getCiudad(@PathParam("ciudadId") Long ciudadId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CiudadResource get Ciudad: input: {0}", ciudadId);
@@ -92,14 +92,6 @@ public class CiudadResource {
     }
     
      
-     @Path("{ciudadId: \\d+}/SitiosTuristicos")
-    public Class<SitioTuristicoResource> getSitiosTuristicosResource(@PathParam("ciudadId") Long ciudadId) throws BusinessLogicException {
-        CiudadEntity ciudad = ciudadLogic.getCiudad(ciudadId);
-        if (ciudad == null) {
-                throw new WebApplicationException("El recurso /ciudades/" + ciudadId + "/SitiosTuristicos no existe.", 404);
-        } 
-        return SitioTuristicoResource.class;
-    }
     
     
     private List<CiudadDetailDTO> listEntity2DetailDTO(List<CiudadEntity> entityList) throws BusinessLogicException {

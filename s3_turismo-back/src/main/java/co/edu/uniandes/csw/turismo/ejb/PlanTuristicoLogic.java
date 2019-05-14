@@ -110,6 +110,12 @@ public class PlanTuristicoLogic {
         return planes;
     }
 
+    
+    
+    
+    
+    
+    
     /**
      *
      * Hace las verificaciones de las reglas de negocio para actualizar un plan

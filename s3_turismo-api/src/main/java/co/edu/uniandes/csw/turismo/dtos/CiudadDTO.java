@@ -26,7 +26,6 @@ public class CiudadDTO implements Serializable {
     */
     private String nombre;
     
-    private PaisDTO pais;
     
     /*
     *Constructor de la clase ciudad
@@ -44,7 +43,6 @@ public class CiudadDTO implements Serializable {
         
             this.nombre = e.darNombre();
         
-            this.pais = new PaisDTO(e.darPais());
         }
     }
     
@@ -54,7 +52,6 @@ public class CiudadDTO implements Serializable {
         
         ret.setId(this.getId());  
         ret.actualizarNombre(this.getNombre());
-        ret.actualizarPais(this.getPais().toEntity());
         
         return ret;
     }
@@ -90,16 +87,7 @@ public class CiudadDTO implements Serializable {
     /**
      * @return the pais
      */
-    public PaisDTO getPais() {
-        return pais;
-    }
 
-    /**
-     * @param pais the pais to set
-     */
-    public void setPais(PaisDTO pais) {
-        this.pais = pais;
-    }
 
     
 }
