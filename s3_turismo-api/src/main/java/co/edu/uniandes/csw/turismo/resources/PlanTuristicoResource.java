@@ -31,7 +31,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Christer Osorio modificado por david fonseca, agregado los paises asociados
  */
-@Path("planesTuristicos")
+@Path("/planesTuristicos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -136,6 +136,27 @@ public class PlanTuristicoResource {
         return ValoracionResource.class;
 
     }
+    
+    
+    
+    
+     @Path("{planId: \\d+}/blogs")
+    public Class<BlogDeViajeroResource> getBlogsResource(@PathParam("planId") Long planId) {
+        if (logic.getPlanTuristico(planId) == null) {
+            throw new WebApplicationException("El recurso /books/" + planId + "/reviews no existe.", 404);
+        }
+        return BlogDeViajeroResource.class;
+    }
+    
+    
+    @Path("{planId: \\d+}/valoraciones")
+    public Class<ValoracionResource> getValoracionesResource(@PathParam("planId") Long planId) {
+        if (logic.getPlanTuristico(planId) == null) 
+        {
+            throw new WebApplicationException("El recurso /books/" + planId + "/reviews no existe.", 404);
+        }
+        return ValoracionResource.class;
+    }
 
     /**
      *
@@ -176,13 +197,7 @@ public class PlanTuristicoResource {
         return PlanTuristicoResource.class;
 
     }
-        @Path("{booksId: \\d+}/authors")
-    public Class<PaisResource> getBookAuthorsResource(@PathParam("planesId") Long planesId) {
-        if (logic.getPlanTuristico(planesId) == null) {
-            throw new WebApplicationException("El recurso /Plan/" + planesId + " no existe.", 404);
-        }
-        return PaisResource.class;
-    }
+       
      private List<PlanTuristicoDetailDTO> listEntity2DTO(List<PlanTuristicoEntity> entityList)throws BusinessLogicException {
         List<PlanTuristicoDetailDTO> list = new ArrayList<PlanTuristicoDetailDTO>();
         for (PlanTuristicoEntity entity : entityList) {

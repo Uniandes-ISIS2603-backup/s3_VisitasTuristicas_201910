@@ -5,9 +5,8 @@ delete from BlogDeViajeroEntity;
 delete from FacturaEntity;
 delete from TarjetaDeCreditoEntity;
 delete from PreferenciaEntity;
+delete from CIUDADENTITY_PLANTURISTICOENTITY;
 delete from CiudadEntity;
-delete from PaisEntity_PlanTuristicoEntity;
-delete from PaisEntity;
 delete from PlanTuristicoEntity_ViajeroEntity;
 delete from ValoracionEntity;
 delete from PlanTuristicoEntity;
@@ -39,30 +38,12 @@ insert into PlanTuristicoEntity_ViajeroEntity(planesturisticos_id,viajeros_id) v
 insert into PlanTuristicoEntity_ViajeroEntity(planesturisticos_id,viajeros_id) values (113,13444);
 
 
-insert into PaisEntity(id, nombre) values (171,'Estados Unidos');
-insert into PaisEntity(id, nombre) values (172,'Neverland');
-insert into PaisEntity(id, nombre) values (173,'Nicaragua');
-insert into PaisEntity(id, nombre) values (174,'Woo');
-insert into PaisEntity(id, nombre) values (175,'Roma');
-insert into PaisEntity(id, nombre) values (176,'Abbys');
-
-insert into PaisEntity_PlanTuristicoEntity(paises_id,planes_id) values (171,111);
-insert into PaisEntity_PlanTuristicoEntity(paises_id,planes_id) values (172,111);
-insert into PaisEntity_PlanTuristicoEntity(paises_id,planes_id) values (173,111);
-insert into PaisEntity_PlanTuristicoEntity(paises_id,planes_id) values (174,111);
-insert into PaisEntity_PlanTuristicoEntity(paises_id,planes_id) values (171,112);
-insert into PaisEntity_PlanTuristicoEntity(paises_id,planes_id) values (172,112);
-
-
-
-
-
-insert into CiudadEntity(id, nombre, pais_id) values (191, 'Bogota', 171);
-insert into CiudadEntity(id, nombre, pais_id) values (192, 'Otawa', 172);
-insert into CiudadEntity(id, nombre, pais_id) values (193, 'Madrid', 173);
-insert into CiudadEntity(id, nombre, pais_id) values (194, 'San Juan', 174);
-insert into CiudadEntity(id, nombre, pais_id) values (195, 'Amsterdam', 175);
-insert into CiudadEntity(id, nombre, pais_id) values (196, 'Okinawa', 176);
+insert into CiudadEntity(id, nombre) values (191, 'Bogota');
+insert into CiudadEntity(id, nombre) values (192, 'Otawa');
+insert into CiudadEntity(id, nombre) values (193, 'Madrid');
+insert into CiudadEntity(id, nombre) values (194, 'San Juan');
+insert into CiudadEntity(id, nombre) values (195, 'Amsterdam');
+insert into CiudadEntity(id, nombre) values (196, 'Okinawa');
 
 
 insert into PreferenciaEntity(id, nombrePreferencia, viajero_id) values (141, 'Iglesia', 13111);
@@ -119,3 +100,16 @@ insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) val
 insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-08 08:00:00', 13444, 114);
 insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-09 08:00:00', 13555, 115);
 insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-04 08:00:00', 13666, 116);
+
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,111);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,112);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,113);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,114);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,115);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,111);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,112);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,113);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,114);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,115);
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,116);
+

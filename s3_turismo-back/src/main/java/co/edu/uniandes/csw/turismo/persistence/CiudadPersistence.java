@@ -95,5 +95,16 @@ public class CiudadPersistence {
         LOGGER.log(Level.INFO, "Saliendo de consultar Ciudad por nombre ", nombre);
         return result;
     }
+     
+      public void delete(Long authorsId) {
+
+        LOGGER.log(Level.INFO, "Borrando el author con id={0}", authorsId);
+        // Se hace uso de mismo método que esta explicado en public CiudadEntity find(Long id) para obtener la author a borrar.
+        CiudadEntity authorEntity = em.find(CiudadEntity.class, authorsId);
+        /* Note que una vez obtenido el objeto desde la base de datos llamado "entity", volvemos hacer uso de un método propio del
+        EntityManager para eliminar de la base de datos el objeto que encontramos y queremos borrar.
+        Es similar a "delete from CiudadEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
+        em.remove(authorEntity);
+    }
     
 }

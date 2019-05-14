@@ -104,13 +104,7 @@ public class CiudadLogicTest {
 
     }
 
-    @Test(expected = BusinessLogicException.class)
-    public void createCiudadConMismoNombreTest() throws BusinessLogicException {
 
-        CiudadEntity newCiudadEntity = factory.manufacturePojo(CiudadEntity.class);
-        newCiudadEntity.actualizarNombre(data.get(0).darNombre());
-        paisLogic.createCiudad(newCiudadEntity);
-    }
     
     @Test(expected = BusinessLogicException.class)
     public void createCiudadConNombreInvalidoTest() throws BusinessLogicException {
@@ -135,7 +129,7 @@ public class CiudadLogicTest {
         
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.darNombre(), resp.darNombre());
-        Assert.assertEquals(pojoEntity.darPais(), resp.darPais());
+        Assert.assertEquals(pojoEntity.darPlanes(), resp.darPlanes());
 
 
     }

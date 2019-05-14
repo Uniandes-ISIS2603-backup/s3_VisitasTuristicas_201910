@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -26,8 +26,8 @@ public class CiudadEntity extends BaseEntity implements Serializable {
     private List<SitioTuristicoEntity> sitios;
     
     @PodamExclude
-    @ManyToOne
-    private PaisEntity pais;
+    @ManyToMany
+    private List<PlanTuristicoEntity> planes;
     
     
     
@@ -35,18 +35,18 @@ public class CiudadEntity extends BaseEntity implements Serializable {
     *Retorna el pais al que la ciudad pertenece
     *@return pais
     */
-    public PaisEntity darPais()   
+    public List<PlanTuristicoEntity> darPlanes()   
     {
-        return pais;
+        return planes;
     }
     
     /*
     *Actualiza el pais
     *@param ppais
     */
-    public void actualizarPais(PaisEntity ppais)
+    public void actualizarPlanes(List<PlanTuristicoEntity> ppais)
     {
-        this.pais=ppais;
+        this.planes=ppais;
     }
     
     /*

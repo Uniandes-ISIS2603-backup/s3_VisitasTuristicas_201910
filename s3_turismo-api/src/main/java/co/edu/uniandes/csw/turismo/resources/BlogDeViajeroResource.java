@@ -28,7 +28,6 @@ import javax.ws.rs.WebApplicationException;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RequestScoped
 public class BlogDeViajeroResource {
 
     @Inject
