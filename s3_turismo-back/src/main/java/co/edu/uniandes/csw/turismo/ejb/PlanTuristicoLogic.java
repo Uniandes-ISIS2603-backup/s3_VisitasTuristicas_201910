@@ -29,6 +29,9 @@ public class PlanTuristicoLogic {
      * Hace las verificaciones de las reglas de negocio para crear un plan
      * turistico
      *
+     * @param planTuristico
+     * @return 
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException 
      */
 
     public PlanTuristicoEntity createPlanTuristico(PlanTuristicoEntity planTuristico) throws BusinessLogicException {
@@ -69,6 +72,8 @@ public class PlanTuristicoLogic {
      * Hace las verificaciones de las reglas de negocio para Borrar un plan
      * turistico
      *
+     * @param planTuristicoId
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     public void deletePlanTuristico(Long planTuristicoId) throws BusinessLogicException {
         if (persistence.find(planTuristicoId) == null) {
@@ -87,6 +92,8 @@ public class PlanTuristicoLogic {
      * Hace las verificaciones de las reglas de negocio para retornar un plan
      * turistico
      *
+     * @param planTuristicoId
+     * @return 
      */
     public PlanTuristicoEntity getPlanTuristico(Long planTuristicoId) {
         PlanTuristicoEntity planTuristicolEntity = persistence.find(planTuristicoId);
@@ -102,7 +109,9 @@ public class PlanTuristicoLogic {
      * Hace las verificaciones de las reglas de negocio para retornar un plan
      * turistico
      *
+     * @return 
      */
+
     public List<PlanTuristicoEntity> getPlanesTuristicos() {
 
         List<PlanTuristicoEntity> planes = persistence.findAll();

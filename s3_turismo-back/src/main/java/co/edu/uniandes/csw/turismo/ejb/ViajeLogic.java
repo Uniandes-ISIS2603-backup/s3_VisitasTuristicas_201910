@@ -78,6 +78,7 @@ public class ViajeLogic {
      *
      * @param viajesId El id del libro a buscar
      * @return El viaje encontrado, null si no lo encuentra.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     public ViajeEntity getViaje(Long viajesId) throws BusinessLogicException {
 

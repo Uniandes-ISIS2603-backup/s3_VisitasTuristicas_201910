@@ -33,7 +33,8 @@ public class FacturaLogic {
     /**
      * Guardar una nueva factura
      *
-     * @param facturaEntity La entidad de tipo factura a persistir.
+     * @param booksId
+     * @param reviewEntity
      * @return La entidad luego de persistirla
      * @throws BusinessLogicException Si el el costo o la descripcion son inválidos
      */
@@ -62,6 +63,7 @@ ViajeroEntity viajero = viajeroPersistence.find(viajeroId);
      * Busca una factura dado su ID
      *
      * @param facturasId El id a buscar
+     * @param viajeroId
      * @return La factura encontrado, null si no lo encuentra.
      */
     public FacturaEntity getFactura(Long facturasId, Long viajeroId) {
@@ -100,6 +102,8 @@ ViajeroEntity viajero = viajeroPersistence.find(viajeroId);
      * Eliminar una factura por ID
      *
      * @param facturasId El id a eliminar
+     * @param viajeroId
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     public void deleteFactura(Long facturasId, Long viajeroId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + viajeroId, facturasId);

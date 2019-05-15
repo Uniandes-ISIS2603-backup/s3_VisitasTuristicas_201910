@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
-import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.BlogDeViajeroPersistence;
 import co.edu.uniandes.csw.turismo.persistence.PlanTuristicoPersistence;

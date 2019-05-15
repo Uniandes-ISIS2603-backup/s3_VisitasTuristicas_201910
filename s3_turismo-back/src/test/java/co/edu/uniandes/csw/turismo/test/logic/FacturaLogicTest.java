@@ -6,16 +6,10 @@
 package co.edu.uniandes.csw.turismo.test.logic;
 
 import co.edu.uniandes.csw.turismo.ejb.FacturaLogic;
-import co.edu.uniandes.csw.turismo.ejb.FacturaLogic;
-import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
-import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
-import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
-import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
-import com.gs.collections.impl.list.fixed.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,7 +33,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class FacturaLogicTest {
- private PodamFactory factory = new PodamFactoryImpl();
+ private final PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
     private FacturaLogic facturaLogic;
@@ -51,8 +45,8 @@ public class FacturaLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<FacturaEntity> data = new ArrayList<>();
-    private List<ViajeroEntity> dataViajero= new ArrayList<>();
+    private final List<FacturaEntity> data = new ArrayList<>();
+    private final List<ViajeroEntity> dataViajero= new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -119,7 +113,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para consultar la lista de Reviews.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void getFacturasTest() throws BusinessLogicException {

@@ -34,7 +34,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class CiudadLogicTest {
     
-        private PodamFactory factory = new PodamFactoryImpl();
+        private final PodamFactory factory = new PodamFactoryImpl();
 
         @Inject
     private CiudadLogic paisLogic;
@@ -46,7 +46,7 @@ public class CiudadLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<CiudadEntity> data = new ArrayList<>();
+    private final List<CiudadEntity> data = new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {

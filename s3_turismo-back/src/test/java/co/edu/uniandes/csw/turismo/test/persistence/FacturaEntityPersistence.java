@@ -41,7 +41,7 @@ public class FacturaEntityPersistence {
     @Inject
     UserTransaction utx;
 
-    private List<FacturaEntity> data = new ArrayList<FacturaEntity>();
+    private final List<FacturaEntity> data = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.

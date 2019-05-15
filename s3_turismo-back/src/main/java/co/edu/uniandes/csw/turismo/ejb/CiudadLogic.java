@@ -7,10 +7,8 @@ package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
-import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.CiudadPersistence;
-import co.edu.uniandes.csw.turismo.persistence.PlanTuristicoPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +33,7 @@ public class CiudadLogic
      *
      * @param ciudadEntity Objeto de CiudadEntity con los datos nuevos
      * @return Objeto de CiudadEntity con los datos nuevos y su ID.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     public CiudadEntity createCiudad(CiudadEntity ciudadEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del autor");
@@ -93,6 +92,7 @@ public class CiudadLogic
      * @param ciudadsId Identificador de la instancia a actualizar
      * @param ciudadEntity Instancia de CiudadEntity con los nuevos datos.
      * @return Instancia de CiudadEntity con los datos actualizados.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     public CiudadEntity updateCiudad(Long ciudadsId, CiudadEntity ciudadEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el autor con id = {0}", ciudadsId);

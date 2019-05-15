@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
-import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.TarjetaDeCreditoPersistence;
 import co.edu.uniandes.csw.turismo.persistence.ViajeroPersistence;

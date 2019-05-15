@@ -8,13 +8,11 @@ package co.edu.uniandes.csw.turismo.test.logic;
 import co.edu.uniandes.csw.turismo.ejb.BlogDeViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
-import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.BlogDeViajeroPersistence;
 import static com.ctc.wstx.util.DataUtil.Long;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,9 +49,9 @@ public class BlogDeViajeroLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<BlogDeViajeroEntity> data = new ArrayList<BlogDeViajeroEntity>();
+    private final List<BlogDeViajeroEntity> data = new ArrayList<>();
 
-     private List<PlanTuristicoEntity> dataPlan = new ArrayList<PlanTuristicoEntity>();
+     private final List<PlanTuristicoEntity> dataPlan = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -118,7 +116,6 @@ public class BlogDeViajeroLogicTest {
     /**
      * Prueba para crear un blog.
      *
-     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void createViajeTest(){
@@ -203,7 +200,6 @@ public class BlogDeViajeroLogicTest {
     /**
      * Prueba para eliminar un blog.
      *
-     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
  @Test
     public void deleteViajeTest() {

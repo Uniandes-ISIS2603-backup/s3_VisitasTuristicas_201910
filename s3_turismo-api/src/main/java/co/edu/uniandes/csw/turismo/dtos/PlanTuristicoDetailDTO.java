@@ -203,10 +203,10 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
         }
         if(ciudades!=null)
         {
-            List<CiudadEntity> ciudadEntity=new ArrayList<>();
+            List<CiudadEntity> ciudaddEntity=new ArrayList<>();
             for(CiudadDTO dtoCiudad:getCiudades())
             {
-                ciudadEntity.add(dtoCiudad.toEntity());
+                ciudaddEntity.add(dtoCiudad.toEntity());
             }
         }
 

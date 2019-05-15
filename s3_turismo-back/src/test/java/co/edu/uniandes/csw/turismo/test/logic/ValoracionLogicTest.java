@@ -36,7 +36,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class ValoracionLogicTest {
 
-      private Random rand = new Random();
+      private final Random rand = new Random();
     PodamFactory factory = new PodamFactoryImpl();
     @Inject
     private ValoracionLogic valoracionLogic;
@@ -47,9 +47,9 @@ public class ValoracionLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ValoracionEntity> data = new ArrayList<ValoracionEntity>();
+    private final List<ValoracionEntity> data = new ArrayList<>();
 
-    private List<PlanTuristicoEntity> dataPlan = new ArrayList<PlanTuristicoEntity>();
+    private final List<PlanTuristicoEntity> dataPlan = new ArrayList<PlanTuristicoEntity>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.

@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -47,6 +46,7 @@ public class CiudadPlanTuristicoResource {
      * @param ciudadsId El ID del autor al cual se le va a asociar el libro
      * @param planTuristicosId El ID del libro que se asocia
      * @return JSON {@link PlanTuristicoDetailDTO} - El libro asociado.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
@@ -66,6 +66,7 @@ public class CiudadPlanTuristicoResource {
      * @param ciudadsId El ID del autor del cual se buscan los libros
      * @return JSONArray {@link PlanTuristicoDetailDTO} - Los libros encontrados en el
      * autor. Si no hay ninguno retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
     public List<PlanTuristicoDetailDTO> getPlanTuristicos(@PathParam("ciudadsId") Long ciudadsId) throws BusinessLogicException {
@@ -80,8 +81,7 @@ public class CiudadPlanTuristicoResource {
      * @param ciudadsId El ID del autor del cual se busca el libro
      * @param planTuristicosId El ID del libro que se busca
      * @return {@link PlanTuristicoDetailDTO} - El libro encontrado en el autor.
-     * @throws co.edu.uniandes.csw.planTuristicostore.exceptions.BusinessLogicException
-     * si el libro no está asociado al autor
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
@@ -103,6 +103,7 @@ public class CiudadPlanTuristicoResource {
      * @param planTuristicos JSONArray {@link PlanTuristicoDetailDTO} - La lista de libros que se
      * desea guardar.
      * @return JSONArray {@link PlanTuristicoDetailDTO} - La lista actualizada.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
      */

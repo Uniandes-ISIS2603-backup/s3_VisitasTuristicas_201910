@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.turismo.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
-import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
