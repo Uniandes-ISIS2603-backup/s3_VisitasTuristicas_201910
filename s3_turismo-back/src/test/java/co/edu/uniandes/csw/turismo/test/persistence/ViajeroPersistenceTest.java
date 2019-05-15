@@ -134,7 +134,7 @@ public class ViajeroPersistenceTest {
    
    
     public List<ViajeroEntity> setUp() {
-        List<ViajeroEntity> datos = new ArrayList<ViajeroEntity>(); 
+        List<ViajeroEntity> datos = new ArrayList<>(); 
         PodamFactory factory = new PodamFactoryImpl();
         int i = 0;
         ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);

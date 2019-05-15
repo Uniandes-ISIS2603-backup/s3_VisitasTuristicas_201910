@@ -44,14 +44,6 @@ public class ValoracionEntity extends BaseEntity implements Serializable {
      */
     private String comentario;
 
-    //Métodos
-
-    /*
-	 *Método constructor de una valoración de un plan turístico
-     */
-    public ValoracionEntity() {
-
-    }
 
     //Getters & Setters
 

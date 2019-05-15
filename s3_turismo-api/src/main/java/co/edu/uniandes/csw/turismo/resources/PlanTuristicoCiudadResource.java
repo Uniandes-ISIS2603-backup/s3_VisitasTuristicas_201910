@@ -51,6 +51,7 @@ public class PlanTuristicoCiudadResource {
      * @param ciudadsId El ID del autor que se va a asociar
      * @param planTuristicosId El ID del libro al cual se le va a asociar el autor
      * @return JSON {@link CiudadDetailDTO} - El autor asociado.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el autor.
      */
@@ -72,6 +73,7 @@ public class PlanTuristicoCiudadResource {
      * @param planTuristicosId El ID del libro del cual se buscan los autores
      * @return JSONArray {@link CiudadDetailDTO} - Los autores encontrados en el
      * libro. Si no hay ninguno retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
     public List<CiudadDetailDTO> getCiudads(@PathParam("planTuristicosId") Long planTuristicosId) throws BusinessLogicException {
@@ -88,6 +90,7 @@ public class PlanTuristicoCiudadResource {
      * @param ciudadsId El ID del autor que se busca
      * @param planTuristicosId El ID del libro del cual se busca el autor
      * @return {@link CiudadDetailDTO} - El autor encontrado en el libro.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper}
      * Error de lógica que se genera cuando no se encuentra el autor.
      */
@@ -112,6 +115,7 @@ public class PlanTuristicoCiudadResource {
      * @param ciudads JSONArray {@link CiudadDetailDTO} - La lista de autores
      * que se desea guardar.
      * @return JSONArray {@link CiudadDetailDTO} - La lista actualizada.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper}
      * Error de lógica que se genera cuando no se encuentra el autor.
      */

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -53,7 +52,7 @@ public class SitioTuristicoResource {
     /**
      * Busca y devuelve todas las reseñas que existen en un libro.
      *
-     * @param booksId El ID del libro del cual se buscan las reseñas
+     * @param ciudadId
      * @return JSONArray {@link SitioTuristicoDTO} - Las reseñas encontradas en el
      * libro. Si no hay ninguna retorna una lista vacía.
      */
@@ -152,7 +151,7 @@ public class SitioTuristicoResource {
      * @return la lista de reseñas en forma DTO (json)
      */
     private List<SitioTuristicosDTO> listEntity2DTO(List<SitioTuristicoEntity> entityList) {
-        List<SitioTuristicosDTO> list = new ArrayList<SitioTuristicosDTO>();
+        List<SitioTuristicosDTO> list = new ArrayList<>();
         for (SitioTuristicoEntity entity : entityList) {
             list.add(new SitioTuristicosDTO(entity));
         }

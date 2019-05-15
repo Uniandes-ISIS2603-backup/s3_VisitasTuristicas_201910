@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

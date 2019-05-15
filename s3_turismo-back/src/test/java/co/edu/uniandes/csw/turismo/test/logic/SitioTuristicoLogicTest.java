@@ -34,7 +34,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
 public class SitioTuristicoLogicTest {
-    private PodamFactory factory = new PodamFactoryImpl();
+    private final PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
     private SitioTuristicoLogic reviewLogic;
@@ -45,9 +45,9 @@ public class SitioTuristicoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<SitioTuristicoEntity> data = new ArrayList<SitioTuristicoEntity>();
+    private final List<SitioTuristicoEntity> data = new ArrayList<>();
 
-    private List<CiudadEntity> dataCiudad = new ArrayList<CiudadEntity>();
+    private final List<CiudadEntity> dataCiudad = new ArrayList<>();
 
 
     /**
@@ -117,9 +117,10 @@ public class SitioTuristicoLogicTest {
     /**
      * Prueba para crear un SitioTuristico.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
+
     public void createSitioTuristicoTest() throws BusinessLogicException {
         SitioTuristicoEntity newEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
         newEntity.actualizarCiudad(dataCiudad.get(1));
@@ -135,7 +136,7 @@ public class SitioTuristicoLogicTest {
     /**
      * Prueba para consultar la lista de SitioTuristicos.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void getSitioTuristicosTest() throws BusinessLogicException {
@@ -189,7 +190,7 @@ public class SitioTuristicoLogicTest {
     /**
      * Prueba para eliminar un SitioTuristico.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void deleteSitioTuristicoTest() throws BusinessLogicException {
@@ -202,9 +203,10 @@ public class SitioTuristicoLogicTest {
     /**
      * Prueba para eliminarle un review a un book del cual no pertenece.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
+
     public void deleteSitioTuristicoConCiudadNoAsociadoTest() throws BusinessLogicException {
         SitioTuristicoEntity entity = data.get(0);
         reviewLogic.deleteSitioTuritico(dataCiudad.get(0).getId(), entity.getId());

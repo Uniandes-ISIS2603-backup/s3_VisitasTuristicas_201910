@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.turismo.resources;
 
 import java.util.logging.Logger;
 import java.util.ArrayList;
-import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -161,7 +160,7 @@ public class BlogDeViajeroResource {
      * @return la lista de blogs en forma DTO (json)
      */
     private List<BlogDeViajeroDTO> listEntity2DTO(List<BlogDeViajeroEntity> entityList)throws BusinessLogicException {
-        List<BlogDeViajeroDTO> list = new ArrayList<BlogDeViajeroDTO>();
+        List<BlogDeViajeroDTO> list = new ArrayList<>();
         for (BlogDeViajeroEntity entity : entityList) {
             list.add(new BlogDeViajeroDTO(entity));
         }

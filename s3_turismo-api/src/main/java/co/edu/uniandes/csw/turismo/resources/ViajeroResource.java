@@ -54,7 +54,6 @@ public class ViajeroResource {
     
     /**
      * retorna un viajero con un id
-     * @param pIdViajero
      * @return Viajero
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
@@ -66,7 +65,12 @@ public class ViajeroResource {
         return listaBooks;
     }
     
-    
+    /**
+     *
+     * @param booksId
+     * @return
+     * @throws BusinessLogicException
+     */
     @GET
     @Path("{viajeroId: \\d+}")
     public ViajeroDetailDTO getBook(@PathParam("viajeroId") Long booksId) throws BusinessLogicException {
@@ -97,6 +101,7 @@ public class ViajeroResource {
      * asigna un viajero
      * @param idViajero
      * @param nuevoViajero 
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException 
      */
     @PUT
     public void setViajero(@PathParam("id") Long idViajero, ViajeroDTO nuevoViajero) throws BusinessLogicException {
@@ -124,6 +129,7 @@ public class ViajeroResource {
     /**
      * elimina un viajero
      * @param pIdViajero 
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException 
      */
     @DELETE
     public void deleteViajero(Long pIdViajero) throws BusinessLogicException {

@@ -7,18 +7,12 @@ package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
-import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
-import co.edu.uniandes.csw.turismo.persistence.SitioTuristicoPersistence;
 import co.edu.uniandes.csw.turismo.persistence.SitioTuristicoPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -50,9 +44,9 @@ public class SitioTuristicoPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private List<SitioTuristicoEntity> data = new ArrayList<SitioTuristicoEntity>();
+    private final List<SitioTuristicoEntity> data = new ArrayList<>();
 	
-    private List<CiudadEntity> dataCiudad = new ArrayList<CiudadEntity>();
+    private final List<CiudadEntity> dataCiudad = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
