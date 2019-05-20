@@ -41,17 +41,6 @@ public class SitioTuristicoPersistence {
        return sitioEntity;
     }
     
-    /*
-    *Retorna la lista de sitios turisticos
-    *@return lista de sitios turisticos
-    */
-    public List<SitioTuristicoEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos los Sitios Turisticos");
-        
-        //TODO consulta sql
-        Query q = em.createQuery("SELECT U FROM SitioTuristicoEntity U ", CiudadEntity.class);
-        return q.getResultList();
-    }
     
     /*
     *Busca un sitio turistico con el id dado
