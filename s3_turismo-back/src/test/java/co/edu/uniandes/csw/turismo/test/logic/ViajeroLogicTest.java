@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.ViajeroPersistence;
-import java.util.Random;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

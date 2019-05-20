@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.dtos;
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
     *
     */
     private ArrayList<SitioTuristicosDTO> sitiosTuristicosDto;
+    private ArrayList<PlanTuristicoDTO> planes;
     
     /*
     *Metodo Constructor
@@ -40,6 +42,14 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
                 sitiosTuristicosDto.add(new SitioTuristicosDTO(sitio));
             }
         }
+        if(ciudadEntity.darPlanes()!=null)
+        {
+            planes=new ArrayList<>();
+            for(PlanTuristicoEntity plan:ciudadEntity.darPlanes())
+            {
+                planes.add(new PlanTuristicoDTO(plan));
+            }
+        }
     }
     
     /**
@@ -51,13 +61,23 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
     {
         CiudadEntity aRet = super.toEntity();
         ArrayList<SitioTuristicoEntity> trans = new ArrayList<>();
+        ArrayList<PlanTuristicoEntity> planja=new ArrayList<>();
         if (getSitiosTuristicosDto() != null) {
             for(SitioTuristicosDTO sitio : getSitiosTuristicosDto())
             {
                 trans.add(sitio.toEntity());
             }
         }
+        if(getPlanes()!=null)
+        {
+            for(PlanTuristicoDTO plan :getPlanes())
+            {
+                planja.add(plan.toEntity());
+            }
+        }
+        
         aRet.actualizarSitios(trans);
+        aRet.actualizarPlanes(planja);
         return aRet;
     }
 
@@ -66,6 +86,16 @@ public class CiudadDetailDTO extends CiudadDTO implements Serializable {
      */
     public ArrayList<SitioTuristicosDTO> getSitiosTuristicosDto() {
         return sitiosTuristicosDto;
+    }
+    
+    public ArrayList<PlanTuristicoDTO> getPlanes()
+    {
+        return planes;
+    }
+    
+    public void setPlanes(ArrayList<PlanTuristicoDTO> pplanes)
+    {
+        this.planes=pplanes;
     }
 
     /**

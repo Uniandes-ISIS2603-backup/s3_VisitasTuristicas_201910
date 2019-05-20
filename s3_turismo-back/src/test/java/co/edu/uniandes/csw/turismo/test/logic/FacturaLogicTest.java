@@ -6,16 +6,10 @@
 package co.edu.uniandes.csw.turismo.test.logic;
 
 import co.edu.uniandes.csw.turismo.ejb.FacturaLogic;
-import co.edu.uniandes.csw.turismo.ejb.FacturaLogic;
-import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
-import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
-import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
-import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
-import com.gs.collections.impl.list.fixed.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,7 +33,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class FacturaLogicTest {
- private PodamFactory factory = new PodamFactoryImpl();
+ private final PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
     private FacturaLogic facturaLogic;
@@ -51,8 +45,8 @@ public class FacturaLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<FacturaEntity> data = new ArrayList<>();
-    private List<ViajeroEntity> dataViajero= new ArrayList<>();
+    private final List<FacturaEntity> data = new ArrayList<>();
+    private final List<ViajeroEntity> dataViajero= new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -119,7 +113,7 @@ public class FacturaLogicTest {
     /**
      * Prueba para consultar la lista de Reviews.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void getFacturasTest() throws BusinessLogicException {
@@ -144,32 +138,21 @@ public class FacturaLogicTest {
     @Test
     public void getFacturaTest() {
         FacturaEntity entity = data.get(0);
-        FacturaEntity resultEntity = facturaLogic.getFactura(dataViajero.get(0).getId(), entity.getId());
+        ViajeroEntity viajero = dataViajero.get(0);
+        FacturaEntity resultEntity = facturaLogic.getFactura(entity.getId(),viajero.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getCosto(), resultEntity.getCosto());
-        Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
-        Assert.assertEquals(entity.getViajero(), resultEntity.getViajero());
     }
-    
-        @Test
+    @Test
     public void deleteFacturaTest() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        facturaLogic.deleteFactura(dataViajero.get(0).getId(), entity.getId());
+        FacturaEntity entity = data.get(1);
+        ViajeroEntity viajero= dataViajero.get(0);
+        facturaLogic.deleteFactura(entity.getId(),viajero.getId());
         FacturaEntity deleted = em.find(FacturaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
-    /**
-     * Prueba para eliminarle un review a un book del cual no pertenece.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteReviewConBookNoAsociadoTest() throws BusinessLogicException {
-        FacturaEntity entity = data.get(0);
-        facturaLogic.deleteFactura(dataViajero.get(0).getId(), entity.getId());
-    }
+ 
     
      
  

@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.turismo.resources;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -19,17 +18,14 @@ import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
-@Path("valoracion")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RequestScoped
 public class ValoracionResource {
 
     @Inject
@@ -38,26 +34,6 @@ public class ValoracionResource {
     private static final Logger LOGGER = Logger.getLogger(ValoracionResource.class.getName());
 
     
-     /**
-     * Crea una nueva valoracion con la informacion que se recibe en el cuerpo de la
-     * petición y se regresa un objeto identico con un id auto-generado por la
-     * base de datos.
-     *
-     * @param planTuristicoId El ID del plan del cual se le agrega la valoracion
-     * @param valoracion {@link ValoracionDTO} - La valoracion que se desea guardar.
-     * @return JSON {@link ValoracionDTO} - La reseña guardada con el atributo id
-     * autogenerado.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando ya existe la valoracion.
-     */
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ValoracionDTO crearValoracion(@PathParam("planTuristicoId")Long planTuristicoId, ValoracionDTO valoracion)throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ValoracionResource crearValoracion: input: {0}", valoracion.toString());
-        ValoracionDTO nuevoValoracionDTO = new ValoracionDTO(valoracionLogic.createValoracion(planTuristicoId, valoracion.toEntity()));
-          LOGGER.log(Level.INFO, "ValoracionResource crearValoracion: output: {0}", nuevoValoracionDTO.toString());
-        return nuevoValoracionDTO;
-    }
 
      /**
      * Busca y devuelve todas las valoraciones que existen en un plan.
@@ -65,11 +41,13 @@ public class ValoracionResource {
      * @param planTuristicoId El ID del plan del cual se buscan las valoraciones
      * @return JSONArray {@link ValoracionDTO} - Las valoraciones encontradas en el
      * plam. Si no hay ninguna retorna una lista vacía.
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
     public List<ValoracionDTO> getValoraciones(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource getValoraciones: input: {0}", planTuristicoId);
-        List<ValoracionDTO> listaDTOs = listEntity2DTO(valoracionLogic.getValoraciones(planTuristicoId));
+        List<ValoracionDTO> listaDTOs;
+        listaDTOs = listEntity2DTO(valoracionLogic.getValoraciones(planTuristicoId));
         LOGGER.log(Level.INFO, "PlanTuristicoResource getValoraciones: output: {0}", listaDTOs.toString());
         return listaDTOs;
     }
@@ -161,10 +139,12 @@ public class ValoracionResource {
      * @return la lista de valoraciones en forma DTO (json)
      */
     private List<ValoracionDTO> listEntity2DTO(List<ValoracionEntity> entityList)throws BusinessLogicException {
-        List<ValoracionDTO> list = new ArrayList<ValoracionDTO>();
+        List<ValoracionDTO> list = new ArrayList<>();
         for (ValoracionEntity entity : entityList) {
             list.add(new ValoracionDTO(entity));
         }
         return list;
     }
+
+
 }

@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.turismo.dtos;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
-import co.edu.uniandes.csw.turismo.entities.PaisEntity;
+import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
@@ -21,13 +21,15 @@ import java.util.List;
  */
 public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializable {
 
-    private List<PaisDTO> paises;
     // relación cero o muchas valoraciones
     private List<ValoracionDTO> valoraciones;
     // relación cero o muchos blogs 
     private List<BlogDeViajeroDTO> blogs;
     
     private List<ViajeroDTO> viajeros;
+    
+    
+    private List<CiudadDTO> ciudades;
     //private List<TransporteDTO> transportes;
 //Constructor por defecto
 
@@ -69,14 +71,29 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
                 viajeros.add(new ViajeroDTO(entityViajero));
             }
         }
+        if(planEntity.getCiudades()!=null)
+        {
+            ciudades=new ArrayList();
+            for(CiudadEntity entityCiudad: planEntity.getCiudades())
+            {
+                ciudades.add(new CiudadDTO(entityCiudad));
+            }
+        }
     }
 
-    /**
-     * @return the paises
-     */
-    public List<PaisDTO> getPaises() {
-        return paises;
+   
+    public List<CiudadDTO> getCiudades()
+    {
+        return ciudades;
     }
+    
+    public void setCiudades(List<CiudadDTO> pciudades)
+    {
+        this.ciudades=pciudades;
+    }
+ 
+    
+    
     
     public void setViajeros(List<ViajeroDTO> via)
     {
@@ -88,11 +105,7 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
     }
 
     /**
-     * @param paises the paises to set
-     */
-    public void setPaises(List<PaisDTO> paises) {
-        this.paises = paises;
-    }
+
 
     /**
      *
@@ -179,19 +192,6 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
 
         }
         
-        if (paises != null) {
-
-            List<PaisEntity> paisEntity = new ArrayList<>();
-
-            for (PaisDTO dtoPais : getPaises()) {
-
-                paisEntity.add(dtoPais.toEntity());
-
-            }
-
-            planTuristicoEntity.setPaises(paisEntity);
-
-        }
         if(viajeros!=null)
         {
             List<ViajeroEntity> viajeroEntity= new ArrayList<>();
@@ -200,6 +200,14 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
                 viajeroEntity.add(dtoViajero.toEntity());
             }
             planTuristicoEntity.setViajero(viajeroEntity);
+        }
+        if(ciudades!=null)
+        {
+            List<CiudadEntity> ciudaddEntity=new ArrayList<>();
+            for(CiudadDTO dtoCiudad:getCiudades())
+            {
+                ciudaddEntity.add(dtoCiudad.toEntity());
+            }
         }
 
         return planTuristicoEntity;

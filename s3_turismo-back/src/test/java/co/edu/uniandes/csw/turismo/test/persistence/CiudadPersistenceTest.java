@@ -42,7 +42,7 @@ public class CiudadPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private List<CiudadEntity> data = new ArrayList<CiudadEntity>();
+    private final List<CiudadEntity> data = new ArrayList<>();
     
     @Deployment
     public static JavaArchive createDeployment() {

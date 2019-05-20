@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.test.logic;
 
 import co.edu.uniandes.csw.turismo.ejb.SitioTuristicoLogic;
+import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
 import co.edu.uniandes.csw.turismo.entities.SitioTuristicoEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.SitioTuristicoPersistence;
@@ -33,31 +34,40 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
 public class SitioTuristicoLogicTest {
-     private PodamFactory factory = new PodamFactoryImpl();
+    private final PodamFactory factory = new PodamFactoryImpl();
 
-        @Inject
-    private SitioTuristicoLogic sitioTuristicoLogic;
     @Inject
-    private SitioTuristicoPersistence ep;
+    private SitioTuristicoLogic reviewLogic;
+
     @PersistenceContext
     private EntityManager em;
 
     @Inject
     private UserTransaction utx;
 
-    private List<SitioTuristicoEntity> data = new ArrayList<>();
+    private final List<SitioTuristicoEntity> data = new ArrayList<>();
 
+    private final List<CiudadEntity> dataCiudad = new ArrayList<>();
+
+
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(SitioTuristicoEntity.class.getPackage())
-                .addPackage(SitioTuristicoPersistence.class.getPackage())
                 .addPackage(SitioTuristicoLogic.class.getPackage())
+                .addPackage(SitioTuristicoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-
     }
 
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -75,84 +85,130 @@ public class SitioTuristicoLogicTest {
         }
     }
 
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from SitioTuristicoEntity").executeUpdate();
+        em.createQuery("delete from CiudadEntity").executeUpdate();
     }
 
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
+        
 
         for (int i = 0; i < 3; i++) {
-            SitioTuristicoEntity newSitioTuristicoEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-            em.persist(newSitioTuristicoEntity);
-            data.add(newSitioTuristicoEntity);
+            CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
+            em.persist(entity);
+            dataCiudad.add(entity);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            SitioTuristicoEntity entity = factory.manufacturePojo(SitioTuristicoEntity.class);
+            entity.actualizarCiudad(dataCiudad.get(1));
+            em.persist(entity);
+            data.add(entity);
         }
     }
-    
-    
-     @Test
-    public void createSitioTuristicoTest() throws BusinessLogicException {
 
-        SitioTuristicoEntity newSitioTuristicoEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-        SitioTuristicoEntity result = ep.create(newSitioTuristicoEntity);
-
-        Assert.assertNotNull(result);
-
-        SitioTuristicoEntity entity = em.find(SitioTuristicoEntity.class, result.getId());
-
-        Assert.assertEquals(newSitioTuristicoEntity.darNombre(), entity.darNombre());
-
-    }
-
-    @Test(expected = BusinessLogicException.class)
-    public void createSitioTuristicoConMismoNombreTest() throws BusinessLogicException {
-
-        SitioTuristicoEntity newSitioTuristicoEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-        newSitioTuristicoEntity.actualizarNombre(data.get(0).darNombre());
-        sitioTuristicoLogic.createSitio(newSitioTuristicoEntity);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createSitioTuristicoConNombreInvalidoTest() throws BusinessLogicException {
-        SitioTuristicoEntity newEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-        newEntity.actualizarNombre("");
-        sitioTuristicoLogic.createSitio(newEntity);
-    }
-
-    
-
+    /**
+     * Prueba para crear un SitioTuristico.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test
-    public void updateSitioTuristicoTest() throws BusinessLogicException {
+
+    public void createSitioTuristicoTest() throws BusinessLogicException {
+        SitioTuristicoEntity newEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
+        newEntity.actualizarCiudad(dataCiudad.get(1));
+        SitioTuristicoEntity result = reviewLogic.createSitioTuritico(dataCiudad.get(1).getId(), newEntity);
+        Assert.assertNotNull(result);
+        SitioTuristicoEntity entity = em.find(SitioTuristicoEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.darNombre(), entity.darNombre());
+        Assert.assertEquals(newEntity.darCiudad(), entity.darCiudad());
+        Assert.assertEquals(newEntity.darTipo(), entity.darTipo());
+    }
+
+    /**
+     * Prueba para consultar la lista de SitioTuristicos.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
+    @Test
+    public void getSitioTuristicosTest() throws BusinessLogicException {
+        List<SitioTuristicoEntity> list = reviewLogic.getSitioTuriticos(dataCiudad.get(1).getId());
+        Assert.assertEquals(data.size(), list.size());
+        for (SitioTuristicoEntity entity : list) {
+            boolean found = false;
+            for (SitioTuristicoEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar un SitioTuristico.
+     */
+    @Test
+    public void getSitioTuristicoTest() {
         SitioTuristicoEntity entity = data.get(0);
-        entity.actualizarNombre("hola");
+        SitioTuristicoEntity resultEntity = reviewLogic.getSitioTuritico(dataCiudad.get(1).getId(), entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(resultEntity.darNombre(), entity.darNombre());
+        Assert.assertEquals(resultEntity.darCiudad(), entity.darCiudad());
+        Assert.assertEquals(resultEntity.darTipo(), entity.darTipo());
+    }
+
+    /**
+     * Prueba para actualizar un SitioTuristico.
+     */
+    @Test
+    public void updateSitioTuristicoTest() {
+        SitioTuristicoEntity entity = data.get(0);
         SitioTuristicoEntity pojoEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-        
+
         pojoEntity.setId(entity.getId());
-        pojoEntity.actualizarNombre(entity.darNombre());
-        
-        sitioTuristicoLogic.updateSitio(pojoEntity.getId(), pojoEntity);
-        
+
+        reviewLogic.updateSitioTuritico(dataCiudad.get(1).getId(), pojoEntity);
+
         SitioTuristicoEntity resp = em.find(SitioTuristicoEntity.class, entity.getId());
-        
+
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.darNombre(), resp.darNombre());
         Assert.assertEquals(pojoEntity.darTipo(), resp.darTipo());
-
-
+        Assert.assertEquals(pojoEntity.darCiudad(), resp.darCiudad());
     }
-    
-     @Test(expected = BusinessLogicException.class)
-    public void updateSitioTuristicoConNombreVacioTest() throws BusinessLogicException {
+
+    /**
+     * Prueba para eliminar un SitioTuristico.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteSitioTuristicoTest() throws BusinessLogicException {
         SitioTuristicoEntity entity = data.get(0);
-        SitioTuristicoEntity pojoEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-        pojoEntity.actualizarNombre("");
-        sitioTuristicoLogic.updateSitio(entity.getId(), pojoEntity);
+        reviewLogic.deleteSitioTuritico(dataCiudad.get(1).getId(), entity.getId());
+        SitioTuristicoEntity deleted = em.find(SitioTuristicoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
-    
+
+    /**
+     * Prueba para eliminarle un review a un book del cual no pertenece.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
     @Test(expected = BusinessLogicException.class)
-    public void updateSitioTuristicoConNombreNuloTest() throws BusinessLogicException {
+
+    public void deleteSitioTuristicoConCiudadNoAsociadoTest() throws BusinessLogicException {
         SitioTuristicoEntity entity = data.get(0);
-        SitioTuristicoEntity pojoEntity = factory.manufacturePojo(SitioTuristicoEntity.class);
-        pojoEntity.actualizarNombre(null);
-        sitioTuristicoLogic.updateSitio(entity.getId(), pojoEntity);
+        reviewLogic.deleteSitioTuritico(dataCiudad.get(0).getId(), entity.getId());
     }
 }

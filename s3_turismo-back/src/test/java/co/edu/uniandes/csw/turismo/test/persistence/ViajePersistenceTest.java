@@ -38,7 +38,7 @@ public class ViajePersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private List<ViajeEntity> data = new ArrayList<ViajeEntity>();
+    private final List<ViajeEntity> data = new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {

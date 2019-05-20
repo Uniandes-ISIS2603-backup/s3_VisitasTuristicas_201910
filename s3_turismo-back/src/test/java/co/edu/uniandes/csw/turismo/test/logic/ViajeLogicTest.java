@@ -36,7 +36,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class ViajeLogicTest {
 
-    private PodamFactory factory = new PodamFactoryImpl();
+    private final PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
     private ViajeLogic viajeLogic;
@@ -47,11 +47,11 @@ public class ViajeLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ViajeEntity> data = new ArrayList<ViajeEntity>();
+    private final List<ViajeEntity> data = new ArrayList<>();
 
-    private List<PlanTuristicoEntity> planTuristicoData = new ArrayList();
+    private final List<PlanTuristicoEntity> planTuristicoData = new ArrayList();
 
-    private List<ViajeroEntity> viajeroData = new ArrayList();
+    private final List<ViajeroEntity> viajeroData = new ArrayList();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.

@@ -40,7 +40,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+    private final List<TarjetaDeCreditoEntity> data = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.

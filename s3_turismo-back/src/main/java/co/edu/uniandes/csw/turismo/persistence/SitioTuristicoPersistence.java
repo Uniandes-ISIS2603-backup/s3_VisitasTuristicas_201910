@@ -57,9 +57,22 @@ public class SitioTuristicoPersistence {
     *Busca un sitio turistico con el id dado
     *@return SitioTuristicoEntity
     */
-    public SitioTuristicoEntity find(Long ciudadId) {
-        LOGGER.log(Level.INFO, "Consultando el SitioTuristico con id={0}", ciudadId);
-        return em.find(SitioTuristicoEntity.class, ciudadId);
+ public SitioTuristicoEntity find(Long ciudadId, Long sitioId) {
+        LOGGER.log(Level.INFO, "Consultando el sitioTuristico con id = {0} del libro con id = " + ciudadId, sitioId);
+        TypedQuery<SitioTuristicoEntity> q = em.createQuery("select p from SitioTuristicoEntity p where (p.ciudad.id = :ciudadId) and (p.id = :sitioId)", SitioTuristicoEntity.class);
+        q.setParameter("ciudadId", ciudadId);
+        q.setParameter("sitioId", sitioId);
+        List<SitioTuristicoEntity> results = q.getResultList();
+        SitioTuristicoEntity sitioTuristico = null;
+        if (results == null) {
+            sitioTuristico = null;
+        } else if (results.isEmpty()) {
+            sitioTuristico = null;
+        } else if (results.size() >= 1) {
+            sitioTuristico = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el sitioTuristico con id = {0} del libro con id =" + ciudadId, sitioId);
+        return sitioTuristico;
     }
     
     /*
@@ -95,6 +108,21 @@ public class SitioTuristicoPersistence {
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar SitioTuristico por nombre ", nombre);
         return result;
+    }
+    
+    
+        /**
+     * Eliminar una reseña
+     *
+     * Elimina la reseña asociada al ID que recibe
+     *
+     * @param sitioTuristicosId El ID de la reseña que se desea borrar
+     */
+    public void delete(Long sitioTuristicosId) {
+        LOGGER.log(Level.INFO, "Borrando sitioTuristico con id = {0}", sitioTuristicosId);
+        SitioTuristicoEntity sitioTuristicoEntity = em.find(SitioTuristicoEntity.class, sitioTuristicosId);
+        em.remove(sitioTuristicoEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar El sitioTuristico con id = {0}", sitioTuristicosId);
     }
     
 }

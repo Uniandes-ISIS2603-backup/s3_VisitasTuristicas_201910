@@ -26,79 +26,93 @@ public class SitioTuristicoLogic
 {
        private static final Logger LOGGER = Logger.getLogger(SitioTuristicoLogic.class.getName());
        
-       @Inject
-       private SitioTuristicoPersistence sitio;
-       
-       @Inject
-       private CiudadPersistence ciudad;
-       
-       
-       
-       /*
-       *Crea un sitio turistico
-       *@param sitioEntity
-       *@return sitioEntity
-       *@throw BusinessLogicException
-       */
-         public SitioTuristicoEntity createSitio(SitioTuristicoEntity sitioEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación de la ciudad");
-        if (sitioEntity.darCiudad()== null || ciudad.find(sitioEntity.darCiudad().getId()) == null) {
-            throw new BusinessLogicException("El sitio turistico es inválida");
-        }
-        if (!validateNombre(sitioEntity.darNombre())) {
-            throw new BusinessLogicException("El Nombre es inválido");
-        }
-        if (ciudad.findByName(sitioEntity.darNombre()) != null) {
-            throw new BusinessLogicException("El sitio turistico ya existe");
-        }
-        sitio.create(sitioEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación del sitio");
-        return sitioEntity;
-         }
-         
-         /*
-         *Retorna una lista de sitios turisticos
-         *@return listaSitio
-         */
-        public List<SitioTuristicoEntity> getSitios() {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los Sitios turisticos");
-        List<SitioTuristicoEntity> listaSitio = sitio.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los Sitios turisticos");
-        return listaSitio;
-    }
-        
-        /*
-        *Retorna un sitio dado un id
-        *@param sitioId
-        *@return ciudadEntity
-        */
-         public SitioTuristicoEntity getSitio(Long sitioId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el sitio turistico con id = {0}", sitioId);
-        SitioTuristicoEntity sitioEntity = sitio.find(sitioId);
-        if (sitioEntity == null) {
-            LOGGER.log(Level.SEVERE, "El sitio con el id = {0} no existe", sitioId);
-            throw new BusinessLogicException("El sitio turistico es inválida");
 
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el sitio turistico con id = {0}", sitioId);
-        return sitioEntity;
+       
+       
+       @Inject
+    private SitioTuristicoPersistence persistence;
+
+    @Inject
+    private CiudadPersistence ciudadPersistence;
+
+    /**
+     * Se encarga de crear un SitioTuritico en la base de datos.
+     *
+     * @param reviewEntity Objeto de SitioTuriticoEntity con los datos nuevos
+     * @param ciudadsId id del Ciudad el cual sera padre del nuevo SitioTuritico.
+     * @return Objeto de SitioTuriticoEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si ciudadsId no es el mismo que tiene el
+     * entity.
+     *
+     */
+    public SitioTuristicoEntity createSitioTuritico(Long ciudadsId, SitioTuristicoEntity reviewEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de crear review");
+        CiudadEntity ciudad = ciudadPersistence.find(ciudadsId);
+        reviewEntity.actualizarCiudad(ciudad);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del review");
+        return persistence.create(reviewEntity);
     }
-          
-         
-         /*
-         *Actualiza un sitio turistico y retorna el actualizado dado un id
-         *@param sitioEntity
-         *@param sitioId
-         *@return newEntity
-         */
-         public SitioTuristicoEntity updateSitio(Long sitioId, SitioTuristicoEntity sitioEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el sitio turistico con id = {0}", sitioId);
-        if (!validateNombre(sitioEntity.darNombre())) {
-            throw new BusinessLogicException("El nombre es inválido");
+
+    /**
+     * Obtiene la lista de los registros de SitioTuritico que pertenecen a un Ciudad.
+     *
+     * @param ciudadsId id del Ciudad el cual es padre de los SitioTuriticos.
+     * @return Colección de objetos de SitioTuriticoEntity.
+     */
+    public List<SitioTuristicoEntity> getSitioTuriticos(Long ciudadsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar los reviews asociados al ciudad con id = {0}", ciudadsId);
+        CiudadEntity ciudadEntity = ciudadPersistence.find(ciudadsId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al ciudad con id = {0}", ciudadsId);
+        return ciudadEntity.darSitios();
+    }
+
+    /**
+     * Obtiene los datos de una instancia de SitioTuritico a partir de su ID. La
+     * existencia del elemento padre Ciudad se debe garantizar.
+     *
+     * @param ciudadsId El id del Libro buscado
+     * @param reviewsId Identificador de la Reseña a consultar
+     * @return Instancia de SitioTuriticoEntity con los datos del SitioTuritico consultado.
+     *
+     */
+    public SitioTuristicoEntity getSitioTuritico(Long ciudadsId, Long reviewsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
+        return persistence.find(ciudadsId, reviewsId);
+    }
+
+    /**
+     * Actualiza la información de una instancia de SitioTuritico.
+     *
+     * @param reviewEntity Instancia de SitioTuriticoEntity con los nuevos datos.
+     * @param ciudadsId id del Ciudad el cual sera padre del SitioTuritico actualizado.
+     * @return Instancia de SitioTuriticoEntity con los datos actualizados.
+     *
+     */
+    public SitioTuristicoEntity updateSitioTuritico(Long ciudadsId, SitioTuristicoEntity reviewEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + ciudadsId, reviewEntity.getId());
+        CiudadEntity ciudadEntity = ciudadPersistence.find(ciudadsId);
+        reviewEntity.actualizarCiudad(ciudadEntity);
+        persistence.update(reviewEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + ciudadsId, reviewEntity.getId());
+        return reviewEntity;
+    }
+
+    /**
+     * Elimina una instancia de SitioTuritico de la base de datos.
+     *
+     * @param reviewsId Identificador de la instancia a eliminar.
+     * @param ciudadsId id del Ciudad el cual es padre del SitioTuritico.
+     * @throws BusinessLogicException Si la reseña no esta asociada al libro.
+     *
+     */
+    public void deleteSitioTuritico(Long ciudadsId, Long reviewsId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
+        SitioTuristicoEntity old = getSitioTuritico(ciudadsId, reviewsId);
+        if (old == null) {
+            throw new BusinessLogicException("El review con id = " + reviewsId + " no esta asociado a el libro con id = " + ciudadsId);
         }
-        SitioTuristicoEntity newEntity = sitio.update(sitioEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el sitio turistico con id = {0}", sitioEntity.getId());
-        return newEntity;
+        persistence.delete(old.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
     }
          
          

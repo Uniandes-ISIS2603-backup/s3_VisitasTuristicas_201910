@@ -73,7 +73,7 @@ public class PreferenciaPersistenceTest {
     }
     
     public List<PreferenciaEntity> setUp() {
-        List<PreferenciaEntity> datos = new ArrayList<PreferenciaEntity>(); 
+        List<PreferenciaEntity> datos = new ArrayList<>(); 
         PodamFactory factory = new PodamFactoryImpl();
         int i = 0;
         PreferenciaEntity newEntity = factory.manufacturePojo(PreferenciaEntity.class);

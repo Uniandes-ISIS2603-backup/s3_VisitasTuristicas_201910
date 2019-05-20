@@ -11,7 +11,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -51,20 +50,20 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @ManyToMany(mappedBy="planes")
-    private List<PaisEntity> paises= new ArrayList<PaisEntity>();
+    private List<CiudadEntity> ciudades= new ArrayList<CiudadEntity>();
 
     public PlanTuristicoEntity() 
     {
 
     }
 
-    public List<PaisEntity> getPaises()
+    public List<CiudadEntity> getCiudades()
     {
-        return paises;
+        return ciudades;
     }
-    public void setPaises(List<PaisEntity> paises)
+    public void setCiudades(List<CiudadEntity> paises)
     {
-        this.paises=paises;
+        this.ciudades=paises;
     }
     /**
      * @return the nombrePlan
