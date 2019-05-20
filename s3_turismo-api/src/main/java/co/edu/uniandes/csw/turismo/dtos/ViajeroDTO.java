@@ -22,26 +22,11 @@ public class ViajeroDTO implements Serializable {
     private String tipoDeUsuario;
     private Integer cantidadPlanes;
     private String informacionPersonal;
-    private TarjetaDeCreditoDTO tarjetaDeCredito;
     private ViajeDTO viaje;
 
     
 
-    /**
-     * se retorna la tarjeta de credito
-     * @return tarjetaDeCredito
-     */
-    public TarjetaDeCreditoDTO getTarjetaDeCredito() {
-        return tarjetaDeCredito;
-    }
-
-    /**
-     * se asigna una tarjeta de credito
-     * @param tarjetaDeCredito 
-     */
-    public void setTarjetaDeCredito(TarjetaDeCreditoDTO tarjetaDeCredito) {
-        this.tarjetaDeCredito = tarjetaDeCredito;
-    }
+    
 
     
 
@@ -183,9 +168,7 @@ public class ViajeroDTO implements Serializable {
         nuevo.setTipoDeUsuario(tipoDeUsuario);
         nuevo.setCantidadPlanes(this.cantidadPlanes);
         nuevo.setInformacionPersonal(informacionPersonal);
-        if(this.tarjetaDeCredito!= null){            
-            nuevo.setTarjetaDeCredito(tarjetaDeCredito.toEntity());
-        }
+       
         if(this.viaje!= null){            
             nuevo.setViaje(this.viaje.toEntity());
         }
@@ -212,7 +195,6 @@ public class ViajeroDTO implements Serializable {
             this.nombreUsuario = ent.getNombreUsuario();
             this.idioma = ent.getIdioma();
             this.informacionPersonal = ent.getInformacionPersonal();
-            this.tarjetaDeCredito = new TarjetaDeCreditoDTO(ent.getTarjetaDeCredito());
         }
     }
 }

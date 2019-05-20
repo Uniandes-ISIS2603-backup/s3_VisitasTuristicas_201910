@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class TarjetaDeCretitoEntityPersistenceTest {
     
-        @Inject
+  @Inject
     private TarjetaDeCreditoPersistence tarjetaPersistence;
 
     @PersistenceContext
@@ -40,7 +41,9 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private final List<TarjetaDeCreditoEntity> data = new ArrayList<>();
+    private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+	
+    private List<ViajeroEntity> dataViajero = new ArrayList<ViajeroEntity>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -82,6 +85,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
     /**
@@ -91,8 +95,15 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
+            ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
+            em.persist(entity);
+            dataViajero.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-
+            if (i == 0) {
+                entity.setViajero(dataViajero.get(0));
+            }
             em.persist(entity);
             data.add(entity);
         }
@@ -103,6 +114,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
      */
     @Test
     public void createTarjetaDeCreditoTest() {
+
         PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         TarjetaDeCreditoEntity result = tarjetaPersistence.create(newEntity);
@@ -113,25 +125,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
 
         Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
         Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-    }
-
-    /**
-     * Prueba para consultar la lista de TarjetaDeCreditos.
-     */
-    @Test
-    public void getTarjetaDeCreditosTest() {
-        List<TarjetaDeCreditoEntity> list = tarjetaPersistence.findAll();
-        Assert.assertEquals(data.size(), list.size());
-        for (TarjetaDeCreditoEntity ent : list) {
-            boolean found = false;
-            for (TarjetaDeCreditoEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
+        Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
 
     /**
@@ -140,10 +134,10 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Test
     public void getTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity newEntity = tarjetaPersistence.find(entity.getId());
+        TarjetaDeCreditoEntity newEntity = tarjetaPersistence.find(dataViajero.get(0).getId(), entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getCodigoSeguridad(), newEntity.getCodigoSeguridad());
         Assert.assertEquals(entity.getBanco(), newEntity.getBanco());
+        Assert.assertEquals(entity.getCodigoSeguridad(), newEntity.getCodigoSeguridad());
         Assert.assertEquals(entity.getNumero(), newEntity.getNumero());
     }
 
@@ -173,23 +167,8 @@ public class TarjetaDeCretitoEntityPersistenceTest {
 
         TarjetaDeCreditoEntity resp = em.find(TarjetaDeCreditoEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getNumero(), resp.getNumero());
-        Assert.assertEquals(newEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(newEntity.getBanco(), resp.getBanco());
-    }
-
-    /**
-     * Prueba para consultasr una tarjeta por su numero.
-     */
-    @Test
-    public void findTajretaByNumeroTest() {
-        TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity newEntity;
-        newEntity = tarjetaPersistence.getByNumber(entity.getNumero());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getNumero(), newEntity.getNumero());
-
-        newEntity = tarjetaPersistence.getByNumber(null);
-        Assert.assertNull(newEntity);
+        Assert.assertEquals(newEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
+        Assert.assertEquals(newEntity.getNumero(), resp.getNumero());
     }
 }

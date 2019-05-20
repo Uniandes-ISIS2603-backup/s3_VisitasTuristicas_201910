@@ -34,7 +34,6 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-
 public class PlanTuristicoResource {
 
     //para conectar con la logica
@@ -69,7 +68,10 @@ public class PlanTuristicoResource {
 
     @GET
     public List<PlanTuristicoDetailDTO> getPlanesTuristicos() throws BusinessLogicException {
-        List<PlanTuristicoDetailDTO> listaDTOs = listEntity2DTO(logic.getPlanesTuristicos());
+        LOGGER.info("en resource getPlanesTuristicos");
+        List<PlanTuristicoEntity> lista = logic.getPlanesTuristicos();
+        
+        List<PlanTuristicoDetailDTO> listaDTOs = listEntity2DTO(lista);
         return listaDTOs;
     }
 
@@ -157,45 +159,7 @@ public class PlanTuristicoResource {
         return ValoracionResource.class;
     }
 
-    /**
-     *
-     * Conexión con el servicio de blogs para un plan.
-     * {@link PlanTuristicoResource}
-     *
-     *
-     *
-     * Este método conecta la ruta de /planes con las rutas de /blogs que
-     *
-     * dependen del plan, es una redirección al servicio que maneja el segmento
-     *
-     * de la URL que se encarga de los blogs.
-     *
-     *
-     *
-     * @param planesId El ID del plan con respecto al cual se accede al
-     *
-     * servicio.
-     *
-     * @return El servicio de Blogs para ese plan en paricular.\
-     *
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     *
-     * Error de lógica que se genera cuando no se encuentra el plan.
-     *
-     */
-    @Path("{planesId: ¡Error! Referencia de hipervínculo no válida.}")
 
-    public Class<PlanTuristicoResource> getPlanTuristicoResource(@PathParam("planesId ") Long planesId) {
-
-        if (logic.getPlanTuristico(planesId) == null) {
-
-            throw new WebApplicationException("El recurso /planes/" + planesId + "/blogs no existe.", 404);
-
-        }
-
-        return PlanTuristicoResource.class;
-
-    }
        
      private List<PlanTuristicoDetailDTO> listEntity2DTO(List<PlanTuristicoEntity> entityList)throws BusinessLogicException {
         List<PlanTuristicoDetailDTO> list = new ArrayList<PlanTuristicoDetailDTO>();
