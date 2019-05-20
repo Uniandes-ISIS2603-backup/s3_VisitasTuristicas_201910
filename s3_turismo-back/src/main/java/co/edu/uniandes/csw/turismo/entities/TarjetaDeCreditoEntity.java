@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -36,7 +37,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
      * Crea la relacion con viajero
      */
     @PodamExclude
-    @OneToOne
+    @ManyToOne
     private ViajeroEntity viajero;
     
     /**
@@ -85,10 +86,6 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
      */
     public void setCodigoSeguridad(int codigoSeguridad) {
         this.codigoSeguridad = codigoSeguridad;
-    }
-
-    public Object getNumber() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

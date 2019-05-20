@@ -34,31 +34,40 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class TarjetaDeCreditoLogicTest {
 
-   private PodamFactory factory = new PodamFactoryImpl();
+  private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
-    @Inject
-    private TarjetaDeCreditoPersistence ep;
+
     @PersistenceContext
     private EntityManager em;
 
     @Inject
     private UserTransaction utx;
 
-    private List<TarjetaDeCreditoEntity> data = new ArrayList<>();
+    private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
 
+    private List<ViajeroEntity> dataViajero = new ArrayList<ViajeroEntity>();
+
+
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(TarjetaDeCreditoEntity.class.getPackage())
-                .addPackage(TarjetaDeCreditoPersistence.class.getPackage())
                 .addPackage(TarjetaDeCreditoLogic.class.getPackage())
+                .addPackage(TarjetaDeCreditoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-
     }
 
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -76,120 +85,129 @@ public class TarjetaDeCreditoLogicTest {
         }
     }
 
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
+       
 
         for (int i = 0; i < 3; i++) {
-            TarjetaDeCreditoEntity newTarjetaDeCreditoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-            em.persist(newTarjetaDeCreditoEntity);
-            data.add(newTarjetaDeCreditoEntity);
+            ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
+            em.persist(entity);
+            dataViajero.add(entity);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            entity.setViajero(dataViajero.get(0));
+            em.persist(entity);
+            data.add(entity);
         }
     }
 
+    /**
+     * Prueba para crear un TarjetaDeCredito.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
     @Test
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
-
-        TarjetaDeCreditoEntity newTarjetaDeCreditoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        TarjetaDeCreditoEntity result = ep.create(newTarjetaDeCreditoEntity);
-
-        Assert.assertNotNull(result);
-
-        TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
-
-        Assert.assertEquals(newTarjetaDeCreditoEntity.getId(), entity.getId());
-
-    }
-
-    @Test(expected = BusinessLogicException.class)
-    public void createTarjetaDeCreditoConMismoNumeroTest() throws BusinessLogicException {
-
-        TarjetaDeCreditoEntity newTarjetaDeCreditoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        newTarjetaDeCreditoEntity.setNumero(data.get(0).getNumero());
-        tarjetaLogic.createTarjetaDeCredito(newTarjetaDeCreditoEntity);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void createTarjetaDeCreditoConDescripcionInvalidoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        newEntity.setNumero("");
-        tarjetaLogic.createTarjetaDeCredito(newEntity);
-    }
-
-    @Test
-    public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
-        TarjetaDeCreditoEntity newTarjetaDeCreditoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        TarjetaDeCreditoEntity result = ep.create(newTarjetaDeCreditoEntity);
+        newEntity.setViajero(dataViajero.get(1));
+        TarjetaDeCreditoEntity result = tarjetaLogic.createTarjetaDeCredito(dataViajero.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
-        Assert.assertNotNull(entity);
-        ep.delete(entity.getId());
-        Assert.assertNull(ep.find(result.getId()));
-
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
+        Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
+        Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
 
+    /**
+     * Prueba para consultar la lista de TarjetaDeCreditos.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
     @Test
-    public void updateTarjetaDeCreditoTest() throws BusinessLogicException {
+    public void getTarjetaDeCreditosTest() throws BusinessLogicException {
+        List<TarjetaDeCreditoEntity> list = tarjetaLogic.getTarjetaDeCreditos(dataViajero.get(0).getId());
+        Assert.assertEquals(data.size(), list.size());
+        for (TarjetaDeCreditoEntity entity : list) {
+            boolean found = false;
+            for (TarjetaDeCreditoEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar un TarjetaDeCredito.
+     */
+    @Test
+    public void getTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entity = data.get(0);
-        entity.setCodigoSeguridad(15543);
+        TarjetaDeCreditoEntity resultEntity = tarjetaLogic.getTarjetaDeCredito(dataViajero.get(0).getId(), entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getCodigoSeguridad(), resultEntity.getCodigoSeguridad());
+        Assert.assertEquals(entity.getBanco(), resultEntity.getBanco());
+        Assert.assertEquals(entity.getNumero(), resultEntity.getNumero());
+    }
+
+    /**
+     * Prueba para actualizar un TarjetaDeCredito.
+     */
+    @Test
+    public void updateTarjetaDeCreditoTest() {
+        TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        
+
         pojoEntity.setId(entity.getId());
-        pojoEntity.setCodigoSeguridad(entity.getCodigoSeguridad());
-        
-        tarjetaLogic.updateTarjetaDeCredito(pojoEntity.getId(), pojoEntity);
-        
+
+        tarjetaLogic.updateTarjetaDeCredito(dataViajero.get(0).getId(), pojoEntity);
+
         TarjetaDeCreditoEntity resp = em.find(TarjetaDeCreditoEntity.class, entity.getId());
-        
+
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
         Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
-        Assert.assertEquals(pojoEntity.getViajero(), resp.getViajero());
-
-    }
-    
-     @Test(expected = BusinessLogicException.class)
-    public void updateTarjetaDeCreditoConNumeroVacioTest() throws BusinessLogicException {
-        TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        pojoEntity.setNumero("");
-        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void updateTarjetaDeCreditoConNumeroNuloTest() throws BusinessLogicException {
-        TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        pojoEntity.setNumero(null);
-        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
-    }
-    
-    
-     @Test(expected = BusinessLogicException.class)
-    public void updateTarjetaDeCreditoConCodigoNegativoTest() throws BusinessLogicException {
-        TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        pojoEntity.setCodigoSeguridad(-1);
-        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        Assert.assertEquals(pojoEntity.getNumero(), resp.getNumero());
     }
 
-    @Test(expected = BusinessLogicException.class)
-    public void updateTarjetaDeCreditoConNumeroVaciaTest() throws BusinessLogicException {
+    /**
+     * Prueba para eliminar un TarjetaDeCredito.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        pojoEntity.setNumero("");
-        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.deleteTarjetaDeCredito(dataViajero.get(0).getId(), entity.getId());
+        TarjetaDeCreditoEntity deleted = em.find(TarjetaDeCreditoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
-    
-     @Test(expected = BusinessLogicException.class)
-    public void updateTarjetaDeCreditoConNumeroNula() throws BusinessLogicException {
+
+    /**
+     * Prueba para eliminarle un tarjeta a un book del cual no pertenece.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteTarjetaDeCreditoConViajeroNoAsociadoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        pojoEntity.setNumero(null);
-        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        tarjetaLogic.deleteTarjetaDeCredito(dataViajero.get(1).getId(), entity.getId());
     }
     
      

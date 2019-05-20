@@ -7,7 +7,9 @@ package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import uk.co.jemos.podam.common.PodamExclude;
@@ -34,15 +36,15 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     List<PreferenciaEntity> preferencias;
     
     @PodamExclude
-    @javax.persistence.OneToOne(mappedBy = "viajero", fetch = javax.persistence.FetchType.EAGER)
-    TarjetaDeCreditoEntity tarjetaDeCredito;
+    @javax.persistence.OneToMany(mappedBy ="viajero", cascade = CascadeType.PERSIST,orphanRemoval = true)
+    List<TarjetaDeCreditoEntity> tarjetaDeCredito;
     
     @PodamExclude
     @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
     List<FacturaEntity> facturas;
     
     @PodamExclude
-    @ManyToMany(mappedBy="viajeros")
+    @ManyToMany(mappedBy="viajeros",fetch=FetchType.LAZY)
     List<PlanTuristicoEntity> planesTuristicos;
     
     @PodamExclude
@@ -57,11 +59,11 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
         this.preferencias = preferencias;
     }
 
-    public TarjetaDeCreditoEntity getTarjetaDeCredito() {
+    public List<TarjetaDeCreditoEntity> getTarjetasDeCredito() {
         return tarjetaDeCredito;
     }
 
-    public void setTarjetaDeCredito(TarjetaDeCreditoEntity tarjetaDeCredito) {
+    public void setTarjetasDeCredito(List<TarjetaDeCreditoEntity> tarjetaDeCredito) {
         this.tarjetaDeCredito = tarjetaDeCredito;
     }
 

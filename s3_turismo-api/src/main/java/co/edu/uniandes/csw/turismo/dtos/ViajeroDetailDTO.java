@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.turismo.dtos;
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
+import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<PreferenciaDTO> preferencias;
     private List<FacturaDTO> facturas;
     private List<PlanTuristicoDTO> planesTuristicos;
+    private List<TarjetaDeCreditoDTO>tarjetasDeCredito;
 
     
         /**
@@ -29,6 +31,15 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
         super();
     }
     
+    public List<TarjetaDeCreditoDTO> getTarjetasDeCredito()
+    {
+        return tarjetasDeCredito;
+    }
+    
+    public void setTarjetasDeCredito(List<TarjetaDeCreditoDTO> tj)
+    {
+        this.tarjetasDeCredito=tj;
+    }
     /**
      * se retorna la lista de facturas que tiene el viajero
      * @return 
@@ -101,6 +112,13 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
                 toAdd3.add(new PlanTuristicoDTO(c));
             }
             this.planesTuristicos = toAdd3;
+            
+              List<TarjetaDeCreditoDTO> toAdd4 = new ArrayList<>();
+
+             for(TarjetaDeCreditoEntity c : ent.getTarjetasDeCredito()) {
+                toAdd4.add(new TarjetaDeCreditoDTO(c));
+            }
+            this.planesTuristicos = toAdd3;
         }
     }
     
@@ -131,6 +149,13 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
                 planEntity.add(plan.toEntity());
             } 
             toReturn.setPlanesTuristicos(planEntity);
+        }
+         if(tarjetasDeCredito != null){
+            List<TarjetaDeCreditoEntity> tarjEntity = new ArrayList<>();
+            for(TarjetaDeCreditoDTO plan: getTarjetasDeCredito()){
+                tarjEntity.add(plan.toEntity());
+            } 
+            toReturn.setTarjetasDeCredito(tarjEntity);
         }
         return toReturn;
     }

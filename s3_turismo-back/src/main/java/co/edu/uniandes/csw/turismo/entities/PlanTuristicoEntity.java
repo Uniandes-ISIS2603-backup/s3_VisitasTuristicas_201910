@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import static org.eclipse.persistence.config.QueryHints.FETCH;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -34,14 +36,10 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     @PodamExclude
 
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
-
     private List<BlogDeViajeroEntity> blogs = new ArrayList<BlogDeViajeroEntity>();
 
-    // Relacion con valoraciones
     @PodamExclude
-
     @OneToMany(mappedBy = "planTuristico", cascade = CascadeType.PERSIST, orphanRemoval = true)
-
     private List<ValoracionEntity> valoraciones = new ArrayList<ValoracionEntity>();
 
     @PodamExclude
@@ -49,7 +47,7 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     private List<ViajeroEntity> viajeros;
     
     @PodamExclude
-    @ManyToMany(mappedBy="planes")
+    @ManyToMany(mappedBy="planes",fetch=FetchType.LAZY)
     private List<CiudadEntity> ciudades= new ArrayList<CiudadEntity>();
 
     public PlanTuristicoEntity() 

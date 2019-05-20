@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.TarjetaDeCreditoPersistence;
 import co.edu.uniandes.csw.turismo.persistence.ViajeroPersistence;
@@ -23,119 +24,91 @@ import javax.inject.Inject;
 public class TarjetaDeCreditoLogic {
     
     
-    private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
+   private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
 
     @Inject
     private TarjetaDeCreditoPersistence persistence;
 
     @Inject
-    private ViajeroPersistence editorialPersistence;
+    private ViajeroPersistence viajeroPersistence;
 
     /**
-     * Guardar una nueva tarjeta
+     * Se encarga de crear un TarjetaDeCredito en la base de datos.
      *
-     * @param tarjetaEntity La entidad de tipo tarjeta a persistir.
-     * @return La entidad luego de persistirla
-     * @throws BusinessLogicException Si el Viajero es inválido, el codido de seguridad es invalido,  o el numero
-     * o ya existe en la persistencia.
+     * @param tarjetaDeCreditoEntity Objeto de TarjetaDeCreditoEntity con los datos nuevos
+     * @param viajerosId id del Viajero el cual sera padre del nuevo TarjetaDeCredito.
+     * @return Objeto de TarjetaDeCreditoEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si viajerosId no es el mismo que tiene el
+     * entity.
+     *
      */
-    public TarjetaDeCreditoEntity createTarjetaDeCredito(TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
-        if (tarjetaEntity.getViajero() == null || editorialPersistence.find(tarjetaEntity.getViajero().getId()) == null) {
-            throw new BusinessLogicException("El viajero es inválido");
-        }
-        if (persistence.getByNumber(tarjetaEntity.getNumero()) != null) {
-            throw new BusinessLogicException("El Numero ya existe");
-        }
-        if (!validateNumber(tarjetaEntity.getNumero())) {
-            throw new BusinessLogicException("El Numero es inválido");
-        }
-        if (!validateCodigo(tarjetaEntity.getCodigoSeguridad())) {
-            throw new BusinessLogicException("El codigo es inválido");
-        }
-        persistence.create(tarjetaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación");
-        return tarjetaEntity;
+    public TarjetaDeCreditoEntity createTarjetaDeCredito(Long viajerosId, TarjetaDeCreditoEntity tarjetaDeCreditoEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de crear tarjetaDeCredito");
+        ViajeroEntity viajero = viajeroPersistence.find(viajerosId);
+        tarjetaDeCreditoEntity.setViajero(viajero);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del tarjetaDeCredito");
+        return persistence.create(tarjetaDeCreditoEntity);
     }
 
     /**
-     * Devuelve todas las tarjetas.
+     * Obtiene la lista de los registros de TarjetaDeCredito que pertenecen a un Viajero.
      *
-     * @return Lista de entidades de tipo tarjeta.
+     * @param viajerosId id del Viajero el cual es padre de los TarjetaDeCreditos.
+     * @return Colección de objetos de TarjetaDeCreditoEntity.
      */
-    public List<TarjetaDeCreditoEntity> getTarjetaDeCreditos() {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las tarjetas");
-        List<TarjetaDeCreditoEntity> tarjetas = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consulta");
-        return tarjetas;
+    public List<TarjetaDeCreditoEntity> getTarjetaDeCreditos(Long viajerosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar los tarjetaDeCreditos asociados al viajero con id = {0}", viajerosId);
+        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar los tarjetaDeCreditos asociados al viajero con id = {0}", viajerosId);
+        return viajeroEntity.getTarjetasDeCredito();
     }
 
     /**
-     * Busca una Tarjeta por su Id
+     * Obtiene los datos de una instancia de TarjetaDeCredito a partir de su ID. La
+     * existencia del elemento padre Viajero se debe garantizar.
      *
-     * @param tarjetasId El id de la tarjeta a buscar
-     * @return La tarjeta encontrada, null si no la encuentra.
+     * @param viajerosId El id del Libro buscado
+     * @param tarjetaDeCreditosId Identificador de la Reseña a consultar
+     * @return Instancia de TarjetaDeCreditoEntity con los datos del TarjetaDeCredito consultado.
+     *
      */
-    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long tarjetasId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar una tarjeta con id = {0}", tarjetasId);
-        TarjetaDeCreditoEntity tarjetaEntity = persistence.find(tarjetasId);
-        if (tarjetaEntity == null) {
-            LOGGER.log(Level.SEVERE, "El libro con el id = {0} no existe", tarjetasId);
+    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long viajerosId, Long tarjetaDeCreditosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditosId);
+        return persistence.find(viajerosId, tarjetaDeCreditosId);
+    }
+
+    /**
+     * Actualiza la información de una instancia de TarjetaDeCredito.
+     *
+     * @param tarjetaDeCreditoEntity Instancia de TarjetaDeCreditoEntity con los nuevos datos.
+     * @param viajerosId id del Viajero el cual sera padre del TarjetaDeCredito actualizado.
+     * @return Instancia de TarjetaDeCreditoEntity con los datos actualizados.
+     *
+     */
+    public TarjetaDeCreditoEntity updateTarjetaDeCredito(Long viajerosId, TarjetaDeCreditoEntity tarjetaDeCreditoEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditoEntity.getId());
+        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
+        tarjetaDeCreditoEntity.setViajero(viajeroEntity);
+        persistence.update(tarjetaDeCreditoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditoEntity.getId());
+        return tarjetaDeCreditoEntity;
+    }
+
+    /**
+     * Elimina una instancia de TarjetaDeCredito de la base de datos.
+     *
+     * @param tarjetaDeCreditosId Identificador de la instancia a eliminar.
+     * @param viajerosId id del Viajero el cual es padre del TarjetaDeCredito.
+     * @throws BusinessLogicException Si la reseña no esta asociada al libro.
+     *
+     */
+    public void deleteTarjetaDeCredito(Long viajerosId, Long tarjetaDeCreditosId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditosId);
+        TarjetaDeCreditoEntity old = getTarjetaDeCredito(viajerosId, tarjetaDeCreditosId);
+        if (old == null) {
+            throw new BusinessLogicException("El tarjetaDeCredito con id = " + tarjetaDeCreditosId + " no esta asociado a el libro con id = " + viajerosId);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar la tarjeta con id = {0}", tarjetasId);
-        return tarjetaEntity;
-    }
-
-    /**
-     * Actualizar una tarjeta dado un ID
-     *
-     * @param tarjetasId El ID de la tarjeta a actualizar
-     * @param tarjetaEntity La entidad de la tarjeta con los cambios deseados
-     * @return La entidad del libro luego de actualizarla
-     * @throws BusinessLogicException Si el numero o el codigo es invalido
-     */
-    public TarjetaDeCreditoEntity updateTarjetaDeCredito(Long tarjetasId, TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id = {0}", tarjetasId);
-        if (!validateNumber(tarjetaEntity.getNumero())) {
-            throw new BusinessLogicException("La tarjeta es inválida");
-        }
-        if (!validateCodigo(tarjetaEntity.getCodigoSeguridad())) {
-            throw new BusinessLogicException("El codigo es inválido");
-        }
-        TarjetaDeCreditoEntity newEntity = persistence.update(tarjetaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta con id = {0}", tarjetaEntity.getId());
-        return newEntity;
-    }
-
-    /**
-     * Eliminar una tarjeta por ID
-     *
-     * @param tarjetasId El ID de la tarjeta
-     */
-    public void deleteTarjetaDeCredito(Long tarjetasId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id = {0}", tarjetasId);
-        persistence.delete(tarjetasId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id = {0}", tarjetasId);
-    }
-
-    /**
-     * Verifica que el Numero no sea invalido.
-     *
-     * @param number a verificar
-     * @return true si el numero es valido.
-     */
-    private boolean validateNumber(String number) {
-        return !(number == null || number.isEmpty());
-    }
-      
-    
-    /**
-     * Verifica que el codigo no sea invalido.
-     *
-     * @param codigo a verificar
-     * @return true si el codigo es valido.
-     */
-     private boolean validateCodigo(int codigo) {
-        return codigo>0;
+        persistence.delete(old.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditosId);
     }
 }
