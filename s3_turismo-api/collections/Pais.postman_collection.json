@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "ec201d0c-c938-4c0d-8e2b-8b0cdc382048",
+		"name": "Pais",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DeletePaises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5746c95-f6c1-4bb2-8026-88452bab851b",
+						"exec": [
+							"pm.test(\"Delete de paises exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/paises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"paises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPaises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5746c95-f6c1-4bb2-8026-88452bab851b",
+						"exec": [
+							"pm.test(\"Get de paises exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/paises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"paises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostPais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31cc7ca0-7989-4bc8-b647-0cb18d858055",
+						"exec": [
+							"pm.test(\"Post de pais exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"177\", \"nombre\": \"Japon\", \"plan_id\":\"111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/pais",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"pais"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutPais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31cc7ca0-7989-4bc8-b647-0cb18d858055",
+						"exec": [
+							"pm.test(\"Put de pais exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"177\", \"nombre\": \"Japon\", \"plan_id\":\"111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/pais",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"pais"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

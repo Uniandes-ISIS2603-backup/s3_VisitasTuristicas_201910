@@ -1,0 +1,1568 @@
+{
+	"info": {
+		"_postman_id": "40acde6a-960b-4bcf-b3c6-578a96b7f806",
+		"name": "Pruebas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Get de valoraciones exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Delete de valoraciones exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBlogsDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Get de blogs exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBlogsDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Delete de blogs exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogsDeViajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogsDeViajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac912d4-bf91-42b5-99d6-1cdbfc640ce1",
+						"exec": [
+							"pm.test(\"Post de valoracion exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"123\", \"valoracion\": \"4\", \"comentario\":\"Muy buen plan\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac912d4-bf91-42b5-99d6-1cdbfc640ce1",
+						"exec": [
+							"pm.test(\"Putt de valoracion exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"123\", \"valoracion\": \"4\", \"comentario\":\"Muy buen plan\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostBlogDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ce23569-5c9c-44c8-9894-7cd24f20e80f",
+						"exec": [
+							"pm.test(\"Post de blog exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"comentarios\": \"Necesita mejorar\", \"sugerencias\": \"Sería bueno contratar más empleados\", \"likes\":\"7\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogsDeViajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogsDeViajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutBlogDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ce23569-5c9c-44c8-9894-7cd24f20e80f",
+						"exec": [
+							"pm.test(\"Put de blog exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"comentarios\": \"Necesita mejorar\", \"sugerencias\": \"Sería bueno contratar más empleados\", \"likes\":\"7\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogsDeViajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogsDeViajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/blogsDeViajeroPorPlan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "248c5859-f0e2-4c5c-a13a-d6ac7f3eb909",
+						"exec": [
+							"pm.test(\"Get de blogs exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"comentarios\": \"Necesita mejorar\", \"sugerencias\": \"Sería bueno contratar más empleados\", \"likes\":\"7\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/estudiantes-api/api/estudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCiudades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "daf3feda-e488-4ab6-ab82-31bf9368295e",
+						"exec": [
+							"pm.test(\"Get de ciudades exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCiudades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "daf3feda-e488-4ab6-ab82-31bf9368295e",
+						"exec": [
+							"pm.test(\"Delete de ciudades exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPaises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5746c95-f6c1-4bb2-8026-88452bab851b",
+						"exec": [
+							"pm.test(\"Get de paises exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/paises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"paises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePaises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5746c95-f6c1-4bb2-8026-88452bab851b",
+						"exec": [
+							"pm.test(\"Delete de paises exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/paises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"paises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPreferencias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8994f12d-7cfb-4a27-adeb-7cc706acd4b9",
+						"exec": [
+							"pm.test(\"Get de preferencias exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePreferencias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8994f12d-7cfb-4a27-adeb-7cc706acd4b9",
+						"exec": [
+							"pm.test(\"Delete de preferencias exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSitios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77ae8500-3a2e-4722-8d52-1d66a444a28a",
+						"exec": [
+							"pm.test(\"Get de sitios exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSitios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77ae8500-3a2e-4722-8d52-1d66a444a28a",
+						"exec": [
+							"pm.test(\"Delete de sitios exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetViajes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6a1d99f-dcf6-4e54-9a8f-f48e28b66f14",
+						"exec": [
+							"pm.test(\"Get de viajes exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteViajes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6a1d99f-dcf6-4e54-9a8f-f48e28b66f14",
+						"exec": [
+							"pm.test(\"Delete de viajes exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetViajeros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c02de607-1b54-42f3-bd9a-449ad9b70ee9",
+						"exec": [
+							"pm.test(\"Get de viajeros exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteViajeros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c02de607-1b54-42f3-bd9a-449ad9b70ee9",
+						"exec": [
+							"pm.test(\"Delete de viajeros exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTarjetasDeCredito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "031f8170-928a-4685-8bec-dc4c46dbb75a",
+						"exec": [
+							"pm.test(\"Get de tarjetas exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/tarjetasDeCredito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"tarjetasDeCredito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTarjetasDeCredito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "031f8170-928a-4685-8bec-dc4c46dbb75a",
+						"exec": [
+							"pm.test(\"Delete de tarjetas exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/tarjetasDeCredito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"tarjetasDeCredito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostCiudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0b085fc-2431-4c1d-965c-a21f52a217f1",
+						"exec": [
+							"pm.test(\"Post de ciudad exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"197\", \"nombre\": \"Osaka\", \"pais_id\":\"172\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutCiudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0b085fc-2431-4c1d-965c-a21f52a217f1",
+						"exec": [
+							"pm.test(\"Put de ciudad exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"197\", \"nombre\": \"Osaka\", \"pais_id\":\"172\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostPais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31cc7ca0-7989-4bc8-b647-0cb18d858055",
+						"exec": [
+							"pm.test(\"Post de pais exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"177\", \"nombre\": \"Japon\", \"plan_id\":\"111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/pais",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"pais"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutPais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31cc7ca0-7989-4bc8-b647-0cb18d858055",
+						"exec": [
+							"pm.test(\"Put de pais exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"177\", \"nombre\": \"Japon\", \"plan_id\":\"111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/pais",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"pais"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostPreferencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1266fc04-c5ec-40d9-bdfc-5e027b4eb073",
+						"exec": [
+							"pm.test(\"Post de preferencia exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"147\", \"nombrePreferencia\": \"Coliseo\", \"viajero_id\":\"13111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutPreferencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1266fc04-c5ec-40d9-bdfc-5e027b4eb073",
+						"exec": [
+							"pm.test(\"Put de preferencia exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"147\", \"nombrePreferencia\": \"Coliseo\", \"viajero_id\":\"13111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostSitio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58f8f632-78e4-4ea7-8b70-0f86c0a63a06",
+						"exec": [
+							"pm.test(\"Post de sitio exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"217\", \"tipo\": \"Capitolio\", \"nombre\":\"Capitolio nuevo\", \"ciudad_id\":\"176\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutSitio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58f8f632-78e4-4ea7-8b70-0f86c0a63a06",
+						"exec": [
+							"pm.test(\"Put de sitio exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"217\", \"tipo\": \"Capitolio\", \"nombre\":\"Capitolio nuevo\", \"ciudad_id\":\"176\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostViaje",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "118c1d6a-025d-4d9f-a5c8-eeb698d37878",
+						"exec": [
+							"pm.test(\"Post de viaje exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"fechaInicio\": \"10/10/2018\", \"fechaFin\": \"10/15/2018\", \"viajero_id\":\"13111\", \"plan_id\": \"111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viaje",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viaje"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutViaje",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "118c1d6a-025d-4d9f-a5c8-eeb698d37878",
+						"exec": [
+							"pm.test(\"Put de viaje exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"fechaInicio\": \"10/10/2018\", \"fechaFin\": \"10/15/2018\", \"viajero_id\":\"13111\", \"plan_id\": \"111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viaje",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viaje"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f750e4a-b02b-49cf-bd42-eb794ee97b93",
+						"exec": [
+							"pm.test(\"Post de viajero exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"13777\", \"nombreUsuario\": \"Camilo Otalora\", \"codigoUnico\":\"127\", \"idioma\": \"Oscuro\", \"tipoUsuario\": \"Mormal\", \"cantidadPlanes\": \"3\", \"informacionPersonal\": \"Vive en francia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f750e4a-b02b-49cf-bd42-eb794ee97b93",
+						"exec": [
+							"pm.test(\"Put de viajero exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"13777\", \"nombreUsuario\": \"Camilo Otalora\", \"codigoUnico\":\"127\", \"idioma\": \"Oscuro\", \"tipoUsuario\": \"Mormal\", \"cantidadPlanes\": \"3\", \"informacionPersonal\": \"Vive en francia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostTarjetaDeCredito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba166bfd-9617-4a16-b72e-c00d0c3a0389",
+						"exec": [
+							"pm.test(\"Post de tarjeta exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"157\", \"numero\": \"123456787\", \"banco\":\"Davivienda\", \"codigoSeguridad\": \"787\", \"viajero_id\": \"13333\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/tarjetaDeCredito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"tarjetaDeCredito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutTarjetaDeCredito ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba166bfd-9617-4a16-b72e-c00d0c3a0389",
+						"exec": [
+							"pm.test(\"Put de tarjeta exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"157\", \"numero\": \"123456787\", \"banco\":\"Davivienda\", \"codigoSeguridad\": \"787\", \"viajero_id\": \"13333\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/tarjetaDeCredito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"tarjetaDeCredito"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

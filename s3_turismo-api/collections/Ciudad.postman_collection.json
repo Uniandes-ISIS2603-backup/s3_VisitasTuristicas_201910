@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "2cfb15f0-365a-420d-a532-23ed74989cc8",
+		"name": "Ciudad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetCiudades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "daf3feda-e488-4ab6-ab82-31bf9368295e",
+						"exec": [
+							"pm.test(\"Get de ciudades exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCiudades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "daf3feda-e488-4ab6-ab82-31bf9368295e",
+						"exec": [
+							"pm.test(\"Delete de ciudades exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutCiudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0b085fc-2431-4c1d-965c-a21f52a217f1",
+						"exec": [
+							"pm.test(\"Put de ciudad exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"197\", \"nombre\": \"Osaka\", \"pais_id\":\"172\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostCiudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0b085fc-2431-4c1d-965c-a21f52a217f1",
+						"exec": [
+							"pm.test(\"Post de ciudad exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"197\", \"nombre\": \"Osaka\", \"pais_id\":\"172\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/ciudad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"ciudad"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

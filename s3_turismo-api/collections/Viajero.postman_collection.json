@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "ab5c591e-aed4-42c7-9596-44393b7a26d9",
+		"name": "Viajero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f750e4a-b02b-49cf-bd42-eb794ee97b93",
+						"exec": [
+							"pm.test(\"Post de viajero exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"13777\", \"nombreUsuario\": \"Camilo Otalora\", \"codigoUnico\":\"127\", \"idioma\": \"Oscuro\", \"tipoUsuario\": \"Mormal\", \"cantidadPlanes\": \"3\", \"informacionPersonal\": \"Vive en francia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f750e4a-b02b-49cf-bd42-eb794ee97b93",
+						"exec": [
+							"pm.test(\"Put de viajero exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"13777\", \"nombreUsuario\": \"Camilo Otalora\", \"codigoUnico\":\"127\", \"idioma\": \"Oscuro\", \"tipoUsuario\": \"Mormal\", \"cantidadPlanes\": \"3\", \"informacionPersonal\": \"Vive en francia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetViajeros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c02de607-1b54-42f3-bd9a-449ad9b70ee9",
+						"exec": [
+							"pm.test(\"Get de viajeros exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteViajeros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c02de607-1b54-42f3-bd9a-449ad9b70ee9",
+						"exec": [
+							"pm.test(\"Delete de viajeros exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/viajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"viajero"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

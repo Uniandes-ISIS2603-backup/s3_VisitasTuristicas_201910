@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "0491a970-ebb6-4110-aac1-99a18697a45e",
+		"name": "Preferencia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostPreferencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1266fc04-c5ec-40d9-bdfc-5e027b4eb073",
+						"exec": [
+							"pm.test(\"Post de preferencia exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"147\", \"nombrePreferencia\": \"Coliseo\", \"viajero_id\":\"13111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutPreferencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1266fc04-c5ec-40d9-bdfc-5e027b4eb073",
+						"exec": [
+							"pm.test(\"Put de preferencia exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"147\", \"nombrePreferencia\": \"Coliseo\", \"viajero_id\":\"13111\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPreferencias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8994f12d-7cfb-4a27-adeb-7cc706acd4b9",
+						"exec": [
+							"pm.test(\"Get de preferencias exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePreferencias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8994f12d-7cfb-4a27-adeb-7cc706acd4b9",
+						"exec": [
+							"pm.test(\"Delete de preferencias exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/preferencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"preferencias"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

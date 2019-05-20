@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "ee33f97f-02c5-43e6-b786-0379adf7f9e4",
+		"name": "Valoracion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Get de valoraciones exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Delete de valoraciones exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac912d4-bf91-42b5-99d6-1cdbfc640ce1",
+						"exec": [
+							"pm.test(\"Post de valoracion exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"123\", \"valoracion\": \"4\", \"comentario\":\"Muy buen plan\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutValoracion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac912d4-bf91-42b5-99d6-1cdbfc640ce1",
+						"exec": [
+							"pm.test(\"Putt de valoracion exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idUsuario\": \"123\", \"valoracion\": \"4\", \"comentario\":\"Muy buen plan\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/valoracion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"valoracion"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "f71ede3d-51e8-48e6-9e33-6d7979f0e86b",
+		"name": "BlogDeViajero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetBlogsDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Get de blogs exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBlogsDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfeb247-3554-4958-83ad-89d9eda9cd61",
+						"exec": [
+							"pm.test(\"Delete de blogs exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogsDeViajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogsDeViajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostBlogDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ce23569-5c9c-44c8-9894-7cd24f20e80f",
+						"exec": [
+							"pm.test(\"Post de blog exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"comentarios\": \"Necesita mejorar\", \"sugerencias\": \"Sería bueno contratar más empleados\", \"likes\":\"7\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogsDeViajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogsDeViajero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutBlogDeViajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ce23569-5c9c-44c8-9894-7cd24f20e80f",
+						"exec": [
+							"pm.test(\"Put de blog exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"comentarios\": \"Necesita mejorar\", \"sugerencias\": \"Sería bueno contratar más empleados\", \"likes\":\"7\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/blogsDeViajero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"blogsDeViajero"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

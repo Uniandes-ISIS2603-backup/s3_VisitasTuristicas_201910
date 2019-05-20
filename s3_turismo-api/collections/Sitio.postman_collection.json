@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "689a6269-3681-4f08-9b41-a5e4711a00a9",
+		"name": "Sitio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostSitio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58f8f632-78e4-4ea7-8b70-0f86c0a63a06",
+						"exec": [
+							"pm.test(\"Post de sitio exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"217\", \"tipo\": \"Capitolio\", \"nombre\":\"Capitolio nuevo\", \"ciudad_id\":\"176\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutSitio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58f8f632-78e4-4ea7-8b70-0f86c0a63a06",
+						"exec": [
+							"pm.test(\"Put de sitio exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"217\", \"tipo\": \"Capitolio\", \"nombre\":\"Capitolio nuevo\", \"ciudad_id\":\"176\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSitios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77ae8500-3a2e-4722-8d52-1d66a444a28a",
+						"exec": [
+							"pm.test(\"Delete de sitios exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSitios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77ae8500-3a2e-4722-8d52-1d66a444a28a",
+						"exec": [
+							"pm.test(\"Get de sitios exitoso\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_turismo-api/api/sitios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_turismo-api",
+						"api",
+						"sitios"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
