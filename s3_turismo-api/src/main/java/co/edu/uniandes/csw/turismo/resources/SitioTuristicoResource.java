@@ -42,7 +42,7 @@ public class SitioTuristicoResource {
     
     
      @POST
-    public SitioTuristicosDTO createSitioTuristico(@PathParam("booksId") Long booksId, SitioTuristicosDTO sitio) throws BusinessLogicException {
+    public SitioTuristicosDTO createSitioTuristico(@PathParam("ciudadId") Long booksId, SitioTuristicosDTO sitio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SitioTuristicoResource createSitioTuristico: input: {0}", sitio);
         SitioTuristicosDTO nuevoSitioTuristicoDTO = new SitioTuristicosDTO(logic.createSitioTuritico(booksId, sitio.toEntity()));
         LOGGER.log(Level.INFO, "SitioTuristicoResource createSitioTuristico: output: {0}", nuevoSitioTuristicoDTO);
@@ -77,8 +77,8 @@ public class SitioTuristicoResource {
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @GET
-    @Path("{sitiosId: \\d+}")
-    public SitioTuristicosDTO getSitioTuristico(@PathParam("booksId") Long booksId, @PathParam("sitiosId") Long sitiosId) throws BusinessLogicException {
+    @Path("{sitios: \\d+}")
+    public SitioTuristicosDTO getSitioTuristico(@PathParam("ciudadId") Long booksId, @PathParam("sitios") Long sitiosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SitioTuristicoResource getSitioTuristico: input: {0}", sitiosId);
         SitioTuristicoEntity entity = logic.getSitioTuritico(booksId, sitiosId);
         if (entity == null) {
@@ -132,7 +132,7 @@ public class SitioTuristicoResource {
      */
     @DELETE
     @Path("{sitiosId: \\d+}")
-    public void deleteSitioTuristico(@PathParam("booksId") Long booksId, @PathParam("sitiosId") Long sitiosId) throws BusinessLogicException {
+    public void deleteSitioTuristico(@PathParam("ciudadId") Long booksId, @PathParam("sitiosId") Long sitiosId) throws BusinessLogicException {
         SitioTuristicoEntity entity = logic.getSitioTuritico(booksId, sitiosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);

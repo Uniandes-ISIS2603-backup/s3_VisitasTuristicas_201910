@@ -30,7 +30,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author David Fonseca
  */
 
 @Path("/ciudades")
@@ -91,6 +91,27 @@ public class CiudadResource {
         return detailDTO;
     }
     
+    
+        /**
+     * Conexión con el servicio de reseñas para un libro. {@link ReviewResource}
+     *
+     * Este método conecta la ruta de /books con las rutas de /reviews que
+     * dependen del libro, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las reseñas.
+     *
+     * @param booksId El ID del libro con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de Reseñas para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+    @Path(("{ciudadId: \\d+}/sitios"))
+    public Class<SitioTuristicoResource> getSitiosResource(@PathParam("ciudadId") Long booksId) {
+        if (ciudadLogic.getCiudad(booksId) == null) {
+            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews no existe.", 404);
+        }
+        return SitioTuristicoResource.class;
+    }
      
     
     

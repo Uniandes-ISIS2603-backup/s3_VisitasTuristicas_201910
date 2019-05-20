@@ -111,5 +111,5 @@ insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,113);
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,114);
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,115);
-insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,116);84
+insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,116);
 
