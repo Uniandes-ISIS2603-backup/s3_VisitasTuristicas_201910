@@ -19,7 +19,7 @@ public class PreferenciaEntity extends BaseEntity implements Serializable{
     private String nombrePreferencia;
     
     @PodamExclude
-    @javax.persistence.ManyToOne(fetch = javax.persistence.FetchType.EAGER)
+    @javax.persistence.ManyToOne
     ViajeroEntity viajero;
 
     public PreferenciaEntity() {

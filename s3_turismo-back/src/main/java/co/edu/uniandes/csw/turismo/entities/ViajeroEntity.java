@@ -32,12 +32,12 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     private String informacionPersonal;
     
     @PodamExclude
-    @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
+    @javax.persistence.OneToMany(mappedBy ="viajero", cascade = CascadeType.PERSIST,orphanRemoval = true)
     List<PreferenciaEntity> preferencias;
     
     @PodamExclude
-    @javax.persistence.OneToMany(mappedBy ="viajero", cascade = CascadeType.PERSIST,orphanRemoval = true)
-    List<TarjetaDeCreditoEntity> tarjetaDeCredito;
+    @javax.persistence.OneToMany(mappedBy ="viajero", fetch = javax.persistence.FetchType.LAZY)
+    List<TarjetaDeCreditoEntity> tarjetas;
     
     @PodamExclude
     @javax.persistence.OneToMany(mappedBy = "viajero", fetch = javax.persistence.FetchType.LAZY)
@@ -59,12 +59,12 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
         this.preferencias = preferencias;
     }
 
-    public List<TarjetaDeCreditoEntity> getTarjetasDeCredito() {
-        return tarjetaDeCredito;
+    public List<TarjetaDeCreditoEntity> getTarjetas() {
+        return tarjetas;
     }
 
-    public void setTarjetasDeCredito(List<TarjetaDeCreditoEntity> tarjetaDeCredito) {
-        this.tarjetaDeCredito = tarjetaDeCredito;
+    public void setTarjetas(List<TarjetaDeCreditoEntity> tarjetaDeCredito) {
+        this.tarjetas = tarjetaDeCredito;
     }
 
     public List<FacturaEntity> getFacturas() {

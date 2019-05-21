@@ -111,7 +111,7 @@ public class TarjetaDeCreditoResource {
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @PUT
-    @Path("{reviewsId: \\d+}")
+    @Path("{tarjeta: \\d+}")
     public TarjetaDeCreditoDTO updateTarjetaDeCredito(@PathParam("viajero") Long booksId, @PathParam("tarjeta") Long reviewsId, TarjetaDeCreditoDTO review) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: input: booksId: {0} , reviewsId: {1} , review:{2}", new Object[]{booksId, reviewsId, review});
         if (reviewsId.equals(review.getIdTarjetaDeCredito())) {

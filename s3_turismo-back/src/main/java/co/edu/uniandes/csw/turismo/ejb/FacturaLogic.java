@@ -22,116 +22,103 @@ import javax.inject.Inject;
  */
 @Stateless
 public class FacturaLogic {
-     private static final Logger LOGGER = Logger.getLogger(FacturaLogic.class.getName());
+      private static final Logger LOGGER = Logger.getLogger(FacturaLogic.class.getName());
+       
 
-    @Inject
+       
+       
+       @Inject
     private FacturaPersistence persistence;
 
     @Inject
     private ViajeroPersistence viajeroPersistence;
 
     /**
-     * Guardar una nueva factura
+     * Se encarga de crear un Factura en la base de datos.
      *
-     * @param booksId
-     * @param reviewEntity
-     * @return La entidad luego de persistirla
-     * @throws BusinessLogicException Si el el costo o la descripcion son inválidos
+     * @param reviewEntity Objeto de FacturaEntity con los datos nuevos
+     * @param viajerosId id del Viajero el cual sera padre del nuevo Factura.
+     * @return Objeto de FacturaEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si viajerosId no es el mismo que tiene el
+     * entity.
+     *
      */
-   public FacturaEntity createFactura(Long booksId, FacturaEntity reviewEntity) throws BusinessLogicException {
+    public FacturaEntity createFactura(Long viajerosId, FacturaEntity reviewEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear review");
-        ViajeroEntity book = viajeroPersistence.find(booksId);
-        reviewEntity.setViajero(book);
+        ViajeroEntity viajero = viajeroPersistence.find(viajerosId);
+        reviewEntity.setViajero(viajero);
         LOGGER.log(Level.INFO, "Termina proceso de creación del review");
         return persistence.create(reviewEntity);
     }
 
     /**
-     * Devuelve todas las facturas.
+     * Obtiene la lista de los registros de Factura que pertenecen a un Viajero.
      *
-     * @param viajeroId
-     * @return Lista de entidades de tipo factura.
+     * @param viajerosId id del Viajero el cual es padre de los Facturas.
+     * @return Colección de objetos de FacturaEntity.
      */
-    public List<FacturaEntity> getFacturas(Long viajeroId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las facturas");
-ViajeroEntity viajero = viajeroPersistence.find(viajeroId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las facturas");
-        return viajero.getFacturas();
+    public List<FacturaEntity> getFacturas(Long viajerosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
+        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
+        return viajeroEntity.getFacturas();
     }
 
     /**
-     * Busca una factura dado su ID
+     * Obtiene los datos de una instancia de Factura a partir de su ID. La
+     * existencia del elemento padre Viajero se debe garantizar.
      *
-     * @param facturasId El id a buscar
-     * @param viajeroId
-     * @return La factura encontrado, null si no lo encuentra.
+     * @param viajerosId El id del Libro buscado
+     * @param reviewsId Identificador de la Reseña a consultar
+     * @return Instancia de FacturaEntity con los datos del Factura consultado.
+     *
      */
-    public FacturaEntity getFactura(Long facturasId, Long viajeroId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar una factura con id = {0}", facturasId);
-        FacturaEntity facturaEntity = persistence.find(facturasId, viajeroId);
-        if (facturaEntity == null) {
-            LOGGER.log(Level.SEVERE, "La factura con el id = {0} no existe", facturasId);
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar una factura con id = {0}", facturasId);
-        return facturaEntity;
+    public FacturaEntity getFactura(Long viajerosId, Long reviewsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+        return persistence.find(viajerosId, reviewsId);
     }
 
     /**
-     * Actualizar una factura por ID
+     * Actualiza la información de una instancia de Factura.
      *
-     * @param facturasId El ID del libro a actualizar
-     * @param facturaEntity La entidad del libro con los cambios deseados
-     * @return La entidad del libro luego de actualizarla
-     * @throws BusinessLogicException Si hay fallas en la descripcion o el costo
+     * @param reviewEntity Instancia de FacturaEntity con los nuevos datos.
+     * @param viajerosId id del Viajero el cual sera padre del Factura actualizado.
+     * @return Instancia de FacturaEntity con los datos actualizados.
+     *
      */
-    public FacturaEntity updateFactura(Long facturasId, FacturaEntity facturaEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el libro con id = {0}", facturasId);
-        if (!validateDescripcion(facturaEntity.getDescripcion())) {
-            throw new BusinessLogicException("La descripcion es inválida");
-        }
-        if(!validateCosto(facturaEntity.getCosto()))
-        {
-            throw new BusinessLogicException("El costo no es valido");
-        }  
-        FacturaEntity newEntity = persistence.update(facturaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar la factura con id = {0}", facturaEntity.getId());
-        return newEntity;
+    public FacturaEntity updateFactura(Long viajerosId, FacturaEntity reviewEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + viajerosId, reviewEntity.getId());
+        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
+        reviewEntity.setViajero(viajeroEntity);
+        persistence.update(reviewEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + viajerosId, reviewEntity.getId());
+        return reviewEntity;
     }
 
     /**
-     * Eliminar una factura por ID
+     * Elimina una instancia de Factura de la base de datos.
      *
-     * @param facturasId El id a eliminar
-     * @param viajeroId
-     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     * @param reviewsId Identificador de la instancia a eliminar.
+     * @param viajerosId id del Viajero el cual es padre del Factura.
+     * @throws BusinessLogicException Si la reseña no esta asociada al libro.
+     *
      */
-    public void deleteFactura(Long facturasId, Long viajeroId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + viajeroId, facturasId);
-        FacturaEntity old = getFactura(facturasId, viajeroId);
+    public void deleteFactura(Long viajerosId, Long reviewsId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+        FacturaEntity old = getFactura(viajerosId, reviewsId);
         if (old == null) {
-            throw new BusinessLogicException("El review con id = " + viajeroId + " no esta asociado a el libro con id = " + facturasId);
+            throw new BusinessLogicException("El review con id = " + reviewsId + " no esta asociado a el libro con id = " + viajerosId);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + viajeroId, facturasId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
     }
-
-    /**
-     * Verifica que la descripcion no sea invalido.
-     *
-     * @param descripcion a verificar
-     * @return true si la descripcion es valida.
-     */
-    private boolean validateDescripcion(String descripcion) {
-        return !(descripcion == null || descripcion.isEmpty());
-    }
-    
-    /**
-     * Verifica que el costo no sea invalido.
-     *
-     * @param costo a verificar
-     * @return true si el costo es valido.
-     */
-    private boolean validateCosto(double costo) {
-        return costo>=0;
-    }
+         
+         
+         /*
+         *Valida si el nombre no es nullo o vacio
+         *@return nombre
+         */
+    private boolean validateNombre(String nombre) {
+        return !(nombre == null || nombre.isEmpty());
+         }
 }

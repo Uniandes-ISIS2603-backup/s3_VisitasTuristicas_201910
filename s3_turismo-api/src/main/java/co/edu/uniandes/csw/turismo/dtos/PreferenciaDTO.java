@@ -15,6 +15,7 @@ public class PreferenciaDTO implements Serializable {
     
     private Long idPreferencia;
     private String nombrePreferencia;
+    private ViajeroDTO viajero;
 
     /**
      * Constructor vacio
@@ -23,6 +24,14 @@ public class PreferenciaDTO implements Serializable {
         
     }
     
+    public ViajeroDTO getViajero()
+    {
+        return viajero;
+    }
+    public void setViajero(ViajeroDTO v)
+    {
+       this.viajero=v; 
+    }
     /**
      * retorna el id de preferencia
      * @return idPreferencia
@@ -65,9 +74,10 @@ public class PreferenciaDTO implements Serializable {
         PreferenciaEntity nuevo = new PreferenciaEntity();
         
         nuevo.setId(this.getIdPreferencia());
-        
         nuevo.setNombrePreferencia(nombrePreferencia);
-        return nuevo;
+            if(this.viajero!= null){            
+            nuevo.setViajero(this.viajero.toEntity());
+        }        return nuevo;
     }
     
     /**
@@ -80,5 +90,10 @@ public class PreferenciaDTO implements Serializable {
         
             this.nombrePreferencia = ent.getNombrePreferencia();
         }
+        if (ent.getViajero()!= null) {
+                this.viajero = new ViajeroDTO(ent.getViajero());
+            } else {
+                this.viajero = null;
+            }
     }
 }

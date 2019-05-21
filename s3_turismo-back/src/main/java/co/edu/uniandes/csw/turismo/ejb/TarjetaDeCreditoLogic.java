@@ -60,7 +60,7 @@ public class TarjetaDeCreditoLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar los tarjetaDeCreditos asociados al viajero con id = {0}", viajerosId);
         ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar los tarjetaDeCreditos asociados al viajero con id = {0}", viajerosId);
-        return viajeroEntity.getTarjetasDeCredito();
+        return viajeroEntity.getTarjetas();
     }
 
     /**

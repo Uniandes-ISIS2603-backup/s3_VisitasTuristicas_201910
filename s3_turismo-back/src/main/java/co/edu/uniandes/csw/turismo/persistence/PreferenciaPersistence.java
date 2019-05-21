@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.turismo.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.PreferenciaEntity;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,60 +18,83 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class PreferenciaPersistence {
-    @PersistenceContext (unitName="turismoPU")
+   @PersistenceContext(unitName="turismoPU")
     protected EntityManager em;
     
-    private static final Logger LOGGER= Logger.getLogger (PlanTuristicoPersistence.class .getName());
-    
-    /**
-     * se crea y persiste una preferencia
-     * @param preferenciaEntity
-     * @return 
-     */
-    public PreferenciaEntity create (PreferenciaEntity preferenciaEntity){
-       LOGGER.log(Level.INFO, "Creando una preferencia nueva");
-       em.persist(preferenciaEntity);
-       return preferenciaEntity;
-   }
-    
-    /**
-     * se busca una preferencia basada en su id
-     * @param preferenciaId
-     * @return PreferenciaEntity
-     */
-    public PreferenciaEntity find(Long preferenciaId) {
-        LOGGER.log(Level.INFO, "Consultando la preferencia con id = {0}", preferenciaId );
-        return em.find(PreferenciaEntity.class, preferenciaId);
+    /*
+    *Crea un nuevo sitio turistico
+    *@param sitioEntity
+    */
+    public PreferenciaEntity create(PreferenciaEntity sitioEntity)
+    {
+       em.persist(sitioEntity);
+       return sitioEntity;
     }
     
-    /**
-     * se retornan todas las preferencias
-     * @return List
-     */
-    public List<PreferenciaEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos");
-        TypedQuery<PreferenciaEntity> query = em.createQuery("select u from PreferenciaEntity u", PreferenciaEntity.class);
-        return query.getResultList();
+    
+    /*
+    *Busca un sitio turistico con el id dado
+    *@return PreferenciaEntity
+    */
+ public PreferenciaEntity find(Long ciudadId, Long sitioId) {
+        TypedQuery<PreferenciaEntity> q = em.createQuery("select p from PreferenciaEntity p where (p.viajero.id = :ciudadId) and (p.id = :sitioId)", PreferenciaEntity.class);
+        q.setParameter("ciudadId", ciudadId);
+        q.setParameter("sitioId", sitioId);
+        List<PreferenciaEntity> results = q.getResultList();
+        PreferenciaEntity sitioTuristico = null;
+        if (results == null) {
+            sitioTuristico = null;
+        } else if (results.isEmpty()) {
+            sitioTuristico = null;
+        } else if (results.size() >= 1) {
+            sitioTuristico = results.get(0);
+        }
+        return sitioTuristico;
     }
     
-    /**
-     * se elimina una preferencia basado en su id
-     * @param preferenciaId 
-     */
-    public void delete(Long preferenciaId) {
-         LOGGER.log(Level.INFO, "Borrando preferencia con id = {0}", preferenciaId);
-        PreferenciaEntity viajero = em.find(PreferenciaEntity.class, preferenciaId);
-        em.remove(viajero);
+    /*
+    *Actualiza y retorna un sitio turistico
+    *@return sitioEntity
+    */
+    public PreferenciaEntity update(PreferenciaEntity sitioEntity) {
+        return em.merge(sitioEntity);
+        
     }
     
-    /**
-     * se actualiza una preferencia 
-     * @param preferenciaEntity
-     * @return 
+    /*
+    *Busca un sitio turistico por nombre
+    *@param name
+    *@return result
+    */
+    public PreferenciaEntity findByName(String nombre) {
+        // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From PreferenciaEntity e where e.nombre = :nombre", PreferenciaEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("nombre", nombre);
+        // Se invoca el query se obtiene la lista resultado
+        List<PreferenciaEntity> sameName = query.getResultList();
+        PreferenciaEntity result;
+        if (sameName == null) {
+            result = null;
+        } else if (sameName.isEmpty()) {
+            result = null;
+        } else {
+            result = sameName.get(0);
+        }
+        return result;
+    }
+    
+    
+        /**
+     * Eliminar una reseña
+     *
+     * Elimina la reseña asociada al ID que recibe
+     *
+     * @param sitioTuristicosId El ID de la reseña que se desea borrar
      */
-    public PreferenciaEntity update(PreferenciaEntity preferenciaEntity) {
-        LOGGER.log(Level.INFO, "Actualizando preferencia con id = {0}", preferenciaEntity.getId());
-        return em.merge(preferenciaEntity);
+    public void delete(Long sitioTuristicosId) {
+        PreferenciaEntity sitioTuristicoEntity = em.find(PreferenciaEntity.class, sitioTuristicosId);
+        em.remove(sitioTuristicoEntity);
     }
     
 }

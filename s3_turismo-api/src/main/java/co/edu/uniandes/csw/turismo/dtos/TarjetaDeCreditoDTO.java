@@ -109,7 +109,9 @@ public class TarjetaDeCreditoDTO implements Serializable  {
         aRetornar.setNumero(numero);
         aRetornar.setBanco(banco);
         aRetornar.setCodigoSeguridad(codigoSeguridad);
-        aRetornar.setViajero(viajero.toEntity());
+       if (this.viajero != null) {
+            aRetornar.setViajero(this.viajero.toEntity());
+        }
         return aRetornar;
     }
     

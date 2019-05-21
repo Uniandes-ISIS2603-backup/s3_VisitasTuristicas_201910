@@ -6,9 +6,9 @@
 package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -37,7 +37,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
      * Crea la relacion con viajero
      */
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private ViajeroEntity viajero;
     
     /**
