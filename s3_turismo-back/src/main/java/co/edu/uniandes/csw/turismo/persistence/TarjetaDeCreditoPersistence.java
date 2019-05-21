@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -22,78 +23,98 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class TarjetaDeCreditoPersistence {
     
- private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
+private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
+
 
     @PersistenceContext(unitName = "turismoPU")
     protected EntityManager em;
 
     /**
-     * Crear una reseña
+     * Método para persisitir la entidad en la base de datos.
      *
-     * Crea una nueva reseña con la información recibida en la entidad.
-     *
-     * @param rarjetaDeCreditoEntity La entidad que representa la nueva reseña
-     * @return La entidad creada
+     * @param bookEntity objeto libro que se creará en la base de datos
+     * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    public TarjetaDeCreditoEntity create(TarjetaDeCreditoEntity rarjetaDeCreditoEntity) {
-        LOGGER.log(Level.INFO, "Creando un rarjetaDeCredito nuevo");
-        em.persist(rarjetaDeCreditoEntity);
-        LOGGER.log(Level.INFO, "TarjetaDeCredito creado");
-        return rarjetaDeCreditoEntity;
+    public TarjetaDeCreditoEntity create(TarjetaDeCreditoEntity bookEntity) {
+        LOGGER.log(Level.INFO, "Creando un libro nuevo");
+        em.persist(bookEntity);
+        LOGGER.log(Level.INFO, "Libro creado");
+        return bookEntity;
     }
 
     /**
-     * Actualizar una reseña
+     * Devuelve todos loslibros de la base de datos.
      *
-     * Actualiza la entidad que recibe en la base de datos
-     *
-     * @param rarjetaDeCreditoEntity La entidad actualizada que se desea guardar
-     * @return La entidad resultante luego de la acutalización
+     * @return una lista con todos los libros que encuentre en la base de datos,
+     * "select u from TarjetaDeCreditoEntity u" es como un "select * from TarjetaDeCreditoEntity;" -
+     * "SELECT * FROM table_name" en SQL.
      */
-    public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity rarjetaDeCreditoEntity) {
-        LOGGER.log(Level.INFO, "Actualizando rarjetaDeCredito con id = {0}", rarjetaDeCreditoEntity.getId());
-        return em.merge(rarjetaDeCreditoEntity);
+    public List<TarjetaDeCreditoEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todos los libros");
+        Query q = em.createQuery("select u from TarjetaDeCreditoEntity u");
+        return q.getResultList();
     }
 
     /**
-     * Eliminar una reseña
+     * Busca si hay algun lubro con el id que se envía de argumento
      *
-     * Elimina la reseña asociada al ID que recibe
-     *
-     * @param rarjetaDeCreditosId El ID de la reseña que se desea borrar
+     * @param booksId: id correspondiente al libro buscado.
+     * @return un libro.
      */
-    public void delete(Long rarjetaDeCreditosId) {
-        LOGGER.log(Level.INFO, "Borrando rarjetaDeCredito con id = {0}", rarjetaDeCreditosId);
-        TarjetaDeCreditoEntity rarjetaDeCreditoEntity = em.find(TarjetaDeCreditoEntity.class, rarjetaDeCreditosId);
-        em.remove(rarjetaDeCreditoEntity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar El rarjetaDeCredito con id = {0}", rarjetaDeCreditosId);
+    public TarjetaDeCreditoEntity find(Long booksId) {
+        LOGGER.log(Level.INFO, "Consultando el libro con id={0}", booksId);
+        return em.find(TarjetaDeCreditoEntity.class, booksId);
     }
 
     /**
-     * Buscar una reseña
+     * Actualiza un libro.
      *
-     * Busca si hay alguna reseña asociada a un libro y con un ID específico
-     *
-     * @param viajerosId El ID del libro con respecto al cual se busca
-     * @param rarjetaDeCreditosId El ID de la reseña buscada
-     * @return La reseña encontrada o null. Nota: Si existe una o más reseñas
-     * devuelve siempre la primera que encuentra
+     * @param bookEntity: el libro que viene con los nuevos cambios. Por ejemplo
+     * el nombre pudo cambiar. En ese caso, se haria uso del método update.
+     * @return un libro con los cambios aplicados.
      */
-    public TarjetaDeCreditoEntity find(Long viajerosId, Long rarjetaDeCreditosId) {
-        LOGGER.log(Level.INFO, "Consultando el rarjetaDeCredito con id = {0} del libro con id = " + viajerosId, rarjetaDeCreditosId);
-        TypedQuery<TarjetaDeCreditoEntity> q = em.createQuery("select p from TarjetaDeCreditoEntity p where (p.viajero.id = :viajeroid) and (p.id = :rarjetaDeCreditosId)", TarjetaDeCreditoEntity.class);
-        q.setParameter("viajeroid", viajerosId);
-        q.setParameter("rarjetaDeCreditosId", rarjetaDeCreditosId);
-        List<TarjetaDeCreditoEntity> results = q.getResultList();
-        TarjetaDeCreditoEntity rarjetaDeCredito = null;
-        if (results == null) {
-            rarjetaDeCredito = null;
-        } else if (results.isEmpty()) {
-            rarjetaDeCredito = null;
-        } else if (results.size() >= 1) {
-            rarjetaDeCredito = results.get(0);
+    public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity bookEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el libro con id={0}", bookEntity.getId());
+        return em.merge(bookEntity);
+    }
+
+    /**
+     *
+     * Borra un libro de la base de datos recibiendo como argumento el id del
+     * libro
+     *
+     * @param booksId: id correspondiente al libro a borrar.
+     */
+    public void delete(Long booksId) {
+        LOGGER.log(Level.INFO, "Borrando el libro con id={0}", booksId);
+        TarjetaDeCreditoEntity bookEntity = em.find(TarjetaDeCreditoEntity.class, booksId);
+        em.remove(bookEntity);
+    }
+
+    /**
+     * Busca si hay algun libro con el ISBN que se envía de argumento
+     *
+     * @param isbn: ISBN de la editorial que se está buscando
+     * @return null si no existe ningun libro con el isbn del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public TarjetaDeCreditoEntity findByISBN(String isbn) {
+        LOGGER.log(Level.INFO, "Consultando libros por isbn ", isbn);
+        // Se crea un query para buscar libros con el isbn que recibe el método como argumento. ":isbn" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.isbn = :isbn", TarjetaDeCreditoEntity.class);
+        // Se remplaza el placeholder ":isbn" con el valor del argumento 
+        query = query.setParameter("isbn", isbn);
+        // Se invoca el query se obtiene la lista resultado
+        List<TarjetaDeCreditoEntity> sameISBN = query.getResultList();
+        TarjetaDeCreditoEntity result;
+        if (sameISBN == null) {
+            result = null;
+        } else if (sameISBN.isEmpty()) {
+            result = null;
+        } else {
+            result = sameISBN.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el rarjetaDeCredito con id = {0} del libro con id =" + viajerosId, rarjetaDeCreditosId);
-        return rarjetaDeCredito;
+        LOGGER.log(Level.INFO, "Saliendo de consultar libros por isbn ", isbn);
+        return result;
     }
 }

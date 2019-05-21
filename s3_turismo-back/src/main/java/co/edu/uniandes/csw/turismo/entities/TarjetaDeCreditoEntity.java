@@ -37,7 +37,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable{
      * Crea la relacion con viajero
      */
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private ViajeroEntity viajero;
     
     /**

@@ -142,12 +142,12 @@ public class ViajeroResource {
      * @return TarjetaDeCreditoResource
      * @throws BusinessLogicException 
      */
-    @Path("{viajero: \\d+/tarjetas}")
-    public Class<TarjetaDeCreditoResource> getTarjetaDeCreditoResource(@PathParam("viajero") Long viajeroId) throws BusinessLogicException {
-        if(logic.getViajero(viajeroId) == null) {
-            throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
+    @Path("{viajeros: \\d+}/tarjetas")
+    public Class<ViajeroTarjetaDeCreditoResource> getViajeroTarjetaDeCreditoResource(@PathParam("viajeros") Long editorialsId) throws BusinessLogicException {
+        if (logic.getViajero(editorialsId) == null) {
+            throw new WebApplicationException("El recurso /editorials/" + editorialsId + " no existe.", 404);
         }
-        return TarjetaDeCreditoResource.class;
+        return ViajeroTarjetaDeCreditoResource.class;
     }
     
     /**
@@ -210,6 +210,8 @@ public class ViajeroResource {
         }
         return FacturasResources.class;
     }
+    
+
     
 
 

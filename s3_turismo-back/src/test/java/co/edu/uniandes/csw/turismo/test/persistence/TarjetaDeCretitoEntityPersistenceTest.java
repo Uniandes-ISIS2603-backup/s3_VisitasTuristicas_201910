@@ -134,7 +134,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Test
     public void getTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity newEntity = tarjetaPersistence.find(dataViajero.get(0).getId(), entity.getId());
+        TarjetaDeCreditoEntity newEntity = tarjetaPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getBanco(), newEntity.getBanco());
         Assert.assertEquals(entity.getCodigoSeguridad(), newEntity.getCodigoSeguridad());
