@@ -13,7 +13,6 @@ import javax.ws.rs.Path;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDTO;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
-import co.edu.uniandes.csw.turismo.ejb.ViajeroTarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
@@ -35,8 +34,6 @@ import javax.ws.rs.core.MediaType;
 public class ViajeroResource {
 
     private static final Logger LOGGER = Logger.getLogger(ViajeroResource.class.getName());
-    @Inject
-    private ViajeroTarjetaDeCreditoLogic viajeroTarjetaDeCreditosLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @Inject
     private ViajeroLogic logic;
@@ -148,45 +145,9 @@ public class ViajeroResource {
      * @return TarjetaDeCreditoResource
      * @throws BusinessLogicException
      */
-    //  @Path("{viajeroId: \\d+}/tarjetas")
-    public Class<ViajeroTarjetaDeCreditoResource> getViajeroTarjetaDeCreditoResource(@PathParam("viajeroId") Long editorialsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ENTROoooooooooooo ACAAAAAAAAAAAAAAAAAAAAAA", editorialsId);
+   
 
-        if (logic.getViajero(editorialsId) == null) {
-            throw new WebApplicationException("El recurso /editorials/" + editorialsId + " no existe.", 404);
-        }
-        LOGGER.log(Level.INFO, "ENTROoooooooooooo ACAAAAAAAAAAAAAAAAAAAAAasdsaaaaaaaaaaaaaaaaaaaaaadadadadadadaA", editorialsId);
-
-        return ViajeroTarjetaDeCreditoResource.class;
-    }
-
-    @GET
-    @Path("{viajeroId: \\d+}/tarjetas")
-    public List<TarjetaDeCreditoDTO> getTarjetasDeCreditos(@PathParam("viajeroId") Long viajerosId) {
-        LOGGER.log(Level.INFO, "ViajeroTarjetaDeCreditosResource getTarjetaDeCreditos: input: {0}", viajerosId);
-        List<TarjetaDeCreditoEntity> tarje = viajeroTarjetaDeCreditosLogic.getTarjetaDeCreditos(viajerosId);
-        LOGGER.log(Level.INFO, "Numero de tarjetas de la lista de entidades--------------- {0}", tarje.size());
-        List<TarjetaDeCreditoDTO> listaDetailDTOs = tarjetasListEntity2DTO(tarje);
-        LOGGER.log(Level.INFO, "Numero de tarjetas de la lista de DTOS------------ {0}", listaDetailDTOs.size());
-
-        LOGGER.log(Level.INFO, "ViajeroTarjetaDeCreditosResource getTarjetaDeCreditos: output: {0}", listaDetailDTOs);
-        return listaDetailDTOs;
-    }
-
-    /**
-     * asigna path viaje
-     *
-     * @param viajeroId
-     * @return ViajeResource
-     * @throws BusinessLogicException
-     */
-    @Path("{viajeroId: \\d+/viaje}")
-    public Class<ViajeResource> getViajeResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
-        if (logic.getViajero(viajeroId) == null) {
-            throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
-        }
-        return ViajeResource.class;
-    }
+    
 
     /**
      * asigna path preferencia
@@ -240,6 +201,16 @@ public class ViajeroResource {
             throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
         }
         return FacturasResources.class;
+    }
+    
+    
+    
+        @Path(("{viajeroId: \\d+}/tarjetas"))
+    public Class<TarjetaDeCreditoResource> getTarjetasDeCreditoResource(@PathParam("ciudadId") Long booksId) throws BusinessLogicException {
+        if (logic.getViajero(booksId) == null) {
+            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews no existe.", 404);
+        }
+        return TarjetaDeCreditoResource.class;
     }
 
     private List<TarjetaDeCreditoDTO> tarjetasListEntity2DTO(List<TarjetaDeCreditoEntity> entityList) {
