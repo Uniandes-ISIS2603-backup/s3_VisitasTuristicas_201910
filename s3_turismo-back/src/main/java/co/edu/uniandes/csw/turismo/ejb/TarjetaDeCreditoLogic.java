@@ -28,27 +28,31 @@ public class TarjetaDeCreditoLogic {
        
 
        
+
        
-       @Inject
+       
+    @Inject
     private TarjetaDeCreditoPersistence persistence;
 
     @Inject
-    private ViajeroPersistence ciudadPersistence;
+    private ViajeroPersistence viajeroPersistence;
+
 
     /**
      * Se encarga de crear un TarjetaDeCredito en la base de datos.
      *
      * @param reviewEntity Objeto de TarjetaDeCreditoEntity con los datos nuevos
-     * @param ciudadsId id del Viajero el cual sera padre del nuevo TarjetaDeCredito.
+     * @param viajerosId id del Viajero el cual sera padre del nuevo TarjetaDeCredito.
      * @return Objeto de TarjetaDeCreditoEntity con los datos nuevos y su ID.
-     * @throws BusinessLogicException si ciudadsId no es el mismo que tiene el
+     * @throws BusinessLogicException si viajerosId no es el mismo que tiene el
      * entity.
      *
      */
-    public TarjetaDeCreditoEntity createTarjetaDeCredito(Long ciudadsId, TarjetaDeCreditoEntity reviewEntity) throws BusinessLogicException {
+    public TarjetaDeCreditoEntity createTarjetaDeCredito(Long viajerosId, TarjetaDeCreditoEntity reviewEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear review");
-        ViajeroEntity ciudad = ciudadPersistence.find(ciudadsId);
-        reviewEntity.setViajero(ciudad);
+        ViajeroEntity viajero = viajeroPersistence.find(viajerosId);
+        reviewEntity.setViajero(viajero);
+
         LOGGER.log(Level.INFO, "Termina proceso de creación del review");
         return persistence.create(reviewEntity);
     }
@@ -56,44 +60,47 @@ public class TarjetaDeCreditoLogic {
     /**
      * Obtiene la lista de los registros de TarjetaDeCredito que pertenecen a un Viajero.
      *
-     * @param ciudadsId id del Viajero el cual es padre de los TarjetaDeCreditos.
+     * @param viajerosId id del Viajero el cual es padre de los TarjetaDeCreditos.
      * @return Colección de objetos de TarjetaDeCreditoEntity.
      */
-    public List<TarjetaDeCreditoEntity> getTarjetaDeCreditos(Long ciudadsId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar los reviews asociados al ciudad con id = {0}", ciudadsId);
-        ViajeroEntity ciudadEntity = ciudadPersistence.find(ciudadsId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al ciudad con id = {0}", ciudadsId);
-        return ciudadEntity.getTarjetas();
+    public List<TarjetaDeCreditoEntity> getTarjetaDeCreditos(Long viajerosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
+        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
+        return viajeroEntity.getTarjetas();
+
     }
 
     /**
      * Obtiene los datos de una instancia de TarjetaDeCredito a partir de su ID. La
      * existencia del elemento padre Viajero se debe garantizar.
      *
-     * @param ciudadsId El id del Libro buscado
+     * @param viajerosId El id del Libro buscado
+
      * @param reviewsId Identificador de la Reseña a consultar
      * @return Instancia de TarjetaDeCreditoEntity con los datos del TarjetaDeCredito consultado.
      *
      */
-    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long ciudadsId, Long reviewsId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
-        return persistence.find(ciudadsId, reviewsId);
+    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long viajerosId, Long reviewsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+        return persistence.find(viajerosId, reviewsId);
+
     }
 
     /**
      * Actualiza la información de una instancia de TarjetaDeCredito.
      *
      * @param reviewEntity Instancia de TarjetaDeCreditoEntity con los nuevos datos.
-     * @param ciudadsId id del Viajero el cual sera padre del TarjetaDeCredito actualizado.
+     * @param viajerosId id del Viajero el cual sera padre del TarjetaDeCredito actualizado.
      * @return Instancia de TarjetaDeCreditoEntity con los datos actualizados.
      *
      */
-    public TarjetaDeCreditoEntity updateTarjetaDeCredito(Long ciudadsId, TarjetaDeCreditoEntity reviewEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + ciudadsId, reviewEntity.getId());
-        ViajeroEntity ciudadEntity = ciudadPersistence.find(ciudadsId);
-        reviewEntity.setViajero(ciudadEntity);
+    public TarjetaDeCreditoEntity updateTarjetaDeCredito(Long viajerosId, TarjetaDeCreditoEntity reviewEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + viajerosId, reviewEntity.getId());
+        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
+        reviewEntity.setViajero(viajeroEntity);
         persistence.update(reviewEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + ciudadsId, reviewEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + viajerosId, reviewEntity.getId());
         return reviewEntity;
     }
 
@@ -101,18 +108,19 @@ public class TarjetaDeCreditoLogic {
      * Elimina una instancia de TarjetaDeCredito de la base de datos.
      *
      * @param reviewsId Identificador de la instancia a eliminar.
-     * @param ciudadsId id del Viajero el cual es padre del TarjetaDeCredito.
+     * @param viajerosId id del Viajero el cual es padre del TarjetaDeCredito.
      * @throws BusinessLogicException Si la reseña no esta asociada al libro.
      *
      */
-    public void deleteTarjetaDeCredito(Long ciudadsId, Long reviewsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
-        TarjetaDeCreditoEntity old = getTarjetaDeCredito(ciudadsId, reviewsId);
+    public void deleteTarjetaDeCredito(Long viajerosId, Long reviewsId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+        TarjetaDeCreditoEntity old = getTarjetaDeCredito(viajerosId, reviewsId);
         if (old == null) {
-            throw new BusinessLogicException("El review con id = " + reviewsId + " no esta asociado a el libro con id = " + ciudadsId);
+            throw new BusinessLogicException("El review con id = " + reviewsId + " no esta asociado a el libro con id = " + viajerosId);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+
     }
          
          
@@ -123,7 +131,5 @@ public class TarjetaDeCreditoLogic {
     private boolean validateNombre(String nombre) {
         return !(nombre == null || nombre.isEmpty());
          }   
- 
-    
-    
+
 }

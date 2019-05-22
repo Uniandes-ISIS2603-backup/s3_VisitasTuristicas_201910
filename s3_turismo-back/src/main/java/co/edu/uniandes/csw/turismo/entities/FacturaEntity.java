@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.turismo.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -40,11 +42,15 @@ public class FacturaEntity extends BaseEntity implements Serializable{
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ViajeroEntity viajero;
     
+
+    
     public FacturaEntity()
     {
         
     }
 
+    
+ 
     /**
      * @return the descripcion
      */

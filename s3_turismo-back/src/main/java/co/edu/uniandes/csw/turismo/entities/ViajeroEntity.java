@@ -36,7 +36,7 @@ public class ViajeroEntity  extends BaseEntity  implements Serializable{
     List<PreferenciaEntity> preferencias;
     
     @PodamExclude
-    @javax.persistence.OneToMany(mappedBy ="viajero")
+    @javax.persistence.OneToMany(mappedBy ="viajero", cascade = CascadeType.PERSIST,orphanRemoval = true)
     List<TarjetaDeCreditoEntity> tarjetas;
     
     @PodamExclude

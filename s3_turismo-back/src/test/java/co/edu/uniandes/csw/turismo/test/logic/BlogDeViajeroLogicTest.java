@@ -201,13 +201,7 @@ public class BlogDeViajeroLogicTest {
      * Prueba para eliminar un blog.
      *
      */
- @Test
-    public void deleteViajeTest() {
-        BlogDeViajeroEntity entity = data.get(0);
-        blogDeViajeroLogic.delete(entity.getId());
-        BlogDeViajeroEntity deleted = em.find(BlogDeViajeroEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }
+
 
     /**
      * Prueba para eliminarle un blog a un plan del cual no pertenece.

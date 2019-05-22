@@ -34,7 +34,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class TarjetaDeCreditoLogicTest {
 
-private final PodamFactory factory = new PodamFactoryImpl();
+  private final PodamFactory factory = new PodamFactoryImpl();
+
 
     @Inject
     private TarjetaDeCreditoLogic reviewLogic;
@@ -164,6 +165,8 @@ private final PodamFactory factory = new PodamFactoryImpl();
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(resultEntity.getBanco(), entity.getBanco());
         Assert.assertEquals(resultEntity.getViajero(), entity.getViajero());
+        Assert.assertEquals(resultEntity.getNumero(), entity.getNumero());
+
     }
 
     /**
@@ -182,7 +185,9 @@ private final PodamFactory factory = new PodamFactoryImpl();
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
-        Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
+        Assert.assertEquals(pojoEntity.getNumero(), resp.getNumero());
+        Assert.assertEquals(pojoEntity.getViajero(), resp.getViajero());
+
     }
 
     /**
@@ -209,6 +214,7 @@ private final PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity entity = data.get(0);
         reviewLogic.deleteTarjetaDeCredito(dataViajero.get(0).getId(), entity.getId());
     }
+
 
     
      

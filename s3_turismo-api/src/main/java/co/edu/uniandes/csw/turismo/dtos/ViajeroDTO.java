@@ -197,4 +197,6 @@ public class ViajeroDTO implements Serializable {
             this.informacionPersonal = ent.getInformacionPersonal();
         }
     }
+
+
 }

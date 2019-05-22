@@ -21,6 +21,8 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class CiudadEntity extends BaseEntity implements Serializable {
     
     private String nombre;
+    
+    private String imagen;
     @PodamExclude
     @OneToMany( mappedBy ="ciudad", cascade = CascadeType.PERSIST,orphanRemoval = true)
     private List<SitioTuristicoEntity> sitios;
@@ -29,6 +31,16 @@ public class CiudadEntity extends BaseEntity implements Serializable {
     @ManyToMany
     private List<PlanTuristicoEntity> planes;
     
+        private String descripcion;
+    
+    public String getDescripcion()
+    {
+        return descripcion;
+    }
+    public void setDescripcion(String p)
+    {
+        this.descripcion=p;
+    }
     
     
     /*
@@ -38,6 +50,14 @@ public class CiudadEntity extends BaseEntity implements Serializable {
     public List<PlanTuristicoEntity> darPlanes()   
     {
         return planes;
+    }
+    public String getImagen()
+    {
+        return imagen;
+    }
+    public void setImagen(String p)
+    {
+        this.imagen=p;
     }
     
     /*

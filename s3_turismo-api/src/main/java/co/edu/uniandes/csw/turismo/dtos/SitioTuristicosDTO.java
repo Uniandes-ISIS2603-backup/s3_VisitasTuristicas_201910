@@ -24,8 +24,8 @@ public class SitioTuristicosDTO implements Serializable
     /*
     *Atributo que representa el id de un sitio turistico
     */
-    
-    
+    private String imagen;
+
     /*
     *Atributo que representa el nombre de un sitio turistico
     */
@@ -33,6 +33,17 @@ public class SitioTuristicosDTO implements Serializable
     
     private CiudadDTO ciudad;
     
+
+    
+    public String getImagen()
+    {
+        return imagen;
+    }
+    
+    public void setImagen(String p)
+    {
+        this.imagen=p;
+    }
     /*
     *Constructor de la clase
     */
@@ -50,6 +61,7 @@ public class SitioTuristicosDTO implements Serializable
             this.nombre = e.darNombre();
         
             this.tipo = e.darTipo();
+            this.imagen=e.getImagen();
             if(e.darCiudad()!=null)
             {
                 this.ciudad = new CiudadDTO(e.darCiudad());  
@@ -69,7 +81,7 @@ public class SitioTuristicosDTO implements Serializable
         ret.actualizarNombre(this.nombre);
         ret.actualizarTipo(this.tipo);
         ret.actualizarCiudad(this.ciudad.toEntity());
-        
+        ret.setImagen(this.imagen);
         return ret;
     }
     

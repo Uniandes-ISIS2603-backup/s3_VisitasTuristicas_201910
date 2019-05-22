@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,6 +33,9 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PreferenciaResource {
+    
+    
+    
     private static final Logger LOGGER=Logger.getLogger(PreferenciaResource.class.getName());
     @Inject
     private PreferenciaLogic logic;
@@ -42,7 +44,7 @@ public class PreferenciaResource {
     
     
      @POST
-    public PreferenciaDTO createPreferencia(@PathParam("viajero") Long booksId, PreferenciaDTO sitio) throws BusinessLogicException {
+    public PreferenciaDTO createPreferencia(@PathParam("viajeroId") Long booksId, PreferenciaDTO sitio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "PreferenciaResource createPreferencia: input: {0}", sitio);
         PreferenciaDTO nuevoPreferenciaDTO = new PreferenciaDTO(logic.createPreferencia(booksId, sitio.toEntity()));
         LOGGER.log(Level.INFO, "PreferenciaResource createPreferencia: output: {0}", nuevoPreferenciaDTO);
@@ -52,14 +54,14 @@ public class PreferenciaResource {
     /**
      * Busca y devuelve todas las reseñas que existen en un libro.
      *
-     * @param viajero
+     * @param viajeroId
      * @return JSONArray {@link PreferenciaDTO} - Las reseñas encontradas en el
      * libro. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<PreferenciaDTO> getPreferencias(@PathParam("viajero") Long viajero) {
-        LOGGER.log(Level.INFO, "PreferenciaResource getPreferencia: input: {0}", viajero);
-        List<PreferenciaDTO> listaDTOs = listEntity2DTO(logic.getPreferencias(viajero));
+    public List<PreferenciaDTO> getPreferencias(@PathParam("viajeroId") Long viajeroId) {
+        LOGGER.log(Level.INFO, "PreferenciaResource getPreferencia: input: {0}", viajeroId);
+        List<PreferenciaDTO> listaDTOs = listEntity2DTO(logic.getPreferencias(viajeroId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs);
         return listaDTOs;
     }
@@ -77,8 +79,8 @@ public class PreferenciaResource {
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @GET
-    @Path("{preferencia: \\d+}")
-    public PreferenciaDTO getPreferencia(@PathParam("viajero") Long booksId, @PathParam("preferencia") Long preferenciaId) throws BusinessLogicException {
+    @Path("{preferencias: \\d+}")
+    public PreferenciaDTO getPreferencia(@PathParam("viajeroId") Long booksId, @PathParam("preferencias") Long preferenciaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "PreferenciaResource getPreferencia: input: {0}", preferenciaId);
         PreferenciaEntity entity = logic.getPreferencia(booksId, preferenciaId);
         if (entity == null) {
@@ -103,8 +105,8 @@ public class PreferenciaResource {
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @PUT
-    @Path("{preferenciaId: \\d+}")
-    public PreferenciaDTO updatePreferencia(@PathParam("viajero") Long booksId, @PathParam("preferenciaId") Long preferenciaId, PreferenciaDTO sitio) throws BusinessLogicException {
+    @Path("{preferencias: \\d+}")
+    public PreferenciaDTO updatePreferencia(@PathParam("viajeroId") Long booksId, @PathParam("preferencias") Long preferenciaId, PreferenciaDTO sitio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "PreferenciaResource updatePreferencia: input: booksId: {0} , preferenciaId: {1} , sitio:{2}", new Object[]{booksId, preferenciaId, sitio});
         if (preferenciaId.equals(sitio.getIdPreferencia())) {
             throw new BusinessLogicException("Los ids del Preferencia no coinciden.");
@@ -130,14 +132,24 @@ public class PreferenciaResource {
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @DELETE
-    @Path("{preferenciaId: \\d+}")
-    public void deletePreferencia(@PathParam("viajero") Long booksId, @PathParam("preferenciaId") Long preferenciaId) throws BusinessLogicException {
+    @Path("{preferencias: \\d+}")
+    public void deletePreferencia(@PathParam("viajeroId") Long booksId, @PathParam("preferencias") Long preferenciaId) throws BusinessLogicException {
         PreferenciaEntity entity = logic.getPreferencia(booksId, preferenciaId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + "/preferencia/" + preferenciaId + " no existe.", 404);
         }
-        logic.deleteSitioTuritico(booksId, preferenciaId);
+                             logic.deletePreferencia(booksId, preferenciaId);
     }
 
     /**

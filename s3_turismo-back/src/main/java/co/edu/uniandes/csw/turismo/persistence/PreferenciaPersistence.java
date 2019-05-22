@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class PreferenciaPersistence {
-   @PersistenceContext(unitName="turismoPU")
+ @PersistenceContext(unitName="turismoPU")
     protected EntityManager em;
     
     /*

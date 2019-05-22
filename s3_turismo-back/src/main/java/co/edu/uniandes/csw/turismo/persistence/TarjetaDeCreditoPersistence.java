@@ -23,8 +23,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class TarjetaDeCreditoPersistence {
     
-private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
-
+ private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
 
 
     

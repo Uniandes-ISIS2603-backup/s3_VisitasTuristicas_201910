@@ -125,8 +125,8 @@ public class FacturaEntityPersistence {
         FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
-        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
     }
 
     /**
@@ -170,6 +170,6 @@ public class FacturaEntityPersistence {
 
         Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.turismo.resources;
 
 import co.edu.uniandes.csw.turismo.dtos.FacturaDTO;
@@ -34,16 +29,19 @@ import javax.ws.rs.core.MediaType;
 public class FacturasResources {
     
   private static final Logger LOGGER=Logger.getLogger(FacturasResources.class.getName());
-    @Inject
+   
+  
+  
+  @Inject
     private FacturaLogic logic;
   
     
     
     
      @POST
-    public FacturaDTO createFactura(@PathParam("viajeroId") Long booksId, FacturaDTO factura) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "FacturaResource createFactura: input: {0}", factura);
-        FacturaDTO nuevoFacturaDTO = new FacturaDTO(logic.createFactura(booksId, factura.toEntity()));
+    public FacturaDTO createFactura(@PathParam("viajeroId") Long booksId, FacturaDTO sitio) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "FacturaResource createFactura: input: {0}", sitio);
+        FacturaDTO nuevoFacturaDTO = new FacturaDTO(logic.createSitioTuritico(booksId, sitio.toEntity()));
         LOGGER.log(Level.INFO, "FacturaResource createFactura: output: {0}", nuevoFacturaDTO);
         return nuevoFacturaDTO;
     }
@@ -58,7 +56,7 @@ public class FacturasResources {
     @GET
     public List<FacturaDTO> getFactura(@PathParam("viajeroId") Long viajeroId) {
         LOGGER.log(Level.INFO, "FacturaResource getFactura: input: {0}", viajeroId);
-        List<FacturaDTO> listaDTOs = listEntity2DTO(logic.getFacturas(viajeroId));
+        List<FacturaDTO> listaDTOs = listEntity2DTO(logic.getSitioTuriticos(viajeroId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs);
         return listaDTOs;
     }
@@ -68,7 +66,7 @@ public class FacturasResources {
      * libro.
      *
      * @param booksId El ID del libro del cual se buscan las reseñas
-     * @param facturasId El ID de la reseña que se busca
+     * @param sitiosId El ID de la reseña que se busca
      * @return {@link FacturaDTO} - La reseña encontradas en el libro.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
@@ -76,16 +74,16 @@ public class FacturasResources {
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @GET
-    @Path("{facturas: \\d+}")
-    public FacturaDTO getFactura(@PathParam("viajeroId") Long booksId, @PathParam("facturas") Long facturasId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "FacturaResource getFactura: input: {0}", facturasId);
-        FacturaEntity entity = logic.getFactura(booksId, facturasId);
+    @Path("{factura: \\d+}")
+    public FacturaDTO getFactura(@PathParam("viajeroId") Long booksId, @PathParam("factura") Long sitiosId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "FacturaResource getFactura: input: {0}", sitiosId);
+        FacturaEntity entity = logic.getSitioTuritico(booksId, sitiosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/facturas/" + facturasId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);
         }
-        FacturaDTO facturaDTO = new FacturaDTO(entity);
-        LOGGER.log(Level.INFO, "FacturaResource getFactura: output: {0}", facturaDTO);
-        return facturaDTO;
+        FacturaDTO sitioDTO = new FacturaDTO(entity);
+        LOGGER.log(Level.INFO, "FacturaResource getFactura: output: {0}", sitioDTO);
+        return sitioDTO;
     }
 
     /**
@@ -93,8 +91,8 @@ public class FacturasResources {
      * petición y se regresa el objeto actualizado.
      *
      * @param booksId El ID del libro del cual se guarda la reseña
-     * @param facturasId El ID de la reseña que se va a actualizar
-     * @param factura {@link FacturaDTO} - La reseña que se desea guardar.
+     * @param sitiosId El ID de la reseña que se va a actualizar
+     * @param sitio {@link FacturaDTO} - La reseña que se desea guardar.
      * @return JSON {@link FacturaDTO} - La reseña actualizada.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando ya existe la reseña.
@@ -102,20 +100,20 @@ public class FacturasResources {
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @PUT
-    @Path("{facturasId: \\d+}")
-    public FacturaDTO updateFactura(@PathParam("viajeroId") Long booksId, @PathParam("facturasId") Long facturasId, FacturaDTO factura) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "FacturaResource updateFactura: input: booksId: {0} , facturasId: {1} , factura:{2}", new Object[]{booksId, facturasId, factura});
-        if (facturasId.equals(factura.getId())) {
+    @Path("{sitiosId: \\d+}")
+    public FacturaDTO updateFactura(@PathParam("viajeroId") Long booksId, @PathParam("sitiosId") Long sitiosId, FacturaDTO sitio) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "FacturaResource updateFactura: input: booksId: {0} , sitiosId: {1} , sitio:{2}", new Object[]{booksId, sitiosId, sitio});
+        if (sitiosId.equals(sitio.getId())) {
             throw new BusinessLogicException("Los ids del Factura no coinciden.");
         }
-        FacturaEntity entity = logic.getFactura(booksId, facturasId);
+        FacturaEntity entity = logic.getSitioTuritico(booksId, sitiosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/facturas/" + facturasId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);
 
         }
-        FacturaDTO facturaDTO = new FacturaDTO(logic.updateFactura(booksId, factura.toEntity()));
-        LOGGER.log(Level.INFO, "FacturaResource updateFactura: output:{0}", facturaDTO);
-        return facturaDTO;
+        FacturaDTO sitioDTO = new FacturaDTO(logic.updateSitioTuritico(booksId, sitio.toEntity()));
+        LOGGER.log(Level.INFO, "FacturaResource updateFactura: output:{0}", sitioDTO);
+        return sitioDTO;
 
     }
 
@@ -123,20 +121,20 @@ public class FacturasResources {
      * Borra la reseña con el id asociado recibido en la URL.
      *
      * @param booksId El ID del libro del cual se va a eliminar la reseña.
-     * @param facturasId El ID de la reseña que se va a eliminar.
+     * @param sitiosId El ID de la reseña que se va a eliminar.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se puede eliminar la reseña.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @DELETE
-    @Path("{facturasId: \\d+}")
-    public void deleteFactura(@PathParam("viajeroId") Long booksId, @PathParam("facturasId") Long facturasId) throws BusinessLogicException {
-        FacturaEntity entity = logic.getFactura(booksId, facturasId);
+    @Path("{sitiosId: \\d+}")
+    public void deleteFactura(@PathParam("viajeroId") Long booksId, @PathParam("sitiosId") Long sitiosId) throws BusinessLogicException {
+        FacturaEntity entity = logic.getSitioTuritico(booksId, sitiosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/facturas/" + facturasId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);
         }
-        logic.deleteFactura(booksId, facturasId);
+        logic.deleteSitioTuritico(booksId, sitiosId);
     }
 
     /**
@@ -155,10 +153,6 @@ public class FacturasResources {
             list.add(new FacturaDTO(entity));
         }
         return list;
-    }    
-    
-    
-
-    
+    }
     
 }
