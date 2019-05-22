@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
@@ -28,117 +29,123 @@ import javax.ws.rs.WebApplicationException;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ValoracionResource {
 
+    private static final Logger LOGGER=Logger.getLogger(ValoracionResource.class.getName());
     @Inject
-    private ValoracionLogic valoracionLogic;
+    private ValoracionLogic logic;
+  
     
-    private static final Logger LOGGER = Logger.getLogger(ValoracionResource.class.getName());
-
     
+    
+     @POST
+    public ValoracionDTO createValoracion(@PathParam("planId") Long booksId, ValoracionDTO valoracion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ValoracionResource createValoracion: input: {0}", valoracion);
+        ValoracionDTO nuevoValoracionDTO = new ValoracionDTO(logic.createValoracion(booksId, valoracion.toEntity()));
+        LOGGER.log(Level.INFO, "ValoracionResource createValoracion: output: {0}", nuevoValoracionDTO);
+        return nuevoValoracionDTO;
+    }
 
-     /**
-     * Busca y devuelve todas las valoraciones que existen en un plan.
+    /**
+     * Busca y devuelve todas las reseñas que existen en un libro.
      *
-     * @param planTuristicoId El ID del plan del cual se buscan las valoraciones
-     * @return JSONArray {@link ValoracionDTO} - Las valoraciones encontradas en el
-     * plam. Si no hay ninguna retorna una lista vacía.
-     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     * @param planId
+     * @return JSONArray {@link ValoracionDTO} - Las reseñas encontradas en el
+     * libro. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<ValoracionDTO> getValoraciones(@PathParam("planTuristicoId") Long planTuristicoId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ValoracionResource getValoraciones: input: {0}", planTuristicoId);
-        List<ValoracionDTO> listaDTOs;
-        listaDTOs = listEntity2DTO(valoracionLogic.getValoraciones(planTuristicoId));
-        LOGGER.log(Level.INFO, "PlanTuristicoResource getValoraciones: output: {0}", listaDTOs.toString());
+    public List<ValoracionDTO> getValoracion(@PathParam("planId") Long planId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ValoracionResource getValoracion: input: {0}", planId);
+        List<ValoracionDTO> listaDTOs = listEntity2DTO(logic.getValoraciones(planId));
+        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs);
         return listaDTOs;
     }
 
     /**
-     * Busca y devuelve la valoracion con el ID recibido en la URL, relativa a un
-     * plan.
+     * Busca y devuelve la reseña con el ID recibido en la URL, relativa a un
+     * libro.
      *
-     * @param planTuristicoId El ID del libro del cual se buscan las reseñas
-     * @param valoracionId El ID de la valoracion que se busca
-     * @return {@link ValoracionDTO} - La valoracion encontradas en el plan.
+     * @param booksId El ID del libro del cual se buscan las reseñas
+     * @param valoracionsId El ID de la reseña que se busca
+     * @return {@link ValoracionDTO} - La reseña encontradas en el libro.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el plan.
+     * Error de lógica que se genera cuando no se encuentra el libro.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la valoracion.
+     * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @GET
-    @Path("{valoracionId: \\d+}")
-    public ValoracionDTO getValoracion(@PathParam("planTuristicoId") Long planTuristicoId, @PathParam("valoracionId") Long valoracionId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ValoracionResource getValoracion: input: {0}", valoracionId);
-        ValoracionEntity entity = valoracionLogic.getValoracion(planTuristicoId, valoracionId);
+    @Path("{valoracions: \\d+}")
+    public ValoracionDTO getValoracion(@PathParam("planId") Long booksId, @PathParam("valoracions") Long valoracionsId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ValoracionResource getValoracion: input: {0}", valoracionsId);
+        ValoracionEntity entity = logic.getValoracion(booksId, valoracionsId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /plan/" + planTuristicoId + "/valoracion/" + valoracionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + booksId + "/valoracions/" + valoracionsId + " no existe.", 404);
         }
         ValoracionDTO valoracionDTO = new ValoracionDTO(entity);
-       // LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", ValoracionDTO.toString());
+        LOGGER.log(Level.INFO, "ValoracionResource getValoracion: output: {0}", valoracionDTO);
         return valoracionDTO;
     }
 
     /**
-     * Actualiza una valoracion con la informacion que se recibe en el cuerpo de la
+     * Actualiza una reseña con la informacion que se recibe en el cuerpo de la
      * petición y se regresa el objeto actualizado.
      *
-     * @param planId El ID del plan del cual se guarda la valoracion
-     * @param valoracionId El ID de la reseña que se va a actualizar
-     * @param valoracion {@link ValoracionDTO} - La valoracion que se desea guardar.
-     * @return JSON {@link ValoracionDTO} - La valoracion actualizada.
+     * @param booksId El ID del libro del cual se guarda la reseña
+     * @param valoracionsId El ID de la reseña que se va a actualizar
+     * @param valoracion {@link ValoracionDTO} - La reseña que se desea guardar.
+     * @return JSON {@link ValoracionDTO} - La reseña actualizada.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando ya existe la valoracion.
+     * Error de lógica que se genera cuando ya existe la reseña.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la valoracion.
+     * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @PUT
-    @Path("{valoracionId: \\d+}")
-    public ValoracionDTO updateValoracion(@PathParam("planId") Long planId, @PathParam("valoracionId") Long valoracionId, ValoracionDTO valoracion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: input: planId: {0} , valoracionId: {1} , valoracion:{2}", new Object[]{planId, valoracionId, valoracion.toString()});
-        if (valoracionId.equals(valoracion.toEntity().getId())) {
-            throw new BusinessLogicException("Los ids de la valoracion no coinciden.");
+    @Path("{valoracionsId: \\d+}")
+    public ValoracionDTO updateValoracion(@PathParam("planId") Long booksId, @PathParam("valoracionsId") Long valoracionsId, ValoracionDTO valoracion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: input: booksId: {0} , valoracionsId: {1} , valoracion:{2}", new Object[]{booksId, valoracionsId, valoracion});
+        if (valoracionsId.equals(valoracion.getIdUsuario())) {
+            throw new BusinessLogicException("Los ids del Valoracion no coinciden.");
         }
-        ValoracionEntity entity = valoracionLogic.getValoracion(planId, valoracionId);
+        ValoracionEntity entity = logic.getValoracion(booksId, valoracionsId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /plan/" + planId + "/valoracion/" + valoracionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + booksId + "/valoracions/" + valoracionsId + " no existe.", 404);
 
         }
-        ValoracionDTO valoracionDTO = new ValoracionDTO(valoracionLogic.updateValoracion(planId,valoracion.toEntity()));
-        LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: output:{0}", valoracionDTO.toString());
+        ValoracionDTO valoracionDTO = new ValoracionDTO(logic.updateValoracion(booksId, valoracion.toEntity()));
+        LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: output:{0}", valoracionDTO);
         return valoracionDTO;
 
     }
 
     /**
-     * Borra la valoracion con el id asociado recibido en la URL.
+     * Borra la reseña con el id asociado recibido en la URL.
      *
-     * @param planId El ID del plan del cual se va a eliminar la valoracion.
-     * @param valoracionId El ID de la valoracion que se va a eliminar.
+     * @param booksId El ID del libro del cual se va a eliminar la reseña.
+     * @param valoracionsId El ID de la reseña que se va a eliminar.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se puede eliminar la valoracion.
+     * Error de lógica que se genera cuando no se puede eliminar la reseña.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la valoracion.
+     * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @DELETE
-    @Path("{valoracionId: \\d+}")
-    public void deleteValoracion(@PathParam("planId") Long planId, @PathParam("valoracionId") Long valoracionId) throws BusinessLogicException {
-        ValoracionEntity entity = valoracionLogic.getValoracion(planId,valoracionId);
+    @Path("{valoracionsId: \\d+}")
+    public void deleteValoracion(@PathParam("planId") Long booksId, @PathParam("valoracionsId") Long valoracionsId) throws BusinessLogicException {
+        ValoracionEntity entity = logic.getValoracion(booksId, valoracionsId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /plan/" + planId + "/valoracion/" + valoracionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /books/" + booksId + "/valoracions/" + valoracionsId + " no existe.", 404);
         }
-        valoracionLogic.deleteValoracion(planId, valoracionId);
+        logic.deleteValoracion(booksId, valoracionsId);
     }
 
     /**
      * Lista de entidades a DTO.
      *
-     * Este método convierte una lista de objetos ValoracionEntity a una lista de
+     * Este método convierte una lista de objetos PrizeEntity a una lista de
      * objetos ValoracionDTO (json)
      *
-     * @param entityList corresponde a la lista de valoraciones de tipo Entity que
+     * @param entityList corresponde a la lista de reseñas de tipo Entity que
      * vamos a convertir a DTO.
-     * @return la lista de valoraciones en forma DTO (json)
+     * @return la lista de reseñas en forma DTO (json)
      */
-    private List<ValoracionDTO> listEntity2DTO(List<ValoracionEntity> entityList)throws BusinessLogicException {
+    private List<ValoracionDTO> listEntity2DTO(List<ValoracionEntity> entityList) throws BusinessLogicException {
         List<ValoracionDTO> list = new ArrayList<>();
         for (ValoracionEntity entity : entityList) {
             list.add(new ValoracionDTO(entity));

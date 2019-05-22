@@ -31,6 +31,16 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     private Boolean guia;
     private String duracion;
     private String idioma;
+       private String imagen;
+
+        public void setImagen(String a)
+    {
+        this.imagen=a;
+    }
+    public String getImagen()
+    {
+        return imagen;
+    }
 
     //Relacion con blogs
     @PodamExclude
@@ -49,11 +59,14 @@ public class PlanTuristicoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToMany(mappedBy="planes",fetch=FetchType.LAZY)
     private List<CiudadEntity> ciudades= new ArrayList<CiudadEntity>();
+    
+
 
     public PlanTuristicoEntity() 
     {
 
     }
+
 
     public List<CiudadEntity> getCiudades()
     {

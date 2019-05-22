@@ -32,8 +32,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class TarjetaDeCretitoEntityPersistenceTest {
     
-  @Inject
-    private TarjetaDeCreditoPersistence tarjetaPersistence;
+     @Inject
+    private TarjetaDeCreditoPersistence reviewPersistence;
 
     @PersistenceContext
     private EntityManager em;
@@ -41,9 +41,9 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+    private final List<TarjetaDeCreditoEntity> data = new ArrayList<>();
 	
-    private List<ViajeroEntity> dataViajero = new ArrayList<ViajeroEntity>();
+    private final List<ViajeroEntity> dataViajero = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -117,14 +117,14 @@ public class TarjetaDeCretitoEntityPersistenceTest {
 
         PodamFactory factory = new PodamFactoryImpl();
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        TarjetaDeCreditoEntity result = tarjetaPersistence.create(newEntity);
+        TarjetaDeCreditoEntity result = reviewPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
-        Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
 
@@ -134,11 +134,11 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Test
     public void getTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity newEntity = tarjetaPersistence.find(entity.getId());
+        TarjetaDeCreditoEntity newEntity = reviewPersistence.find(dataViajero.get(0).getId(), entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getBanco(), newEntity.getBanco());
-        Assert.assertEquals(entity.getCodigoSeguridad(), newEntity.getCodigoSeguridad());
-        Assert.assertEquals(entity.getNumero(), newEntity.getNumero());
+         Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
+        Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
 
     /**
@@ -147,7 +147,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
     @Test
     public void deleteTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entity = data.get(0);
-        tarjetaPersistence.delete(entity.getId());
+        reviewPersistence.delete(entity.getId());
         TarjetaDeCreditoEntity deleted = em.find(TarjetaDeCreditoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -163,12 +163,10 @@ public class TarjetaDeCretitoEntityPersistenceTest {
 
         newEntity.setId(entity.getId());
 
-        tarjetaPersistence.update(newEntity);
+        reviewPersistence.update(newEntity);
 
         TarjetaDeCreditoEntity resp = em.find(TarjetaDeCreditoEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getBanco(), resp.getBanco());
-        Assert.assertEquals(newEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
-        Assert.assertEquals(newEntity.getNumero(), resp.getNumero());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
     }
 }

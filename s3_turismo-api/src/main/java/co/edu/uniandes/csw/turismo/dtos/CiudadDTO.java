@@ -25,6 +25,12 @@ public class CiudadDTO implements Serializable {
     */
     private String nombre;
     
+    private String descripcion;
+    
+        private String imagen;
+
+    
+
     
     /*
     *Constructor de la clase ciudad
@@ -41,6 +47,8 @@ public class CiudadDTO implements Serializable {
             this.id=e.getId();
         
             this.nombre = e.darNombre();
+            this.imagen=e.getImagen();
+            this.descripcion=e.getDescripcion();
         
         }
     }
@@ -51,10 +59,30 @@ public class CiudadDTO implements Serializable {
         
         ret.setId(this.getId());  
         ret.actualizarNombre(this.getNombre());
+        ret.setImagen(this.getImagen());
+        ret.setDescripcion(this.getDescripcion());
         
         return ret;
     }
 
+        public String getDescripcion()
+    {
+        return descripcion;
+    }
+    public void setDescripcion(String p)
+    {
+        this.descripcion=p;
+    }
+    
+    public String getImagen()
+    {
+        return imagen;
+    }
+    
+    public void setImagen(String im)
+    {
+        this.imagen=im;
+    }
     /**
      * @return the id
      */

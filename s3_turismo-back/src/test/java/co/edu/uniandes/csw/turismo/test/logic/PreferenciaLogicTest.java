@@ -192,7 +192,7 @@ public class PreferenciaLogicTest {
     @Test
     public void deletePreferenciaTest() throws BusinessLogicException {
         PreferenciaEntity entity = data.get(0);
-        reviewLogic.deleteSitioTuritico(dataViajero.get(1).getId(), entity.getId());
+        reviewLogic.deletePreferencia(dataViajero.get(1).getId(), entity.getId());
         PreferenciaEntity deleted = em.find(PreferenciaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -206,6 +206,6 @@ public class PreferenciaLogicTest {
 
     public void deletePreferenciaConViajeroNoAsociadoTest() throws BusinessLogicException {
         PreferenciaEntity entity = data.get(0);
-        reviewLogic.deleteSitioTuritico(dataViajero.get(0).getId(), entity.getId());
+        reviewLogic.deletePreferencia(dataViajero.get(0).getId(), entity.getId());
     }
 }

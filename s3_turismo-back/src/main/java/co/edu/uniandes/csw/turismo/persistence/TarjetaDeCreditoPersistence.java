@@ -23,98 +23,94 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class TarjetaDeCreditoPersistence {
     
-private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
+ private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
 
-
-    @PersistenceContext(unitName = "turismoPU")
+    
+    @PersistenceContext(unitName="turismoPU")
     protected EntityManager em;
-
-    /**
-     * Método para persisitir la entidad en la base de datos.
-     *
-     * @param bookEntity objeto libro que se creará en la base de datos
-     * @return devuelve la entidad creada con un id dado por la base de datos.
-     */
-    public TarjetaDeCreditoEntity create(TarjetaDeCreditoEntity bookEntity) {
-        LOGGER.log(Level.INFO, "Creando un libro nuevo");
-        em.persist(bookEntity);
-        LOGGER.log(Level.INFO, "Libro creado");
-        return bookEntity;
+    
+    /*
+    *Crea un nuevo sitio turistico
+    *@param sitioEntity
+    */
+    public TarjetaDeCreditoEntity create(TarjetaDeCreditoEntity sitioEntity)
+    {
+       LOGGER.log(Level.INFO, "Creando un sitio turistico nuevo");
+       em.persist(sitioEntity);
+       LOGGER.log(Level.INFO, "SitioTuristio creado");
+       return sitioEntity;
     }
-
-    /**
-     * Devuelve todos loslibros de la base de datos.
-     *
-     * @return una lista con todos los libros que encuentre en la base de datos,
-     * "select u from TarjetaDeCreditoEntity u" es como un "select * from TarjetaDeCreditoEntity;" -
-     * "SELECT * FROM table_name" en SQL.
-     */
-    public List<TarjetaDeCreditoEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos los libros");
-        Query q = em.createQuery("select u from TarjetaDeCreditoEntity u");
-        return q.getResultList();
+    
+    
+    /*
+    *Busca un sitio turistico con el id dado
+    *@return TarjetaDeCreditoEntity
+    */
+ public TarjetaDeCreditoEntity find(Long ciudadId, Long sitioId) {
+        LOGGER.log(Level.INFO, "Consultando el sitioTuristico con id = {0} del libro con id = " + ciudadId, sitioId);
+        TypedQuery<TarjetaDeCreditoEntity> q = em.createQuery("select p from TarjetaDeCreditoEntity p where (p.viajero.id = :ciudadId) and (p.id = :sitioId)", TarjetaDeCreditoEntity.class);
+        q.setParameter("ciudadId", ciudadId);
+        q.setParameter("sitioId", sitioId);
+        List<TarjetaDeCreditoEntity> results = q.getResultList();
+        TarjetaDeCreditoEntity sitioTuristico = null;
+        if (results == null) {
+            sitioTuristico = null;
+        } else if (results.isEmpty()) {
+            sitioTuristico = null;
+        } else if (results.size() >= 1) {
+            sitioTuristico = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el sitioTuristico con id = {0} del libro con id =" + ciudadId, sitioId);
+        return sitioTuristico;
     }
-
-    /**
-     * Busca si hay algun lubro con el id que se envía de argumento
-     *
-     * @param booksId: id correspondiente al libro buscado.
-     * @return un libro.
-     */
-    public TarjetaDeCreditoEntity find(Long booksId) {
-        LOGGER.log(Level.INFO, "Consultando el libro con id={0}", booksId);
-        return em.find(TarjetaDeCreditoEntity.class, booksId);
+    
+    /*
+    *Actualiza y retorna un sitio turistico
+    *@return sitioEntity
+    */
+    public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity sitioEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el sitioTuristico con id={0}", sitioEntity.getId());
+        return em.merge(sitioEntity);
+        
     }
-
-    /**
-     * Actualiza un libro.
-     *
-     * @param bookEntity: el libro que viene con los nuevos cambios. Por ejemplo
-     * el nombre pudo cambiar. En ese caso, se haria uso del método update.
-     * @return un libro con los cambios aplicados.
-     */
-    public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity bookEntity) {
-        LOGGER.log(Level.INFO, "Actualizando el libro con id={0}", bookEntity.getId());
-        return em.merge(bookEntity);
-    }
-
-    /**
-     *
-     * Borra un libro de la base de datos recibiendo como argumento el id del
-     * libro
-     *
-     * @param booksId: id correspondiente al libro a borrar.
-     */
-    public void delete(Long booksId) {
-        LOGGER.log(Level.INFO, "Borrando el libro con id={0}", booksId);
-        TarjetaDeCreditoEntity bookEntity = em.find(TarjetaDeCreditoEntity.class, booksId);
-        em.remove(bookEntity);
-    }
-
-    /**
-     * Busca si hay algun libro con el ISBN que se envía de argumento
-     *
-     * @param isbn: ISBN de la editorial que se está buscando
-     * @return null si no existe ningun libro con el isbn del argumento. Si
-     * existe alguno devuelve el primero.
-     */
-    public TarjetaDeCreditoEntity findByISBN(String isbn) {
-        LOGGER.log(Level.INFO, "Consultando libros por isbn ", isbn);
-        // Se crea un query para buscar libros con el isbn que recibe el método como argumento. ":isbn" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.isbn = :isbn", TarjetaDeCreditoEntity.class);
-        // Se remplaza el placeholder ":isbn" con el valor del argumento 
-        query = query.setParameter("isbn", isbn);
+    
+    /*
+    *Busca un sitio turistico por nombre
+    *@param name
+    *@return result
+    */
+    public TarjetaDeCreditoEntity findByName(String nombre) {
+        LOGGER.log(Level.INFO, "Consultando sitio turistico por nombre ", nombre);
+        // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.nombre = :nombre", TarjetaDeCreditoEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("nombre", nombre);
         // Se invoca el query se obtiene la lista resultado
-        List<TarjetaDeCreditoEntity> sameISBN = query.getResultList();
+        List<TarjetaDeCreditoEntity> sameName = query.getResultList();
         TarjetaDeCreditoEntity result;
-        if (sameISBN == null) {
+        if (sameName == null) {
             result = null;
-        } else if (sameISBN.isEmpty()) {
+        } else if (sameName.isEmpty()) {
             result = null;
         } else {
-            result = sameISBN.get(0);
+            result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar libros por isbn ", isbn);
+        LOGGER.log(Level.INFO, "Saliendo de consultar TarjetaDeCredito por nombre ", nombre);
         return result;
+    }
+    
+    
+        /**
+     * Eliminar una reseña
+     *
+     * Elimina la reseña asociada al ID que recibe
+     *
+     * @param sitioTuristicosId El ID de la reseña que se desea borrar
+     */
+    public void delete(Long sitioTuristicosId) {
+        LOGGER.log(Level.INFO, "Borrando sitioTuristico con id = {0}", sitioTuristicosId);
+        TarjetaDeCreditoEntity sitioTuristicoEntity = em.find(TarjetaDeCreditoEntity.class, sitioTuristicosId);
+        em.remove(sitioTuristicoEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar El sitioTuristico con id = {0}", sitioTuristicosId);
     }
 }

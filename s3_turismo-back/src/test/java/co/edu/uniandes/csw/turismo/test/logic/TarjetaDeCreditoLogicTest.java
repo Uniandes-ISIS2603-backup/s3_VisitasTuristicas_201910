@@ -34,10 +34,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class TarjetaDeCreditoLogicTest {
 
-  private PodamFactory factory = new PodamFactoryImpl();
+  private final PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private TarjetaDeCreditoLogic tarjetaLogic;
+    private TarjetaDeCreditoLogic reviewLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -45,8 +45,9 @@ public class TarjetaDeCreditoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+    private final List<TarjetaDeCreditoEntity> data = new ArrayList<>();
 
+    private final List<ViajeroEntity> dataViajero = new ArrayList<>();
 
 
     /**
@@ -97,11 +98,17 @@ public class TarjetaDeCreditoLogicTest {
      * pruebas.
      */
     private void insertData() {
-       
+        
 
+        for (int i = 0; i < 3; i++) {
+            ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
+            em.persist(entity);
+            dataViajero.add(entity);
+        }
 
         for (int i = 0; i < 3; i++) {
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            entity.setViajero(dataViajero.get(1));
             em.persist(entity);
             data.add(entity);
         }
@@ -110,28 +117,30 @@ public class TarjetaDeCreditoLogicTest {
     /**
      * Prueba para crear un TarjetaDeCredito.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
+
     public void createTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        TarjetaDeCreditoEntity result = tarjetaLogic.createTarjetaDeCredito( newEntity);
+        newEntity.setViajero(dataViajero.get(1));
+        TarjetaDeCreditoEntity result = reviewLogic.createTarjetaDeCredito(dataViajero.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
-        Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
 
     /**
      * Prueba para consultar la lista de TarjetaDeCreditos.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void getTarjetaDeCreditosTest() throws BusinessLogicException {
-        List<TarjetaDeCreditoEntity> list = tarjetaLogic.getTarjetaDeCreditos();
+        List<TarjetaDeCreditoEntity> list = reviewLogic.getTarjetaDeCreditos(dataViajero.get(1).getId());
         Assert.assertEquals(data.size(), list.size());
         for (TarjetaDeCreditoEntity entity : list) {
             boolean found = false;
@@ -150,12 +159,12 @@ public class TarjetaDeCreditoLogicTest {
     @Test
     public void getTarjetaDeCreditoTest() {
         TarjetaDeCreditoEntity entity = data.get(0);
-        TarjetaDeCreditoEntity resultEntity = tarjetaLogic.getTarjetaDeCredito( entity.getId());
+        TarjetaDeCreditoEntity resultEntity = reviewLogic.getTarjetaDeCredito(dataViajero.get(1).getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getCodigoSeguridad(), resultEntity.getCodigoSeguridad());
-        Assert.assertEquals(entity.getBanco(), resultEntity.getBanco());
-        Assert.assertEquals(entity.getNumero(), resultEntity.getNumero());
+        Assert.assertEquals(resultEntity.getBanco(), entity.getBanco());
+        Assert.assertEquals(resultEntity.getViajero(), entity.getViajero());
+        Assert.assertEquals(resultEntity.getNumero(), entity.getNumero());
     }
 
     /**
@@ -168,27 +177,39 @@ public class TarjetaDeCreditoLogicTest {
 
         pojoEntity.setId(entity.getId());
 
-        tarjetaLogic.updateTarjetaDeCredito(entity.getId(), pojoEntity);
+        reviewLogic.updateTarjetaDeCredito(dataViajero.get(1).getId(), pojoEntity);
 
         TarjetaDeCreditoEntity resp = em.find(TarjetaDeCreditoEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
         Assert.assertEquals(pojoEntity.getNumero(), resp.getNumero());
+        Assert.assertEquals(pojoEntity.getViajero(), resp.getViajero());
     }
 
     /**
      * Prueba para eliminar un TarjetaDeCredito.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @Test
     public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entity = data.get(0);
-        tarjetaLogic.deleteTarjetaDeCredito( entity.getId());
+        reviewLogic.deleteTarjetaDeCredito(dataViajero.get(1).getId(), entity.getId());
         TarjetaDeCreditoEntity deleted = em.find(TarjetaDeCreditoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para eliminarle un review a un book del cual no pertenece.
+     *
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+
+    public void deleteTarjetaDeCreditoConViajeroNoAsociadoTest() throws BusinessLogicException {
+        TarjetaDeCreditoEntity entity = data.get(0);
+        reviewLogic.deleteTarjetaDeCredito(dataViajero.get(0).getId(), entity.getId());
     }
 
 

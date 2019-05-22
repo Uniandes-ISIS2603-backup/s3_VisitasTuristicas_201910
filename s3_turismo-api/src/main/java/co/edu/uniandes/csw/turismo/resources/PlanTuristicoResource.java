@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Christer Osorio modificado por david fonseca, agregado los paises asociados
+ * @planTuristico Christer Osorio modificado por david fonseca, agregado los paises asociados
  */
 @Path("/planesTuristicos")
 @Produces(MediaType.APPLICATION_JSON)
@@ -144,7 +144,7 @@ public class PlanTuristicoResource {
      @Path("{planId: \\d+}/blogs")
     public Class<BlogDeViajeroResource> getBlogsResource(@PathParam("planId") Long planId) {
         if (logic.getPlanTuristico(planId) == null) {
-            throw new WebApplicationException("El recurso /books/" + planId + "/reviews no existe.", 404);
+            throw new WebApplicationException("El recurso /facturas/" + planId + "/reviews no existe.", 404);
         }
         return BlogDeViajeroResource.class;
     }
@@ -154,7 +154,7 @@ public class PlanTuristicoResource {
     public Class<ValoracionResource> getValoracionesResource(@PathParam("planId") Long planId) {
         if (logic.getPlanTuristico(planId) == null) 
         {
-            throw new WebApplicationException("El recurso /books/" + planId + "/reviews no existe.", 404);
+            throw new WebApplicationException("El recurso /facturas/" + planId + "/reviews no existe.", 404);
         }
         return ValoracionResource.class;
     }
@@ -168,4 +168,6 @@ public class PlanTuristicoResource {
         }
         return list;
     }
+     
+
 }

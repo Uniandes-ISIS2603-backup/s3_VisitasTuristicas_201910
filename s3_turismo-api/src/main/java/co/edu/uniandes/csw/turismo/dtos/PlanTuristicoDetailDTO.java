@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.turismo.dtos;
 
 import co.edu.uniandes.csw.turismo.entities.BlogDeViajeroEntity;
 import co.edu.uniandes.csw.turismo.entities.CiudadEntity;
+import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
 import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.ValoracionEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
@@ -30,7 +31,6 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
     
     
     private List<CiudadDTO> ciudades;
-    //private List<TransporteDTO> transportes;
 //Constructor por defecto
 
     public PlanTuristicoDetailDTO() {
@@ -79,7 +79,10 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
                 ciudades.add(new CiudadDTO(entityCiudad));
             }
         }
+        
+      
     }
+
 
    
     public List<CiudadDTO> getCiudades()
@@ -209,6 +212,8 @@ public class PlanTuristicoDetailDTO extends PlanTuristicoDTO implements Serializ
                 ciudaddEntity.add(dtoCiudad.toEntity());
             }
         }
+        
+     
 
         return planTuristicoEntity;
     }

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.ejb;
 
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
+import co.edu.uniandes.csw.turismo.entities.PlanTuristicoEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
@@ -22,7 +23,8 @@ import javax.inject.Inject;
  */
 @Stateless
 public class FacturaLogic {
-      private static final Logger LOGGER = Logger.getLogger(FacturaLogic.class.getName());
+    
+ private static final Logger LOGGER = Logger.getLogger(FacturaLogic.class.getName());
        
 
        
@@ -31,86 +33,86 @@ public class FacturaLogic {
     private FacturaPersistence persistence;
 
     @Inject
-    private ViajeroPersistence viajeroPersistence;
+    private ViajeroPersistence ciudadPersistence;
 
     /**
-     * Se encarga de crear un Factura en la base de datos.
+     * Se encarga de crear un SitioTuritico en la base de datos.
      *
-     * @param reviewEntity Objeto de FacturaEntity con los datos nuevos
-     * @param viajerosId id del Viajero el cual sera padre del nuevo Factura.
-     * @return Objeto de FacturaEntity con los datos nuevos y su ID.
-     * @throws BusinessLogicException si viajerosId no es el mismo que tiene el
+     * @param reviewEntity Objeto de SitioTuriticoEntity con los datos nuevos
+     * @param ciudadsId id del Viajero el cual sera padre del nuevo SitioTuritico.
+     * @return Objeto de SitioTuriticoEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si ciudadsId no es el mismo que tiene el
      * entity.
      *
      */
-    public FacturaEntity createFactura(Long viajerosId, FacturaEntity reviewEntity) throws BusinessLogicException {
+    public FacturaEntity createSitioTuritico(Long ciudadsId, FacturaEntity reviewEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear review");
-        ViajeroEntity viajero = viajeroPersistence.find(viajerosId);
-        reviewEntity.setViajero(viajero);
+        ViajeroEntity ciudad = ciudadPersistence.find(ciudadsId);
+        reviewEntity.setViajero(ciudad);
         LOGGER.log(Level.INFO, "Termina proceso de creación del review");
         return persistence.create(reviewEntity);
     }
 
     /**
-     * Obtiene la lista de los registros de Factura que pertenecen a un Viajero.
+     * Obtiene la lista de los registros de SitioTuritico que pertenecen a un Viajero.
      *
-     * @param viajerosId id del Viajero el cual es padre de los Facturas.
-     * @return Colección de objetos de FacturaEntity.
+     * @param ciudadsId id del Viajero el cual es padre de los SitioTuriticos.
+     * @return Colección de objetos de SitioTuriticoEntity.
      */
-    public List<FacturaEntity> getFacturas(Long viajerosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
-        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
-        return viajeroEntity.getFacturas();
+    public List<FacturaEntity> getSitioTuriticos(Long ciudadsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar los reviews asociados al ciudad con id = {0}", ciudadsId);
+        ViajeroEntity ciudadEntity = ciudadPersistence.find(ciudadsId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al ciudad con id = {0}", ciudadsId);
+        return ciudadEntity.getFacturas();
     }
 
     /**
-     * Obtiene los datos de una instancia de Factura a partir de su ID. La
+     * Obtiene los datos de una instancia de SitioTuritico a partir de su ID. La
      * existencia del elemento padre Viajero se debe garantizar.
      *
-     * @param viajerosId El id del Libro buscado
+     * @param ciudadsId El id del Libro buscado
      * @param reviewsId Identificador de la Reseña a consultar
-     * @return Instancia de FacturaEntity con los datos del Factura consultado.
+     * @return Instancia de SitioTuriticoEntity con los datos del SitioTuritico consultado.
      *
      */
-    public FacturaEntity getFactura(Long viajerosId, Long reviewsId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
-        return persistence.find(viajerosId, reviewsId);
+    public FacturaEntity getSitioTuritico(Long ciudadsId, Long reviewsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
+        return persistence.find(ciudadsId, reviewsId);
     }
 
     /**
-     * Actualiza la información de una instancia de Factura.
+     * Actualiza la información de una instancia de SitioTuritico.
      *
-     * @param reviewEntity Instancia de FacturaEntity con los nuevos datos.
-     * @param viajerosId id del Viajero el cual sera padre del Factura actualizado.
-     * @return Instancia de FacturaEntity con los datos actualizados.
+     * @param reviewEntity Instancia de SitioTuriticoEntity con los nuevos datos.
+     * @param ciudadsId id del Viajero el cual sera padre del SitioTuritico actualizado.
+     * @return Instancia de SitioTuriticoEntity con los datos actualizados.
      *
      */
-    public FacturaEntity updateFactura(Long viajerosId, FacturaEntity reviewEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + viajerosId, reviewEntity.getId());
-        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
-        reviewEntity.setViajero(viajeroEntity);
+    public FacturaEntity updateSitioTuritico(Long ciudadsId, FacturaEntity reviewEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + ciudadsId, reviewEntity.getId());
+        ViajeroEntity ciudadEntity = ciudadPersistence.find(ciudadsId);
+        reviewEntity.setViajero(ciudadEntity);
         persistence.update(reviewEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + viajerosId, reviewEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + ciudadsId, reviewEntity.getId());
         return reviewEntity;
     }
 
     /**
-     * Elimina una instancia de Factura de la base de datos.
+     * Elimina una instancia de SitioTuritico de la base de datos.
      *
      * @param reviewsId Identificador de la instancia a eliminar.
-     * @param viajerosId id del Viajero el cual es padre del Factura.
+     * @param ciudadsId id del Viajero el cual es padre del SitioTuritico.
      * @throws BusinessLogicException Si la reseña no esta asociada al libro.
      *
      */
-    public void deleteFactura(Long viajerosId, Long reviewsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
-        FacturaEntity old = getFactura(viajerosId, reviewsId);
+    public void deleteSitioTuritico(Long ciudadsId, Long reviewsId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
+        FacturaEntity old = getSitioTuritico(ciudadsId, reviewsId);
         if (old == null) {
-            throw new BusinessLogicException("El review con id = " + reviewsId + " no esta asociado a el libro con id = " + viajerosId);
+            throw new BusinessLogicException("El review con id = " + reviewsId + " no esta asociado a el libro con id = " + ciudadsId);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + ciudadsId, reviewsId);
     }
          
          
@@ -120,5 +122,8 @@ public class FacturaLogic {
          */
     private boolean validateNombre(String nombre) {
         return !(nombre == null || nombre.isEmpty());
-         }
+         }   
+ 
+    
+
 }

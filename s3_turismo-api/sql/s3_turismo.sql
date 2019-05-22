@@ -21,12 +21,12 @@ insert into ViajeroEntity(id, nombreUsuario, codigoUnico, idioma, tipoDeUsuario,
 insert into ViajeroEntity(id, nombreUsuario, codigoUnico, idioma, tipoDeUsuario, cantidadPlanes, informacionPersonal) values (13666, 'Annabeth Chase', 126, 'Griego', 'Preferencial', 2, 'Seaweed Brain');
 
 
-insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma) values (111, 'Cataratas de diversión', 'Todo incluido', 120000.0, 'Viaje a las cataratas del Niagara', 'Estados Unidos', 0, '2 días', 'Inglés');
-insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma) values (112, 'Gravity Falls', 'Familiar', 140000.0, 'Viaje a la tierra de Mavel y Dipper', 'Neverland', 1, '5 días', 'Japonés');
-insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma) values (113, 'Volcán del Fin del Mundo', 'Todo incluido', 150000.0, 'Viaje al cinturón de fuego del pacífico', 'Nicaragua', 0, '3 días', 'Español');
-insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma) values (114, 'Hora de Aventura', 'Familiar', 120000.0, 'Viaje al increíble de Finn y Jake', 'Woo', 1, '4 días', 'Japonés');
-insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma) values (115, 'Redentor', 'Familiar', 150000.0, 'Viaje a las mejores capillas', 'Roma', 0, '10 días', 'Italiano');
-insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma) values (116, 'Into the Abyss', 'Todo incluido', 130000.0, 'Viaje a las minas más asombrosas', 'Abbys', 0, '5 días', 'Japonés');
+insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma,imagen) values (111, 'Cataratas de diversión', 'Todo incluido', 120000.0, 'Viaje a las cataratas del Niagara', 'Estados Unidos', 0, '2 días', 'Inglés','http://www.avalturistica.com/php/images/servicios/planes-turisticos.jpg');
+insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma,imagen) values (112, 'Gravity Falls', 'Familiar', 140000.0, 'Viaje a la tierra de Mavel y Dipper', 'Neverland', 1, '5 días', 'Japonés','https://images.geads.com.co/2016/05/17/todo-incluido-planes-turisticos-pagan-1-viajan-2-v_dlq647m_3.jpg');
+insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma,imagen) values (113, 'Volcán del Fin del Mundo', 'Todo incluido', 150000.0, 'Viaje al cinturón de fuego del pacífico', 'Nicaragua', 0, '3 días', 'Español','http://planesacancun.com/wp-content/uploads/2016/12/planes-turisticos-a-cancun-desde-colombia-Promociones-Descuentos-22-1.jpg');
+insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma,imagen) values (114, 'Hora de Aventura', 'Familiar', 120000.0, 'Viaje al increíble de Finn y Jake', 'Woo', 1, '4 días', 'Japonés','http://www.planesypaquetesturisticos.com.co/images/amazonas/ticuna/decalodge_ticuna2.jpg');
+insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma,imagen) values (115, 'Redentor', 'Familiar', 150000.0, 'Viaje a las mejores capillas', 'Roma', 0, '10 días', 'Italiano','https://diariodeunturista.com/wp-content/uploads/2009/11/fontana-di-trevi.jpg');
+insert into PlanTuristicoEntity(id, nombrePlan, tipoPlan, costoPorPersona, descripcion, ubicacion, guia, duracion, idioma,imagen) values (116, 'Into the Abyss', 'Todo incluido', 130000.0, 'Viaje a las minas más asombrosas', 'Abbys', 0, '5 días', 'Japonés','https://diariodeunturista.com/wp-content/uploads/2009/11/fontana-di-trevi.jpg');
 
 insert into PlanTuristicoEntity_ViajeroEntity(planesturisticos_id,viajeros_id) values (111,13111);
 insert into PlanTuristicoEntity_ViajeroEntity(planesturisticos_id,viajeros_id) values (111,13222);
@@ -38,12 +38,12 @@ insert into PlanTuristicoEntity_ViajeroEntity(planesturisticos_id,viajeros_id) v
 insert into PlanTuristicoEntity_ViajeroEntity(planesturisticos_id,viajeros_id) values (113,13444);
 
 
-insert into CiudadEntity(id, nombre) values (191, 'Bogota');
-insert into CiudadEntity(id, nombre) values (192, 'Otawa');
-insert into CiudadEntity(id, nombre) values (193, 'Madrid');
-insert into CiudadEntity(id, nombre) values (194, 'San Juan');
-insert into CiudadEntity(id, nombre) values (195, 'Amsterdam');
-insert into CiudadEntity(id, nombre) values (196, 'Okinawa');
+insert into CiudadEntity(id, nombre,imagen,descripcion) values (191, 'Bogota','https://upload.wikimedia.org/wikipedia/commons/4/4c/Centro_internacional.JPG','Is the capital and largest city of Colombia, administered as the Capital District, although often erroneously thought of as part of Cundinamarca.');
+insert into CiudadEntity(id, nombre,imagen,descripcion) values (192, 'Otawa','https://free4kwallpapers.com/no-watermarks/originals/2015/10/03/ottawa-wallpaper.jpg',' It stands on the south bank of the Ottawa River in the eastern portion of southern Ontario. Ottawa borders Gatineau, Quebec;');
+insert into CiudadEntity(id, nombre,imagen,descripcion) values (193, 'Madrid','https://images2.alphacoders.com/853/thumb-1920-853900.jpg','Is the capital of Spain and the largest municipality in both the Community of Madrid and Spain as a whole. The city has almost 3.3 million');
+insert into CiudadEntity(id, nombre,imagen,descripcion) values (194, 'San Juan','http://wallpapersdsc.net/wp-content/uploads/2016/09/San-Juan-HD.jpg','located in the western part of the country. Neighbouring provinces are, moving clockwise from the north, La Rioja, San Luis and Mendoza. It borders with Chile at the west.');
+insert into CiudadEntity(id, nombre,imagen,descripcion) values (195, 'Amsterdam','https://images4.alphacoders.com/708/thumb-1920-708178.jpg',' is the capital city and most populous municipality of the Netherlands. Its status as the capital is mandated by the Constitution of the Netherlands');
+insert into CiudadEntity(id, nombre,imagen,descripcion) values (196, 'Okinawa','https://wallpapertag.com/wallpaper/full/6/5/a/858602-okinawa-wallpaper-1920x1200-for-macbook.jpg',' It encompasses two thirds of the Ryukyu Islands in a chain over 1,000 kilometres (620 mi) long.');
 
 
 insert into PreferenciaEntity(id, nombrePreferencia, viajero_id) values (141, 'Iglesia', 13111);
@@ -86,12 +86,12 @@ insert into ValoracionEntity  (id, idUsuario,  valoracion, comentario, planturis
 insert into ValoracionEntity  (id, idUsuario,  valoracion, comentario, planturistico_id) values (600, 500, 5, 'El viaje fue genial', 116);
 
 
-insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (211,'Iglesia','Monserrate', 191);
-insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (212,'Parque','Parque Otawa', 191);
-insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (213,'Palacio','Palacio de oriente', 192);
-insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (214,'Castillo','Castillo san jose', 193);
-insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (215,'Calle','Calle rosa', 192);
-insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (216,'Monumento','Monumento a los caidos', 191);
+insert into SitioTuristicoEntity(id, tipo,imagen, nombre, ciudad_id) values (211,'Iglesia','https://directoriofacil.com/wp-content/uploads/2018/05/monserrate-67.jpg','Monserrate', 191);
+insert into SitioTuristicoEntity(id, tipo,imagen, nombre, ciudad_id) values (212,'Parque','http://s1.1zoom.me/b5649/886/Canada_Parks_Ottawa_Ontario_Design_541059_2560x1440.jpg','Parque Otawa', 191);
+insert into SitioTuristicoEntity(id, tipo,imagen, nombre, ciudad_id) values (213,'Palacio','https://media2.trover.com/T/55d4bab634fbe4295601312e/fixedw.jpg','Palacio de oriente', 192);
+insert into SitioTuristicoEntity(id, tipo,imagen, nombre, ciudad_id) values (214,'Castillo','https://es.wikipedia.org/wiki/Castillo_de_San_Jos%C3%A9#/media/File:005-Castillo_de_San_Jos%C3%A9-Arrecife-Lanzarote_(RI-51-0008260).jpg','Castillo san jose', 193);
+insert into SitioTuristicoEntity(id, tipo,imagen, nombre, ciudad_id) values (215,'Calle','http://www.plataformaurbana.cl/archive/2013/12/08/intervencion-urbana-calle-rosa-en-lisboa/calle-rosa-1/','Calle rosa', 192);
+insert into SitioTuristicoEntity(id, tipo,imagen, nombre, ciudad_id) values (216,'Monumento','https://es.wikipedia.org/wiki/Plaza_y_Monumento_de_los_Ca%C3%ADdos#/media/File:Momunento_a_los_Ca%C3%ADdos.JPG','Monumento a los caidos', 191);
 
 
 

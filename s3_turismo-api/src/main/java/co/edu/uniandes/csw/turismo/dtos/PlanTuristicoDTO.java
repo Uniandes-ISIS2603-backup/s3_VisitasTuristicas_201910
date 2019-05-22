@@ -23,7 +23,9 @@ public class PlanTuristicoDTO implements Serializable {
     private Boolean guia;
     private String duracion;
     private String idioma;
- 
+    private String imagen;
+    
+     
 
     //Constructor vacio
     public PlanTuristicoDTO() {
@@ -31,6 +33,14 @@ public class PlanTuristicoDTO implements Serializable {
     }
 
     
+    public void setImagen(String a)
+    {
+        this.imagen=a;
+    }
+    public String getImagen()
+    {
+        return imagen;
+    }
 
     /**
      * @return the planTuristicoId
@@ -175,6 +185,7 @@ public class PlanTuristicoDTO implements Serializable {
         entity.setGuia(guia);
         entity.setDuracion(duracion);
         entity.setIdioma(idioma);
+        entity.setImagen(imagen);
        
         
         return entity;
@@ -191,6 +202,7 @@ public class PlanTuristicoDTO implements Serializable {
             this.guia = pEntity.getGuia();
             this.duracion = pEntity.getDuracion();
             this.idioma = pEntity.getIdioma();
+            this.imagen=pEntity.getImagen();
         }
     }
 

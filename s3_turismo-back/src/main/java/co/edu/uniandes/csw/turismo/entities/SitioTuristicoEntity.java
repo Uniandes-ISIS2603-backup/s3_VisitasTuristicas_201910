@@ -38,6 +38,22 @@ public class SitioTuristicoEntity extends BaseEntity implements Serializable {
     *Retorna la ciudad a la cual estan asociados los sitios turisticos
     *@return ciudad
     */
+    
+    
+    
+    
+            private String imagen;
+
+    
+    public String getImagen()
+    {
+        return imagen;
+    }
+    
+    public void setImagen(String p)
+    {
+        this.imagen=p;
+    }
     public CiudadEntity darCiudad()
     {
         return ciudad;
