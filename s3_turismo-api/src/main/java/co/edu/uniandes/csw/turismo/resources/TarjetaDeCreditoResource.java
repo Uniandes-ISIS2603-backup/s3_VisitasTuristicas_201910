@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,140 +30,149 @@ import javax.ws.rs.core.MediaType;
  *
  * @author estudiante
  */
+@Path("tarjetas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class TarjetaDeCreditoResource {
-   private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoResource.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoResource.class.getName());
 
     @Inject
-    private TarjetaDeCreditoLogic tarjetaLogic;
+    private TarjetaDeCreditoLogic tarjetaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+
 
     /**
-     * Crea una nueva reseña con la informacion que se recibe en el cuerpo de la
+     * Crea un nuevo premio con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la
      * base de datos.
      *
-     * @param booksId El ID del libro del cual se le agrega la reseña
-     * @param review {@link TarjetaDeCreditoDTO} - La reseña que se desea guardar.
-     * @return JSON {@link TarjetaDeCreditoDTO} - La reseña guardada con el atributo id
+     * @param tarjeta {@link TarjetaDeCreditoDTO} - EL premio que se desea guardar.
+     * @return JSON {@link TarjetaDeCreditoDTO} - El premio guardado con el atributo id
      * autogenerado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando ya existe la reseña.
+     * Error de lógica que se genera cuando ya existe el premio o el isbn es
+     * inválido o si la organization ingresada es invalida.
      */
     @POST
-    public TarjetaDeCreditoDTO createTarjetaDeCredito(@PathParam("viajero") Long booksId, TarjetaDeCreditoDTO review) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource createTarjetaDeCredito: input: {0}", review);
-        TarjetaDeCreditoDTO nuevoTarjetaDeCreditoDTO = new TarjetaDeCreditoDTO(tarjetaLogic.createTarjetaDeCredito(booksId, review.toEntity()));
+    public TarjetaDeCreditoDTO createTarjetaDeCredito(TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource createTarjetaDeCredito: input: {0}", tarjeta);
+        TarjetaDeCreditoDTO nuevoTarjetaDeCreditoDTO = new TarjetaDeCreditoDTO(tarjetaLogic.createTarjetaDeCredito(tarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource createTarjetaDeCredito: output: {0}", nuevoTarjetaDeCreditoDTO);
         return nuevoTarjetaDeCreditoDTO;
     }
 
     /**
-     * Busca y devuelve todas las reseñas que existen en un libro.
+     * Busca y devuelve todos los premios que existen en la aplicacion.
      *
-     * @param booksId El ID del libro del cual se buscan las reseñas
-     * @return JSONArray {@link TarjetaDeCreditoDTO} - Las reseñas encontradas en el
-     * libro. Si no hay ninguna retorna una lista vacía.
+     * @return JSONArray {@link TarjetaDeCreditoDTO} - Los premios encontrados en la
+     * aplicación. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<TarjetaDeCreditoDTO> getTarjetaDeCreditos(@PathParam("viajero") Long booksId) {
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCreditos: input: {0}", booksId);
-        List<TarjetaDeCreditoDTO> listaDTOs = listEntity2DTO(tarjetaLogic.getTarjetaDeCreditos(booksId));
-        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs);
-        return listaDTOs;
+    public List<TarjetaDeCreditoDTO> getTarjetaDeCreditos() {
+        LOGGER.info("TarjetaDeCreditoResource getTarjetaDeCreditos: input: void");
+        List<TarjetaDeCreditoDTO> listaTarjetaDeCreditos = listEntity2DetailDTO(tarjetaLogic.getTarjetaDeCreditos());
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCreditos: output: {0}", listaTarjetaDeCreditos);
+        return listaTarjetaDeCreditos;
     }
 
     /**
-     * Busca y devuelve la reseña con el ID recibido en la URL, relativa a un
-     * libro.
+     * Busca el premio con el id asociado recibido en la URL y lo devuelve.
      *
-     * @param booksId El ID del libro del cual se buscan las reseñas
-     * @param reviewsId El ID de la reseña que se busca
-     * @return {@link TarjetaDeCreditoDTO} - La reseña encontradas en el libro.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
+     * @param tarjetasId Identificador del premio que se esta buscando. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link TarjetaDeCreditoDTO} - El premio buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la reseña.
+     * Error de lógica que se genera cuando no se encuentra el premio.
      */
     @GET
-    @Path("{tarjeta: \\d+}")
-    public TarjetaDeCreditoDTO getTarjetaDeCredito(@PathParam("viajero") Long booksId, @PathParam("tarjeta") Long reviewsId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCredito: input: {0}", reviewsId);
-        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(booksId, reviewsId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews/" + reviewsId + " no existe.", 404);
+    @Path("{tarjetasId: \\d+}")
+    public TarjetaDeCreditoDTO getTarjetaDeCredito(@PathParam("tarjetasId") Long tarjetasId) {
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCredito: input: {0}", tarjetasId);
+        TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(tarjetasId);
+        if (tarjetaEntity == null) {
+            throw new WebApplicationException("El recurso /tarjetas/" + tarjetasId + " no existe.", 404);
         }
-        TarjetaDeCreditoDTO reviewDTO = new TarjetaDeCreditoDTO(entity);
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCredito: output: {0}", reviewDTO);
-        return reviewDTO;
+        TarjetaDeCreditoDTO tarjetaDetailDTO = new TarjetaDeCreditoDTO(tarjetaEntity);
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCredito: output: {0}", tarjetaDetailDTO);
+        return tarjetaDetailDTO;
     }
 
     /**
-     * Actualiza una reseña con la informacion que se recibe en el cuerpo de la
-     * petición y se regresa el objeto actualizado.
+     * Actualiza el premio con el id recibido en la URL con la información que
+     * se recibe en el cuerpo de la petición.
      *
-     * @param booksId El ID del libro del cual se guarda la reseña
-     * @param reviewsId El ID de la reseña que se va a actualizar
-     * @param review {@link TarjetaDeCreditoDTO} - La reseña que se desea guardar.
-     * @return JSON {@link TarjetaDeCreditoDTO} - La reseña actualizada.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando ya existe la reseña.
+     * @param tarjetasId Identificador del premio que se desea actualizar. Este
+     * debe ser una cadena de dígitos.
+     * @param tarjeta {@link TarjetaDeCreditoDTO} El premio que se desea guardar.
+     * @return JSON {@link TarjetaDeCreditoDTO} - El premio guardada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la reseña.
+     * Error de lógica que se genera cuando no se encuentra el premio a
+     * actualizar.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede actualizar el premio.
      */
     @PUT
-    @Path("{reviewsId: \\d+}")
-    public TarjetaDeCreditoDTO updateTarjetaDeCredito(@PathParam("viajero") Long booksId, @PathParam("tarjeta") Long reviewsId, TarjetaDeCreditoDTO review) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: input: booksId: {0} , reviewsId: {1} , review:{2}", new Object[]{booksId, reviewsId, review});
-        if (reviewsId.equals(review.getIdTarjetaDeCredito())) {
-            throw new BusinessLogicException("Los ids del TarjetaDeCredito no coinciden.");
+    @Path("{tarjetasId: \\d+}")
+    public TarjetaDeCreditoDTO updateTarjetaDeCredito(@PathParam("tarjetasId") Long tarjetasId, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: input: tarjetasId: {0} , tarjeta: {1}", new Object[]{tarjetasId, tarjeta});
+        tarjeta.setIdTarjetaDeCredito(tarjetasId);
+        if (tarjetaLogic.getTarjetaDeCredito(tarjetasId) == null) {
+            throw new WebApplicationException("El recurso /tarjetas/" + tarjetasId + " no existe.", 404);
         }
-        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(booksId, reviewsId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews/" + reviewsId + " no existe.", 404);
-
-        }
-        TarjetaDeCreditoDTO reviewDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjetaDeCredito(booksId, review.toEntity()));
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: output:{0}", reviewDTO);
-        return reviewDTO;
-
+        TarjetaDeCreditoDTO detailDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjetaDeCredito(tarjetasId, tarjeta.toEntity()));
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: output: {0}", detailDTO);
+        return detailDTO;
     }
 
     /**
-     * Borra la reseña con el id asociado recibido en la URL.
+     * Borra el premio con el id asociado recibido en la URL.
      *
-     * @param booksId El ID del libro del cual se va a eliminar la reseña.
-     * @param reviewsId El ID de la reseña que se va a eliminar.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se puede eliminar la reseña.
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la reseña.
+     * @param tarjetasId Identificador del premio que se desea borrar. Este debe
+     * ser una cadena de dígitos.
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * Error de lógica que se genera cuando el premio tiene un autor.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper}
+     * Error de lógica que se genera cuando no se encuentra el premio.
      */
     @DELETE
-    @Path("{reviewsId: \\d+}")
-    public void deleteTarjetaDeCredito(@PathParam("viajero") Long booksId, @PathParam("tarjeta") Long reviewsId) throws BusinessLogicException {
-        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(booksId, reviewsId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews/" + reviewsId + " no existe.", 404);
+    @Path("{tarjetasId: \\d+}")
+    public void deleteTarjetaDeCredito(@PathParam("tarjetasId") Long tarjetasId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource deleteTarjetaDeCredito: input: {0}", tarjetasId);
+        if (tarjetaLogic.getTarjetaDeCredito(tarjetasId) == null) {
+            throw new WebApplicationException("El recurso /tarjetas/" + tarjetasId + " no existe.", 404);
         }
-        tarjetaLogic.deleteTarjetaDeCredito(booksId, reviewsId);
+        tarjetaLogic.deleteTarjetaDeCredito(tarjetasId);
+        LOGGER.info("TarjetaDeCreditoResource deleteTarjetaDeCredito: output: void");
     }
 
+    
+
+
     /**
-     * Lista de entidades a DTO.
+     * Convierte una lista de entidades a DTO.
      *
-     * Este método convierte una lista de objetos PrizeEntity a una lista de
+     * Este método convierte una lista de objetos TarjetaDeCreditoEntity a una lista de
      * objetos TarjetaDeCreditoDTO (json)
      *
-     * @param entityList corresponde a la lista de reseñas de tipo Entity que
+     * @param entityList corresponde a la lista de premios de tipo Entity que
      * vamos a convertir a DTO.
-     * @return la lista de reseñas en forma DTO (json)
+     * @return la lista de premios en forma DTO (json)
      */
-    private List<TarjetaDeCreditoDTO> listEntity2DTO(List<TarjetaDeCreditoEntity> entityList) {
-        List<TarjetaDeCreditoDTO> list = new ArrayList<TarjetaDeCreditoDTO>();
+    private List<TarjetaDeCreditoDTO> listEntity2DetailDTO(List<TarjetaDeCreditoEntity> entityList) {
+        List<TarjetaDeCreditoDTO> list = new ArrayList<>();
         for (TarjetaDeCreditoEntity entity : entityList) {
             list.add(new TarjetaDeCreditoDTO(entity));
         }
         return list;
+    }
+    
+    
+    
+    @Path("{tarjetas: \\d+}/viajeros")
+    public Class<TarjetasDeCreditoViajeroResource> getTarjetaDeCreditoViajerosResource(@PathParam("tarjetas") Long booksId) {
+        if (tarjetaLogic.getTarjetaDeCredito(booksId) == null) {
+            throw new WebApplicationException("El recurso /books/" + booksId + " no existe.", 404);
+        }
+        return TarjetasDeCreditoViajeroResource.class;
     }
 }

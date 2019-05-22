@@ -94,12 +94,6 @@ insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (215,'Calle
 insert into SitioTuristicoEntity(id, tipo, nombre, ciudad_id) values (216,'Monumento','Monumento a los caidos', 191);
 
 
-insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-05 08:00:00', 13111, 111);
-insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-06 08:00:00' ,13222, 112);
-insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-07 08:00:00', 13333, 113);
-insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-08 08:00:00', 13444, 114);
-insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-09 08:00:00', 13555, 115);
-insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-04 08:00:00', 13666, 116);
 
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,111);
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (191,112);
@@ -113,3 +107,18 @@ insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,115);
 insert into CIUDADENTITY_PLANTURISTICOENTITY(ciudades_id,planes_id) values (192,116);
 
+
+
+
+
+
+
+
+/*
+insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-05 08:00:00', 13111, 111);
+insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-06 08:00:00' ,13222, 112);
+insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-07 08:00:00', 13333, 113);
+insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-08 08:00:00', 13444, 114);
+insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-11-09 08:00:00', 13555, 115);
+insert into ViajeEntity(fechaInicio, fechaFin, viajero_id, planturistico_id) values ('2018-10-04 08:00:00', '2018-12-04 08:00:00', 13666, 116);
+*/

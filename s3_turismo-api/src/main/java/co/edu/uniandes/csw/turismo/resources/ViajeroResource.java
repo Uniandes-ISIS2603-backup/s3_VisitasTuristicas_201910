@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.turismo.resources;
 
+import co.edu.uniandes.csw.turismo.dtos.TarjetaDeCreditoDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -12,6 +13,8 @@ import javax.ws.rs.Path;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDTO;
 import co.edu.uniandes.csw.turismo.dtos.ViajeroDetailDTO;
 import co.edu.uniandes.csw.turismo.ejb.ViajeroLogic;
+import co.edu.uniandes.csw.turismo.ejb.ViajeroTarjetaDeCreditoLogic;
+import co.edu.uniandes.csw.turismo.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -26,20 +29,24 @@ import javax.ws.rs.core.MediaType;
  * @author Juan Sebastian Gutierrez S.
  */
 @Path("viajero")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces("application/json")
+@Consumes("application/json")
 @RequestScoped
 public class ViajeroResource {
-    private static final Logger LOGGER=Logger.getLogger(PlanTuristicoResource.class.getName());
-    
+
+    private static final Logger LOGGER = Logger.getLogger(ViajeroResource.class.getName());
+    @Inject
+    private ViajeroTarjetaDeCreditoLogic viajeroTarjetaDeCreditosLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+
     @Inject
     private ViajeroLogic logic;
-    
+
     /**
      * crea un viajero
+     *
      * @param viajero
      * @return nuevoViajero
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) throws BusinessLogicException {
@@ -47,24 +54,25 @@ public class ViajeroResource {
         //logic.createViajero(viajero.toEntity());
         //return nuevoV;
         LOGGER.log(Level.INFO, "CrearViajeroResource crearViajero", "a");
-        ViajeroDTO nuevoViajeroDTO = new ViajeroDTO(logic.createViajero( viajero.toEntity()));
-          LOGGER.log(Level.INFO, "PreferenciaResource crearBlog: output: {0}", nuevoViajeroDTO.toString());
+        ViajeroDTO nuevoViajeroDTO = new ViajeroDTO(logic.createViajero(viajero.toEntity()));
+        LOGGER.log(Level.INFO, "PreferenciaResource crearBlog: output: {0}", nuevoViajeroDTO.toString());
         return nuevoViajeroDTO;
     }
-    
+
     /**
      * retorna un viajero con un id
+     *
      * @return Viajero
      * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @GET
     public List<ViajeroDetailDTO> getViajeros() throws BusinessLogicException {
-        LOGGER.info("BookResource getBooks: input: void");
+        LOGGER.info("ENTRO ACA");
         List<ViajeroDetailDTO> listaBooks = listEntity2DTO(logic.getViajeros());
-        LOGGER.log(Level.INFO, "BookResource getBooks: output: {0}", listaBooks);
+        LOGGER.log(Level.INFO, "ENTRO ACA X222222222", listaBooks.size());
         return listaBooks;
     }
-    
+
     /**
      *
      * @param booksId
@@ -84,7 +92,6 @@ public class ViajeroResource {
         return bookDetailDTO;
     }
 
-    
     //private List<ViajeroDTO> listEntity2DTO(List<ViajeroEntity> entityList)throws BusinessLogicException {
     //    List<ViajeroDTO> list = new ArrayList<ViajeroDTO>();
     //    for (ViajeroEntity entity : entityList) {
@@ -96,19 +103,19 @@ public class ViajeroResource {
     //public ViajeroDTO getViajero(@PathParam("id")Long pIdViajero) {
     //    return new ViajeroDTO();
     //}
-    
     /**
      * asigna un viajero
+     *
      * @param idViajero
-     * @param nuevoViajero 
-     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException 
+     * @param nuevoViajero
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @PUT
     public void setViajero(@PathParam("id") Long idViajero, ViajeroDTO nuevoViajero) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "updateViajero");
         logic.updateViajero(idViajero, nuevoViajero.toEntity());
     }
-    
+
 //    @PUT
 //    public void setViajeros(ArrayList<ViajeroDTO> viajeros, ArrayList<ViajeroDTO> nuevosViajeros) {
 //        viajeros = nuevosViajeros;
@@ -119,17 +126,15 @@ public class ViajeroResource {
 //    }
 //    @PUT
 //    public void setViajeroIdioma(String pIdioma) {
-        
 //    }
 //    @PUT
 //    public void setCantidadViajes(int n) {
-        
 //    }
-    
     /**
      * elimina un viajero
-     * @param pIdViajero 
-     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException 
+     *
+     * @param pIdViajero
+     * @throws co.edu.uniandes.csw.turismo.exceptions.BusinessLogicException
      */
     @DELETE
     public void deleteViajero(Long pIdViajero) throws BusinessLogicException {
@@ -138,51 +143,73 @@ public class ViajeroResource {
 
     /**
      * asigna path para tarjetaDeCredito
+     *
      * @param viajeroId
      * @return TarjetaDeCreditoResource
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
-    @Path("{viajeroId: \\d+/tarjetaDeCredito}")
-    public Class<TarjetaDeCreditoResource> getTarjetaDeCreditoResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
-        if(logic.getViajero(viajeroId) == null) {
-            throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
+    //  @Path("{viajeroId: \\d+}/tarjetas")
+    public Class<ViajeroTarjetaDeCreditoResource> getViajeroTarjetaDeCreditoResource(@PathParam("viajeroId") Long editorialsId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ENTROoooooooooooo ACAAAAAAAAAAAAAAAAAAAAAA", editorialsId);
+
+        if (logic.getViajero(editorialsId) == null) {
+            throw new WebApplicationException("El recurso /editorials/" + editorialsId + " no existe.", 404);
         }
-        return TarjetaDeCreditoResource.class;
+        LOGGER.log(Level.INFO, "ENTROoooooooooooo ACAAAAAAAAAAAAAAAAAAAAAasdsaaaaaaaaaaaaaaaaaaaaaadadadadadadaA", editorialsId);
+
+        return ViajeroTarjetaDeCreditoResource.class;
     }
-    
+
+    @GET
+    @Path("{viajeroId: \\d+}/tarjetas")
+    public List<TarjetaDeCreditoDTO> getTarjetasDeCreditos(@PathParam("viajeroId") Long viajerosId) {
+        LOGGER.log(Level.INFO, "ViajeroTarjetaDeCreditosResource getTarjetaDeCreditos: input: {0}", viajerosId);
+        List<TarjetaDeCreditoEntity> tarje = viajeroTarjetaDeCreditosLogic.getTarjetaDeCreditos(viajerosId);
+        LOGGER.log(Level.INFO, "Numero de tarjetas de la lista de entidades--------------- {0}", tarje.size());
+        List<TarjetaDeCreditoDTO> listaDetailDTOs = tarjetasListEntity2DTO(tarje);
+        LOGGER.log(Level.INFO, "Numero de tarjetas de la lista de DTOS------------ {0}", listaDetailDTOs.size());
+
+        LOGGER.log(Level.INFO, "ViajeroTarjetaDeCreditosResource getTarjetaDeCreditos: output: {0}", listaDetailDTOs);
+        return listaDetailDTOs;
+    }
+
     /**
      * asigna path viaje
+     *
      * @param viajeroId
      * @return ViajeResource
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
     @Path("{viajeroId: \\d+/viaje}")
     public Class<ViajeResource> getViajeResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
-        if(logic.getViajero(viajeroId) == null) {
+        if (logic.getViajero(viajeroId) == null) {
             throw new WebApplicationException("El recurso /viajeros/" + viajeroId + "no existe.", 404);
         }
         return ViajeResource.class;
     }
-    
+
     /**
      * asigna path preferencia
+     *
      * @param viajeroId
      * @return PreferenciaResource
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
-    @Path("{viajeroId: \\d+/preferencias}")
-    public Class<PreferenciaResource> getPreferenciaResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
+    @Path("{viajero: \\d+/preferencia}")
+    public Class<PreferenciaResource> getPreferenciaResource(@PathParam("viajero") Long viajeroId) throws BusinessLogicException {
+
         if (logic.getViajero(viajeroId) == null) {
             throw new WebApplicationException("El recurso /editorials/" + viajeroId + " no existe.", 404);
         }
         return PreferenciaResource.class;
     }
-    
+
     /**
      * asigna path planTuristico
+     *
      * @param viajeroId
      * @return PlanTuristicoResource
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
     @Path("{viajeroId: \\d+/planesTuristicos}")
     public Class<PlanTuristicoResource> getPlanTuristicoResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
@@ -191,17 +218,21 @@ public class ViajeroResource {
         }
         return PlanTuristicoResource.class;
     }
-            private List<ViajeroDetailDTO> listEntity2DTO(List<ViajeroEntity> entityList) {
+
+    private List<ViajeroDetailDTO> listEntity2DTO(List<ViajeroEntity> entityList) {
         List<ViajeroDetailDTO> list = new ArrayList<>();
         for (ViajeroEntity entity : entityList) {
             list.add(new ViajeroDetailDTO(entity));
         }
-        return list;}
+        return list;
+    }
+
     /**
      * asigna path factura
+     *
      * @param viajeroId
      * @return FacturaResource
-     * @throws BusinessLogicException 
+     * @throws BusinessLogicException
      */
     @Path("{viajeroId: \\d+/facturas}")
     public Class<FacturasResources> getFacturaResource(@PathParam("viajeroId") Long viajeroId) throws BusinessLogicException {
@@ -210,7 +241,13 @@ public class ViajeroResource {
         }
         return FacturasResources.class;
     }
-    
 
+    private List<TarjetaDeCreditoDTO> tarjetasListEntity2DTO(List<TarjetaDeCreditoEntity> entityList) {
+        List<TarjetaDeCreditoDTO> list = new ArrayList();
+        for (TarjetaDeCreditoEntity entity : entityList) {
+            list.add(new TarjetaDeCreditoDTO(entity));
+        }
+        return list;
+    }
 
 }

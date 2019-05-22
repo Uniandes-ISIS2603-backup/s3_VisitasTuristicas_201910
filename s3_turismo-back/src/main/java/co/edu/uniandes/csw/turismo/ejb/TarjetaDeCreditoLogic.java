@@ -24,91 +24,83 @@ import javax.inject.Inject;
 public class TarjetaDeCreditoLogic {
     
     
-   private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
 
     @Inject
-    private TarjetaDeCreditoPersistence persistence;
+    private TarjetaDeCreditoPersistence prizePersistence;
 
-    @Inject
-    private ViajeroPersistence viajeroPersistence;
+
 
     /**
-     * Se encarga de crear un TarjetaDeCredito en la base de datos.
+     * Guardar un nuevo premio
      *
-     * @param tarjetaDeCreditoEntity Objeto de TarjetaDeCreditoEntity con los datos nuevos
-     * @param viajerosId id del Viajero el cual sera padre del nuevo TarjetaDeCredito.
-     * @return Objeto de TarjetaDeCreditoEntity con los datos nuevos y su ID.
-     * @throws BusinessLogicException si viajerosId no es el mismo que tiene el
-     * entity.
-     *
+     * @param prizeEntity La entidad de tipo premio del nuevo premio a
+     * persistir.
+     * @return La entidad luego de persistirla
+     * @throws BusinessLogicException si la organizacion no existe o ya tiene
+     * premio.
      */
-    public TarjetaDeCreditoEntity createTarjetaDeCredito(Long viajerosId, TarjetaDeCreditoEntity tarjetaDeCreditoEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de crear tarjetaDeCredito");
-        ViajeroEntity viajero = viajeroPersistence.find(viajerosId);
-        tarjetaDeCreditoEntity.setViajero(viajero);
-        LOGGER.log(Level.INFO, "Termina proceso de creación del tarjetaDeCredito");
-        return persistence.create(tarjetaDeCreditoEntity);
+    public TarjetaDeCreditoEntity createTarjetaDeCredito(TarjetaDeCreditoEntity prizeEntity) throws BusinessLogicException {
+        LOGGER.info("Inicia proceso de creación de premio");
+        prizeEntity = prizePersistence.create(prizeEntity);
+        LOGGER.info("Termina proceso de creación de premio");
+        return prizeEntity;
     }
 
     /**
-     * Obtiene la lista de los registros de TarjetaDeCredito que pertenecen a un Viajero.
+     * Devuelve todos los premios que hay en la base de datos.
      *
-     * @param viajerosId id del Viajero el cual es padre de los TarjetaDeCreditos.
-     * @return Colección de objetos de TarjetaDeCreditoEntity.
+     * @return Lista de entidades de tipo premio.
      */
-    public List<TarjetaDeCreditoEntity> getTarjetaDeCreditos(Long viajerosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar los tarjetaDeCreditos asociados al viajero con id = {0}", viajerosId);
-        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar los tarjetaDeCreditos asociados al viajero con id = {0}", viajerosId);
-        return viajeroEntity.getTarjetasDeCredito();
+    public List<TarjetaDeCreditoEntity> getTarjetaDeCreditos() {
+        LOGGER.info("Inicia proceso de consultar todos los premios");
+        List<TarjetaDeCreditoEntity> prizes = prizePersistence.findAll();
+        LOGGER.info("Termina proceso de consultar todos los premios");
+        return prizes;
     }
 
     /**
-     * Obtiene los datos de una instancia de TarjetaDeCredito a partir de su ID. La
-     * existencia del elemento padre Viajero se debe garantizar.
+     * Busca un premio por ID
      *
-     * @param viajerosId El id del Libro buscado
-     * @param tarjetaDeCreditosId Identificador de la Reseña a consultar
-     * @return Instancia de TarjetaDeCreditoEntity con los datos del TarjetaDeCredito consultado.
-     *
+     * @param prizesId El id del premio a buscar
+     * @return El premio encontrado, null si no lo encuentra.
      */
-    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long viajerosId, Long tarjetaDeCreditosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditosId);
-        return persistence.find(viajerosId, tarjetaDeCreditosId);
-    }
-
-    /**
-     * Actualiza la información de una instancia de TarjetaDeCredito.
-     *
-     * @param tarjetaDeCreditoEntity Instancia de TarjetaDeCreditoEntity con los nuevos datos.
-     * @param viajerosId id del Viajero el cual sera padre del TarjetaDeCredito actualizado.
-     * @return Instancia de TarjetaDeCreditoEntity con los datos actualizados.
-     *
-     */
-    public TarjetaDeCreditoEntity updateTarjetaDeCredito(Long viajerosId, TarjetaDeCreditoEntity tarjetaDeCreditoEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditoEntity.getId());
-        ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
-        tarjetaDeCreditoEntity.setViajero(viajeroEntity);
-        persistence.update(tarjetaDeCreditoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditoEntity.getId());
-        return tarjetaDeCreditoEntity;
-    }
-
-    /**
-     * Elimina una instancia de TarjetaDeCredito de la base de datos.
-     *
-     * @param tarjetaDeCreditosId Identificador de la instancia a eliminar.
-     * @param viajerosId id del Viajero el cual es padre del TarjetaDeCredito.
-     * @throws BusinessLogicException Si la reseña no esta asociada al libro.
-     *
-     */
-    public void deleteTarjetaDeCredito(Long viajerosId, Long tarjetaDeCreditosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditosId);
-        TarjetaDeCreditoEntity old = getTarjetaDeCredito(viajerosId, tarjetaDeCreditosId);
-        if (old == null) {
-            throw new BusinessLogicException("El tarjetaDeCredito con id = " + tarjetaDeCreditosId + " no esta asociado a el libro con id = " + viajerosId);
+    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long prizesId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar premio con id = {0}", prizesId);
+        TarjetaDeCreditoEntity prize = prizePersistence.find(prizesId);
+        if (prize == null) {
+            LOGGER.log(Level.SEVERE, "El premio con el id = {0} no existe", prizesId);
         }
-        persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el tarjetaDeCredito con id = {0} del libro con id = " + viajerosId, tarjetaDeCreditosId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar premio con id = {0}", prizesId);
+        return prize;
+    }
+
+    /**
+     * Actualizar un premio por ID
+     *
+     * @param prizesId El ID del premio a actualizar
+     * @param prizeEntity La entidad del premio con los cambios deseados
+     * @return La entidad del premio luego de actualizarla
+     */
+    public TarjetaDeCreditoEntity updateTarjetaDeCredito(Long prizesId, TarjetaDeCreditoEntity prizeEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar premio con id = {0}", prizesId);
+        TarjetaDeCreditoEntity newEntity = prizePersistence.update(prizeEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar premio con id = {0}", prizeEntity.getId());
+        return newEntity;
+    }
+
+    /**
+     * Eliminar un premio por ID
+     *
+     * @param prizesId El ID del premio a eliminar
+     * @throws BusinessLogicException si el premio tiene un autor asociado.
+     */
+    public void deleteTarjetaDeCredito(Long prizesId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar premio con id = {0}", prizesId);
+        if (prizePersistence.find(prizesId).getViajero()!= null) {
+            throw new BusinessLogicException("No se puede borrar el premio con id = " + prizesId + " porque tiene un autor asociado");
+        }
+        prizePersistence.delete(prizesId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar premio con id = {0}", prizesId);
     }
 }

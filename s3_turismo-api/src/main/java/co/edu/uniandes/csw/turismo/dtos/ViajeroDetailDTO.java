@@ -21,7 +21,8 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
     private List<PreferenciaDTO> preferencias;
     private List<FacturaDTO> facturas;
     private List<PlanTuristicoDTO> planesTuristicos;
-    private List<TarjetaDeCreditoDTO>tarjetasDeCredito;
+    
+    private List<TarjetaDeCreditoDTO> tarjetas;
 
     
         /**
@@ -31,15 +32,7 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
         super();
     }
     
-    public List<TarjetaDeCreditoDTO> getTarjetasDeCredito()
-    {
-        return tarjetasDeCredito;
-    }
     
-    public void setTarjetasDeCredito(List<TarjetaDeCreditoDTO> tj)
-    {
-        this.tarjetasDeCredito=tj;
-    }
     /**
      * se retorna la lista de facturas que tiene el viajero
      * @return 
@@ -54,6 +47,16 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
      */
     public void setFacturas(List<FacturaDTO> facturas) {
         this.facturas = facturas;
+    }
+    
+    public List<TarjetaDeCreditoDTO> getTarjetas()
+    {
+        return tarjetas;
+    }
+    
+    public void setTarjetas(List<TarjetaDeCreditoDTO> tj)
+    {
+        this.tarjetas=tj;
     }
 
     /**
@@ -102,23 +105,29 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
                 toAdd.add(new PreferenciaDTO(a));
             }
             this.preferencias = toAdd;
+            
+            
+            
             List<FacturaDTO> toAdd2 = new ArrayList<>();
             for(FacturaEntity b : ent.getFacturas()) {
                 toAdd2.add(new FacturaDTO(b));
             }
             this.facturas = toAdd2;
+            
+            
             List<PlanTuristicoDTO> toAdd3 = new ArrayList<>();
             for(PlanTuristicoEntity c : ent.getPlanesTuristicos()) {
                 toAdd3.add(new PlanTuristicoDTO(c));
             }
             this.planesTuristicos = toAdd3;
             
+            
               List<TarjetaDeCreditoDTO> toAdd4 = new ArrayList<>();
 
-             for(TarjetaDeCreditoEntity c : ent.getTarjetasDeCredito()) {
-                toAdd4.add(new TarjetaDeCreditoDTO(c));
+             for(TarjetaDeCreditoEntity x : ent.getTarjetas()) {
+                toAdd4.add(new TarjetaDeCreditoDTO(x));
             }
-            this.planesTuristicos = toAdd3;
+            this.tarjetas = toAdd4;
         }
     }
     
@@ -150,12 +159,12 @@ public class ViajeroDetailDTO extends ViajeroDTO implements Serializable {
             } 
             toReturn.setPlanesTuristicos(planEntity);
         }
-         if(tarjetasDeCredito != null){
+         if(tarjetas != null){
             List<TarjetaDeCreditoEntity> tarjEntity = new ArrayList<>();
-            for(TarjetaDeCreditoDTO plan: getTarjetasDeCredito()){
+            for(TarjetaDeCreditoDTO plan: getTarjetas()){
                 tarjEntity.add(plan.toEntity());
             } 
-            toReturn.setTarjetasDeCredito(tarjEntity);
+            toReturn.setTarjetas(tarjEntity);
         }
         return toReturn;
     }

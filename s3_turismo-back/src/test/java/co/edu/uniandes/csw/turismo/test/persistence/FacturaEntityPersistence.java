@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.turismo.test.persistence;
 
 import co.edu.uniandes.csw.turismo.entities.FacturaEntity;
+import co.edu.uniandes.csw.turismo.entities.ViajeroEntity;
 import co.edu.uniandes.csw.turismo.persistence.FacturaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class FacturaEntityPersistence {
     
-        @Inject
-    private FacturaPersistence facturaPersistence;
+       @Inject
+    private FacturaPersistence reviewPersistence;
 
     @PersistenceContext
     private EntityManager em;
@@ -42,6 +43,8 @@ public class FacturaEntityPersistence {
     UserTransaction utx;
 
     private final List<FacturaEntity> data = new ArrayList<>();
+	
+    private final List<ViajeroEntity> dataViajero = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -83,6 +86,7 @@ public class FacturaEntityPersistence {
      */
     private void clearData() {
         em.createQuery("delete from FacturaEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
     /**
@@ -92,8 +96,15 @@ public class FacturaEntityPersistence {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
+            ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
+            em.persist(entity);
+            dataViajero.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
             FacturaEntity entity = factory.manufacturePojo(FacturaEntity.class);
-
+            if (i == 0) {
+                entity.setViajero(dataViajero.get(0));
+            }
             em.persist(entity);
             data.add(entity);
         }
@@ -104,34 +115,18 @@ public class FacturaEntityPersistence {
      */
     @Test
     public void createFacturaTest() {
+
         PodamFactory factory = new PodamFactoryImpl();
         FacturaEntity newEntity = factory.manufacturePojo(FacturaEntity.class);
-        FacturaEntity result = facturaPersistence.create(newEntity);
+        FacturaEntity result = reviewPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
         FacturaEntity entity = em.find(FacturaEntity.class, result.getId());
 
-        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
         Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
-    }
-
-    /**
-     * Prueba para consultar la lista de Facturas.
-     */
-    @Test
-    public void getFacturasTest() {
-        List<FacturaEntity> list = facturaPersistence.findAll();
-        Assert.assertEquals(data.size(), list.size());
-        for (FacturaEntity ent : list) {
-            boolean found = false;
-            for (FacturaEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
     }
 
     /**
@@ -140,10 +135,11 @@ public class FacturaEntityPersistence {
     @Test
     public void getFacturaTest() {
         FacturaEntity entity = data.get(0);
-        FacturaEntity newEntity = facturaPersistence.find(entity.getId(),entity.getViajero().getId());
+        FacturaEntity newEntity = reviewPersistence.find(dataViajero.get(0).getId(), entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getDescripcion(), newEntity.getDescripcion());
-        Assert.assertEquals(entity.getCosto(), newEntity.getCosto());
+         Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
     }
 
     /**
@@ -152,7 +148,7 @@ public class FacturaEntityPersistence {
     @Test
     public void deleteFacturaTest() {
         FacturaEntity entity = data.get(0);
-        facturaPersistence.delete(entity.getId());
+        reviewPersistence.delete(entity.getId());
         FacturaEntity deleted = em.find(FacturaEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -168,11 +164,12 @@ public class FacturaEntityPersistence {
 
         newEntity.setId(entity.getId());
 
-        facturaPersistence.update(newEntity);
+        reviewPersistence.update(newEntity);
 
         FacturaEntity resp = em.find(FacturaEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getCosto(), resp.getCosto());
-        Assert.assertEquals(newEntity.getDescripcion(), resp.getDescripcion());
+        Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
     }
 }
