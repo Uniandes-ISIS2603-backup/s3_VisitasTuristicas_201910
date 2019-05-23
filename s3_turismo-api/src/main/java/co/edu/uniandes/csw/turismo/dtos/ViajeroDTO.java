@@ -45,6 +45,11 @@ public class ViajeroDTO implements Serializable {
     public void setViaje(ViajeDTO viaje) {
         this.viaje = viaje;
     }
+    
+    public void setIdUsuario(Long is)
+    {
+        this.idUsuario=is;
+    }
     /**
      * constructor vacío
      */

@@ -132,6 +132,20 @@ public class ViajeroResource {
         return PreferenciaResource.class;
     }
 
+    
+     @GET
+    @Path("{idUsuario: \\d+}")
+    public ViajeroDetailDTO getPlanTuristico(@PathParam("idUsuario") Long idPlanTuristico) throws BusinessLogicException {
+
+      
+        ViajeroEntity planTuristicoEntity = logic.getViajero(idPlanTuristico);
+        if (planTuristicoEntity == null) {
+            throw new WebApplicationException("El recurso /planesTuristicos/" + idPlanTuristico + " no existe.", 404);
+        }
+        ViajeroDetailDTO detailDTO = new ViajeroDetailDTO(planTuristicoEntity);
+     
+        return detailDTO;
+    }
     /**
      * asigna path planTuristico
      *
