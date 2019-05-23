@@ -134,6 +134,8 @@ public class ValoracionLogicTest {
         Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
         Assert.assertEquals(newEntity.getIdUsuario(), entity.getIdUsuario());
         Assert.assertEquals(newEntity.getValoracion(), entity.getValoracion());
+                Assert.assertEquals(newEntity.getPlanTuristico(), entity.getPlanTuristico());
+
     }
      /**
      * Prueba para consultar la lista de valoraciones.
@@ -168,6 +170,8 @@ public class ValoracionLogicTest {
         Assert.assertEquals(entity.getComentario(), resultEntity.getComentario());
         Assert.assertEquals(entity.getIdUsuario(), resultEntity.getIdUsuario());
         Assert.assertEquals(entity.getValoracion(), resultEntity.getValoracion());
+                Assert.assertEquals(entity.getPlanTuristico(), resultEntity.getPlanTuristico());
+
     }
 
     /**

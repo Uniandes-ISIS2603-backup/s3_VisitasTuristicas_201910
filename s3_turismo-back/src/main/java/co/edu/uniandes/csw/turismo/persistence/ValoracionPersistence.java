@@ -50,20 +50,14 @@ public class ValoracionPersistence {
      * devuelve siempre la primera que encuentra
      */
     public ValoracionEntity find(Long planId, Long valoracionId) {
-        LOGGER.log(Level.INFO, "Consultando la valoracion con id = {0} del plan con id = " + planId, valoracionId);
         TypedQuery<ValoracionEntity> q = em.createQuery("select p from ValoracionEntity p where (p.planTuristico.id = :planId) and (p.id = :valoracionId)", ValoracionEntity.class);
         q.setParameter("planId", planId);
         q.setParameter("valoracionId", valoracionId);
         List<ValoracionEntity> results = q.getResultList();
         ValoracionEntity valoracion = null;
-        if (results == null) {
-            valoracion = null;
-        } else if (results.isEmpty()) {
-            valoracion = null;
-        } else if (results.size() >= 1) {
+         if (results.size() >= 1) {
             valoracion = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la valoracion con id = {0} del plan con id =" + planId, valoracionId);
         return valoracion;
     }
      /*

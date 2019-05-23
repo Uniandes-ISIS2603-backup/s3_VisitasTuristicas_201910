@@ -58,4 +58,7 @@ public class ValoracionPersistenceTest {
         Assert.assertEquals(newValoracionEntity, entity);
 
     }
+    
+    
+
 }
