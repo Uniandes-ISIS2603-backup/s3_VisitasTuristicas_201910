@@ -70,24 +70,6 @@ public class ViajeroResource {
         return listaFacturas;
     }
 
-    /**
-     *
-     * @param facturasId
-     * @return
-     * @throws BusinessLogicException
-     */
-    @GET
-    @Path("{viajeroId: \\d+}")
-    public ViajeroDetailDTO getFactura(@PathParam("viajeroId") Long facturasId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "FacturaResource getFactura: input: {0}", facturasId);
-        ViajeroEntity facturaEntity = logic.getViajero(facturasId);
-        if (facturaEntity == null) {
-            throw new WebApplicationException("El recurso /facturas/" + facturasId + " no existe.", 404);
-        }
-        ViajeroDetailDTO facturaDetailDTO = new ViajeroDetailDTO(facturaEntity);
-        LOGGER.log(Level.INFO, "FacturaResource getFactura: output: {0}", facturaDetailDTO);
-        return facturaDetailDTO;
-    }
 
     /**
      * asigna un viajero
