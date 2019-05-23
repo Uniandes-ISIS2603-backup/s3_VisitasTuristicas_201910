@@ -126,6 +126,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
         Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
         Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
+
     }
 
     /**
@@ -139,6 +140,7 @@ public class TarjetaDeCretitoEntityPersistenceTest {
          Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
         Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
+
     }
 
     /**
@@ -168,5 +170,6 @@ public class TarjetaDeCretitoEntityPersistenceTest {
         TarjetaDeCreditoEntity resp = em.find(TarjetaDeCreditoEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
+
     }
 }

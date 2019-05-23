@@ -25,6 +25,7 @@ public class TarjetaDeCreditoLogic {
     
     
   private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
+       
 
        
 
@@ -35,6 +36,7 @@ public class TarjetaDeCreditoLogic {
 
     @Inject
     private ViajeroPersistence viajeroPersistence;
+
 
     /**
      * Se encarga de crear un TarjetaDeCredito en la base de datos.
@@ -50,6 +52,7 @@ public class TarjetaDeCreditoLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de crear review");
         ViajeroEntity viajero = viajeroPersistence.find(viajerosId);
         reviewEntity.setViajero(viajero);
+
         LOGGER.log(Level.INFO, "Termina proceso de creación del review");
         return persistence.create(reviewEntity);
     }
@@ -65,6 +68,7 @@ public class TarjetaDeCreditoLogic {
         ViajeroEntity viajeroEntity = viajeroPersistence.find(viajerosId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar los reviews asociados al viajero con id = {0}", viajerosId);
         return viajeroEntity.getTarjetas();
+
     }
 
     /**
@@ -72,6 +76,7 @@ public class TarjetaDeCreditoLogic {
      * existencia del elemento padre Viajero se debe garantizar.
      *
      * @param viajerosId El id del Libro buscado
+
      * @param reviewsId Identificador de la Reseña a consultar
      * @return Instancia de TarjetaDeCreditoEntity con los datos del TarjetaDeCredito consultado.
      *
@@ -79,6 +84,7 @@ public class TarjetaDeCreditoLogic {
     public TarjetaDeCreditoEntity getTarjetaDeCredito(Long viajerosId, Long reviewsId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
         return persistence.find(viajerosId, reviewsId);
+
     }
 
     /**
@@ -114,6 +120,7 @@ public class TarjetaDeCreditoLogic {
         }
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el review con id = {0} del libro con id = " + viajerosId, reviewsId);
+
     }
          
          
@@ -124,4 +131,5 @@ public class TarjetaDeCreditoLogic {
     private boolean validateNombre(String nombre) {
         return !(nombre == null || nombre.isEmpty());
          }   
+
 }

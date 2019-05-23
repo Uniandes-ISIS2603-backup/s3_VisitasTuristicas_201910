@@ -36,6 +36,7 @@ public class TarjetaDeCreditoLogicTest {
 
   private final PodamFactory factory = new PodamFactoryImpl();
 
+
     @Inject
     private TarjetaDeCreditoLogic reviewLogic;
 
@@ -165,6 +166,7 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(resultEntity.getBanco(), entity.getBanco());
         Assert.assertEquals(resultEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(resultEntity.getNumero(), entity.getNumero());
+
     }
 
     /**
@@ -185,6 +187,7 @@ public class TarjetaDeCreditoLogicTest {
         Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
         Assert.assertEquals(pojoEntity.getNumero(), resp.getNumero());
         Assert.assertEquals(pojoEntity.getViajero(), resp.getViajero());
+
     }
 
     /**

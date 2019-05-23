@@ -25,6 +25,7 @@ public class TarjetaDeCreditoPersistence {
     
  private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
 
+
     
     @PersistenceContext(unitName="turismoPU")
     protected EntityManager em;

@@ -59,6 +59,7 @@ public class TarjetaDeCreditoResource {
      */
     @GET
     public List<TarjetaDeCreditoDTO> getTarjetasDeCredito(@PathParam("viajeroId") Long viajeroId) {
+
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCredito: input: {0}", viajeroId);
         List<TarjetaDeCreditoDTO> listaDTOs = listEntity2DTO(logic.getTarjetaDeCreditos(viajeroId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs);
@@ -70,7 +71,6 @@ public class TarjetaDeCreditoResource {
      * libro.
      *
      * @param booksId El ID del libro del cual se buscan las reseñas
-     * @param sitiosId El ID de la reseña que se busca
      * @return {@link TarjetaDeCreditoDTO} - La reseña encontradas en el libro.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
@@ -84,6 +84,7 @@ public class TarjetaDeCreditoResource {
         TarjetaDeCreditoEntity entity = logic.getTarjetaDeCredito(booksId, sitiosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);
+
         }
         TarjetaDeCreditoDTO sitioDTO = new TarjetaDeCreditoDTO(entity);
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetaDeCredito: output: {0}", sitioDTO);
@@ -96,6 +97,7 @@ public class TarjetaDeCreditoResource {
      *
      * @param booksId El ID del libro del cual se guarda la reseña
      * @param sitiosId El ID de la reseña que se va a actualizar
+     * @param tarjetaId El ID de la reseña que se va a actualizar
      * @param sitio {@link TarjetaDeCreditoDTO} - La reseña que se desea guardar.
      * @return JSON {@link TarjetaDeCreditoDTO} - La reseña actualizada.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
@@ -115,6 +117,7 @@ public class TarjetaDeCreditoResource {
             throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);
 
         }
+
         TarjetaDeCreditoDTO sitioDTO = new TarjetaDeCreditoDTO(logic.updateTarjetaDeCredito(booksId, sitio.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: output:{0}", sitioDTO);
         return sitioDTO;
@@ -126,6 +129,7 @@ public class TarjetaDeCreditoResource {
      *
      * @param booksId El ID del libro del cual se va a eliminar la reseña.
      * @param sitiosId El ID de la reseña que se va a eliminar.
+
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se puede eliminar la reseña.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
@@ -139,6 +143,7 @@ public class TarjetaDeCreditoResource {
             throw new WebApplicationException("El recurso /books/" + booksId + "/sitios/" + sitiosId + " no existe.", 404);
         }
         logic.deleteTarjetaDeCredito(booksId, sitiosId);
+
     }
 
     /**
@@ -158,7 +163,5 @@ public class TarjetaDeCreditoResource {
         }
         return list;
     }
-    
-    
 
 }
