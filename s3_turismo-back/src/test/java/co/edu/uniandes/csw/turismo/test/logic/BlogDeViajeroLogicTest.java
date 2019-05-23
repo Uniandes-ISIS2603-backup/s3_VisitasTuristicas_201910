@@ -131,6 +131,7 @@ public class BlogDeViajeroLogicTest {
         Assert.assertEquals(newViajeEntity.getLikes(),entity.getLikes());
         Assert.assertEquals(newViajeEntity.getId(),entity.getId());
         Assert.assertEquals(newViajeEntity.getSugerencias(),entity.getSugerencias());
+        Assert.assertEquals(newViajeEntity.getPlanTuristico(),entity.getPlanTuristico());
 
         
         
@@ -169,6 +170,8 @@ public class BlogDeViajeroLogicTest {
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getComentarios(), newEntity.getComentarios());
         Assert.assertEquals(entity.getLikes(), newEntity.getLikes());
+                Assert.assertEquals(entity.getPlanTuristico(), newEntity.getPlanTuristico());
+
     }
 
     /**
@@ -194,6 +197,9 @@ public class BlogDeViajeroLogicTest {
         Assert.assertEquals(pojoEntity.getComentarios(), resp.getComentarios());
         Assert.assertEquals(pojoEntity.getLikes(), resp.getLikes());
         Assert.assertEquals(pojoEntity.getSugerencias(), resp.getSugerencias());
+        Assert.assertEquals(pojoEntity.getPlanTuristico(), resp.getPlanTuristico());
+
+        
 
     }
 
