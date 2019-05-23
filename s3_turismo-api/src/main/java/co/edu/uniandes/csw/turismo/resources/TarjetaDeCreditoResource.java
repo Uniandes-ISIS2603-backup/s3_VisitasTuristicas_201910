@@ -109,7 +109,7 @@ public class TarjetaDeCreditoResource {
     @Path("{tarjeta: \\d+}")
     public TarjetaDeCreditoDTO updateTarjetaDeCredito(@PathParam("viajeroId") Long booksId, @PathParam("tarjeta") Long sitiosId, TarjetaDeCreditoDTO sitio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjetaDeCredito: input: booksId: {0} , sitiosId: {1} , sitio:{2}", new Object[]{booksId, sitiosId, sitio});
-        if (sitiosId.equals(sitio.getIdTarjetaDeCredito())) {
+        if (!sitiosId.equals(sitio.getIdTarjetaDeCredito())) {
             throw new BusinessLogicException("Los ids del TarjetaDeCredito no coinciden.");
         }
         TarjetaDeCreditoEntity entity = logic.getTarjetaDeCredito(booksId, sitiosId);

@@ -63,15 +63,15 @@ public class FacturaDTO implements Serializable {
     /**
      * @return the descripción
      */
-    public String getDescripción() {
+    public String getDescripcion() {
         return descripcion;
     }
 
     /**
-     * @param descripción the descripción to set
+     * @param descripcion the descripción to set
      */
-    public void setDescripción(String descripción) {
-        this.descripcion = descripción;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     /**
