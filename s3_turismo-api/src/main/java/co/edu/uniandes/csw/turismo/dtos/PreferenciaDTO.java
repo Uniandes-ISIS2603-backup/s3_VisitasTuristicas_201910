@@ -89,11 +89,12 @@ public class PreferenciaDTO implements Serializable {
             this.idPreferencia = ent.getId();
         
             this.nombrePreferencia = ent.getNombrePreferencia();
-        }
-        if (ent.getViajero()!= null) {
+            if (ent.getViajero()!= null) {
                 this.viajero = new ViajeroDTO(ent.getViajero());
             } else {
                 this.viajero = null;
             }
+        }
+        
     }
 }

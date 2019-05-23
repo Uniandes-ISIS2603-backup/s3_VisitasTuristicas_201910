@@ -65,8 +65,8 @@ public class ViajeroLogic {
     public List<ViajeroEntity> getViajeros() throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ENTROOO ACA EN LOGICAAAAAAAAAAAAAAAAAAA");
         List<ViajeroEntity> lista = persistence.findAll();
-        LOGGER.info("ENTROOOOO ACAAAAAA DESPUES DE TRANSFORMAAAR  " + lista.size());
-        if(lista == null) throw new BusinessLogicException("No hay viajeros");
+        if(lista == null) 
+        {throw new BusinessLogicException("No hay viajeros");}
         return lista;
     }
     

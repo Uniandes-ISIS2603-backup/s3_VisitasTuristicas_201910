@@ -101,9 +101,7 @@ public class ValoracionResource {
     @Path("{valoracionsId: \\d+}")
     public ValoracionDTO updateValoracion(@PathParam("planId") Long booksId, @PathParam("valoracionsId") Long valoracionsId, ValoracionDTO valoracion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: input: booksId: {0} , valoracionsId: {1} , valoracion:{2}", new Object[]{booksId, valoracionsId, valoracion});
-        if (valoracionsId.equals(valoracion.getIdUsuario())) {
-            throw new BusinessLogicException("Los ids del Valoracion no coinciden.");
-        }
+        
         ValoracionEntity entity = logic.getValoracion(booksId, valoracionsId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + "/valoracions/" + valoracionsId + " no existe.", 404);

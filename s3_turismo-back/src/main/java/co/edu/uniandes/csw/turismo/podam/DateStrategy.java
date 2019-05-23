@@ -23,6 +23,8 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.turismo.podam;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -34,11 +36,16 @@ import uk.co.jemos.podam.common.AttributeStrategy;
  *
  * @author af.esguerra10
  */
+
 public class DateStrategy implements AttributeStrategy<Date> {
 
+    private final Random r;
+
+    public DateStrategy() throws NoSuchAlgorithmException {
+        this.r = SecureRandom.getInstanceStrong();
+    }
     @Override
     public Date getValue() {
-        Random r = new Random();
         Calendar c = Calendar.getInstance();
         int max_year = 9999;
         c.set(Calendar.YEAR, r.nextInt(
