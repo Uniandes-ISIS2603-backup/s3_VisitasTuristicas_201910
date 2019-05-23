@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 public class FacturaDTO implements Serializable {
     
-    private String descripción;
+    private String descripcion;
     
     private Double costo;
     
@@ -31,7 +31,7 @@ public class FacturaDTO implements Serializable {
     public FacturaDTO(FacturaEntity ent) {
          if (ent != null) {
             this.id = ent.getId();
-            this.descripción = ent.getDescripcion();
+            this.descripcion = ent.getDescripcion();
             this.costo = ent.getCosto();
             if (ent.getViajero()!= null) {
                 this.viajero = new ViajeroDTO(ent.getViajero());
@@ -45,7 +45,7 @@ public class FacturaDTO implements Serializable {
         FacturaEntity reviewEntity = new FacturaEntity();
         reviewEntity.setId(this.id);
         reviewEntity.setCosto(this.costo);
-        reviewEntity.setDescripcion(this.descripción);
+        reviewEntity.setDescripcion(this.descripcion);
         if (this.viajero != null) {
             reviewEntity.setViajero(this.viajero.toEntity());
         }
@@ -64,14 +64,14 @@ public class FacturaDTO implements Serializable {
      * @return the descripción
      */
     public String getDescripción() {
-        return descripción;
+        return descripcion;
     }
 
     /**
      * @param descripción the descripción to set
      */
     public void setDescripción(String descripción) {
-        this.descripción = descripción;
+        this.descripcion = descripción;
     }
 
     /**

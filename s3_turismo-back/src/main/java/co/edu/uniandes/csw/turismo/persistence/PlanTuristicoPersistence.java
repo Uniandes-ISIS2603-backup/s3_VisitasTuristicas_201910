@@ -56,9 +56,7 @@ public class PlanTuristicoPersistence {
 
         PlanTuristicoEntity result;
 
-        if (sameName == null) {
-            result = null;
-        } else if (sameName.isEmpty()) {
+         if (sameName.isEmpty()) {
             result = null;
         } else {
             result = sameName.get(0);
