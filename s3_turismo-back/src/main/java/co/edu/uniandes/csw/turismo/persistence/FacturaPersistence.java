@@ -47,7 +47,7 @@ public class FacturaPersistence {
     */
  public FacturaEntity find(Long ciudadId, Long sitioId) {
         LOGGER.log(Level.INFO, "Consultando el sitioTuristico con id = {0} del libro con id = " + ciudadId, sitioId);
-        TypedQuery<FacturaEntity> q = em.createQuery("select p from FacturaEntity p where (p.ciudad.id = :ciudadId) and (p.id = :sitioId)", FacturaEntity.class);
+        TypedQuery<FacturaEntity> q = em.createQuery("select p from FacturaEntity p where (p.viajero.id = :ciudadId) and (p.id = :sitioId)", FacturaEntity.class);
         q.setParameter("ciudadId", ciudadId);
         q.setParameter("sitioId", sitioId);
         List<FacturaEntity> results = q.getResultList();
